@@ -7,14 +7,16 @@ import { ReactNode } from "react";
 
 export interface GoalCardProps {
   title: string;
+  Icon?: ReactNode;
   start: ReactNode;
   end: ReactNode;
 }
 
-function GoalCard({ title, start, end }: GoalCardProps) {
+function GoalCard({ Icon, title, start, end }: GoalCardProps) {
   return (
     <Stack>
       <GoalHeader>{title}</GoalHeader>
+      {Icon}
       <GoalBody>
         <Stack
           direction="row"

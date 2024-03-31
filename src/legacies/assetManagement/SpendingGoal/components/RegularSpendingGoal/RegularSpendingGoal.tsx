@@ -4,9 +4,15 @@ import filter_main from "@assets/icons/header/filter_main.svg";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
 import GoalCard from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
 import { Highlight } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
+import ModifyRegularSpendingGoal, {
+  Form,
+} from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
 
 export interface RegularSpendingGoalProps {
   handleModify: () => void;
+  handleSubmit: (form: Form) => void;
+  closeModify: () => void;
+  isModify: boolean;
   goal: string;
   startDate: string;
   endDate: string;
@@ -14,6 +20,9 @@ export interface RegularSpendingGoalProps {
 
 function RegularSpendingGoal({
   handleModify,
+  handleSubmit,
+  closeModify,
+  isModify,
   goal,
   startDate,
   endDate,
@@ -34,34 +43,43 @@ function RegularSpendingGoal({
             <img src={filter_main} alt="filter" />
           </IconButton>
         </Stack>
-
-        <Stack spacing="25px">
-          <GoalCard
-            title={"지출 목표액"}
-            start={<>한달 기준</>}
-            end={
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Highlight>{getAmount(goal)}</Highlight>
-                <Box>원</Box>
-              </Stack>
-            }
+        {isModify ? (
+          <ModifyRegularSpendingGoal
+            goal={goal}
+            startDate={startDate}
+            endDate={endDate}
+            closeModify={closeModify}
+            handleSubmit={handleSubmit}
           />
-          <GoalCard
-            title={"기간"}
-            start={
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Highlight>{startDate}</Highlight>
-                <Box>부터</Box>
-              </Stack>
-            }
-            end={
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Highlight>{endDate}</Highlight>
-                <Box>까지</Box>
-              </Stack>
-            }
-          />
-        </Stack>
+        ) : (
+          <Stack spacing="25px">
+            <GoalCard
+              title={"지출 목표액"}
+              start={<>한달 기준</>}
+              end={
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Highlight>{getAmount(goal).toLocaleString()}</Highlight>
+                  <Box>원</Box>
+                </Stack>
+              }
+            />
+            <GoalCard
+              title={"기간"}
+              start={
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Highlight>{startDate}</Highlight>
+                  <Box>부터</Box>
+                </Stack>
+              }
+              end={
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Highlight>{endDate}</Highlight>
+                  <Box>까지</Box>
+                </Stack>
+              }
+            />
+          </Stack>
+        )}
       </RoundedPaper>
     </Box>
   );
