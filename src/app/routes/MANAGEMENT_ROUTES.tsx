@@ -3,9 +3,9 @@ import RegularDepositWithdrawal from "../../legacies/assetManagement/RegularDepo
 import DetailInformation from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailInformation";
 import DetailSetting from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailSetting";
 import SavingsGoal from "../../legacies/assetManagement/SavingsGoalContainer/SavingsGoal.tsx";
-import ScheduleManagement from "../../legacies/assetManagement/ScheduleManagement";
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
+import SpendingGoal from "@legacies/assetManagement/SpendingGoal";
 
 const MANAGEMENT_ROUTES: RouterDOM[] = [
   {
@@ -30,7 +30,7 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
   },
   {
     path: PATH.scheduleManagement,
-    element: <ScheduleManagement />,
+    element: <SpendingGoal />,
   },
 ];
 
