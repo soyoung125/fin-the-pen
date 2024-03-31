@@ -14,12 +14,12 @@ const meta = {
 export default meta;
 
 const useStorybookMonth = () => {
-  const [yearMonth, setYearMonth] = useState("2023년5월");
+  const [yearMonth, setYearMonth] = useState("2023-05-01");
   const { openMonthPicker } = useDatePicker();
 
   const pickMonth = async () => {
     const newMonth = await openMonthPicker(yearMonth);
-    setYearMonth(newMonth.format("YYYY년MM월"));
+    setYearMonth(newMonth.format("YYYY-MM-DD"));
   };
 
   return {
