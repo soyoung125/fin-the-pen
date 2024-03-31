@@ -2,7 +2,6 @@ import MonthSpendingGoal from "@legacies/assetManagement/SpendingGoal/components
 import { Meta } from "@storybook/react";
 import { useState } from "react";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
-import moment from "moment";
 
 const meta = {
   title: "AssetManagement/SpendingGoal/MonthSpendingGoal",

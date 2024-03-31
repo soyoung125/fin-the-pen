@@ -5,7 +5,7 @@ import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
-export interface MonthSpendingGoal {
+export interface MonthSpendingGoalProps {
   date: string;
   changeYearAndMonth: () => void;
   handleModify: () => void;
@@ -19,7 +19,7 @@ function MonthSpendingGoal({
   handleModify,
   goal,
   spent,
-}: MonthSpendingGoal) {
+}: MonthSpendingGoalProps) {
   return (
     <Box mt="30px">
       <RoundedPaper my={2}>
