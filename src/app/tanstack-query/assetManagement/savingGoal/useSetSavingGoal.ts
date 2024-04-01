@@ -1,11 +1,8 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
 import { getSessionStorage } from "@app/utils/storage";
-import { QUERY_KEY_GOAL, QUERY_KEY_SCHEDULES } from "@constants/queryKeys";
-import { getPriceType } from "@components/ScheduleDrawer/hooks/useScheduleForm";
+import { QUERY_KEY_SAVING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { RequestSchedule } from "@app/types/schedule.ts";
-import moment from "moment";
 import { setSavingGoalQuery } from "@app/types/asset.ts";
 
 const fetchSetSavingGoal = async (query: setSavingGoalQuery) => {
@@ -27,7 +24,7 @@ export const useSetSavingGoal = () => {
     mutationFn: fetchSetSavingGoal,
     onSuccess: async (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY_GOAL, variables.user_id],
+        queryKey: [QUERY_KEY_SAVING_GOAL, variables.user_id],
       });
     },
   });

@@ -10,4 +10,4 @@ export const QUERY_KEY_WEEK = "week";
 
 export const QUERY_KEY_DAY = "day";
 
-export const QUERY_KEY_GOAL = "goal";
+export const QUERY_KEY_SAVING_GOAL = "saving";
