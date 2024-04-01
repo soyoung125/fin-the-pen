@@ -3,6 +3,7 @@ import DatePicker from "@hooks/date-picker/components/DatePicker.tsx";
 import moment from "moment/moment";
 import MonthPicker from "@hooks/date-picker/components/MonthPicker.tsx";
 import TimePicker from "@hooks/date-picker/components/TimePicker.tsx";
+import MonthPeriodPicker from "@hooks/date-picker/components/MonthPeriodPicker.tsx";
 
 export const useDatePicker = () => {
   const { openOverlay, closeOverlay } = useOverlay();
@@ -42,6 +43,28 @@ export const useDatePicker = () => {
     });
   };
 
+  const openMonthPeriodPicker = (
+    defaultStartDate: string,
+    defaultEndDate: string
+  ): Promise<{ start: string; end: string }> => {
+    return new Promise((resolve) => {
+      openOverlay(
+        <MonthPeriodPicker
+          defaultStartDate={defaultStartDate}
+          defaultEndDate={defaultEndDate}
+          onClickApprove={(start, end) => {
+            resolve({ start, end });
+            closeOverlay();
+          }}
+          onClickReject={(start, end) => {
+            resolve({ start, end });
+            closeOverlay();
+          }}
+        />
+      );
+    });
+  };
+
   const openTimePicker = ({
     defaultTime,
   }: {
@@ -67,6 +90,7 @@ export const useDatePicker = () => {
   return {
     openDayPicker,
     openMonthPicker,
+    openMonthPeriodPicker,
     openTimePicker,
     closeDatePicker: closeOverlay,
   };
