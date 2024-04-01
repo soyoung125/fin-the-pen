@@ -10,11 +10,12 @@ export const Example = () => {
     openDayPicker,
     openTimePicker,
     openMonthPeriodPicker,
+    openDayPeriodPicker,
   } = useDatePicker();
   const [value, setValue] = useState("버튼을 눌러 업데이트 해주세요");
   const [period, setPeriod] = useState({
-    start: moment().format("YYYY-MM"),
-    end: moment().format("YYYY-MM"),
+    start: moment().format("YYYY-MM-DD"),
+    end: moment().format("YYYY-MM-DD"),
   });
   const handleMonthPicker = async () => {
     const newDate = await openMonthPicker("2021-10");
@@ -23,7 +24,10 @@ export const Example = () => {
   };
 
   const handleMonthPeriodPicker = async () => {
-    const newDate = await openMonthPeriodPicker(period.start, period.end);
+    const newDate = await openMonthPeriodPicker(
+      moment(period.start).format("YYYY-MM"),
+      moment(period.end).format("YYYY-MM")
+    );
     if (!newDate) return;
     setPeriod(newDate);
   };
@@ -32,6 +36,15 @@ export const Example = () => {
     const newDate = await openDayPicker("2021-10-11");
     if (!newDate) return;
     setValue(newDate);
+  };
+
+  const handleDayPeriodPicker = async () => {
+    const newDate = await openDayPeriodPicker(
+      moment(period.start).format("YYYY-MM-DD"),
+      moment(period.end).format("YYYY-MM-DD")
+    );
+    if (!newDate) return;
+    setPeriod(newDate);
   };
 
   const handleTimePicker = async () => {
@@ -58,7 +71,14 @@ export const Example = () => {
         color="primary"
         onClick={handleMonthPeriodPicker}
       >
-        기간 선택기
+        월 기간 선택기
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleDayPeriodPicker}
+      >
+        일 기간 선택기
       </Button>
     </>
   );
