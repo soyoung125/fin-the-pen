@@ -47,3 +47,21 @@ export interface PersonalGoalForm {
   goal_amount: number;
   period: string;
 }
+
+export interface SpendingGoal {
+  user_id: string;
+  date: string;
+  start_date: string;
+  end_date: string;
+  spend_goal_amount: string;
+  spend_amount: string;
+}
+
+export interface setSpendingGoal {
+  user_id?: string;
+  start_date: string;
+  end_date: string;
+  regular: "ON" | "OFF"; // ON이면 정기로 설정, 시작날짜와 종료날짜가 다름, OFF이면 시작날짜와 종료날짜가 같음
+  spend_goal_amount: string;
+  is_batch: boolean; // 정기로 일괄 적용할지 말지 true(일괄적용 O), false(일괄적용 X)
+}
