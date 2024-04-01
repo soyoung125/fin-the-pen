@@ -7,6 +7,8 @@ import {
 import { ChangeEvent, useState } from "react";
 import calendar_primary from "@assets/icons/bottom/calendar_primary.svg";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
+import moment from "moment/moment";
+import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 
 export interface ModifyRegularSpendingGoalProps {
   goal: string;
@@ -29,6 +31,7 @@ function ModifyRegularSpendingGoal({
   closeModify,
   handleSubmit,
 }: ModifyRegularSpendingGoalProps) {
+  const { openMonthPeriodPicker } = useDatePicker();
   const [form, setForm] = useState({
     goal: goal,
     start_date: startDate,
@@ -39,6 +42,16 @@ function ModifyRegularSpendingGoal({
     setForm({
       ...form,
       [state.target.id]: state.target.value.replaceAll(",", ""),
+    });
+  };
+
+  const handleChandlePeriod = async () => {
+    const newDate = await openMonthPeriodPicker(form.start_date, form.end_date);
+    if (!newDate) return;
+    setForm({
+      ...form,
+      start_date: newDate.start,
+      end_date: newDate.end,
     });
   };
 
@@ -61,7 +74,7 @@ function ModifyRegularSpendingGoal({
       <GoalCard
         title={"기간"}
         Icon={
-          <Box pt={1.5}>
+          <Box pt={1.5} onClick={handleChandlePeriod}>
             <img
               src={calendar_primary}
               alt="calendar_primary"
