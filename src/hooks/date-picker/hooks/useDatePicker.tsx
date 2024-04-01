@@ -3,6 +3,8 @@ import DatePicker from "@hooks/date-picker/components/DatePicker.tsx";
 import moment from "moment/moment";
 import MonthPicker from "@hooks/date-picker/components/MonthPicker.tsx";
 import TimePicker from "@hooks/date-picker/components/TimePicker.tsx";
+import MonthPeriodPicker from "@hooks/date-picker/components/MonthPeriodPicker.tsx";
+import DatePeriodPicker from "@hooks/date-picker/components/DatePeriodPicker.tsx";
 
 export const useDatePicker = () => {
   const { openOverlay, closeOverlay } = useOverlay();
@@ -24,6 +26,28 @@ export const useDatePicker = () => {
     });
   };
 
+  const openDayPeriodPicker = (
+    defaultStartDate: string,
+    defaultEndDate: string
+  ): Promise<{ start: string; end: string }> => {
+    return new Promise((resolve) => {
+      openOverlay(
+        <DatePeriodPicker
+          defaultStartDate={defaultStartDate}
+          defaultEndDate={defaultEndDate}
+          onClickApprove={(start, end) => {
+            resolve({ start, end });
+            closeOverlay();
+          }}
+          onClickReject={(start, end) => {
+            resolve({ start, end });
+            closeOverlay();
+          }}
+        />
+      );
+    });
+  };
+
   const openMonthPicker = (defaultDate: string): Promise<moment.Moment> => {
     return new Promise((resolve) => {
       openOverlay(
@@ -35,6 +59,28 @@ export const useDatePicker = () => {
           }}
           onClickReject={(answer) => {
             resolve(answer);
+            closeOverlay();
+          }}
+        />
+      );
+    });
+  };
+
+  const openMonthPeriodPicker = (
+    defaultStartDate: string,
+    defaultEndDate: string
+  ): Promise<{ start: string; end: string }> => {
+    return new Promise((resolve) => {
+      openOverlay(
+        <MonthPeriodPicker
+          defaultStartDate={defaultStartDate}
+          defaultEndDate={defaultEndDate}
+          onClickApprove={(start, end) => {
+            resolve({ start, end });
+            closeOverlay();
+          }}
+          onClickReject={(start, end) => {
+            resolve({ start, end });
             closeOverlay();
           }}
         />
@@ -66,7 +112,9 @@ export const useDatePicker = () => {
 
   return {
     openDayPicker,
+    openDayPeriodPicker,
     openMonthPicker,
+    openMonthPeriodPicker,
     openTimePicker,
     closeDatePicker: closeOverlay,
   };

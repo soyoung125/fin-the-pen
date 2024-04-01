@@ -4,7 +4,7 @@
 
 ### [배포 페이지 바로가기](https://d2vl90cpkqpz2m.cloudfront.net/)
 
-#### [Storybook](https://645bb0d7fab3ee51343325b9-suxfcvqpve.chromatic.com/)
+#### [Storybook](https://645bb0d7fab3ee51343325b9-xkrvwsgicz.chromatic.com/)
 
 [서버 설치하기](https://github.com/eomheeseung/fin-the-pen)
 
