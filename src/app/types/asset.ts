@@ -1,11 +1,11 @@
-export interface Goal {
+export interface SavingGoal {
   // 한 해 저축 목표
-  goal_amount: SavingGoal;
+  goal_amount: MonthSavingGoal;
   // 개인적인 목표
   personal_goal: PersonalGoal;
 }
 
-export interface SavingGoal {
+export interface MonthSavingGoal {
   // DB에 저장된 row의 key
   key_id: string | null;
   // 현재 로그인된 사용자 id
@@ -25,14 +25,8 @@ export interface PersonalGoal {
   goal_amount: string;
   // 기간
   period: string;
-  // 기준 month or day
-  criteria: "day" | "month" | "?";
   // 요구되는 금액
-  required_amount: string;
-  // 적금액 송금 설정 true or false
-  is_remittance: string;
-  // pop on true or false
-  is_pop_on: string;
+  month_amount: string;
 }
 
 export interface setSavingGoalQuery {
@@ -45,17 +39,11 @@ export interface SetPersonalGoalQuery {
   personal_goal: string;
   goal_amount: string;
   period: string;
-  criteria: "month" | "day";
-  required_amount: string;
-  is_remittance: boolean;
-  pop_on: boolean;
+  month_amount: string;
 }
 
 export interface PersonalGoalForm {
   personal_goal: string;
   goal_amount: number;
   period: string;
-  criteria: "day" | "month"; // day||month
-  is_remittance: boolean;
-  pop_on: boolean;
 }

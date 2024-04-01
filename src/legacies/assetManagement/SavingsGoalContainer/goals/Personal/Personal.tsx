@@ -63,7 +63,7 @@ function Personal({ personal, handleSetPersonalGoal }: PersonalProps) {
           <GoalCard
             title="저축 목표액"
             subTitle="한달 기준"
-            amount={getAmount(personal?.required_amount) ?? 0}
+            amount={getAmount(personal?.month_amount) ?? 0}
           />
         </Stack>
       </RoundedPaper>

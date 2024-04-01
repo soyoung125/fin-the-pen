@@ -2,14 +2,14 @@ import { Box, IconButton, Stack } from "@mui/material";
 import RoundedPaper from "../../../../../components/common/RoundedPaper";
 import RoundedBorderBox from "../../../../../components/common/RoundedBorderBox";
 import InputModal from "./InputModal";
-import { SavingGoal } from "@app/types/asset.ts";
+import { MonthSavingGoal } from "@app/types/asset.ts";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import filter_main from "@assets/icons/header/filter_main.svg";
 
 interface SavingProps {
-  saving?: SavingGoal;
+  saving?: MonthSavingGoal;
   handleSetSavingGoal: (amount: number) => void;
 }
 

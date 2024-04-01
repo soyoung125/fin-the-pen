@@ -13,12 +13,12 @@ import { setSavingGoal } from "@redux/slices/assetSlice.tsx";
 import { useAppDispatch } from "@redux/hooks.ts";
 import ResetButton from "@components/common/ResetButton";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
-import { SavingGoal } from "@app/types/asset.ts";
+import { MonthSavingGoal } from "@app/types/asset.ts";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
 
 interface InputModalProps {
   closeSavingGoalModal: () => void;
-  saving?: SavingGoal;
+  saving?: MonthSavingGoal;
   handleSetSavingGoal: (amount: number) => void;
 }
 
