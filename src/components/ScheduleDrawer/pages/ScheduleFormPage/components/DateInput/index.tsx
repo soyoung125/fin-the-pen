@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SwitchButton from "@components/common/SwitchButton.tsx";
 import InputDateTime from "./InputDateTime.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
