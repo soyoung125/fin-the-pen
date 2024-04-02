@@ -6,33 +6,81 @@ import { useModal } from "@hooks/modal/useModal.tsx";
 import { Form } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
 import ConfirmModal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
 import { useState } from "react";
+import ModifyModal from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal";
+import { getDate } from "@legacies/assetManagement/SpendingGoal/utils.ts";
 
 function SpendingGoal() {
-  const { goal, isError, isPending, yearMonth, pickMonth } = useSpendingGoal();
+  const {
+    goal,
+    isError,
+    isPending,
+    yearMonth,
+    pickMonth,
+    handleSetSpendingGoal,
+  } = useSpendingGoal();
   const { openModal, closeModal } = useModal();
+
+  const defaultForm = {
+    start_date: yearMonth,
+    end_date: yearMonth,
+    regular: "OFF" as const,
+    is_batch: false,
+  };
 
   const [isModify, setIsModify] = useState(false);
 
+  const handleModify = () => {
+    openModal({
+      modalElement: (
+        <ModifyModal
+          closeModal={closeModal}
+          value={Number(goal?.spend_goal_amount ?? "")}
+          month="5"
+          handleSubmit={(v: number) =>
+            handleSetSpendingGoal({
+              ...defaultForm,
+              spend_goal_amount: v.toString(),
+            })
+          }
+        />
+      ),
+      isBackdropClickable: false,
+    });
+  };
+
   const handleSubmit = (form: Form) => {
-    if (goal) {
+    if (goal?.start_date !== "?") {
       openModal({
         modalElement: (
           <ConfirmModal
             closeModal={closeModal}
             handleApprove={() => {
-              alert("지출 목표 변경");
-              closeModal();
+              changeRegularGoal(form, true);
             }}
             handleReject={() => {
-              alert("지출 목표 유지");
-              closeModal();
+              changeRegularGoal(form, false);
             }}
           />
         ),
         isBackdropClickable: false,
       });
+    } else {
+      handleSetSpendingGoal({
+        ...form,
+        regular: "ON" as const,
+        is_batch: true,
+      });
     }
+  };
+
+  const changeRegularGoal = (form: Form, isBatch: boolean) => {
+    handleSetSpendingGoal({
+      ...form,
+      regular: "ON" as const,
+      is_batch: isBatch,
+    });
     setIsModify(false);
+    closeModal();
   };
 
   return (
@@ -40,7 +88,7 @@ function SpendingGoal() {
       <MonthSpendingGoal
         date={yearMonth}
         changeYearAndMonth={pickMonth}
-        handleModify={() => alert("modify")}
+        handleModify={handleModify}
         goal={goal?.spend_goal_amount ?? "0"}
         spent={goal?.spend_amount ?? "0"}
       />
@@ -50,8 +98,8 @@ function SpendingGoal() {
         closeModify={() => setIsModify(false)}
         isModify={isModify}
         goal={goal?.spend_goal_amount ?? "0"}
-        startDate={goal?.start_date ?? yearMonth}
-        endDate={goal?.end_date ?? yearMonth}
+        startDate={getDate(goal?.start_date) ?? yearMonth}
+        endDate={getDate(goal?.end_date) ?? yearMonth}
       />
     </Stack>
   );

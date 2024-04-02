@@ -19,7 +19,7 @@ export interface ModifyRegularSpendingGoalProps {
 }
 
 export interface Form {
-  goal: string;
+  spend_goal_amount: string;
   start_date: string;
   end_date: string;
 }
@@ -33,19 +33,18 @@ function ModifyRegularSpendingGoal({
 }: ModifyRegularSpendingGoalProps) {
   const { openMonthPeriodPicker } = useDatePicker();
   const [form, setForm] = useState({
-    goal: goal,
+    spend_goal_amount: goal,
     start_date: startDate,
     end_date: endDate,
   });
   const handleChange = (state: ChangeEvent<HTMLInputElement>) => {
-    console.log(state.target.value.replaceAll(",", ""));
     setForm({
       ...form,
       [state.target.id]: state.target.value.replaceAll(",", ""),
     });
   };
 
-  const handleChandlePeriod = async () => {
+  const handleChangePeriod = async () => {
     const newDate = await openMonthPeriodPicker(form.start_date, form.end_date);
     if (!newDate) return;
     setForm({
@@ -63,9 +62,9 @@ function ModifyRegularSpendingGoal({
         end={
           <Stack direction="row" spacing={1} alignItems="center">
             <HighLightInput
-              id="goal"
+              id="spend_goal_amount"
               onChange={handleChange}
-              value={getAmount(form.goal).toLocaleString()}
+              value={getAmount(form.spend_goal_amount).toLocaleString()}
             />
             <Box>원</Box>
           </Stack>
@@ -74,7 +73,7 @@ function ModifyRegularSpendingGoal({
       <GoalCard
         title={"기간"}
         Icon={
-          <Box pt={1.5} onClick={handleChandlePeriod}>
+          <Box pt={1.5} onClick={handleChangePeriod}>
             <img
               src={calendar_primary}
               alt="calendar_primary"
