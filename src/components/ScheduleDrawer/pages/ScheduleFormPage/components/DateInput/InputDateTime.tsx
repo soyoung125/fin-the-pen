@@ -6,7 +6,6 @@ import "moment/dist/locale/ko";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import { useScheduleForm } from "../../../../hooks/useScheduleForm.ts";
 import SelectDateTime from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/DateInput/select/SelectDateTime/SelectDateTime.tsx";
-import { RefObject } from "react";
 
 interface InputDateTimeProps {
   date?: string;
@@ -17,7 +16,7 @@ interface InputDateTimeProps {
 
 export type InputDateTimeType = "start" | "end";
 
-function InputDateTime({ date, time, type, showError }: InputDateTimeProps) {
+function InputDateTime({ date, time, type }: InputDateTimeProps) {
   const { updateSchedule } = useScheduleForm();
 
   const title = SCHEDULE_DRAWER[type];
