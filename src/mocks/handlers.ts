@@ -28,7 +28,7 @@ export const handlers = [
 
     setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(newUser));
   }),
 
   rest.post(`${DOMAIN}/sign-in`, async (req, res, ctx) => {
