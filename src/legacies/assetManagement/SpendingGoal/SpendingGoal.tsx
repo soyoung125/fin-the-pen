@@ -10,14 +10,8 @@ import ModifyModal from "@legacies/assetManagement/SpendingGoal/components/Month
 import { getDate } from "@legacies/assetManagement/SpendingGoal/utils.ts";
 
 function SpendingGoal() {
-  const {
-    goal,
-    isError,
-    isPending,
-    yearMonth,
-    pickMonth,
-    handleSetSpendingGoal,
-  } = useSpendingGoal();
+  const { goal, yearMonth, pickMonth, handleSetSpendingGoal } =
+    useSpendingGoal();
   const { openModal, closeModal } = useModal();
 
   const defaultForm = {

@@ -1,10 +1,7 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
 import { getSessionStorage } from "@app/utils/storage";
-import {
-  QUERY_KEY_SAVING_GOAL,
-  QUERY_KEY_SPENDING_GOAL,
-} from "@constants/queryKeys";
+import { QUERY_KEY_SPENDING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setSpendingGoal } from "@app/types/asset.ts";
 

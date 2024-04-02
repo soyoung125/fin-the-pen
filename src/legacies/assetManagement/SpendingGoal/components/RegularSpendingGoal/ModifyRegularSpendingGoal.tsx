@@ -1,4 +1,4 @@
-import { Box, Button, InputBase, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import GoalCard from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
 import {
   Highlight,
@@ -7,7 +7,6 @@ import {
 import { ChangeEvent, useState } from "react";
 import calendar_primary from "@assets/icons/bottom/calendar_primary.svg";
 import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
-import moment from "moment/moment";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 
 export interface ModifyRegularSpendingGoalProps {
