@@ -4,6 +4,7 @@ import {
   LOCAL_STORAGE_KEY_GOAL,
   LOCAL_STORAGE_KEY_SAVING_GOAL,
   LOCAL_STORAGE_KEY_SCHEDULES,
+  LOCAL_STORAGE_KEY_SPENDING_GOAL,
   LOCAL_STORAGE_KEY_USERS,
 } from "@api/keys.ts";
 import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
@@ -11,7 +12,7 @@ import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import { Schedule } from "@app/types/schedule.ts";
 import moment from "moment";
-import { SavingGoal } from "@app/types/asset.ts";
+import { SavingGoal, SpendingGoal } from "@app/types/asset.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -492,6 +493,46 @@ export const handlers = [
         period: period,
         month_amount: month_amount,
       },
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+  }),
+
+  rest.get(`${DOMAIN}/asset/spend-goal/view`, async (req, res, ctx) => {
+    const user_id = req.url.searchParams.get("user_id");
+    const date = req.url.searchParams.get("date");
+    const goal = getLocalStorage<SpendingGoal>(
+      LOCAL_STORAGE_KEY_SPENDING_GOAL,
+      {
+        user_id: user_id ?? "?",
+        date: date ?? "?",
+        start_date: "?",
+        end_date: "?",
+        spend_goal_amount: "0",
+        spend_amount: "0",
+      }
+    );
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
+  }),
+
+  rest.post(`${DOMAIN}/asset/spend-goal/set`, async (req, res, ctx) => {
+    const {
+      user_id,
+      start_date,
+      end_date,
+      regular,
+      spend_goal_amount,
+      is_batch,
+    } = await req.json();
+
+    setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+      user_id: user_id,
+      date: start_date,
+      start_date: start_date,
+      end_date: end_date,
+      spend_goal_amount: spend_goal_amount,
+      spend_amount: "0",
     });
 
     return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
