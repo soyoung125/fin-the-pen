@@ -12,11 +12,12 @@ interface InputDateTimeProps {
   time?: string;
   type: InputDateTimeType;
   showError: boolean;
+  isAllDay?: boolean;
 }
 
 export type InputDateTimeType = "start" | "end";
 
-function InputDateTime({ date, time, type }: InputDateTimeProps) {
+function InputDateTime({ date, time, type, isAllDay }: InputDateTimeProps) {
   const { updateSchedule } = useScheduleForm();
 
   const title = SCHEDULE_DRAWER[type];
@@ -52,6 +53,17 @@ function InputDateTime({ date, time, type }: InputDateTimeProps) {
       });
     }
   };
+
+  if (isAllDay) {
+    return (
+      <Box sx={{ py: 1 }}>
+        <SelectDateTime
+          dateTime={moment(date).format("YYYY/MM/DD dddd")}
+          onClick={onClickDateField}
+        />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ py: 1 }}>
