@@ -31,7 +31,7 @@ export const Example = () => {
   const [isModify, setIsModify] = useState(false);
   const [haveGoal, setHaveGoal] = useState(false);
   const [value, setValue] = useState({
-    goal: "10000000",
+    spend_goal_amount: "10000000",
     start_date: "2024-01",
     end_date: "2024-02",
   });
@@ -68,7 +68,7 @@ export const Example = () => {
         handleSubmit={handleSubmit}
         closeModify={() => setIsModify(false)}
         isModify={isModify}
-        goal={value.goal}
+        goal={value.spend_goal_amount}
         startDate={value.start_date}
         endDate={value.end_date}
       />
