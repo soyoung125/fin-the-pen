@@ -8,6 +8,7 @@ export const Highlight = styled.span`
 
 export const HighLightInput = styled.input`
   border: none;
+  outline: none;
   font-weight: 700;
   font-size: 18px;
   color: #735bf2;
