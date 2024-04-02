@@ -1,13 +1,12 @@
-import { Box, Grid, InputAdornment, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { UpdateStateInterface } from "@app/types/common.ts";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import moment from "moment";
 import "moment/dist/locale/ko";
-import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import { useScheduleForm } from "../../../../hooks/useScheduleForm.ts";
 import SelectDateTime from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/DateInput/select/SelectDateTime/SelectDateTime.tsx";
+import { RefObject } from "react";
 
 interface InputDateTimeProps {
   date?: string;
@@ -19,7 +18,7 @@ interface InputDateTimeProps {
 export type InputDateTimeType = "start" | "end";
 
 function InputDateTime({ date, time, type, showError }: InputDateTimeProps) {
-  const { scheduleForm, updateSchedule } = useScheduleForm();
+  const { updateSchedule } = useScheduleForm();
 
   const title = SCHEDULE_DRAWER[type];
   const { openDayPicker, openTimePicker } = useDatePicker();

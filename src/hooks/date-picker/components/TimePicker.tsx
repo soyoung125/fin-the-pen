@@ -1,7 +1,6 @@
-import { Button, Divider, Stack, Typography } from "@mui/material";
+import { Button, Dialog, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import SelectTime from "@hooks/date-picker/components/SelectTime.tsx";
-import Modal from "@hooks/modal/Modal.tsx";
 
 export interface TimePickerProps {
   defaultTime: string;
@@ -42,7 +41,13 @@ function TimePicker({
   };
 
   return (
-    <Modal>
+    <Dialog
+      open={true}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 100,
+        paddingX: 4,
+      }}
+    >
       <Stack p="20px" spacing={3}>
         <Typography
           variant="h1"
@@ -75,7 +80,7 @@ function TimePicker({
           </Button>
         </Stack>
       </Stack>
-    </Modal>
+    </Dialog>
   );
 }
 

@@ -41,6 +41,12 @@ export const useScheduleDrawer = () => {
           ModalProps={{
             keepMounted: true,
           }}
+          PaperProps={{
+            style: {
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+            },
+          }}
         >
           <ScheduleDrawer
             handleClose={closeOverlay}
