@@ -51,7 +51,13 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
 
   return (
     <div>
-      <Box sx={{ height: "100%", pt: 1, mb: 3 }}>
+      <Box
+        sx={{
+          height: "100%",
+          pt: 1,
+          mb: 3,
+        }}
+      >
         <ScheduleDrawerHeader
           value={value}
           handleChange={handleChange}

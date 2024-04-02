@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SwitchButton from "@components/common/SwitchButton.tsx";
 import InputDateTime from "./InputDateTime.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
@@ -10,6 +10,7 @@ interface DateInputProps {
 
 function DateInput({ showError }: DateInputProps) {
   const { scheduleForm, updateAllDay } = useScheduleForm();
+  const isAllDay = scheduleForm?.is_all_day ?? false;
 
   const changeAllDay = (state: {
     target: { value: boolean; name: string };
@@ -24,14 +25,17 @@ function DateInput({ showError }: DateInputProps) {
         time={scheduleForm?.start_time}
         type="start"
         showError={showError}
+        isAllDay={isAllDay}
       />
 
-      <InputDateTime
-        date={scheduleForm?.end_date}
-        time={scheduleForm?.end_time}
-        type="end"
-        showError={showError}
-      />
+      {!isAllDay && (
+        <InputDateTime
+          date={scheduleForm?.end_date}
+          time={scheduleForm?.end_time}
+          type="end"
+          showError={showError}
+        />
+      )}
 
       <Stack
         direction="row"
@@ -41,15 +45,16 @@ function DateInput({ showError }: DateInputProps) {
       >
         <Typography variant="h4">{SCHEDULE_DRAWER.all_day}</Typography>
         <SwitchButton
-          checked={scheduleForm?.is_all_day ?? true}
+          checked={isAllDay}
           handleChange={() =>
             changeAllDay({
               target: {
                 value: !scheduleForm?.is_all_day,
-                name: "all_day",
+                name: "is_all_day",
               },
             })
           }
+          disabled={scheduleForm?.repeat.kind_type !== "none"}
         />
       </Stack>
     </Stack>

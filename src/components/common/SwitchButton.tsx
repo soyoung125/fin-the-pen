@@ -3,15 +3,17 @@ import { Switch, SwitchProps, styled } from "@mui/material";
 interface SwitchButtonProps {
   checked: boolean;
   handleChange: () => void;
+  disabled?: boolean;
 }
 
-function SwitchButton({ checked, handleChange }: SwitchButtonProps) {
+function SwitchButton({ checked, handleChange, disabled }: SwitchButtonProps) {
   return (
     <CustomSwitchButton
       size="small"
       inputProps={{ "aria-label": "controlled" }}
       checked={checked}
       onChange={handleChange}
+      disabled={disabled}
     />
   );
 }
