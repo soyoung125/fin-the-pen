@@ -1,14 +1,14 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
 import { getSessionStorage } from "@app/utils/storage";
-import { QUERY_KEY_GOAL } from "@constants/queryKeys";
+import { QUERY_KEY_SAVING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SetPersonalGoalQuery } from "@app/types/asset.ts";
+import { setSavingGoalQuery } from "@app/types/asset.ts";
 
-const fetchSetPersonalGoal = async (query: SetPersonalGoalQuery) => {
+const fetchSetSavingGoal = async (query: setSavingGoalQuery) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
 
-  return fetch(`${DOMAIN}/asset/personal-goal`, {
+  return fetch(`${DOMAIN}/asset/target-amount/set`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,20 +18,20 @@ const fetchSetPersonalGoal = async (query: SetPersonalGoalQuery) => {
   });
 };
 
-export const useSetPersonalGoal = () => {
+export const useSetSavingGoal = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: fetchSetPersonalGoal,
+    mutationFn: fetchSetSavingGoal,
     onSuccess: async (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY_GOAL, variables.user_id],
+        queryKey: [QUERY_KEY_SAVING_GOAL, variables.user_id],
       });
     },
   });
 
-  const setPersonalGoal = (query: SetPersonalGoalQuery) => {
+  const setSavingGoal = (query: setSavingGoalQuery) => {
     mutate(query);
   };
 
-  return { setPersonalGoal };
+  return { setSavingGoal };
 };

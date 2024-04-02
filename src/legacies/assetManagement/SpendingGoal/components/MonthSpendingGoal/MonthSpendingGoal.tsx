@@ -65,7 +65,7 @@ function MonthSpendingGoal({
         <Box sx={{ fontSize: "18px", fontWeight: "700" }} pb={1} pt={2}>
           지출 금액
         </Box>
-        {moment().isAfter(date) ? (
+        {moment().isBefore(date, "month") ? (
           <EmptySpendCard />
         ) : (
           <RoundedBorderBox>

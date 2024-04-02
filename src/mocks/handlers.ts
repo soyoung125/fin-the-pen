@@ -2,7 +2,9 @@
 import { rest } from "msw";
 import {
   LOCAL_STORAGE_KEY_GOAL,
+  LOCAL_STORAGE_KEY_SAVING_GOAL,
   LOCAL_STORAGE_KEY_SCHEDULES,
+  LOCAL_STORAGE_KEY_SPENDING_GOAL,
   LOCAL_STORAGE_KEY_USERS,
 } from "@api/keys.ts";
 import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
@@ -10,6 +12,7 @@ import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import { Schedule } from "@app/types/schedule.ts";
 import moment from "moment";
+import { SavingGoal, SpendingGoal } from "@app/types/asset.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -28,7 +31,7 @@ export const handlers = [
 
     setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(newUser));
   }),
 
   rest.post(`${DOMAIN}/sign-in`, async (req, res, ctx) => {
@@ -407,5 +410,131 @@ export const handlers = [
       },
     ];
     return res(ctx.delay(1000), ctx.status(200), ctx.json({ data: data }));
+  }),
+
+  // 자산관리
+  rest.get(`${DOMAIN}/asset/target-amount`, async (req, res, ctx) => {
+    const user_id = req.url.searchParams.get("user_id");
+    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+      goal_amount: {
+        key_id: "1",
+        user_id: user_id ?? "?",
+        years_goal_amount: "?",
+        months_goal_amount: "?",
+      },
+      personal_goal: {
+        user_id: user_id ?? "?",
+        goal_name: "?",
+        goal_amount: "?",
+        period: "?",
+        month_amount: "?",
+      },
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
+  }),
+
+  rest.post(`${DOMAIN}/asset/target-amount/set`, async (req, res, ctx) => {
+    const { user_id, years_goal_amount } = await req.json();
+    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+      goal_amount: {
+        key_id: "1",
+        user_id: user_id ?? "?",
+        years_goal_amount: "?",
+        months_goal_amount: "?",
+      },
+      personal_goal: {
+        user_id: user_id ?? "?",
+        goal_name: "?",
+        goal_amount: "?",
+        period: "?",
+        month_amount: "?",
+      },
+    });
+
+    setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+      ...goal,
+      goal_amount: {
+        key_id: (Number(goal.goal_amount.key_id) + 1).toString(),
+        user_id: user_id,
+        years_goal_amount: years_goal_amount,
+        months_goal_amount: (Number(years_goal_amount) / 12).toString(),
+      },
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+  }),
+
+  rest.post(`${DOMAIN}/asset/personal-goal`, async (req, res, ctx) => {
+    const { user_id, personal_goal, goal_amount, period, month_amount } =
+      await req.json();
+    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+      goal_amount: {
+        key_id: "1",
+        user_id: user_id ?? "?",
+        years_goal_amount: "?",
+        months_goal_amount: "?",
+      },
+      personal_goal: {
+        user_id: user_id ?? "?",
+        goal_name: "?",
+        goal_amount: "?",
+        period: "?",
+        month_amount: "?",
+      },
+    });
+
+    setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+      ...goal,
+      personal_goal: {
+        user_id: user_id,
+        goal_name: personal_goal,
+        goal_amount: goal_amount,
+        period: period,
+        month_amount: month_amount,
+      },
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+  }),
+
+  rest.get(`${DOMAIN}/asset/spend-goal/view`, async (req, res, ctx) => {
+    const user_id = req.url.searchParams.get("user_id");
+    const date = req.url.searchParams.get("date");
+    const goal = getLocalStorage<SpendingGoal>(
+      LOCAL_STORAGE_KEY_SPENDING_GOAL,
+      {
+        user_id: user_id ?? "?",
+        date: date ?? "?",
+        start_date: "?",
+        end_date: "?",
+        spend_goal_amount: "0",
+        spend_amount: "0",
+      }
+    );
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
+  }),
+
+  rest.post(`${DOMAIN}/asset/spend-goal/set`, async (req, res, ctx) => {
+    const {
+      user_id,
+      start_date,
+      end_date,
+      regular,
+      spend_goal_amount,
+      is_batch,
+    } = await req.json();
+
+    setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+      user_id: user_id,
+      date: start_date,
+      start_date: start_date,
+      end_date: end_date,
+      spend_goal_amount: spend_goal_amount,
+      spend_amount: "0",
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
   }),
 ];

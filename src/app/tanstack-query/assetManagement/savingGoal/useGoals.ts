@@ -1,9 +1,9 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
 import { getSessionStorage } from "@utils/storage.ts";
-import { QUERY_KEY_GOAL } from "@constants/queryKeys.ts";
+import { QUERY_KEY_SAVING_GOAL } from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
-import { Goal } from "@app/types/asset.ts";
+import { SavingGoal } from "@app/types/asset.ts";
 
 const fetchGoal = async (user_id: string) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
@@ -14,14 +14,14 @@ const fetchGoal = async (user_id: string) => {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-  }).then<Goal>(async (res) => {
+  }).then<SavingGoal>(async (res) => {
     return res.json();
   });
 };
 
 export const useGoals = (user_id: string) => {
   return useQuery({
-    queryKey: [QUERY_KEY_GOAL, user_id],
+    queryKey: [QUERY_KEY_SAVING_GOAL, user_id],
     queryFn: () => fetchGoal(user_id),
   });
 };

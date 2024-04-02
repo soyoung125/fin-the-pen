@@ -1,17 +1,14 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
 import { getSessionStorage } from "@app/utils/storage";
-import { QUERY_KEY_GOAL, QUERY_KEY_SCHEDULES } from "@constants/queryKeys";
-import { getPriceType } from "@components/ScheduleDrawer/hooks/useScheduleForm";
+import { QUERY_KEY_SPENDING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { RequestSchedule } from "@app/types/schedule.ts";
-import moment from "moment";
-import { setSavingGoalQuery } from "@app/types/asset.ts";
+import { setSpendingGoal } from "@app/types/asset.ts";
 
-const fetchSetSavingGoal = async (query: setSavingGoalQuery) => {
+const fetchSetSpendingGoal = async (query: setSpendingGoal) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
 
-  return fetch(`${DOMAIN}/asset/target-amount/set`, {
+  return fetch(`${DOMAIN}/asset/spend-goal/set`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,20 +18,24 @@ const fetchSetSavingGoal = async (query: setSavingGoalQuery) => {
   });
 };
 
-export const useSetSavingGoal = () => {
+export const useSetSpendingGoal = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: fetchSetSavingGoal,
+    mutationFn: fetchSetSpendingGoal,
     onSuccess: async (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY_GOAL, variables.user_id],
+        queryKey: [
+          QUERY_KEY_SPENDING_GOAL,
+          variables.user_id,
+          variables.start_date,
+        ],
       });
     },
   });
 
-  const setSavingGoal = (query: setSavingGoalQuery) => {
+  const setSpendingGoal = (query: setSpendingGoal) => {
     mutate(query);
   };
 
-  return { setSavingGoal };
+  return { setSpendingGoal };
 };

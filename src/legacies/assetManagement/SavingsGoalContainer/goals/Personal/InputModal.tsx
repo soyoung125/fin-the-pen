@@ -156,8 +156,8 @@ function InputModal({
         onClick={() => {
           handleSetPersonalGoal({
             ...form,
-            required_amount: divisionByType(form.goal_amount).toString(),
             goal_amount: form.goal_amount.toString(),
+            month_amount: divisionByType(form.goal_amount).toString(),
           });
           closeModal();
         }}

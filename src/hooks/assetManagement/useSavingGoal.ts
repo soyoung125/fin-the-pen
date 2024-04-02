@@ -1,8 +1,8 @@
 import { useUser } from "@app/tanstack-query/useUser.ts";
-import { useGoals } from "@app/tanstack-query/assetManagement/goal/useGoals.ts";
-import { useSetSavingGoal } from "@app/tanstack-query/assetManagement/goal/useSetSavingGoal.ts";
+import { useGoals } from "@app/tanstack-query/assetManagement/savingGoal/useGoals.ts";
+import { useSetSavingGoal } from "@app/tanstack-query/assetManagement/savingGoal/useSetSavingGoal.ts";
 import { SetPersonalGoalQuery } from "@app/types/asset.ts";
-import { useSetPersonalGoal } from "@app/tanstack-query/assetManagement/goal/useSetPersonalGoal.ts";
+import { useSetPersonalGoal } from "@app/tanstack-query/assetManagement/savingGoal/useSetPersonalGoal.ts";
 
 const useSavingGoal = () => {
   const { data: user } = useUser();
