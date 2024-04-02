@@ -220,6 +220,7 @@ export const useScheduleForm = () => {
             kind_type: value,
           },
           period,
+          is_all_day: true,
         })
       );
       return;

@@ -50,6 +50,7 @@ function DateInput({ showError }: DateInputProps) {
               },
             })
           }
+          disabled={scheduleForm?.repeat.kind_type !== "none"}
         />
       </Stack>
     </Stack>
