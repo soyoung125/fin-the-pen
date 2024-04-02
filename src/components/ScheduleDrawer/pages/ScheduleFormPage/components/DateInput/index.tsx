@@ -46,7 +46,7 @@ function DateInput({ showError }: DateInputProps) {
             changeAllDay({
               target: {
                 value: !scheduleForm?.is_all_day,
-                name: "all_day",
+                name: "is_all_day",
               },
             })
           }
