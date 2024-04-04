@@ -25,9 +25,12 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
     (calendarRef.current?.offsetHeight || 0) +
     (scheduleListRef.current?.offsetHeight || 0);
 
-  console.log(window.innerHeight - height);
   useEffect(() => {
     updateHeight();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [monthData]);
 
   const handleChangeDate = (newValue: moment.Moment | null) => {
