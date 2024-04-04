@@ -92,32 +92,6 @@ export const handlers = [
     return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
   }),
 
-  rest.post(`${DOMAIN}/home/getMonthSchedules`, async (req, res, ctx) => {
-    const { user_id, date } = await req.json();
-
-    const schedules = getLocalStorage<Schedule[]>(
-      LOCAL_STORAGE_KEY_SCHEDULES,
-      []
-    );
-    const monthSchedules = schedules.filter(
-      (schedule) =>
-        schedule.user_id === user_id &&
-        moment(date).isSame(schedule.start_date, "month")
-    );
-    if (monthSchedules.length === 0) {
-      return res(
-        ctx.delay(1000),
-        ctx.status(200),
-        ctx.json({ data: undefined })
-      );
-    }
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json({ data: monthSchedules })
-    );
-  }),
-
   rest.delete(`${DOMAIN}/deleteSchedule`, async (req, res, ctx) => {
     const { schedule_id } = await req.json();
     const prevSchedules = getLocalStorage<Schedule[]>(
@@ -180,8 +154,9 @@ export const handlers = [
         ctx.json({
           income: "0",
           available: "0",
-          today_schedule: [],
+          data: [],
           expense: "0",
+          count: 0,
         })
       );
     }
@@ -191,8 +166,9 @@ export const handlers = [
       ctx.json({
         income: "10000",
         available: "2000",
-        today_schedule: monthSchedules,
+        data: monthSchedules,
         expense: "8000",
+        count: monthSchedules.length,
       })
     );
   }),
