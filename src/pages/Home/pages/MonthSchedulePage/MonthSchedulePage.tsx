@@ -11,17 +11,36 @@ import ScheduleListSkeleton from "@components/ScheduleList/ScheduleListSkeleton.
 import { Box, Stack, Typography } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { HomePageProps } from "@pages/Home/Home.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const { date, todaySchedules, monthData, isError, isPending, changeDate } =
     useMonthSchedule();
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const scheduleListRef = useRef<HTMLDivElement>(null);
   const showPredict = moment().isSameOrBefore(date, "month");
   const isThisMonth = moment().isSame(date, "month");
+  const height =
+    276 +
+    (calendarRef.current?.offsetHeight || 0) +
+    (scheduleListRef.current?.offsetHeight || 0);
 
+  console.log(window.innerHeight - height);
   useEffect(() => {
     updateHeight();
   }, [monthData]);
+
+  const handleChangeDate = (newValue: moment.Moment | null) => {
+    scrollToTop();
+    changeDate(newValue);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 173,
+      behavior: "smooth",
+    });
+  };
 
   if (isPending) {
     return (
@@ -32,7 +51,7 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
         />
         <ThickDivider />
         <CalendarHeaderSkeleton date={date} />
-        <Calendar value={date} handleChange={changeDate} />
+        <Calendar value={date} handleChange={handleChangeDate} />
         <ThickDivider />
         <ScheduleListSkeleton />
       </Box>
@@ -40,7 +59,13 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   }
 
   return (
-    <Box>
+    <Box
+      pb={
+        window.innerHeight - height > 0
+          ? `${window.innerHeight - height}px`
+          : "0px"
+      }
+    >
       <MonthlyBudgetSummary
         income={parseInt(monthData?.income ?? "")}
         expenditure={parseInt(monthData?.expense ?? "")}
@@ -58,35 +83,39 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
         isToday={moment().isSame(date, "date")}
       />
 
-      <Calendar value={date} handleChange={changeDate} />
+      <div ref={calendarRef}>
+        <Calendar value={date} handleChange={handleChangeDate} />
+      </div>
 
       <ThickDivider />
 
-      <ScheduleList
-        date={date}
-        todaySchedules={todaySchedules.slice(0, 3)}
-        isError={isError}
-        isPending={isPending}
-      />
+      <div ref={scheduleListRef}>
+        <ScheduleList
+          date={date}
+          todaySchedules={todaySchedules.slice(0, 3)}
+          isError={isError}
+          isPending={isPending}
+        />
 
-      {todaySchedules.length > 3 && (
-        <Stack
-          p={2}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={1.5}
-          onClick={navigateTo}
-        >
-          <Typography>
-            <span style={{ color: "#735BF2", fontWeight: 700 }}>
-              {todaySchedules.length - 3}건
-            </span>
-            &nbsp;일정 더보기
-          </Typography>
-          <KeyboardArrowRightIcon sx={{ color: "#8C919C" }} />
-        </Stack>
-      )}
+        {todaySchedules.length > 3 && (
+          <Stack
+            p={2}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={1.5}
+            onClick={navigateTo}
+          >
+            <Typography>
+              <span style={{ color: "#735BF2", fontWeight: 700 }}>
+                {todaySchedules.length - 3}건
+              </span>
+              &nbsp;일정 더보기
+            </Typography>
+            <KeyboardArrowRightIcon sx={{ color: "#8C919C" }} />
+          </Stack>
+        )}
+      </div>
     </Box>
   );
 }
