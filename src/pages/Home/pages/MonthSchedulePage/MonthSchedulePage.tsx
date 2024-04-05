@@ -17,13 +17,8 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const { date, todaySchedules, monthData, isError, isPending, changeDate } =
     useMonthSchedule();
   const calendarRef = useRef<HTMLDivElement>(null);
-  const scheduleListRef = useRef<HTMLDivElement>(null);
   const showPredict = moment().isSameOrBefore(date, "month");
   const isThisMonth = moment().isSame(date, "month");
-  const height =
-    276 +
-    (calendarRef.current?.offsetHeight || 0) +
-    (scheduleListRef.current?.offsetHeight || 0);
   const [isAtTop, setIsAtTop] = useState(true);
   const [positionY, setPositionY] = useState(-1);
 
@@ -37,16 +32,8 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   }, [monthData]);
 
   const handleChangeDate = (newValue: moment.Moment | null) => {
-    // scrollToTop();
     changeDate(newValue);
     setIsAtTop(false);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 173,
-      behavior: "smooth",
-    });
   };
 
   function handleTouchMove(event: TouchEvent) {
@@ -54,10 +41,8 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
     event.stopPropagation();
     if (positionY < 0) setPositionY(event.touches[0].clientY);
     else if (positionY - event.touches[0].clientY < -30 && !isAtTop) {
-      console.log(positionY - event.touches[0].clientY);
       setIsAtTop(true);
     }
-    // if (!isAtTop) setIsAtTop(true);
   }
 
   if (isPending) {
@@ -102,33 +87,31 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
 
       <ThickDivider />
 
-      <div ref={scheduleListRef}>
-        <ScheduleList
-          date={date}
-          todaySchedules={todaySchedules.slice(0, 3)}
-          isError={isError}
-          isPending={isPending}
-        />
+      <ScheduleList
+        date={date}
+        todaySchedules={todaySchedules.slice(0, 3)}
+        isError={isError}
+        isPending={isPending}
+      />
 
-        {todaySchedules.length > 3 && (
-          <Stack
-            p={2}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1.5}
-            onClick={navigateTo}
-          >
-            <Typography>
-              <span style={{ color: "#735BF2", fontWeight: 700 }}>
-                {todaySchedules.length - 3}건
-              </span>
-              &nbsp;일정 더보기
-            </Typography>
-            <KeyboardArrowRightIcon sx={{ color: "#8C919C" }} />
-          </Stack>
-        )}
-      </div>
+      {todaySchedules.length > 3 && (
+        <Stack
+          p={2}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1.5}
+          onClick={navigateTo}
+        >
+          <Typography>
+            <span style={{ color: "#735BF2", fontWeight: 700 }}>
+              {todaySchedules.length - 3}건
+            </span>
+            &nbsp;일정 더보기
+          </Typography>
+          <KeyboardArrowRightIcon sx={{ color: "#8C919C" }} />
+        </Stack>
+      )}
     </Box>
   );
 }
