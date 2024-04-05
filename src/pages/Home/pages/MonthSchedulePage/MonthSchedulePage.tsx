@@ -23,7 +23,6 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const [positionY, setPositionY] = useState(-1);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
     updateHeight();
   }, [isAtTop]);
 
@@ -33,6 +32,7 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
 
   const handleChangeDate = (newValue: moment.Moment | null) => {
     changeDate(newValue);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIsAtTop(false);
   };
 
