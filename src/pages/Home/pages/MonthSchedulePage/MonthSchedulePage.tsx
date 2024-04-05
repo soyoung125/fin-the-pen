@@ -8,10 +8,10 @@ import useMonthSchedule from "@hooks/home/useMonthSchedule.ts";
 import MonthlyBudgetSummarySkeleton from "@pages/Home/next-components/HomeHeader/MonthlyBudgetSummary/MonthlyBudgetSummarySkeleton.tsx";
 import CalendarHeaderSkeleton from "@pages/Home/next-components/ScheduleCalendar/CalendarHeader/CalendarHeaderSkeleton.tsx";
 import ScheduleListSkeleton from "@components/ScheduleList/ScheduleListSkeleton.tsx";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Collapse, Stack, Typography } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { HomePageProps } from "@pages/Home/Home.tsx";
-import { useEffect, useRef } from "react";
+import { TouchEvent, useEffect, useRef, useState } from "react";
 
 function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const { date, todaySchedules, monthData, isError, isPending, changeDate } =
@@ -24,18 +24,22 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
     276 +
     (calendarRef.current?.offsetHeight || 0) +
     (scheduleListRef.current?.offsetHeight || 0);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [positionY, setPositionY] = useState(-1);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     updateHeight();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  }, [isAtTop]);
+
+  useEffect(() => {
+    setIsAtTop(true);
   }, [monthData]);
 
   const handleChangeDate = (newValue: moment.Moment | null) => {
-    scrollToTop();
+    // scrollToTop();
     changeDate(newValue);
+    setIsAtTop(false);
   };
 
   const scrollToTop = () => {
@@ -44,6 +48,17 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
       behavior: "smooth",
     });
   };
+
+  function handleTouchMove(event: TouchEvent) {
+    if (calendarRef.current?.getBoundingClientRect().top !== 128) return;
+    event.stopPropagation();
+    if (positionY < 0) setPositionY(event.touches[0].clientY);
+    else if (positionY - event.touches[0].clientY < -30 && !isAtTop) {
+      console.log(positionY - event.touches[0].clientY);
+      setIsAtTop(true);
+    }
+    // if (!isAtTop) setIsAtTop(true);
+  }
 
   if (isPending) {
     return (
@@ -62,31 +77,26 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   }
 
   return (
-    <Box
-      pb={
-        window.innerHeight - height > 0
-          ? `${window.innerHeight - height}px`
-          : "0px"
-      }
-    >
-      <MonthlyBudgetSummary
-        income={parseInt(monthData?.income ?? "")}
-        expenditure={parseInt(monthData?.expense ?? "")}
-        availableAmount={parseInt(monthData?.available ?? "")}
-        showPredict={showPredict}
-        dayTitle={isThisMonth ? "이번달" : moment(date).format("M월")}
-      />
+    <Box onTouchMove={handleTouchMove} onTouchEnd={() => setPositionY(-1)}>
+      <Collapse in={isAtTop}>
+        <MonthlyBudgetSummary
+          income={parseInt(monthData?.income ?? "")}
+          expenditure={parseInt(monthData?.expense ?? "")}
+          availableAmount={parseInt(monthData?.available ?? "")}
+          showPredict={showPredict}
+          dayTitle={isThisMonth ? "이번달" : moment(date).format("M월")}
+        />
 
-      <ThickDivider />
-
-      <CalendarHeader
-        date={date}
-        count={todaySchedules.length}
-        handleClick={navigateTo}
-        isToday={moment().isSame(date, "date")}
-      />
+        <ThickDivider />
+      </Collapse>
 
       <div ref={calendarRef}>
+        <CalendarHeader
+          date={date}
+          count={todaySchedules.length}
+          handleClick={navigateTo}
+          isToday={moment().isSame(date, "date")}
+        />
         <Calendar value={date} handleChange={handleChangeDate} />
       </div>
 

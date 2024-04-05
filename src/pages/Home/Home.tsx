@@ -50,7 +50,9 @@ function Home() {
     setValue(newValue);
   };
 
-  const updateHeight = () => swiper?.updateAutoHeight(10);
+  const updateHeight = () => {
+    setTimeout(() => swiper?.updateAutoHeight(10), 100);
+  };
 
   const handleNavigate = () => navigate(PATH.scheduleList);
 
@@ -100,7 +102,7 @@ function Home() {
         onSlideChange={(e) => setValue(e.activeIndex)}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        <SwiperSlide style={{ overflow: "scroll" }}>
+        <SwiperSlide>
           <MonthSchedulePage
             updateHeight={updateHeight}
             navigateTo={handleNavigate}
