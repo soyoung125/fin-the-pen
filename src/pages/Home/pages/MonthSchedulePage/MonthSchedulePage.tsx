@@ -8,20 +8,50 @@ import useMonthSchedule from "@hooks/home/useMonthSchedule.ts";
 import MonthlyBudgetSummarySkeleton from "@pages/Home/next-components/HomeHeader/MonthlyBudgetSummary/MonthlyBudgetSummarySkeleton.tsx";
 import CalendarHeaderSkeleton from "@pages/Home/next-components/ScheduleCalendar/CalendarHeader/CalendarHeaderSkeleton.tsx";
 import ScheduleListSkeleton from "@components/ScheduleList/ScheduleListSkeleton.tsx";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Collapse, Stack, Typography } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { HomePageProps } from "@pages/Home/Home.tsx";
-import { useEffect } from "react";
+import { TouchEvent, WheelEvent, useEffect, useRef, useState } from "react";
 
 function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const { date, todaySchedules, monthData, isError, isPending, changeDate } =
     useMonthSchedule();
+  const calendarRef = useRef<HTMLDivElement>(null);
   const showPredict = moment().isSameOrBefore(date, "month");
   const isThisMonth = moment().isSame(date, "month");
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [positionY, setPositionY] = useState(-1);
 
   useEffect(() => {
     updateHeight();
+  }, [isAtTop]);
+
+  useEffect(() => {
+    setIsAtTop(true);
   }, [monthData]);
+
+  const handleChangeDate = (newValue: moment.Moment | null) => {
+    changeDate(newValue);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsAtTop(false);
+  };
+
+  function handleTouchMove(event: TouchEvent) {
+    if (calendarRef.current?.getBoundingClientRect().top !== 128) return;
+    event.stopPropagation();
+    if (positionY < 0) setPositionY(event.touches[0].clientY);
+    else if (positionY - event.touches[0].clientY < -30 && !isAtTop) {
+      setIsAtTop(true);
+    }
+  }
+
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (calendarRef.current?.getBoundingClientRect().top !== 128) return;
+    event.stopPropagation();
+    if (event.deltaY < 0 && !isAtTop) {
+      setIsAtTop(true);
+    }
+  };
 
   if (isPending) {
     return (
@@ -32,7 +62,7 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
         />
         <ThickDivider />
         <CalendarHeaderSkeleton date={date} />
-        <Calendar value={date} handleChange={changeDate} />
+        <Calendar value={date} handleChange={handleChangeDate} />
         <ThickDivider />
         <ScheduleListSkeleton />
       </Box>
@@ -40,25 +70,32 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   }
 
   return (
-    <Box>
-      <MonthlyBudgetSummary
-        income={parseInt(monthData?.income ?? "")}
-        expenditure={parseInt(monthData?.expense ?? "")}
-        availableAmount={parseInt(monthData?.available ?? "")}
-        showPredict={showPredict}
-        dayTitle={isThisMonth ? "이번달" : moment(date).format("M월")}
-      />
+    <Box
+      onTouchMove={handleTouchMove}
+      onTouchEnd={() => setPositionY(-1)}
+      onWheel={handleWheel}
+    >
+      <Collapse in={isAtTop}>
+        <MonthlyBudgetSummary
+          income={parseInt(monthData?.income ?? "")}
+          expenditure={parseInt(monthData?.expense ?? "")}
+          availableAmount={parseInt(monthData?.available ?? "")}
+          showPredict={showPredict}
+          dayTitle={isThisMonth ? "이번달" : moment(date).format("M월")}
+        />
 
-      <ThickDivider />
+        <ThickDivider />
+      </Collapse>
 
-      <CalendarHeader
-        date={date}
-        count={todaySchedules.length}
-        handleClick={navigateTo}
-        isToday={moment().isSame(date, "date")}
-      />
-
-      <Calendar value={date} handleChange={changeDate} />
+      <div ref={calendarRef}>
+        <CalendarHeader
+          date={date}
+          count={todaySchedules.length}
+          handleClick={navigateTo}
+          isToday={moment().isSame(date, "date")}
+        />
+        <Calendar value={date} handleChange={handleChangeDate} />
+      </div>
 
       <ThickDivider />
 
