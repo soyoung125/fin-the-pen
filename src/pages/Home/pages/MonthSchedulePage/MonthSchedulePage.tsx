@@ -11,7 +11,7 @@ import ScheduleListSkeleton from "@components/ScheduleList/ScheduleListSkeleton.
 import { Box, Collapse, Stack, Typography } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { HomePageProps } from "@pages/Home/Home.tsx";
-import { TouchEvent, useEffect, useRef, useState } from "react";
+import { TouchEvent, WheelEvent, useEffect, useRef, useState } from "react";
 
 function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   const { date, todaySchedules, monthData, isError, isPending, changeDate } =
@@ -45,6 +45,14 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
     }
   }
 
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (calendarRef.current?.getBoundingClientRect().top !== 128) return;
+    event.stopPropagation();
+    if (event.deltaY < 0 && !isAtTop) {
+      setIsAtTop(true);
+    }
+  };
+
   if (isPending) {
     return (
       <Box>
@@ -62,7 +70,11 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
   }
 
   return (
-    <Box onTouchMove={handleTouchMove} onTouchEnd={() => setPositionY(-1)}>
+    <Box
+      onTouchMove={handleTouchMove}
+      onTouchEnd={() => setPositionY(-1)}
+      onWheel={handleWheel}
+    >
       <Collapse in={isAtTop}>
         <MonthlyBudgetSummary
           income={parseInt(monthData?.income ?? "")}
