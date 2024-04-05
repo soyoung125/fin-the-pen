@@ -1,7 +1,7 @@
 import {
   GoalBody,
   GoalHeader,
-} from "@legacies/assetManagement/SavingsGoalContainer/goals/Personal/components/GoalCard/GoalCard.styles.ts";
+} from "@pages/AssetManagement/pages/SavingGoal/components/Personal/components/GoalCard/GoalCard.styles.ts";
 import { Stack, Typography, Box } from "@mui/material";
 
 export interface GoalCardProps {

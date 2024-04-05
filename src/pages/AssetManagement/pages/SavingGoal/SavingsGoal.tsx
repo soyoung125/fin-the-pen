@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
-import Saving from "./goals/Saving/Saving.tsx";
-import Personal from "./goals/Personal/Personal.tsx";
+import Saving from "@pages/AssetManagement/pages/SavingGoal/components/Saving/Saving.tsx";
+import Personal from "./components/Personal/Personal.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import useSavingGoal from "@hooks/assetManagement/useSavingGoal.ts";
 import React from "react";

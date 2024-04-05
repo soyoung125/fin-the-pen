@@ -1,9 +1,9 @@
 import { Box, IconButton, Stack } from "@mui/material";
-import RoundedPaper from "../../../../../components/common/RoundedPaper";
-import RoundedBorderBox from "../../../../../components/common/RoundedBorderBox";
-import InputModal from "./InputModal";
+import RoundedPaper from "../../../../../../components/common/RoundedPaper.tsx";
+import RoundedBorderBox from "../../../../../../components/common/RoundedBorderBox.tsx";
+import InputModal from "./InputModal.tsx";
 import { MonthSavingGoal } from "@app/types/asset.ts";
-import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
+import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import filter_main from "@assets/icons/header/filter_main.svg";

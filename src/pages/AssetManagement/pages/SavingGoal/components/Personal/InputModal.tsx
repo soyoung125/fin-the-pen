@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
-import ResetButton from "@components/common/ResetButton";
+import ResetButton from "@components/common/ResetButton.tsx";
 import {
   PersonalGoal,
   PersonalGoalForm,
   SetPersonalGoalQuery,
 } from "@app/types/asset.ts";
-import { getPersonalForm } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
+import { getPersonalForm } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 interface InputModalProps {

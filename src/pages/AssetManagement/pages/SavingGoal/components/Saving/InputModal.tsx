@@ -11,10 +11,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
 import { setSavingGoal } from "@redux/slices/assetSlice.tsx";
 import { useAppDispatch } from "@redux/hooks.ts";
-import ResetButton from "@components/common/ResetButton";
+import ResetButton from "@components/common/ResetButton.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { MonthSavingGoal } from "@app/types/asset.ts";
-import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
+import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
 
 interface InputModalProps {
   closeSavingGoalModal: () => void;

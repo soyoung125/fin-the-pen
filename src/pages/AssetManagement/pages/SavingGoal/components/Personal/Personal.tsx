@@ -1,12 +1,12 @@
 import { Box, IconButton, Stack } from "@mui/material";
-import InputModal from "./InputModal";
+import InputModal from "./InputModal.tsx";
 import { PersonalGoal, SetPersonalGoalQuery } from "@app/types/asset.ts";
-import { getAmount } from "@legacies/assetManagement/SavingsGoalContainer/utils.ts";
+import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
 import filter_main from "@assets/icons/header/filter_main.svg";
-import GoalCard from "@legacies/assetManagement/SavingsGoalContainer/goals/Personal/components/GoalCard";
+import GoalCard from "pages/AssetManagement/pages/SavingGoal/components/Personal/components/GoalCard";
 
 interface PersonalProps {
   personal?: PersonalGoal;
