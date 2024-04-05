@@ -1,4 +1,4 @@
-import GoalCard from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard/GoalCard.tsx";
+import GoalCard from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard/GoalCard.tsx";
 import { Meta } from "@storybook/react";
 
 const meta = {

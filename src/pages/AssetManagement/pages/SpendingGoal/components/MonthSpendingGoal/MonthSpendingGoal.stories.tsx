@@ -1,4 +1,4 @@
-import MonthSpendingGoal from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal/MonthSpendingGoal.tsx";
+import MonthSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/MonthSpendingGoal.tsx";
 import { Meta } from "@storybook/react";
 import { useState } from "react";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";

@@ -1,5 +1,5 @@
 import { useModal } from "@hooks/modal/useModal.tsx";
-import ConfirmModal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal/index.ts";
+import ConfirmModal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal/index.ts";
 import { Button } from "@mui/material";
 import { Meta } from "@storybook/react";
 

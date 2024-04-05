@@ -2,11 +2,11 @@ import RoundedPaper from "@components/common/RoundedPaper.tsx";
 import { Box, IconButton, Stack } from "@mui/material";
 import filter_main from "@assets/icons/header/filter_main.svg";
 import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
-import GoalCard from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
-import { Highlight } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
+import GoalCard from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
+import { Highlight } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
 import ModifyRegularSpendingGoal, {
   Form,
-} from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
+} from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
 
 export interface RegularSpendingGoalProps {
   handleModify: () => void;

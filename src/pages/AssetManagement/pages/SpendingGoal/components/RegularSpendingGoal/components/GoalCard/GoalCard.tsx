@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import {
   GoalHeader,
   GoalBody,
-} from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard/GoalCard.styles.ts";
+} from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard/GoalCard.styles.ts";
 import { ReactNode } from "react";
 
 export interface GoalCardProps {

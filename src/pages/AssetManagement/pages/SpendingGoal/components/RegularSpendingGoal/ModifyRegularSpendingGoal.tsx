@@ -1,9 +1,9 @@
 import { Box, Button, Stack } from "@mui/material";
-import GoalCard from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
+import GoalCard from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
 import {
   Highlight,
   HighLightInput,
-} from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
+} from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
 import { ChangeEvent, useState } from "react";
 import calendar_primary from "@assets/icons/bottom/calendar_primary.svg";
 import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";

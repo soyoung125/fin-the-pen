@@ -1,10 +1,10 @@
 import { Meta } from "@storybook/react";
-import RegularSpendingGoal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/index.ts";
-import { RegularSpendingGoalProps } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.tsx";
+import RegularSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/index.ts";
+import { RegularSpendingGoalProps } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.tsx";
 import { useState } from "react";
-import { Form } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
+import { Form } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
-import ConfirmModal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
+import ConfirmModal from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
 import { Button } from "@mui/material";
 
 const meta = {

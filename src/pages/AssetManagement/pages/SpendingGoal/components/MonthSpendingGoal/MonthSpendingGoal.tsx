@@ -5,7 +5,7 @@ import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
 import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import moment from "moment";
-import EmptySpendCard from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal/EmptySpendCard.tsx";
+import EmptySpendCard from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/EmptySpendCard.tsx";
 
 export interface MonthSpendingGoalProps {
   date: string;

@@ -1,4 +1,4 @@
-import ModifyModal from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal/ModifyModal.tsx";
+import ModifyModal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal/ModifyModal.tsx";
 import { Meta } from "@storybook/react";
 import { Box, Button } from "@mui/material";
 import { useModal } from "@hooks/modal/useModal.tsx";

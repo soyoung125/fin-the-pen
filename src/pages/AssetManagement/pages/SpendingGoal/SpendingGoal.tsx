@@ -1,13 +1,13 @@
 import useSpendingGoal from "@hooks/assetManagement/useSpendingGoal.ts";
 import { Stack } from "@mui/material";
-import MonthSpendingGoal from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal";
-import RegularSpendingGoal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal";
+import MonthSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal";
+import RegularSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal";
 import { useModal } from "@hooks/modal/useModal.tsx";
-import { Form } from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
-import ConfirmModal from "@legacies/assetManagement/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
+import { Form } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
+import ConfirmModal from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
 import { useState } from "react";
-import ModifyModal from "@legacies/assetManagement/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal";
-import { getDate } from "@legacies/assetManagement/SpendingGoal/utils.ts";
+import ModifyModal from "pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal";
+import { getDate } from "@pages/AssetManagement/pages/SpendingGoal/utils.ts";
 
 function SpendingGoal() {
   const { goal, yearMonth, pickMonth, handleSetSpendingGoal } =

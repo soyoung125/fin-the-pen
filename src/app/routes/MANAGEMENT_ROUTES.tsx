@@ -5,7 +5,7 @@ import DetailSetting from "../../legacies/assetManagement/RegularDepositWithDraw
 import SavingsGoal from "../../pages/AssetManagement/pages/SavingGoal/SavingsGoal.tsx";
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
-import SpendingGoal from "@legacies/assetManagement/SpendingGoal";
+import SpendingGoal from "@pages/AssetManagement/pages/SpendingGoal";
 
 const MANAGEMENT_ROUTES: RouterDOM[] = [
   {
