@@ -4,8 +4,7 @@ import { useState } from "react";
 import {
   getColors,
   getTitle,
-} from "../../pages/reports/ReportCategoryDetails/utils.ts";
-import { Skeleton } from "@mui/material";
+} from "@pages/reports/ReportCategoryDetails/utils.ts";
 
 const meta = {
   title: "reports/ReportCategoryDetails/BarChart",

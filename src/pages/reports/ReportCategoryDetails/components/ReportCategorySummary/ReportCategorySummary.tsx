@@ -1,5 +1,4 @@
 import { Stack, Typography } from "@mui/material";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import BarChart from "@components/BarChart/BarChart.tsx";
 import { useState } from "react";
 import {
