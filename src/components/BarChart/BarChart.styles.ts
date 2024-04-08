@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Bar } from "@pages/reports/ReportCategoryDetails/components/BarChart/BarChart.tsx";
+import { Bar } from "@components/BarChart/BarChart.tsx";
 
 export const BarChartContainer = styled.div`
   height: 24px;
@@ -35,21 +35,17 @@ export const BarLabelContainer = styled.div`
 export const BarLabelComponent = styled.div<{
   $width: Bar["data"];
 }>`
-  //position: relative;
   width: ${({ $width }) => $width}%;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 export const BarLabelBox = styled.div<{
   $isSelected: boolean;
 }>`
   min-width: 24px;
-  position: absolute;
-  left: 50%;
+  margin: 0 auto;
   bottom: 6px;
-  margin-left: -24px;
   padding: 3px 10px;
   border-radius: 8px;
   font-size: 12px;

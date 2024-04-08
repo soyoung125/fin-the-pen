@@ -5,9 +5,8 @@ import {
   BarLabelComponent,
   BarLabelContainer,
   LabelLine,
-} from "@pages/reports/ReportCategoryDetails/components/BarChart/BarChart.styles.ts";
+} from "@components/BarChart/BarChart.styles.ts";
 import { Dispatch, SetStateAction } from "react";
-import { getTitle } from "./utils.ts";
 
 export interface Bar {
   label: string;
@@ -18,6 +17,7 @@ export interface Bar {
 export interface BarChartProps {
   values: string[];
   data: number[];
+  titles: string[];
   colors: string[];
   selected: string;
   setSelected: Dispatch<SetStateAction<string>>;
@@ -26,6 +26,7 @@ export interface BarChartProps {
 function BarChart({
   values,
   colors,
+  titles,
   data,
   selected,
   setSelected,
@@ -41,14 +42,13 @@ function BarChart({
                 onClick={() => setSelected(v)}
               >
                 <BarLabelBox $isSelected={selected === v}>
-                  {getTitle(v)}
+                  {titles[idx]}
                 </BarLabelBox>
                 <LabelLine $isSelected={selected === v} />
               </BarLabelComponent>
             )
         )}
       </BarLabelContainer>
-
       <BarChartContainer>
         {data.map(
           (d, idx) =>

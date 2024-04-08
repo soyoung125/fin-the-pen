@@ -1,8 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import BarChart from "@pages/reports/ReportCategoryDetails/components/BarChart/BarChart.tsx";
+import BarChart from "@components/BarChart/BarChart.tsx";
 import { useState } from "react";
-import { getColors } from "@pages/reports/ReportCategoryDetails/components/BarChart/utils.ts";
+import {
+  getColors,
+  getTitle,
+} from "@pages/reports/ReportCategoryDetails/utils.ts";
 import { getSelectedType } from "@pages/reports/ReportCategoryDetails/components/ReportCategorySummary/utils.ts";
 
 export interface ReportCategorySummaryProps {
@@ -36,6 +39,7 @@ function ReportCategorySummary({
           values={values}
           data={data}
           colors={colors}
+          titles={values.map((v) => getTitle(v))}
           selected={selected}
           setSelected={setSelected}
         />
