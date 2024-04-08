@@ -7,7 +7,7 @@ import {
 } from "@pages/reports/ReportCategoryDetails/utils.ts";
 
 const meta = {
-  title: "reports/ReportCategoryDetails/BarChart",
+  title: "common/BarChart",
   component: BarChart,
   tags: ["autodocs"],
   args: {
