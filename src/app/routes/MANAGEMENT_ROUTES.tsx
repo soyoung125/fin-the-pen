@@ -1,11 +1,11 @@
-import AssetsByCategory from "../../legacies/assetManagement/AssetsByCategory";
 import RegularDepositWithdrawal from "../../legacies/assetManagement/RegularDepositWithDrawalContainer";
 import DetailInformation from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailInformation";
 import DetailSetting from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailSetting";
-import SavingsGoal from "../../legacies/assetManagement/SavingsGoalContainer/SavingsGoal.tsx";
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
-import SpendingGoal from "@legacies/assetManagement/SpendingGoal";
+import SpendingGoal from "@pages/AssetManagement/pages/SpendingGoal";
+import AssetByCategory from "@pages/AssetManagement/pages/AssetBuCategory";
+import SavingsGoal from "@pages/AssetManagement/pages/SavingGoal";
 
 const MANAGEMENT_ROUTES: RouterDOM[] = [
   {
@@ -26,7 +26,7 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
   },
   {
     path: PATH.assetsByCategory,
-    element: <AssetsByCategory />,
+    element: <AssetByCategory />,
   },
   {
     path: PATH.scheduleManagement,
