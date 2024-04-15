@@ -50,7 +50,7 @@ function SpendingGoal() {
   };
 
   const handleSubmit = (form: Form) => {
-    if (onSpendAmount.spend_goal_amount !== "?") {
+    if (offSpendAmount.spend_goal_amount !== "?") {
       openModal({
         modalElement: (
           <ConfirmModal

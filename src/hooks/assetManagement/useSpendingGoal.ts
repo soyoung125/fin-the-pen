@@ -18,15 +18,6 @@ const useSpendingGoal = () => {
   } = useSpendingGoals(user?.user_id ?? "", yearMonth);
   const { setSpendingGoal } = useSetSpendingGoal();
 
-  const offSpendAmount = goal?.offSpendAmount ?? {
-    user_id: user?.user_id,
-    date: yearMonth,
-    start_date: yearMonth,
-    end_date: yearMonth,
-    spend_goal_amount: "?",
-    spend_amount: "?",
-  };
-
   const onSpendAmount = goal?.OnSpendAmount ?? {
     user_id: user?.user_id,
     date: yearMonth,
@@ -35,6 +26,8 @@ const useSpendingGoal = () => {
     spend_goal_amount: "?",
     spend_amount: "?",
   };
+
+  const offSpendAmount = goal?.offSpendAmount ?? onSpendAmount;
 
   const pickMonth = async () => {
     const newMonth = await openMonthPicker(yearMonth);
