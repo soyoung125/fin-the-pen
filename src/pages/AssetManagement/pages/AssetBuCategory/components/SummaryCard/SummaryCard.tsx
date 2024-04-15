@@ -10,23 +10,23 @@ import {
 
 export interface SummaryCardProps {
   used: number;
-  useable: number;
   goal: number;
+  ratio: number;
   handleSetting: () => void;
 }
 
-function SummaryCard({ useable, used, goal, handleSetting }: SummaryCardProps) {
-  const [selected, setSelected] = useState("used");
+function SummaryCard({ ratio, used, goal, handleSetting }: SummaryCardProps) {
+  const [selected, setSelected] = useState("total");
 
-  const values = ["used", "useable"];
+  const values = ["total", "left"];
   const colors = getColors(selected);
   const titles = ["카테고리 설정 지출액", "설정가능자산"];
 
   return (
     <RoundedCard>
-      <Stack spacing={2.5}>
+      <Stack spacing={2}>
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography variant="h3">지출 목표 금액</Typography>
+          <Typography>지출 목표 금액</Typography>
           <Box
             onClick={handleSetting}
             sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
@@ -38,7 +38,7 @@ function SummaryCard({ useable, used, goal, handleSetting }: SummaryCardProps) {
         <Box>
           <BarChart
             values={values}
-            data={getData(used, useable, goal)}
+            data={getData(ratio)}
             titles={titles}
             colors={colors}
             selected={selected}
