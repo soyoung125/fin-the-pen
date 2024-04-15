@@ -2,6 +2,7 @@ import useAssetByCategory from "@hooks/assetManagement/useAssetByCategory.ts";
 import SelectMonth from "@pages/AssetManagement/pages/AssetBuCategory/components/SelectMonth";
 import SummaryCard from "@pages/AssetManagement/pages/AssetBuCategory/components/SummaryCard";
 import moment from "moment";
+import ThickDivider from "@components/common/ThickDivider.tsx";
 
 function AssetByCategory() {
   const { yearMonth, assetsByCategory, pickMonth } = useAssetByCategory();
@@ -18,6 +19,7 @@ function AssetByCategory() {
         ratio={parseInt(assetsByCategory?.ratio ?? "0")}
         handleSetting={() => alert("click")}
       />
+      <ThickDivider />
     </>
   );
 }
