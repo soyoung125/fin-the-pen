@@ -1,10 +1,6 @@
 import { PersonalGoal, PersonalGoalForm } from "@app/types/asset.ts";
 import moment from "moment";
-
-export const getAmount = (amount?: string) => {
-  if (!amount || amount === "?") return 0;
-  return Number(amount);
-};
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 
 export const getPersonalForm = (data?: PersonalGoal): PersonalGoalForm => {
   if (!data || data.period === "?") {

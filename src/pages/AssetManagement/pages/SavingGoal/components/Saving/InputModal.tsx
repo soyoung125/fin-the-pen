@@ -14,7 +14,7 @@ import { useAppDispatch } from "@redux/hooks.ts";
 import ResetButton from "@components/common/ResetButton.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { MonthSavingGoal } from "@app/types/asset.ts";
-import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 
 interface InputModalProps {
   closeSavingGoalModal: () => void;

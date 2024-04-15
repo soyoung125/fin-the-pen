@@ -1,7 +1,7 @@
 import { Box, IconButton, Stack } from "@mui/material";
 import InputModal from "./InputModal.tsx";
 import { PersonalGoal, SetPersonalGoalQuery } from "@app/types/asset.ts";
-import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import RoundedPaper from "@components/common/RoundedPaper.tsx";

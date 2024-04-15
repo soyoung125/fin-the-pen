@@ -1,7 +1,7 @@
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
 import { Box, IconButton, Stack } from "@mui/material";
 import filter_main from "@assets/icons/header/filter_main.svg";
-import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 import GoalCard from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
 import { Highlight } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
 import ModifyRegularSpendingGoal, {
