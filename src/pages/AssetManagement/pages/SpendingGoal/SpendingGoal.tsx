@@ -8,10 +8,17 @@ import ConfirmModal from "pages/AssetManagement/pages/SpendingGoal/components/Re
 import { useState } from "react";
 import ModifyModal from "pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal";
 import { getDate } from "@pages/AssetManagement/pages/SpendingGoal/utils.ts";
+import moment from "moment";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 
 function SpendingGoal() {
-  const { goal, yearMonth, pickMonth, handleSetSpendingGoal } =
-    useSpendingGoal();
+  const {
+    offSpendAmount,
+    onSpendAmount,
+    yearMonth,
+    pickMonth,
+    handleSetSpendingGoal,
+  } = useSpendingGoal();
   const { openModal, closeModal } = useModal();
 
   const defaultForm = {
@@ -28,8 +35,8 @@ function SpendingGoal() {
       modalElement: (
         <ModifyModal
           closeModal={closeModal}
-          value={Number(goal?.spend_goal_amount ?? "")}
-          month="5"
+          value={getAmount(offSpendAmount.spend_goal_amount)}
+          month={moment(yearMonth).format("M")}
           handleSubmit={(v: number) =>
             handleSetSpendingGoal({
               ...defaultForm,
@@ -43,7 +50,7 @@ function SpendingGoal() {
   };
 
   const handleSubmit = (form: Form) => {
-    if (goal?.start_date !== "?") {
+    if (offSpendAmount.spend_goal_amount !== "?") {
       openModal({
         modalElement: (
           <ConfirmModal
@@ -59,11 +66,7 @@ function SpendingGoal() {
         isBackdropClickable: false,
       });
     } else {
-      handleSetSpendingGoal({
-        ...form,
-        regular: "ON" as const,
-        is_batch: true,
-      });
+      changeRegularGoal(form, true);
     }
   };
 
@@ -83,17 +86,17 @@ function SpendingGoal() {
         date={yearMonth}
         changeYearAndMonth={pickMonth}
         handleModify={handleModify}
-        goal={goal?.spend_goal_amount ?? "0"}
-        spent={goal?.spend_amount ?? "0"}
+        goal={offSpendAmount.spend_goal_amount}
+        spent={offSpendAmount.spend_amount}
       />
       <RegularSpendingGoal
         handleModify={() => setIsModify(true)}
         handleSubmit={handleSubmit}
         closeModify={() => setIsModify(false)}
         isModify={isModify}
-        goal={goal?.spend_goal_amount ?? "0"}
-        startDate={getDate(goal?.start_date) ?? yearMonth}
-        endDate={getDate(goal?.end_date) ?? yearMonth}
+        goal={onSpendAmount.spend_goal_amount}
+        startDate={getDate(onSpendAmount.start_date) ?? yearMonth}
+        endDate={getDate(onSpendAmount.end_date) ?? yearMonth}
       />
     </Stack>
   );

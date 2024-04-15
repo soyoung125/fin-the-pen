@@ -18,9 +18,20 @@ const useSpendingGoal = () => {
   } = useSpendingGoals(user?.user_id ?? "", yearMonth);
   const { setSpendingGoal } = useSetSpendingGoal();
 
+  const onSpendAmount = goal?.OnSpendAmount ?? {
+    user_id: user?.user_id,
+    date: yearMonth,
+    start_date: yearMonth,
+    end_date: yearMonth,
+    spend_goal_amount: "?",
+    spend_amount: "?",
+  };
+
+  const offSpendAmount = goal?.offSpendAmount ?? onSpendAmount;
+
   const pickMonth = async () => {
     const newMonth = await openMonthPicker(yearMonth);
-    setYearMonth(newMonth.format("YYYY-MM-DD"));
+    setYearMonth(newMonth.format("YYYY-MM"));
   };
 
   const handleSetSpendingGoal = (data: setSpendingGoal) => {
@@ -31,7 +42,8 @@ const useSpendingGoal = () => {
   };
 
   return {
-    goal,
+    offSpendAmount,
+    onSpendAmount,
     isPending,
     isError,
     yearMonth,

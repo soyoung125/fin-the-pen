@@ -6,7 +6,7 @@ import {
 } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
 import { ChangeEvent, useState } from "react";
 import calendar_primary from "@assets/icons/bottom/calendar_primary.svg";
-import { getAmount } from "@pages/AssetManagement/pages/SavingGoal/utils.ts";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 
 export interface ModifyRegularSpendingGoalProps {
@@ -108,10 +108,7 @@ function ModifyRegularSpendingGoal({
         <Button
           fullWidth
           variant="contained"
-          onClick={() => {
-            handleSubmit(form);
-            closeModify();
-          }}
+          onClick={() => handleSubmit(form)}
         >
           설정
         </Button>

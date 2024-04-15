@@ -49,6 +49,11 @@ export interface PersonalGoalForm {
 }
 
 export interface SpendingGoal {
+  offSpendAmount?: SpendAmount;
+  OnSpendAmount?: SpendAmount;
+}
+
+export interface SpendAmount {
   user_id: string;
   date: string;
   start_date: string;
