@@ -20,7 +20,34 @@ const useAssetByCategory = () => {
     setYearMonth(newMonth.format("YYYY-MM"));
   };
 
-  return { yearMonth, assetsByCategory, isError, isPending, pickMonth };
+  const getCategoryList = (category: {
+    name: string;
+    subCategory: string[];
+  }) => {
+    return (
+      assetsByCategory?.category_list.find(
+        (c) => c.category_name === category.name
+      ) ?? {
+        category_name: category.name,
+        category_total: "0",
+        list: category.subCategory.map((n) => {
+          return {
+            name: n,
+            value: "?",
+          };
+        }),
+      }
+    );
+  };
+
+  return {
+    yearMonth,
+    assetsByCategory,
+    isError,
+    isPending,
+    pickMonth,
+    getCategoryList,
+  };
 };
 
 export default useAssetByCategory;

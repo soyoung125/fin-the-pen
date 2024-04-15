@@ -3,15 +3,12 @@ import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import { useState } from "react";
 import drop_up from "@assets/icons/drop_up.svg";
 import drop_down from "@assets/icons/drop_down.svg";
-
-interface subCategory {
-  [key: string]: string;
-}
+import { Category } from "@app/types/asset.ts";
 
 export interface CategoryListItemProps {
   category: string;
   subCategories: string[];
-  categoryDetail: subCategory;
+  categoryDetail: Category[];
   amount: number;
   handleCancel: () => void;
   handleSubmit: () => void;
@@ -52,7 +49,7 @@ function CategoryListItem({
         <img src={open ? drop_up : drop_down} alt="drop" />
       </Stack>
       <Collapse in={open}>
-        {subCategories.map((c) => (
+        {categoryDetail.map((c) => (
           <Stack
             direction="row"
             alignItems="center"
@@ -62,13 +59,13 @@ function CategoryListItem({
             borderBottom="1px solid #F7F7F8"
           >
             <Typography variant="h4">
-              <li>{c}</li>
+              <li>{c.name}</li>
             </Typography>
             <Typography
               variant="h5"
-              color={categoryDetail[c] === "?" ? "#8C919C" : "#131416"}
+              color={c.value === "?" ? "#8C919C" : "#131416"}
             >
-              {categoryDetail[c].toLocaleString()}원
+              {c.value === "?" ? c.value : Number(c.value).toLocaleString()}원
             </Typography>
           </Stack>
         ))}
