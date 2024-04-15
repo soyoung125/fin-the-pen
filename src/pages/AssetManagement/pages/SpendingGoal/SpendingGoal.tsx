@@ -66,11 +66,7 @@ function SpendingGoal() {
         isBackdropClickable: false,
       });
     } else {
-      handleSetSpendingGoal({
-        ...form,
-        regular: "ON" as const,
-        is_batch: true,
-      });
+      changeRegularGoal(form, true);
     }
   };
 

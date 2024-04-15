@@ -108,10 +108,7 @@ function ModifyRegularSpendingGoal({
         <Button
           fullWidth
           variant="contained"
-          onClick={() => {
-            handleSubmit(form);
-            closeModify();
-          }}
+          onClick={() => handleSubmit(form)}
         >
           설정
         </Button>
