@@ -49,8 +49,8 @@ export interface PersonalGoalForm {
 }
 
 export interface SpendingGoal {
-  offSpendAmount: SpendAmount;
-  OnSpendAmount: SpendAmount;
+  offSpendAmount?: SpendAmount;
+  OnSpendAmount?: SpendAmount;
 }
 
 export interface SpendAmount {

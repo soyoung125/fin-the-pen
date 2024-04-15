@@ -475,18 +475,9 @@ export const handlers = [
   }),
 
   rest.get(`${DOMAIN}/asset/spend-goal/view`, async (req, res, ctx) => {
-    const user_id = req.url.searchParams.get("user_id");
-    const date = req.url.searchParams.get("date");
     const goal = getLocalStorage<SpendingGoal>(
       LOCAL_STORAGE_KEY_SPENDING_GOAL,
-      {
-        user_id: user_id ?? "?",
-        date: date ?? "?",
-        start_date: "?",
-        end_date: "?",
-        spend_goal_amount: "0",
-        spend_amount: "0",
-      }
+      {}
     );
 
     return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
@@ -501,15 +492,36 @@ export const handlers = [
       spend_goal_amount,
       is_batch,
     } = await req.json();
-
-    setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+    const goal = getLocalStorage<SpendingGoal>(
+      LOCAL_STORAGE_KEY_SPENDING_GOAL,
+      {}
+    );
+    const result = {
       user_id: user_id,
       date: start_date,
       start_date: start_date,
       end_date: end_date,
       spend_goal_amount: spend_goal_amount,
       spend_amount: "0",
-    });
+    };
+
+    if (regular === "ON") {
+      if (is_batch) {
+        setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+          OnSpendAmount: result,
+        });
+      } else {
+        setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+          ...goal,
+          OnSpendAmount: result,
+        });
+      }
+    } else {
+      setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+        ...goal,
+        offSpendAmount: result,
+      });
+    }
 
     return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
   }),
