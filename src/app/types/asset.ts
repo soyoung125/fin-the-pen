@@ -70,3 +70,32 @@ export interface setSpendingGoal {
   spend_goal_amount: string;
   is_batch: boolean; // 정기로 일괄 적용할지 말지 true(일괄적용 O), false(일괄적용 X)
 }
+
+export interface AssetsByCategory {
+  // 현재달
+  date: string;
+  category_list: AssetByCategory[];
+  // 설정된 모든 카테고리의 합산 값입니다.
+  category_total: string;
+  // 현재달에 설정된 지출 목표액
+  spend_goal_amount: string;
+  // 지출목표액에 대해서 카테고리 지출 목표액이 얼마만큼 차지하는지 (보라색 바의 퍼센트입니다)
+  // Ex) (105000 / 200000) * 100
+  ratio: string;
+}
+
+export interface AssetByCategory {
+  //중분류된 이름
+  category_name: string;
+  // 중분류의 값
+  category_total: string;
+  // 중분류 내부의 소분류들
+  list: Category[];
+}
+
+export interface Category {
+  // 소분류의 이름
+  name: string;
+  // 소분류의 값
+  value: string;
+}
