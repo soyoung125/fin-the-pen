@@ -27,12 +27,26 @@ function CategoryListItem({
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setForm(form.map((c) => (c.name === id ? { name: id, value: value } : c)));
+    const newValue = parseInt(value.replaceAll(",", ""));
+    if (newValue) {
+      setForm(
+        form.map((c) =>
+          c.name === id ? { name: id, value: newValue.toString() } : c
+        )
+      );
+    } else {
+      setForm(form.map((c) => (c.name === id ? { name: id, value: "0" } : c)));
+    }
   };
 
   const handleChangeTotal = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setTotal(parseInt(value));
+    const newValue = parseInt(value.replaceAll(",", ""));
+    if (newValue) {
+      setTotal(newValue);
+    } else {
+      setTotal(0);
+    }
   };
 
   const handleClickCancel = () => {
@@ -92,14 +106,21 @@ function CategoryListItem({
               <li>{c.name}</li>
             </Typography>
             {control.includes(c.name) ? (
-              <input id={c.name} value={c.value} onChange={handleChange} />
+              <input
+                id={c.name}
+                value={
+                  c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
+                }
+                onChange={handleChange}
+              />
             ) : (
               <Typography
                 variant="h5"
                 color={c.value === "?" ? "#8C919C" : "#131416"}
                 onClick={() => setControl(control.concat(c.name))}
               >
-                {c.value === "?" ? c.value : Number(c.value).toLocaleString()}원
+                {c.value === "?" ? c.value : parseInt(c.value).toLocaleString()}
+                원
               </Typography>
             )}
           </Stack>

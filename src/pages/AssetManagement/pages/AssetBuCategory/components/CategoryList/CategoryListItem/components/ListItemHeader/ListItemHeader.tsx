@@ -47,7 +47,7 @@ function ListItemHeader({
       </Typography>
       {modifyTotal ? (
         <input
-          value={total}
+          value={total.toLocaleString()}
           onChange={handleChangeTotal}
           onClick={(e) => e.stopPropagation()}
         />
