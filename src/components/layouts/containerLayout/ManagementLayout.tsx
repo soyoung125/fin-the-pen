@@ -15,7 +15,7 @@ function ManagementLayout() {
     <>
       <EasyAuthentication />
       {isAuthenticated && (
-        <Box mx={3.5} pt={3} sx={{ wordBreak: "keep-all", fontWeight: "bold" }}>
+        <Box sx={{ wordBreak: "keep-all", fontWeight: "bold" }}>
           <Outlet />
         </Box>
       )}

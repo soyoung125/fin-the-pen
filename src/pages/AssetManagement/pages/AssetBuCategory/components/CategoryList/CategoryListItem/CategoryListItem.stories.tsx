@@ -11,13 +11,12 @@ const meta = {
   args: {
     category: "음식",
     subCategories: EXPENDITURE_FOOD_CATEGORY,
-    categoryDetail: {
-      식비: "1000000",
-      카페: "10000",
-      술: "?",
-    },
+    categoryDetail: [
+      { name: "식비", value: "1000000" },
+      { name: "카페", value: "10000" },
+      { name: "술", value: "?" },
+    ],
     amount: 100000000,
-    handleCancel: () => alert("cancel"),
     handleSubmit: () => alert("submit"),
   },
   argTypes: {},

@@ -8,7 +8,14 @@ export interface SelectMonthProps {
 
 function SelectMonth({ date, handleClick }: SelectMonthProps) {
   return (
-    <Stack direction="row" spacing={1} px={2} onClick={handleClick}>
+    <Stack
+      direction="row"
+      spacing={1}
+      px={2}
+      onClick={handleClick}
+      height={48}
+      alignItems="center"
+    >
       <img src={calendar_outlined} alt={"calendar outlined"} />
       <Typography variant="h2">{date}</Typography>
     </Stack>

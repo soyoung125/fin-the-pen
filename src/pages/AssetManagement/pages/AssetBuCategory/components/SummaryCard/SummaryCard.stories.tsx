@@ -9,8 +9,8 @@ const meta = {
   tags: ["autodocs"],
   args: {
     used: 700000,
-    useable: 300000,
     goal: 1000000,
+    ratio: 70,
     handleSetting: () => alert("click"),
   },
   argTypes: {},

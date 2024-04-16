@@ -1,15 +1,15 @@
 export const getColors = (value: string) => {
   switch (value) {
-    case "used":
+    case "total":
       return ["#735BF2", "#F7F7F8"];
-    case "useable":
+    case "left":
       return ["#F7F7F8", "#735BF2"];
     default:
       return ["#735BF2", "#F7F7F8"];
   }
 };
 
-export const getData = (used: number, useable: number, goal: number) => {
-  if (goal <= used) return [100, 0];
-  return [(used / goal) * 100, (useable / goal) * 100];
+export const getData = (ratio: number) => {
+  if (ratio > 100) return [100, 0];
+  return [ratio, 100 - ratio];
 };
