@@ -1,8 +1,5 @@
-import { Avatar, Stack, Typography, Collapse, Button } from "@mui/material";
-import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
+import { Stack, Typography, Collapse } from "@mui/material";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import drop_up from "@assets/icons/drop_up.svg";
-import drop_down from "@assets/icons/drop_down.svg";
 import { Category } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
 import ListItemHeader from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemHeader";
@@ -12,7 +9,6 @@ export interface CategoryListItemProps {
   subCategories: string[];
   categoryDetail: Category[];
   amount: number;
-  handleCancel: () => void;
   handleSubmit: () => void;
 }
 
@@ -21,7 +17,6 @@ function CategoryListItem({
   subCategories,
   categoryDetail,
   amount,
-  handleCancel,
   handleSubmit,
 }: CategoryListItemProps) {
   const [open, setOpen] = useState(false);

@@ -34,7 +34,6 @@ function AssetByCategory() {
             subCategories={category.subCategory}
             categoryDetail={categoryList.list}
             amount={Number(categoryList.category_total)}
-            handleCancel={() => alert("cancel")}
             handleSubmit={() => alert("submit")}
           />
         );
