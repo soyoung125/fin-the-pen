@@ -10,5 +10,6 @@ export const getColors = (value: string) => {
 };
 
 export const getData = (ratio: number) => {
+  if (ratio > 100) return [100, 0];
   return [ratio, 100 - ratio];
 };
