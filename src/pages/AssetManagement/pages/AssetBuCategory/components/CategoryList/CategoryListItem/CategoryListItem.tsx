@@ -1,6 +1,6 @@
 import { Stack, Typography, Collapse } from "@mui/material";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Category } from "@app/types/asset.ts";
+import { Category, setAssetByCategory } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
 import ListItemHeader from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemHeader";
 
@@ -9,7 +9,7 @@ export interface CategoryListItemProps {
   subCategories: string[];
   categoryDetail: Category[];
   amount: number;
-  handleSubmit: () => void;
+  handleSubmit: (form: Omit<setAssetByCategory, "user_id" | "date">) => void;
 }
 
 function CategoryListItem({
@@ -46,6 +46,23 @@ function CategoryListItem({
     e.stopPropagation();
     setModifyTotal(true);
     setOpen(true);
+  };
+
+  const handleClickSubmit = () => {
+    const smallMap = form.reduce(
+      (previousValue: { [key: string]: string }, currentValue) => {
+        previousValue[currentValue.name] = currentValue.value;
+        return previousValue;
+      },
+      {}
+    );
+    handleSubmit({
+      medium_name: category,
+      medium_value: total.toString(),
+      small_map: smallMap,
+    });
+    setControl([]);
+    setModifyTotal(false);
   };
 
   return (
@@ -91,7 +108,7 @@ function CategoryListItem({
         {(modifyTotal || control.length !== 0) && (
           <ListItemAction
             handleCancel={handleClickCancel}
-            handleSubmit={handleSubmit}
+            handleSubmit={handleClickSubmit}
           />
         )}
       </Collapse>

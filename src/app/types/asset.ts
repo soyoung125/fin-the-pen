@@ -99,3 +99,13 @@ export interface Category {
   // 소분류의 값
   value: string;
 }
+
+export interface setAssetByCategory {
+  user_id?: string;
+  date: string;
+  medium_name: string;
+  medium_value: string;
+  small_map: {
+    [key: string]: string;
+  };
+}
