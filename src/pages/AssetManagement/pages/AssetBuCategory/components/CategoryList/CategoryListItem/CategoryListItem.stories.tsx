@@ -17,7 +17,6 @@ const meta = {
       { name: "술", value: "?" },
     ],
     amount: 100000000,
-    handleCancel: () => alert("cancel"),
     handleSubmit: () => alert("submit"),
   },
   argTypes: {},
