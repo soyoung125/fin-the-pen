@@ -7,7 +7,7 @@ export interface ListItemActionProps {
 
 function ListItemAction({ handleCancel, handleSubmit }: ListItemActionProps) {
   return (
-    <Stack direction="row" spacing={1} px={3} pt={1}>
+    <Stack direction="row" spacing={1} px={3} py={1}>
       <Button
         variant="contained"
         color="secondary"
