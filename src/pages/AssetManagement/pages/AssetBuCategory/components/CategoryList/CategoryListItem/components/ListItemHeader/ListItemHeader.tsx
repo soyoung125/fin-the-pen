@@ -1,7 +1,7 @@
 import { Avatar, Stack, Typography } from "@mui/material";
 import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
-import drop_up from "@assets/icons/drop_up.svg";
-import drop_down from "@assets/icons/drop_down.svg";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import {
   UnderlinedInput,
@@ -64,7 +64,11 @@ function ListItemHeader({
           {total.toLocaleString()}원
         </Typography>
       )}
-      <img src={open ? drop_up : drop_down} alt="drop" />
+      {open ? (
+        <ArrowDropDownIcon color="primary" fontSize="large" />
+      ) : (
+        <ArrowDropUpIcon color="primary" fontSize="large" />
+      )}
     </Stack>
   );
 }
