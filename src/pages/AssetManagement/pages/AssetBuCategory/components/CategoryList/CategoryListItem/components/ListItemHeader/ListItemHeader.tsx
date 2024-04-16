@@ -46,7 +46,11 @@ function ListItemHeader({
         {category}
       </Typography>
       {modifyTotal ? (
-        <input value={total} onChange={handleChangeTotal} />
+        <input
+          value={total}
+          onChange={handleChangeTotal}
+          onClick={(e) => e.stopPropagation()}
+        />
       ) : (
         <Typography variant="h5" onClick={handleClickTotal}>
           {total.toLocaleString()}원
