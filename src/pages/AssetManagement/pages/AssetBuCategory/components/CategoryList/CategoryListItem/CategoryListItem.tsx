@@ -1,8 +1,12 @@
 import { Stack, Typography, Collapse } from "@mui/material";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Category, setAssetByCategory } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
 import ListItemHeader from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemHeader";
+import {
+  UnderlinedInput,
+  UnderlinedInputBox,
+} from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 
 export interface CategoryListItemProps {
   category: string;
@@ -24,6 +28,12 @@ function CategoryListItem({
   const [total, setTotal] = useState(amount);
   const [form, setForm] = useState(categoryDetail);
   const [control, setControl] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!open) {
+      handleClickCancel();
+    }
+  }, [open]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -106,13 +116,16 @@ function CategoryListItem({
               <li>{c.name}</li>
             </Typography>
             {control.includes(c.name) ? (
-              <input
-                id={c.name}
-                value={
-                  c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
-                }
-                onChange={handleChange}
-              />
+              <UnderlinedInputBox>
+                <UnderlinedInput
+                  id={c.name}
+                  value={
+                    c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
+                  }
+                  onChange={handleChange}
+                />
+                <span>원</span>
+              </UnderlinedInputBox>
             ) : (
               <Typography
                 variant="h5"

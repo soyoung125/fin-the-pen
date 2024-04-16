@@ -3,6 +3,10 @@ import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import drop_up from "@assets/icons/drop_up.svg";
 import drop_down from "@assets/icons/drop_down.svg";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import {
+  UnderlinedInput,
+  UnderlinedInputBox,
+} from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 
 export interface ListItemHeaderProps {
   category: string;
@@ -46,11 +50,15 @@ function ListItemHeader({
         {category}
       </Typography>
       {modifyTotal ? (
-        <input
-          value={total.toLocaleString()}
-          onChange={handleChangeTotal}
-          onClick={(e) => e.stopPropagation()}
-        />
+        <UnderlinedInputBox>
+          <UnderlinedInput
+            value={total.toLocaleString()}
+            onChange={handleChangeTotal}
+            onClick={(e) => e.stopPropagation()}
+            $color={open ? "#EAE1FD" : "#fff"}
+          />
+          <span>원</span>
+        </UnderlinedInputBox>
       ) : (
         <Typography variant="h5" onClick={handleClickTotal}>
           {total.toLocaleString()}원
