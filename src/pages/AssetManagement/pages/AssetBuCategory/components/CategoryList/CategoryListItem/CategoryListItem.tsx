@@ -7,6 +7,7 @@ import {
   UnderlinedInput,
   UnderlinedInputBox,
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 export interface CategoryListItemProps {
   category: string;
@@ -28,6 +29,8 @@ function CategoryListItem({
   const [total, setTotal] = useState(amount);
   const [form, setForm] = useState(categoryDetail);
   const [control, setControl] = useState<string[]>([]);
+
+  const { openConfirm } = useDialog();
 
   useEffect(() => {
     if (!open) {
@@ -72,7 +75,19 @@ function CategoryListItem({
     setOpen(true);
   };
 
-  const handleClickSubmit = () => {
+  const handleClickSubmit = async () => {
+    const answer = await openConfirm({
+      title: "알림",
+      content: "현재 정보로 설정하시겠습니까?",
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (answer) {
+      saveResult();
+    }
+  };
+
+  const saveResult = () => {
     const smallMap = form.reduce(
       (previousValue: { [key: string]: string }, currentValue) => {
         previousValue[currentValue.name] = currentValue.value;
