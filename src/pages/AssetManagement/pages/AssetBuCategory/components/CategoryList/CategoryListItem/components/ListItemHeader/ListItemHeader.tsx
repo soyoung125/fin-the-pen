@@ -14,6 +14,7 @@ export interface ListItemHeaderProps {
   open: boolean;
   modifyTotal: boolean;
   total: number;
+  smallSummary: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
   handleChangeTotal: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClickTotal: (e: MouseEvent<HTMLSpanElement>) => void;
@@ -26,6 +27,7 @@ function ListItemHeader({
   setOpen,
   total,
   open,
+  smallSummary,
   handleChangeTotal,
   handleClickTotal,
 }: ListItemHeaderProps) {
@@ -56,6 +58,7 @@ function ListItemHeader({
             onChange={handleChangeTotal}
             onClick={(e) => e.stopPropagation()}
             $color={open ? "#EAE1FD" : "#fff"}
+            $isShake={smallSummary > total}
             autoFocus
           />
           <span>원</span>

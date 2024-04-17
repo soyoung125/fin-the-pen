@@ -8,6 +8,7 @@ import {
   UnderlinedInputBox,
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
 
 export interface CategoryListItemProps {
   category: string;
@@ -31,6 +32,10 @@ function CategoryListItem({
 
   const { openConfirm } = useDialog();
 
+  const smallSummary = form.reduce((result, curr) => {
+    return result + getAmount(curr.value);
+  }, 0);
+
   useEffect(() => {
     if (!open) {
       handleClickCancel();
@@ -46,6 +51,16 @@ function CategoryListItem({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const newValue = parseInt(value.replaceAll(",", ""));
+    const summary = form.reduce((result, curr) => {
+      if (curr.name == id) {
+        return result + newValue;
+      }
+      return result + getAmount(curr.value);
+    }, 0);
+    if (summary > total) {
+      setTotal(summary);
+    }
+
     if (newValue) {
       setForm(
         form.map((c) =>
@@ -115,6 +130,7 @@ function CategoryListItem({
         open={open}
         total={total}
         modifyTotal={control.includes(category)}
+        smallSummary={smallSummary}
         setOpen={setOpen}
         handleClickTotal={handleClickTotal}
         handleChangeTotal={handleChangeTotal}
