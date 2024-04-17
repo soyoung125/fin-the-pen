@@ -12,6 +12,7 @@ function AssetByCategory() {
   const {
     yearMonth,
     assetsByCategory,
+    isPending,
     pickMonth,
     getCategoryList,
     setAssetByCategory,
@@ -20,6 +21,10 @@ function AssetByCategory() {
   const handleSubmit = (form: Omit<setAssetByCategory, "user_id" | "date">) => {
     setAssetByCategory({ ...form, date: yearMonth });
   };
+
+  if (isPending) {
+    return <>loading...</>;
+  }
 
   return (
     <>
