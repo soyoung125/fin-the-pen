@@ -16,6 +16,7 @@ function AssetByCategory() {
     pickMonth,
     getCategoryList,
     setAssetByCategory,
+    deleteAssetByCategory,
   } = useAssetByCategory();
 
   const handleSubmit = (form: Omit<setAssetByCategory, "user_id" | "date">) => {
@@ -40,7 +41,7 @@ function AssetByCategory() {
       />
       <ThickDivider />
 
-      <CategoryListHeader handleReset={() => alert("reset")} />
+      <CategoryListHeader handleReset={deleteAssetByCategory} />
       {EXPENDITURE_CATEGORY.map((category) => {
         const categoryList = getCategoryList(category);
         return (

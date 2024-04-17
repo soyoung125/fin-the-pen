@@ -25,7 +25,6 @@ function CategoryListItem({
   handleSubmit,
 }: CategoryListItemProps) {
   const [open, setOpen] = useState(false);
-  const [modifyTotal, setModifyTotal] = useState(false);
   const [total, setTotal] = useState(amount);
   const [form, setForm] = useState(categoryDetail);
   const [control, setControl] = useState<string[]>([]);
@@ -37,6 +36,12 @@ function CategoryListItem({
       handleClickCancel();
     }
   }, [open]);
+
+  useEffect(() => {
+    setTotal(amount);
+    setForm(categoryDetail);
+    setControl([]);
+  }, [amount]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -66,12 +71,11 @@ function CategoryListItem({
     setForm(categoryDetail);
     setControl([]);
     setTotal(amount);
-    setModifyTotal(false);
   };
 
   const handleClickTotal = (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
-    setModifyTotal(true);
+    setControl(control.concat(category));
     setOpen(true);
   };
 
@@ -101,7 +105,6 @@ function CategoryListItem({
       small_map: smallMap,
     });
     setControl([]);
-    setModifyTotal(false);
   };
 
   return (
@@ -111,7 +114,7 @@ function CategoryListItem({
         mainSubCategory={subCategories[0]}
         open={open}
         total={total}
-        modifyTotal={modifyTotal}
+        modifyTotal={control.includes(category)}
         setOpen={setOpen}
         handleClickTotal={handleClickTotal}
         handleChangeTotal={handleChangeTotal}
@@ -138,6 +141,7 @@ function CategoryListItem({
                     c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
                   }
                   onChange={handleChange}
+                  autoFocus
                 />
                 <span>원</span>
               </UnderlinedInputBox>
@@ -154,7 +158,7 @@ function CategoryListItem({
           </Stack>
         ))}
 
-        {(modifyTotal || control.length !== 0) && (
+        {control.length !== 0 && (
           <ListItemAction
             handleCancel={handleClickCancel}
             handleSubmit={handleClickSubmit}

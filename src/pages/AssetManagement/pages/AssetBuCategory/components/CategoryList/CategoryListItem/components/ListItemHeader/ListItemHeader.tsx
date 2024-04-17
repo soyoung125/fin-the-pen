@@ -56,6 +56,7 @@ function ListItemHeader({
             onChange={handleChangeTotal}
             onClick={(e) => e.stopPropagation()}
             $color={open ? "#EAE1FD" : "#fff"}
+            autoFocus
           />
           <span>원</span>
         </UnderlinedInputBox>
