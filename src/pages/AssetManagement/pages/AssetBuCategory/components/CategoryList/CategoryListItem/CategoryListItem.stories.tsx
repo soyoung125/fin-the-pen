@@ -26,7 +26,6 @@ const meta = {
       ],
     },
     control: "",
-    totalAmount: 100000000,
     handleSubmit: () => alert("submit"),
   },
   argTypes: {
@@ -49,6 +48,10 @@ const meta = {
     },
     handleSubmit: {
       description: "데이터 수정을 위한 함수입니다.",
+    },
+    compareTotal: {
+      description:
+        "카테고리별 자산 합계를 구해 지출 목표와 비교하는 메서드입니다.",
     },
   },
 } satisfies Meta<typeof CategoryListItem>;

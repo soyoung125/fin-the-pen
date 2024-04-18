@@ -9,6 +9,8 @@ import CategoryListItem from "@pages/AssetManagement/pages/AssetBuCategory/compo
 import { setAssetByCategory } from "@app/types/asset.ts";
 import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
+import { IconButton, Typography } from "@mui/material";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 function AssetByCategory() {
   const {
@@ -20,6 +22,8 @@ function AssetByCategory() {
     setAssetByCategory,
     deleteAssetByCategory,
   } = useAssetByCategory();
+  const { openToast, closeToast } = useToast();
+
   const [control, setControl] = useState("");
 
   if (isPending) {
@@ -30,7 +34,29 @@ function AssetByCategory() {
     setAssetByCategory({ ...form, date: yearMonth });
   };
 
-  console.log(assetsByCategory);
+  const compareTotal = (prev: number, curr: number) => {
+    const totalAmount = Number(assetsByCategory?.spend_goal_amount);
+    const totalSummary =
+      assetsByCategory?.category_list.reduce((result, curr) => {
+        return result + Number(curr.category_total);
+      }, 0) ?? 0;
+    console.log(totalSummary - prev + curr, totalAmount);
+
+    if (totalSummary - prev + curr > totalAmount) {
+      openToast({
+        hideDuration: 5000,
+        toastElement: (
+          <Typography flexGrow={1}>지출 목표 금액을 초과했습니다.</Typography>
+        ),
+        color: "primary.main",
+        actionsElement: (
+          <IconButton aria-label="delete" size="small" onClick={closeToast}>
+            <CloseRoundedIcon sx={{ color: "#FFF" }} />
+          </IconButton>
+        ),
+      });
+    }
+  };
 
   return (
     <>
@@ -54,11 +80,11 @@ function AssetByCategory() {
             key={category.name}
             category={category}
             categoryList={categoryList}
-            totalAmount={Number(assetsByCategory?.category_total)}
             control={control}
             setControl={() => setControl(category.name)}
             closeControl={() => setControl("")}
             handleSubmit={handleSubmit}
+            compareTotal={compareTotal}
           />
         );
       })}
