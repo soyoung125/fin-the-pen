@@ -1,4 +1,4 @@
-import { Stack, Typography, Collapse, Button, IconButton } from "@mui/material";
+import { Stack, Typography, Collapse } from "@mui/material";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { AssetByCategory, setAssetByCategory } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
@@ -9,34 +9,31 @@ import {
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
-import { useToast } from "@hooks/toast/useToast.tsx";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export interface CategoryListItemProps {
   category: { name: string; subCategory: string[] };
   categoryList: AssetByCategory;
-  totalAmount: number;
   control: string;
   setControl: () => void;
   closeControl: () => void;
   handleSubmit: (form: Omit<setAssetByCategory, "user_id" | "date">) => void;
+  compareTotal: (prev: number, curr: number) => void;
 }
 
 function CategoryListItem({
   category,
   categoryList,
-  totalAmount,
   control,
   setControl,
   closeControl,
   handleSubmit,
+  compareTotal,
 }: CategoryListItemProps) {
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(Number(categoryList.category_total));
   const [form, setForm] = useState(categoryList.list);
 
   const { openConfirm } = useDialog();
-  const { openToast, closeToast } = useToast();
 
   const smallSummary = form.reduce((result, curr) => {
     return result + getAmount(curr.value);
@@ -50,23 +47,10 @@ function CategoryListItem({
 
   useEffect(() => {
     reset();
-  }, [totalAmount]);
+  }, [categoryList.category_total]);
 
   useEffect(() => {
-    if (total > totalAmount) {
-      openToast({
-        hideDuration: 5000,
-        toastElement: (
-          <Typography flexGrow={1}>지출 목표 금액을 초과했습니다.</Typography>
-        ),
-        color: "primary.main",
-        actionsElement: (
-          <IconButton aria-label="delete" size="small" onClick={closeToast}>
-            <CloseRoundedIcon sx={{ color: "#FFF" }} />
-          </IconButton>
-        ),
-      });
-    }
+    compareTotal(Number(categoryList.category_total), total);
   }, [total]);
 
   const reset = () => {
