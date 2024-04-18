@@ -7,19 +7,30 @@ import CategoryListHeader from "@pages/AssetManagement/pages/AssetBuCategory/com
 import { EXPENDITURE_CATEGORY } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/constants.ts";
 import CategoryListItem from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem";
 import { setAssetByCategory } from "@app/types/asset.ts";
+import { useState } from "react";
+import { useToast } from "@hooks/toast/useToast.tsx";
 
 function AssetByCategory() {
   const {
     yearMonth,
     assetsByCategory,
+    isPending,
     pickMonth,
     getCategoryList,
     setAssetByCategory,
+    deleteAssetByCategory,
   } = useAssetByCategory();
+  const [control, setControl] = useState("");
+
+  if (isPending) {
+    return <>loading...</>;
+  }
 
   const handleSubmit = (form: Omit<setAssetByCategory, "user_id" | "date">) => {
     setAssetByCategory({ ...form, date: yearMonth });
   };
+
+  console.log(assetsByCategory);
 
   return (
     <>
@@ -35,15 +46,18 @@ function AssetByCategory() {
       />
       <ThickDivider />
 
-      <CategoryListHeader handleReset={() => alert("reset")} />
+      <CategoryListHeader handleReset={deleteAssetByCategory} />
       {EXPENDITURE_CATEGORY.map((category) => {
         const categoryList = getCategoryList(category);
         return (
           <CategoryListItem
-            category={categoryList.category_name}
-            subCategories={category.subCategory}
-            categoryDetail={categoryList.list}
-            amount={Number(categoryList.category_total)}
+            key={category.name}
+            category={category}
+            categoryList={categoryList}
+            totalAmount={Number(assetsByCategory?.category_total)}
+            control={control}
+            setControl={() => setControl(category.name)}
+            closeControl={() => setControl("")}
             handleSubmit={handleSubmit}
           />
         );

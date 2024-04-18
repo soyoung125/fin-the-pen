@@ -1,6 +1,6 @@
-import { Stack, Typography, Collapse } from "@mui/material";
+import { Stack, Typography, Collapse, Button, IconButton } from "@mui/material";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { Category, setAssetByCategory } from "@app/types/asset.ts";
+import { AssetByCategory, setAssetByCategory } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
 import ListItemHeader from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemHeader";
 import {
@@ -8,29 +8,39 @@ import {
   UnderlinedInputBox,
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
+import { getAmount } from "@pages/AssetManagement/utils.ts";
+import { useToast } from "@hooks/toast/useToast.tsx";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export interface CategoryListItemProps {
-  category: string;
-  subCategories: string[];
-  categoryDetail: Category[];
-  amount: number;
+  category: { name: string; subCategory: string[] };
+  categoryList: AssetByCategory;
+  totalAmount: number;
+  control: string;
+  setControl: () => void;
+  closeControl: () => void;
   handleSubmit: (form: Omit<setAssetByCategory, "user_id" | "date">) => void;
 }
 
 function CategoryListItem({
   category,
-  subCategories,
-  categoryDetail,
-  amount,
+  categoryList,
+  totalAmount,
+  control,
+  setControl,
+  closeControl,
   handleSubmit,
 }: CategoryListItemProps) {
   const [open, setOpen] = useState(false);
-  const [modifyTotal, setModifyTotal] = useState(false);
-  const [total, setTotal] = useState(amount);
-  const [form, setForm] = useState(categoryDetail);
-  const [control, setControl] = useState<string[]>([]);
+  const [total, setTotal] = useState(Number(categoryList.category_total));
+  const [form, setForm] = useState(categoryList.list);
 
   const { openConfirm } = useDialog();
+  const { openToast, closeToast } = useToast();
+
+  const smallSummary = form.reduce((result, curr) => {
+    return result + getAmount(curr.value);
+  }, 0);
 
   useEffect(() => {
     if (!open) {
@@ -38,9 +48,46 @@ function CategoryListItem({
     }
   }, [open]);
 
+  useEffect(() => {
+    reset();
+  }, [totalAmount]);
+
+  useEffect(() => {
+    if (total > totalAmount) {
+      openToast({
+        hideDuration: 5000,
+        toastElement: (
+          <Typography flexGrow={1}>지출 목표 금액을 초과했습니다.</Typography>
+        ),
+        color: "primary.main",
+        actionsElement: (
+          <IconButton aria-label="delete" size="small" onClick={closeToast}>
+            <CloseRoundedIcon sx={{ color: "#FFF" }} />
+          </IconButton>
+        ),
+      });
+    }
+  }, [total]);
+
+  const reset = () => {
+    setTotal(Number(categoryList.category_total));
+    setForm(categoryList.list);
+    closeControl();
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const newValue = parseInt(value.replaceAll(",", ""));
+    const summary = form.reduce((result, curr) => {
+      if (curr.name == id) {
+        return result + newValue;
+      }
+      return result + getAmount(curr.value);
+    }, 0);
+    if (summary > total) {
+      setTotal(summary);
+    }
+
     if (newValue) {
       setForm(
         form.map((c) =>
@@ -54,24 +101,17 @@ function CategoryListItem({
 
   const handleChangeTotal = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const newValue = parseInt(value.replaceAll(",", ""));
-    if (newValue) {
-      setTotal(newValue);
-    } else {
-      setTotal(0);
-    }
+    const newValue = parseInt(value.replaceAll(",", "")) ?? 0;
+    setTotal(newValue);
   };
 
   const handleClickCancel = () => {
-    setForm(categoryDetail);
-    setControl([]);
-    setTotal(amount);
-    setModifyTotal(false);
+    reset();
   };
 
   const handleClickTotal = (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
-    setModifyTotal(true);
+    setControl();
     setOpen(true);
   };
 
@@ -96,22 +136,21 @@ function CategoryListItem({
       {}
     );
     handleSubmit({
-      medium_name: category,
+      medium_name: category.name,
       medium_value: total.toString(),
       small_map: smallMap,
     });
-    setControl([]);
-    setModifyTotal(false);
+    closeControl();
   };
 
   return (
     <>
       <ListItemHeader
         category={category}
-        mainSubCategory={subCategories[0]}
         open={open}
         total={total}
-        modifyTotal={modifyTotal}
+        modifyTotal={control === category.name}
+        smallSummary={smallSummary}
         setOpen={setOpen}
         handleClickTotal={handleClickTotal}
         handleChangeTotal={handleChangeTotal}
@@ -120,6 +159,7 @@ function CategoryListItem({
       <Collapse in={open}>
         {form.map((c) => (
           <Stack
+            key={c.name}
             direction="row"
             alignItems="center"
             justifyContent="space-between"
@@ -130,7 +170,7 @@ function CategoryListItem({
             <Typography variant="h4">
               <li>{c.name}</li>
             </Typography>
-            {control.includes(c.name) ? (
+            {control === category.name ? (
               <UnderlinedInputBox>
                 <UnderlinedInput
                   id={c.name}
@@ -138,6 +178,7 @@ function CategoryListItem({
                     c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
                   }
                   onChange={handleChange}
+                  autoFocus
                 />
                 <span>원</span>
               </UnderlinedInputBox>
@@ -145,7 +186,7 @@ function CategoryListItem({
               <Typography
                 variant="h5"
                 color={c.value === "?" ? "#8C919C" : "#131416"}
-                onClick={() => setControl(control.concat(c.name))}
+                onClick={setControl}
               >
                 {c.value === "?" ? c.value : parseInt(c.value).toLocaleString()}
                 원
@@ -154,7 +195,7 @@ function CategoryListItem({
           </Stack>
         ))}
 
-        {(modifyTotal || control.length !== 0) && (
+        {control === category.name && (
           <ListItemAction
             handleCancel={handleClickCancel}
             handleSubmit={handleClickSubmit}

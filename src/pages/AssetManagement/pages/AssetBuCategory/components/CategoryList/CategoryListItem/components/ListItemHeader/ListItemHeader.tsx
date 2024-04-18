@@ -9,23 +9,23 @@ import {
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
 
 export interface ListItemHeaderProps {
-  category: string;
-  mainSubCategory: string;
+  category: { name: string; subCategory: string[] };
   open: boolean;
   modifyTotal: boolean;
   total: number;
+  smallSummary: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
   handleChangeTotal: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClickTotal: (e: MouseEvent<HTMLSpanElement>) => void;
 }
 
 function ListItemHeader({
-  mainSubCategory,
   category,
   modifyTotal,
   setOpen,
   total,
   open,
+  smallSummary,
   handleChangeTotal,
   handleClickTotal,
 }: ListItemHeaderProps) {
@@ -41,13 +41,13 @@ function ListItemHeader({
     >
       <Avatar
         alt="category icon"
-        src={CATEGORY_ICONS[mainSubCategory]}
+        src={CATEGORY_ICONS[category.subCategory[0]]}
         sx={{ width: 42, height: 42 }}
       >
-        {category}
+        {category.name}
       </Avatar>
       <Typography variant="h4" sx={{ flexGrow: 1 }}>
-        {category}
+        {category.name}
       </Typography>
       {modifyTotal ? (
         <UnderlinedInputBox>
@@ -56,6 +56,8 @@ function ListItemHeader({
             onChange={handleChangeTotal}
             onClick={(e) => e.stopPropagation()}
             $color={open ? "#EAE1FD" : "#fff"}
+            $isShake={smallSummary > total}
+            autoFocus
           />
           <span>원</span>
         </UnderlinedInputBox>

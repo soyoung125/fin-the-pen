@@ -38,6 +38,7 @@ function BarChart({
           (v, idx) =>
             data[idx] !== 0 && (
               <BarLabelComponent
+                key={v}
                 $width={data[idx]}
                 onClick={() => setSelected(v)}
               >
@@ -54,6 +55,7 @@ function BarChart({
           (d, idx) =>
             d !== 0 && (
               <BarComponent
+                key={idx}
                 $color={colors[idx]}
                 $width={d}
                 onClick={() => setSelected(values[idx])}
