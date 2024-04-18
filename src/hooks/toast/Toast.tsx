@@ -21,17 +21,16 @@ function Toast({
       open={true}
       autoHideDuration={hideDuration}
       onClose={onClickClose}
-      sx={{ width: "100dvw" }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      sx={{ bottom: "90px" }}
     >
       <Stack
-        direction="row"
         justifyContent="space-between"
         alignItems="center"
         bgcolor={color}
         color="#FFF"
         px={1}
         borderRadius={1}
-        sx={{ mx: "auto", width: "100%", maxWidth: "500px" }}
       >
         {children}
         {action}
