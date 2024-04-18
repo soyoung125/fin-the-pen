@@ -1,6 +1,7 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
 import {
+  LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
   LOCAL_STORAGE_KEY_GOAL,
   LOCAL_STORAGE_KEY_SAVING_GOAL,
   LOCAL_STORAGE_KEY_SCHEDULES,
@@ -12,7 +13,13 @@ import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import { Schedule } from "@app/types/schedule.ts";
 import moment from "moment";
-import { SavingGoal, SpendingGoal } from "@app/types/asset.ts";
+import {
+  AssetByCategory,
+  AssetsByCategory,
+  SavingGoal,
+  SpendingGoal,
+} from "@app/types/asset.ts";
+import { INIT_ASSET_BY_CATEGORY } from "@app/tanstack-query/assetManagement/AssetByCategory/utils.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -525,4 +532,92 @@ export const handlers = [
 
     return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
   }),
+
+  rest.get(`${DOMAIN}/asset/category-amount`, async (req, res, ctx) => {
+    const assetsByCategory = getLocalStorage<AssetsByCategory>(
+      LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
+      INIT_ASSET_BY_CATEGORY
+    );
+    const goal = getLocalStorage<SpendingGoal>(
+      LOCAL_STORAGE_KEY_SPENDING_GOAL,
+      {}
+    );
+    const goalAmount = goal.OnSpendAmount
+      ? goal.OnSpendAmount
+      : goal.offSpendAmount;
+
+    return res(
+      ctx.delay(1000),
+      ctx.status(200),
+      ctx.json({
+        ...assetsByCategory,
+        spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
+      })
+    );
+  }),
+
+  rest.post(`${DOMAIN}/asset/category-amount/set`, async (req, res, ctx) => {
+    const { date, medium_name, medium_value, small_map } = await req.json();
+    const assetsByCategory = getLocalStorage<AssetsByCategory>(
+      LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
+      INIT_ASSET_BY_CATEGORY
+    );
+    const goal = getLocalStorage<SpendingGoal>(
+      LOCAL_STORAGE_KEY_SPENDING_GOAL,
+      {}
+    );
+    const goalAmount = goal.OnSpendAmount
+      ? goal.OnSpendAmount
+      : goal.offSpendAmount;
+    const assetByCategory = {
+      category_name: medium_name,
+      category_total: medium_value,
+      list: Object.keys(small_map).map((k) => {
+        return { name: k, value: small_map[k] };
+      }),
+    };
+
+    const result = {
+      date: date,
+      spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
+      ratio: "0",
+    };
+
+    let newList: AssetByCategory[] = [];
+
+    if (
+      assetsByCategory.category_list.find(
+        (l) => l.category_name === medium_name
+      )
+    ) {
+      newList = assetsByCategory.category_list.map((l) =>
+        l.category_name === medium_name ? assetByCategory : l
+      );
+    } else {
+      newList = assetsByCategory.category_list.concat(assetByCategory);
+    }
+    const total = newList.reduce((result, curr) => {
+      return result + Number(curr.category_total);
+    }, 0);
+
+    setLocalStorage(LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY, {
+      ...result,
+      category_list: newList,
+      category_total: total.toString(),
+      ratio: ((total / Number(result.spend_goal_amount)) * 100).toString(),
+    });
+
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+  }),
+
+  rest.delete(
+    `${DOMAIN}/asset/category-amount/delete`,
+    async (req, res, ctx) => {
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
+        INIT_ASSET_BY_CATEGORY
+      );
+      return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+    }
+  ),
 ];

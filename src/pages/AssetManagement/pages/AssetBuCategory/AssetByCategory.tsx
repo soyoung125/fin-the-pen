@@ -30,6 +30,8 @@ function AssetByCategory() {
     setAssetByCategory({ ...form, date: yearMonth });
   };
 
+  console.log(assetsByCategory);
+
   return (
     <>
       <SelectMonth

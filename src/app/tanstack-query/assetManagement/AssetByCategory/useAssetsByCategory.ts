@@ -4,6 +4,7 @@ import { DOMAIN } from "@api/url.ts";
 import { AssetsByCategory } from "@app/types/asset.ts";
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEY_ASSET_BY_CATEGORY } from "@constants/queryKeys.ts";
+import { INIT_ASSET_BY_CATEGORY } from "@app/tanstack-query/assetManagement/AssetByCategory/utils.ts";
 
 const fetchAssetByCategory = async (user_id: string, date: string) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
@@ -18,6 +19,9 @@ const fetchAssetByCategory = async (user_id: string, date: string) => {
       },
     }
   ).then<AssetsByCategory>(async (res) => {
+    if (!res.ok) {
+      return INIT_ASSET_BY_CATEGORY;
+    }
     return res.json();
   });
 };
