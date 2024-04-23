@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const AmountComponent = styled.div<{
-  $isPredict: boolean;
+  $isPredict?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@ export const AmountComponent = styled.div<{
 `;
 
 export const AmountType = styled.div<{
-  $isPredict: boolean;
+  $isPredict?: boolean;
   $isSpend: boolean;
 }>`
   padding-right: 2px;

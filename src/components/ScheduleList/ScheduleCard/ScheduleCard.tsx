@@ -1,26 +1,33 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import { AmountComponent, AmountType } from "./ScheduleCard.styles.ts";
-import moment from "moment";
-import { Schedule } from "@app/types/schedule.ts";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 
 export interface ConsumptionCardProps {
-  schedule: Schedule;
+  category: string;
+  title: string;
+  eventName: string;
+  priceType: string;
+  amount: number;
   isRepeat: boolean;
   onClick: () => void;
+  isPredict?: boolean;
   icon?: boolean;
 }
 
 function ScheduleCard({
-  schedule,
+  title,
+  eventName,
+  priceType,
+  isPredict,
+  amount,
+  category,
   isRepeat,
   onClick,
   icon,
 }: ConsumptionCardProps) {
-  const isPredict = moment().isBefore(schedule.end_date, "day");
-  const isSpend = schedule.price_type === "-";
+  const isSpend = priceType === "-";
 
   return (
     <Stack
@@ -35,10 +42,10 @@ function ScheduleCard({
       {icon && (
         <Avatar
           alt="category icon"
-          src={CATEGORY_ICONS[schedule.category]}
+          src={CATEGORY_ICONS[category]}
           sx={{ width: 36, height: 36 }}
         >
-          category
+          {category}
         </Avatar>
       )}
       <Stack
@@ -47,20 +54,20 @@ function ScheduleCard({
       >
         <Stack direction="row" alignItems="center" spacing={0.5}>
           <Typography fontSize="13px" fontWeight={500}>
-            {schedule.start_time}-{schedule.end_time}
+            {title}
           </Typography>
           {isRepeat && <RepeatRoundedIcon color="success" fontSize="small" />}
         </Stack>
 
-        <Typography variant="h4">{schedule.event_name}</Typography>
+        <Typography variant="h4">{eventName}</Typography>
       </Stack>
 
       <Box height={48}>
         <AmountComponent $isPredict={isPredict}>
           <AmountType $isPredict={isPredict} $isSpend={isSpend}>
-            {getPriceTypeSign(schedule.price_type)}
+            {getPriceTypeSign(priceType)}
           </AmountType>
-          {Number(schedule.amount).toLocaleString()}
+          {amount.toLocaleString()}
         </AmountComponent>
       </Box>
     </Stack>
