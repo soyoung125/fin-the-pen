@@ -5,7 +5,7 @@ export const AmountComponent = styled.div<{
 }>`
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   color: #43464c;
   background: ${({ $isPredict }) => ($isPredict ? "#DEE0E3" : "#fff")};
