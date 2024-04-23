@@ -1,5 +1,5 @@
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList";

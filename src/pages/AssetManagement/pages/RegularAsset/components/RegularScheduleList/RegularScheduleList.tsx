@@ -1,6 +1,5 @@
 import { Schedule } from "@app/types/schedule.ts";
 import { Stack } from "@mui/material";
-import ScheduleCard from "@components/ScheduleList/ScheduleCard";
 import moment from "moment/moment";
 import RegularScheduleCard from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleCard";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";

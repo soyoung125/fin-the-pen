@@ -1,5 +1,3 @@
-import RegularDepositWithdrawal from "../../legacies/assetManagement/RegularDepositWithDrawalContainer";
-import DetailInformation from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailInformation";
 import DetailSetting from "../../legacies/assetManagement/RegularDepositWithDrawalContainer/detailPage/DetailSetting";
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
