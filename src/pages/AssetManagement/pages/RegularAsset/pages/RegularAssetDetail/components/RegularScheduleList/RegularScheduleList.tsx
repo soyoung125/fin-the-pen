@@ -5,6 +5,9 @@ import { RegularScheduleListProps } from "@pages/AssetManagement/pages/RegularAs
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
 import React, { useState } from "react";
+import { Schedule } from "@app/types/schedule.ts";
+import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
+import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 
 interface ListProps extends RegularScheduleListProps {
   options: string[];
@@ -12,12 +15,19 @@ interface ListProps extends RegularScheduleListProps {
 
 function RegularScheduleList({ schedules, isPending, options }: ListProps) {
   const [selectedOption, setSelectedOption] = useState(options[0]);
+  const { openScheduleDrawer } = useScheduleDrawer();
 
   if (isPending) {
     return Array.from({ length: 6 }, () => 0).map((num) => (
       <ScheduleCardSkeleton key={num} />
     ));
   }
+
+  const handleModal = (schedule: Schedule) => {
+    if (schedule) {
+      openScheduleDrawer(SCHEDULE_REQUEST(schedule));
+    }
+  };
 
   return (
     <Stack>
@@ -37,7 +47,7 @@ function RegularScheduleList({ schedules, isPending, options }: ListProps) {
           amount={Number(s.amount)}
           isPredict={moment().isBefore(s.end_date, "day")}
           isRepeat={s.repeat_kind !== "NONE"}
-          onClick={() => alert("")}
+          onClick={() => handleModal(s)}
           icon
         />
       ))}
