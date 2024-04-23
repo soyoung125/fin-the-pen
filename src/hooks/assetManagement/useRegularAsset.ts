@@ -4,6 +4,7 @@ import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import moment from "moment";
 import { useRegularAssets } from "@app/tanstack-query/assetManagement/RegularAsset/useRegularAssets.ts";
 import { Schedule } from "@app/types/schedule.ts";
+import { useParams } from "react-router-dom";
 
 const useRegularAsset = () => {
   const today = moment();
@@ -12,6 +13,7 @@ const useRegularAsset = () => {
     end: today.endOf("year").format("YYYY-MM-DD"),
   });
   const { openDayPeriodPicker } = useDatePicker();
+  const { eventName, priceType } = useParams();
 
   const { data: user } = useUser();
   const {
@@ -23,9 +25,15 @@ const useRegularAsset = () => {
     start_date: period.start,
     end_date: period.end,
   });
+
+  const yearOptions = Array.from(
+    { length: moment(period.end).year() - moment(period.start).year() + 1 },
+    (_, i) => (moment(period.start).year() + i).toString()
+  );
+
   const isDuplicated = (result: Schedule[], curr: Schedule) =>
     result.find((s) => s.event_name === curr.event_name);
-  
+
   const spendSchedules =
     schedules?.reduce((result: Schedule[], curr) => {
       if (curr.price_type === "Minus" && !isDuplicated(result, curr)) {
@@ -42,6 +50,11 @@ const useRegularAsset = () => {
       return result;
     }, []) ?? [];
 
+  const detailSchedules =
+    schedules?.filter(
+      (s) => s.event_name === eventName && s.price_type === priceType
+    ) ?? [];
+
   const pickDate = async () => {
     const newMonth = await openDayPeriodPicker(period.start, period.end);
     setPeriod(newMonth);
@@ -50,8 +63,11 @@ const useRegularAsset = () => {
   return {
     spendSchedules,
     saveSchedules,
+    detailSchedules,
+    eventName,
     isPending,
     isError,
+    options: ["All"].concat(yearOptions),
     startDate: period.start,
     endDate: period.end,
     pickDate,

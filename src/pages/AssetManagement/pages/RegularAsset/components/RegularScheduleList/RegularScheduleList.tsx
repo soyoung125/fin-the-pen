@@ -6,6 +6,8 @@ import RegularScheduleCard from "@pages/AssetManagement/pages/RegularAsset/compo
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import AddRegularSchedule from "@pages/AssetManagement/pages/RegularAsset/components/AddRegularSchedule/AddRegularSchedule.tsx";
 import { getTitle } from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList/utils.ts";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "@constants/path.ts";
 
 export interface RegularScheduleListProps {
   isPending: boolean;
@@ -16,6 +18,8 @@ function RegularScheduleList({
   schedules,
   isPending,
 }: RegularScheduleListProps) {
+  const navigate = useNavigate();
+
   if (isPending) {
     return Array.from({ length: 3 }, () => 0).map((num) => (
       <ScheduleCardSkeleton key={num} />
@@ -34,7 +38,11 @@ function RegularScheduleList({
           amount={Number(s.amount)}
           isPredict={moment().isBefore(s.end_date, "day")}
           isRepeat={s.repeat_kind !== "NONE"}
-          onClick={() => alert("")}
+          onClick={() =>
+            navigate(
+              `${PATH.DetailInformation}/${s.event_name}/${s.price_type}`
+            )
+          }
           icon
         />
       ))}
