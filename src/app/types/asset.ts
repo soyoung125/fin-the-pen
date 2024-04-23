@@ -1,3 +1,5 @@
+import { Schedule } from "@app/types/schedule.ts";
+
 export interface SavingGoal {
   // 한 해 저축 목표
   goal_amount: MonthSavingGoal;
@@ -108,4 +110,14 @@ export interface setAssetByCategory {
   small_map: {
     [key: string]: string;
   };
+}
+
+export interface RegularAssetsRequest {
+  user_id: string;
+  start_date: string;
+  end_date: string;
+}
+
+export interface RegularAssets {
+  data: Schedule[];
 }
