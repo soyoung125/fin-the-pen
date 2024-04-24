@@ -4,6 +4,7 @@ import RegularAssetHeader, {
 import { Meta } from "@storybook/react";
 import { useState } from "react";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
+import { Typography } from "@mui/material";
 
 const meta = {
   title: "AssetManagement/RegularAsset/RegularAssetHeader",
@@ -14,7 +15,6 @@ const meta = {
     startDate: "2024.03.01",
     endDate: "2024.04.01",
     changeDate: () => alert("change"),
-    clickDetail: () => alert("show detail"),
   },
   argTypes: {},
 } satisfies Meta<typeof RegularAssetHeader>;
@@ -52,6 +52,11 @@ export const Example = () => {
       startDate={period.start}
       endDate={period.end}
       changeDate={pickDate}
+      clickDetail={
+        <Typography fontSize="13px" color="#8C919C">
+          자세히
+        </Typography>
+      }
     />
   );
 };
