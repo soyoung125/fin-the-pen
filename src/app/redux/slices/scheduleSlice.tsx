@@ -39,7 +39,7 @@ const initialState: InitialState = {
   date: moment(new Date()),
   viewMode: "asset",
   schedules: [],
-  scheduleForm: INIT_SCHEDULE(moment().format("YYYY=MM-DD")),
+  scheduleForm: INIT_SCHEDULE(moment().format("YYYY-MM-DD")),
   analyzedData: {
     data: [],
     total: 0,

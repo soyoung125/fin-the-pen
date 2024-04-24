@@ -15,3 +15,5 @@ export const QUERY_KEY_SAVING_GOAL = "saving";
 export const QUERY_KEY_SPENDING_GOAL = "spending";
 
 export const QUERY_KEY_ASSET_BY_CATEGORY = "assetByCategory";
+
+export const QUERY_KEY_REGULAR_ASSET = "regularAsset";

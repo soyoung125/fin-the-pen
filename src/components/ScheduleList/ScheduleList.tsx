@@ -8,6 +8,7 @@ import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import ScheduleDateBox from "components/ScheduleList/ScheduleDateBox";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import ScheduleDateBoxSkeleton from "@components/ScheduleList/ScheduleDateBox/ScheduleDateBoxSkeleton.tsx";
+import moment from "moment";
 
 interface ScheduleListProps {
   showHeader?: boolean;
@@ -73,7 +74,12 @@ function ScheduleList({
       {todaySchedules.map((s, index) => (
         <ScheduleCard
           key={index}
-          schedule={s}
+          title={`${s.start_time}-${s.end_time}`}
+          category={s.category}
+          priceType={s.price_type}
+          eventName={s.event_name}
+          amount={Number(s.amount)}
+          isPredict={moment().isBefore(s.end_date, "day")}
           isRepeat={s.repeat_kind !== "NONE"}
           onClick={() => handleModal(s)}
           icon

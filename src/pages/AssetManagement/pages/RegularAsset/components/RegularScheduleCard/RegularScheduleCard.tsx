@@ -1,29 +1,20 @@
-import { Avatar, Box, Stack, Typography } from "@mui/material";
-import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
-import { AmountComponent, AmountType } from "./ScheduleCard.styles.ts";
-import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import {
+  AmountComponent,
+  AmountType,
+} from "@components/ScheduleList/ScheduleCard/ScheduleCard.styles.ts";
+import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
+import { ConsumptionCardProps } from "@components/ScheduleList/ScheduleCard/ScheduleCard.tsx";
 
-export interface ConsumptionCardProps {
-  category: string;
-  title: string;
-  eventName: string;
-  priceType: string;
-  amount: number;
-  isRepeat: boolean;
-  onClick: () => void;
-  isPredict?: boolean;
-  icon?: boolean;
-}
-
-function ScheduleCard({
+function RegularScheduleCard({
   title,
   eventName,
   priceType,
   isPredict,
   amount,
   category,
-  isRepeat,
   onClick,
   icon,
 }: ConsumptionCardProps) {
@@ -52,26 +43,24 @@ function ScheduleCard({
         justifyContent="space-between"
         sx={{ flexGrow: 1, height: "48px" }}
       >
-        <Stack direction="row" alignItems="center" spacing={0.5}>
-          <Typography fontSize="13px" fontWeight={500}>
-            {title}
-          </Typography>
-          {isRepeat && <RepeatRoundedIcon color="success" fontSize="small" />}
-        </Stack>
+        <Typography fontSize="13px" fontWeight={500}>
+          {title}
+        </Typography>
 
         <Typography variant="h4">{eventName}</Typography>
       </Stack>
 
-      <Box height={48}>
+      <Stack height={48} direction="row" spacing={1} alignItems="center">
         <AmountComponent $isPredict={isPredict}>
           <AmountType $isPredict={isPredict} $isSpend={isSpend}>
             {getPriceTypeSign(priceType)}
           </AmountType>
           {amount.toLocaleString()}
         </AmountComponent>
-      </Box>
+        <ArrowForwardIosRoundedIcon />
+      </Stack>
     </Stack>
   );
 }
 
-export default ScheduleCard;
+export default RegularScheduleCard;

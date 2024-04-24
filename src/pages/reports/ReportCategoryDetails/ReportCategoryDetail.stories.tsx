@@ -111,7 +111,12 @@ export const ExamplePage = () => {
       <ScheduleDateBox date="2023-10-06" />
       {schedules.map((schedule) => (
         <ScheduleCard
-          schedule={schedule}
+          title={`${schedule.start_time}-${schedule.end_time}`}
+          category={schedule.category}
+          priceType={schedule.price_type}
+          eventName={schedule.event_name}
+          amount={Number(schedule.amount)}
+          isPredict={moment().isBefore(schedule.end_date, "day")}
           isRepeat={schedule.repeat_kind !== "NONE"}
           onClick={() => alert("click")}
         />

@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
 export const AmountComponent = styled.div<{
-  $isPredict: boolean;
+  $isPredict?: boolean;
 }>`
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   color: #43464c;
   background: ${({ $isPredict }) => ($isPredict ? "#DEE0E3" : "#fff")};
@@ -14,7 +14,7 @@ export const AmountComponent = styled.div<{
 `;
 
 export const AmountType = styled.div<{
-  $isPredict: boolean;
+  $isPredict?: boolean;
   $isSpend: boolean;
 }>`
   padding-right: 2px;
