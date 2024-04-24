@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { setSchedules } from "@redux/slices/scheduleSlice.tsx";
 import ModalStaticBackdrop from "@components/layouts/ModalStaticBackdrop.tsx";
@@ -19,7 +19,7 @@ function DataRecoveryButtons() {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
   const recoverData = () => {
@@ -333,24 +333,24 @@ function DataRecoveryButtons() {
                       },
                     ],
                     settings: {
-                      앱비밀번호: false,
-                      인증단계: 1,
-                      화면테마: "default",
-                      예산숨김: false,
-                      반복일정목록: [],
-                      숨김일정: false,
-                      숨김일정목록: false,
-                      비밀번호인증단계: 1,
-                      기본알림: false,
-                      진동: false,
-                      소리: false,
-                      알림음: "",
-                      잠금화면알람: false,
-                      일정알림시간: "5분전",
-                      소비주의알림: false,
-                      정기입출금목록: [],
-                      마이데이터: [],
-                      캘린더목록: [],
+                      // 앱비밀번호: false,
+                      // 인증단계: 1,
+                      // 화면테마: "default",
+                      // 예산숨김: false,
+                      // 반복일정목록: [],
+                      // 숨김일정: false,
+                      // 숨김일정목록: false,
+                      // 비밀번호인증단계: 1,
+                      // 기본알림: false,
+                      // 진동: false,
+                      // 소리: false,
+                      // 알림음: "",
+                      // 잠금화면알람: false,
+                      // 일정알림시간: "5분전",
+                      // 소비주의알림: false,
+                      // 정기입출금목록: [],
+                      // 마이데이터: [],
+                      // 캘린더목록: [],
                     },
                   })}
                 </Typography>

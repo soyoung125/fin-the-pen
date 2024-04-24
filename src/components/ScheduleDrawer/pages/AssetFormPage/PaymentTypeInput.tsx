@@ -1,11 +1,12 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { PAYMENT_TYPE, SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useScheduleForm } from "../../hooks/useScheduleForm.ts";
+import { MouseEvent } from "react";
 
 function PaymentTypeInput() {
   const { scheduleForm, updateSchedule } = useScheduleForm();
 
-  const changeSchedule = (state: React.MouseEvent<HTMLButtonElement>) => {
+  const changeSchedule = (state: MouseEvent<HTMLButtonElement>) => {
     updateSchedule({
       target: { id: state.currentTarget.id, value: state.currentTarget.value },
     });
