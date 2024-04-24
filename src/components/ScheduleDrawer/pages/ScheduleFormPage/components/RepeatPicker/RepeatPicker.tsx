@@ -26,7 +26,7 @@ function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
   };
 
   return (
-    <Box minHeight="562px">
+    <Box minHeight="634.5px">
       <TopNavigationBar
         onClick={() => setIsRepeatPickerOpen(false)}
         title="반복 설정"

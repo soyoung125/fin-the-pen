@@ -50,7 +50,7 @@ function CreateFooter({ handleSubmit, handleClose }: CreateFooterInterface) {
           color="warning"
           onClick={() => setRandomGeneratedSchedule(date)}
         >
-          랜덤 일정 채우기(dev)
+          랜덤 일정 채우기
         </Button>
       )}
       <Tooltip
