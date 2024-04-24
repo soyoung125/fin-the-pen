@@ -7,6 +7,8 @@ import AddRegularSchedule from "@pages/AssetManagement/pages/RegularAsset/compon
 import { getTitle } from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList/utils.ts";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@constants/path.ts";
+import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
+import { INIT_SCHEDULE } from "@constants/schedule.ts";
 
 export interface RegularScheduleListProps {
   isPending: boolean;
@@ -18,6 +20,7 @@ function RegularScheduleList({
   isPending,
 }: RegularScheduleListProps) {
   const navigate = useNavigate();
+  const { openRegularAssetDrawer } = useRegularAssetDrawer();
 
   if (isPending) {
     return Array.from({ length: 3 }, () => 0).map((num) => (
@@ -45,7 +48,14 @@ function RegularScheduleList({
           icon
         />
       ))}
-      <AddRegularSchedule navigateTo={() => alert("add")} />
+      <AddRegularSchedule
+        navigateTo={() =>
+          openRegularAssetDrawer(
+            INIT_SCHEDULE(moment().format("YYYY-MM-DD")),
+            "새일정"
+          )
+        }
+      />
     </Stack>
   );
 }

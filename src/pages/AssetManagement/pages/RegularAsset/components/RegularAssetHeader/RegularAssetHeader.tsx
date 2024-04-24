@@ -1,13 +1,14 @@
 import { RegularAssetHeaderContainer } from "@pages/AssetManagement/pages/RegularAsset/components/RegularAssetHeader/RegularAssetHeader.styles.ts";
 import { Stack, Typography } from "@mui/material";
 import calendar_outlined from "@assets/icons/calendar_outlined.svg";
+import { ReactNode } from "react";
 
 export interface RegularAssetHeaderProps {
   title: string;
   startDate: string;
   endDate: string;
   changeDate: () => void;
-  clickDetail?: () => void;
+  clickDetail?: ReactNode;
 }
 
 function RegularAssetHeader({
@@ -23,11 +24,7 @@ function RegularAssetHeader({
         <Typography fontSize="22px" fontWeight={500}>
           {title}
         </Typography>
-        {clickDetail && (
-          <Typography fontSize="13px" color="#8C919C" onClick={clickDetail}>
-            자세히
-          </Typography>
-        )}
+        {clickDetail}
       </Stack>
       <Stack
         direction="row"
