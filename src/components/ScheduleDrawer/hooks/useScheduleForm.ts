@@ -77,7 +77,7 @@ export const useScheduleForm = () => {
       }
       return result;
     };
-    const importances = ["상", "중", "하"];
+    const paymentTypes = ["ACCOUNT", "CARD", "CASH"];
     const category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
     const randomSchedule = {
       event_name: generateRandomString(5),
@@ -92,7 +92,7 @@ export const useScheduleForm = () => {
       price_type: getType(category),
       set_amount: Math.floor(Math.random() * 1000) * 100,
       fix_amount: false,
-      importance: importances[Math.floor(Math.random() * 3)],
+      payment_type: paymentTypes[Math.floor(Math.random() * 3)],
       exclusion: Math.floor(Math.random() * 2) === 0,
     };
     dispatch(setDrawerScheduleForm(randomSchedule));

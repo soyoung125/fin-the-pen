@@ -12,7 +12,7 @@ interface ScheduleBase {
   end_time: string;
   period: SchedulePeriod;
   price_type: string;
-  importance: string;
+  payment_type: string;
   fix_amount: boolean;
 }
 

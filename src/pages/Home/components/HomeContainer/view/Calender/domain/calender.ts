@@ -16,7 +16,7 @@ interface DaySchedulesInterface {
   category: Category;
   type: string;
   expected_spending: string;
-  importance: string;
+  payment_type: string;
   exclude: boolean;
 }
 
