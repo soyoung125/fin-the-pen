@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import AssetFormPage from "./pages/AssetFormPage";
 import ScheduleDrawerHeader from "./layouts/ScheduleDrawerHeader.tsx";
 import ScheduleDrawerFooter from "./layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.tsx";
@@ -24,7 +24,7 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
 
   const { openConfirm } = useDialog();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     swiper?.slideTo(newValue);
     setValue(newValue);
   };

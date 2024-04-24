@@ -139,31 +139,31 @@ export const SCHEDULE_DRAWER = {
   won: "원",
   expected_spending: "예상 비용",
   fix_amount: "금액 고정",
-  set_importance_title: "일정 중요도",
-  importance_high: "상", // 저장 데이터와 연동되어 있음 (수정금지)
-  importance_middle: "중", // 저장 데이터와 연동되어 있음 (수정금지)
-  importance_low: "하", // 저장 데이터와 연동되어 있음 (수정금지)
+  set_payment_type_title: "일정 중요도",
+  account: "ACCOUNT", // 저장 데이터와 연동되어 있음 (수정금지)
+  card: "CARD", // 저장 데이터와 연동되어 있음 (수정금지)
+  cash: "CASH", // 저장 데이터와 연동되어 있음 (수정금지)
   exclusion_title: "예산에서 제외",
   add_schedule: "일정 추가하기",
   modify_schedule: "일정 수정하기",
   delete_schedule: "일정 삭제하기",
 } as const;
 
-export const IMPORTANCES = [
+export const PAYMENT_TYPE = [
   {
-    id: "importance_low",
-    value: "하",
-    label: "낮음",
+    id: "account",
+    value: "ACCOUNT",
+    label: "계좌",
   },
   {
-    id: "importance_middle",
-    value: "중",
-    label: "중간",
+    id: "card",
+    value: "CARD",
+    label: "카드",
   },
   {
-    id: "importance_high",
-    value: "상",
-    label: "높음",
+    id: "cash",
+    value: "CASH",
+    label: "현금",
   },
 ];
 
@@ -196,7 +196,7 @@ export const INIT_SCHEDULE = (date: string): RequestSchedule => {
     price_type: SCHEDULE_DRAWER.type_minus,
     set_amount: "0",
     fix_amount: false,
-    importance: SCHEDULE_DRAWER.importance_middle,
+    payment_type: SCHEDULE_DRAWER.card,
     exclusion: false, // false면 포함
   };
 };

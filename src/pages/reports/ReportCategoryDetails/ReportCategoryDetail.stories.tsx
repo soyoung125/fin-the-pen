@@ -40,7 +40,7 @@ export const ExamplePage = () => {
       repeat_options: { term: "1", options: "" },
       period: INIT_PERIOD(moment("2023-10-06")),
       fix_amount: false,
-      importance: "상",
+      payment_type: "상",
       exclude: Math.floor(Math.random() * 2) === 0,
     },
     {
@@ -57,7 +57,7 @@ export const ExamplePage = () => {
       repeat_options: { term: "1", options: "" },
       period: INIT_PERIOD(moment("2023-10-06")),
       fix_amount: false,
-      importance: "상",
+      payment_type: "상",
       exclude: Math.floor(Math.random() * 2) === 0,
     },
     {
@@ -74,7 +74,7 @@ export const ExamplePage = () => {
       repeat_options: { term: "1", options: "" },
       period: INIT_PERIOD(moment("2023-10-06")),
       fix_amount: false,
-      importance: "상",
+      payment_type: "상",
       exclude: Math.floor(Math.random() * 2) === 0,
     },
   ];

@@ -1,11 +1,12 @@
 import { Button, Stack, Typography } from "@mui/material";
-import { IMPORTANCES, SCHEDULE_DRAWER } from "@constants/schedule.ts";
+import { PAYMENT_TYPE, SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useScheduleForm } from "../../hooks/useScheduleForm.ts";
+import { MouseEvent } from "react";
 
-function ImportanceInput() {
+function PaymentTypeInput() {
   const { scheduleForm, updateSchedule } = useScheduleForm();
 
-  const changeSchedule = (state: React.MouseEvent<HTMLButtonElement>) => {
+  const changeSchedule = (state: MouseEvent<HTMLButtonElement>) => {
     updateSchedule({
       target: { id: state.currentTarget.id, value: state.currentTarget.value },
     });
@@ -17,29 +18,28 @@ function ImportanceInput() {
         variant="h4"
         sx={{ color: "primary.main", py: 1, borderBottom: "1px solid #F7F7F8" }}
       >
-        {SCHEDULE_DRAWER.set_importance_title}
+        {SCHEDULE_DRAWER.set_payment_type_title}
       </Typography>
 
       <Stack direction="row" alignItems="center" spacing={1}>
-        {IMPORTANCES.map((importance) => (
+        {PAYMENT_TYPE.map((type) => (
           <Button
-            key={importance.id}
+            key={type.id}
             variant="contained"
             color={
-              scheduleForm?.importance === importance.value
+              scheduleForm?.payment_type === type.value
                 ? "primary"
                 : "secondary"
             }
-            id="importance"
-            value={importance.value}
+            id="payment_type"
+            value={type.value}
             onClick={changeSchedule}
             fullWidth
-            size="small"
             sx={{
               borderRadius: "17px",
             }}
           >
-            {importance.label}
+            {type.label}
           </Button>
         ))}
       </Stack>
@@ -47,4 +47,4 @@ function ImportanceInput() {
   );
 }
 
-export default ImportanceInput;
+export default PaymentTypeInput;
