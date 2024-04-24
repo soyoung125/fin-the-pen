@@ -5,7 +5,6 @@ import AssetByCategory from "@pages/AssetManagement/pages/AssetBuCategory";
 import SavingsGoal from "@pages/AssetManagement/pages/SavingGoal";
 import RegularAsset from "@pages/AssetManagement/pages/RegularAsset";
 import RegularAssetDetail from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/RegularAssetDetail.tsx";
-import RegularAssetSetting from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetSetting";
 
 const MANAGEMENT_ROUTES: RouterDOM[] = [
   {
@@ -15,10 +14,6 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
   {
     path: PATH.regularDepositWithdrawal,
     element: <RegularAsset />,
-  },
-  {
-    path: `${PATH.DetailSetting}/:eventName/:priceType`,
-    element: <RegularAssetSetting />,
   },
   {
     path: `${PATH.DetailInformation}/:eventName/:priceType`,
