@@ -1,15 +1,6 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
-import {
-  RequestSchedule,
-  Schedule,
-  ViewModeValue,
-} from "@app/types/schedule.ts";
-import { AnalysisData } from "@app/types/common.ts";
-import { CATEGORIES, COLORLIST } from "@constants/categories.ts";
+import { RequestSchedule, Schedule } from "@app/types/schedule.ts";
 import { RootState } from "../store.ts";
 import { INIT_SCHEDULE } from "@constants/schedule.ts";
 
