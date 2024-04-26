@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
@@ -39,7 +39,9 @@ async function main() {
           <PersistGate loading={null} persistor={persistor}>
             <CustomThemeProvider>
               <OverlayProvider>
-                <RouterProvider router={router} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <RouterProvider router={router} />
+                </Suspense>
               </OverlayProvider>
             </CustomThemeProvider>
           </PersistGate>
