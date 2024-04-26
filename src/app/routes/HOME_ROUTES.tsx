@@ -21,7 +21,6 @@ const DetailSetting = lazy(
     import("../../legacies/assetManagement/SavingsGoalContainer/DetailSetting")
 );
 const Settings = lazy(() => import("@pages/Settings"));
-const MyData = lazy(() => import("../../pages/MyPage"));
 const TestContainer = lazy(() => import("@pages/MyPage/TestContainer.tsx"));
 
 const HOME_ROUTES: RouterDOM[] = [
@@ -64,10 +63,6 @@ const HOME_ROUTES: RouterDOM[] = [
   {
     path: PATH.settings,
     element: <Settings />,
-  },
-  {
-    path: PATH.myData,
-    element: <MyData />,
   },
   {
     path: PATH.test,

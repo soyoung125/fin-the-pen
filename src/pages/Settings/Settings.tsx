@@ -10,7 +10,6 @@ import AccordionDetails from "@components/common/accordions/AccordionDetails.tsx
 import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { selectIsBudgetHidden } from "@redux/slices/settingSlice.ts";
 import useHeader from "@hooks/useHeader.ts";
-import { PATH } from "@constants/path.ts";
 import ClickableListItem from "pages/Settings/components/ClickableListItem";
 import {
   changeHeaderTitle,
@@ -119,12 +118,6 @@ export default function Settings() {
           <Typography>연결관리</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <ClickableListItem
-            to={PATH.myData}
-            title="마이데이터[은행/카드]"
-            subTitle=""
-          />
-          <Divider />
           <ClickableListItem to="/test" title="캘린더 연동" subTitle="" />
         </AccordionDetails>
       </Accordion>

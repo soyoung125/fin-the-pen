@@ -22,7 +22,4 @@ export const PATH = {
   DetailInformation: "/management/regular-assets-detail-info",
   assetsByCategory: "/management/assets-by-category",
   scheduleManagement: "/management/schedule-management",
-
-  // setting pages
-  myData: "/Settings/my-data",
 } as const;
