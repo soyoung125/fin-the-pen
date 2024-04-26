@@ -1,9 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { changeViewMode } from "@redux/slices/scheduleSlice.tsx";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
 import useHeader from "@hooks/useHeader.ts";
-import { VIEW_MODE } from "@constants/schedule.ts";
 import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { selectIsBudgetHidden } from "@redux/slices/settingSlice.ts";
 import { HEADER_MODE } from "@app/types/common.ts";
@@ -56,7 +54,6 @@ function Home() {
   const handleNavigate = () => navigate(PATH.scheduleList);
 
   useEffect(() => {
-    dispatch(changeViewMode(VIEW_MODE.schedule));
     if (isHideBudgetMode) {
       dispatch(setIsAuthenticatedFalse());
     }
