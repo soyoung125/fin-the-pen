@@ -6,7 +6,6 @@ import { PATH } from "@constants/path.ts";
 import { setSessionStorage } from "@utils/storage.ts";
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { useDispatch } from "react-redux";
-import { setUser } from "@redux/slices/userSlice.tsx";
 import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
@@ -70,16 +69,14 @@ export const useAuth = () => {
       approveText: "확인",
     });
     generateRandomToken();
-    dispatch(
-      setUser({
-        id: 0,
-        user_id: "guest@finthepen.com",
-        name: "guest by msw",
-        // bday: "2000-01-01",
-        // registerDate: "2023-01-25T14:57:08.023+00:00",
-        // phone_number: "010-4413-5698",
-      })
-    );
+    queryClient.setQueryData([QUERY_KEY_USER], {
+      id: 0,
+      user_id: "guest@finthepen.com",
+      name: "guest by msw",
+      // bday: "2000-01-01",
+      // registerDate: "2023-01-25T14:57:08.023+00:00",
+      // phone_number: "010-4413-5698",
+    });
     navigate(PATH.home);
   };
 
