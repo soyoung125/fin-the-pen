@@ -1,7 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-// import HomeLayout from "../components/layouts/containerLayout/HomeLayout";
-// import ManagementLayout from "../components/layouts/containerLayout/ManagementLayout";
-// import ReportLayout from "@components/layouts/containerLayout/ReportLayout.tsx";
 import HOME_ROUTES from "./routes/HOME_ROUTES";
 import MANAGEMENT_ROUTES from "./routes/MANAGEMENT_ROUTES";
 import REPORT_ROUTES from "@routes/REPORT_ROUTES.tsx";

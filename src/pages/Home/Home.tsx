@@ -1,4 +1,4 @@
-import { lazy, SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { changeViewMode } from "@redux/slices/scheduleSlice.tsx";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";

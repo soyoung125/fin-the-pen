@@ -1,8 +1,5 @@
 import { RouterDOM } from "@app/types/common.ts";
 import { PATH } from "@constants/path.ts";
-// import Report from "@pages/reports/Report";
-// import ReportMonthDetails from "@pages/reports/ReportMonthDetails";
-// import ReportCategoryDetails from "@pages/reports/ReportCategoryDetails/ReportCategoryDetails.tsx";
 import { lazy } from "react";
 
 const Report = lazy(() => import("@pages/reports/Report"));
