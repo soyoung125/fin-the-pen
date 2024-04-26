@@ -8,17 +8,11 @@ const SignUp = lazy(() => import("../../pages/SignUp"));
 const ScheduleListPage = lazy(
   () => import("@pages/Home/pages/ScheduleListPage/ScheduleListPage.tsx")
 );
-const MyPage = lazy(
-  () => import("@pages/Settings/components/connection/MyData")
-);
+const MyPage = lazy(() => import("@pages/MyPage"));
 const Notification = lazy(() => import("../../pages/Notification"));
 const AssetManagement = lazy(() => import("../../pages/AssetManagement"));
 const SearchSchedule = lazy(
   () => import("../../pages/Home/components/HomeContainer/view/SearchSchedule")
-);
-const DetailSetting = lazy(
-  () =>
-    import("../../legacies/assetManagement/SavingsGoalContainer/DetailSetting")
 );
 const Settings = lazy(() => import("@pages/Settings"));
 const TestContainer = lazy(() => import("@pages/MyPage/TestContainer.tsx"));
@@ -55,10 +49,6 @@ const HOME_ROUTES: RouterDOM[] = [
   {
     path: PATH.searchSchedule,
     element: <SearchSchedule />,
-  },
-  {
-    path: PATH.savingDetailSetting,
-    element: <DetailSetting />,
   },
   {
     path: PATH.settings,

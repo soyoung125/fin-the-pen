@@ -16,7 +16,6 @@ export const PATH = {
 
   // 자산관리의 세부 설정 페이지 (경로명 수정할 계획)
   savingsGoal: "/management/savings-savingGoal",
-  savingDetailSetting: "/saving-detail-setting",
   regularDepositWithdrawal: "/management/regular-assets",
   DetailSetting: "/management/regular-assets-setting",
   DetailInformation: "/management/regular-assets-detail-info",
