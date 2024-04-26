@@ -5,14 +5,10 @@ export const PATH = {
   signUp: "/sign-up",
   myPage: "/myPage",
   notification: "/notification",
-  fetchPaymentHistory: "/fetch-payment-history",
   searchSchedule: "/search=schedule",
   assetManagement: "/asset-management",
   settings: "/Settings",
   test: "/test",
-
-  analysis: "/analysis",
-  analysisDetail: "/analysis/detail",
 
   report: "/report",
   reportMonthDetail: "/report/month",

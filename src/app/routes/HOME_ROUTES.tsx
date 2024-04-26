@@ -6,17 +6,13 @@ import { lazy } from "react";
 const SignIn = lazy(() => import("../../pages/SignIn"));
 const SignUp = lazy(() => import("../../pages/SignUp"));
 const ScheduleListPage = lazy(
-  () => import("../../pages/Home/components/HomeContainer/view/SearchSchedule")
+  () => import("@pages/Home/pages/ScheduleListPage/ScheduleListPage.tsx")
 );
 const MyPage = lazy(
   () => import("@pages/Settings/components/connection/MyData")
 );
 const Notification = lazy(() => import("../../pages/Notification"));
 const AssetManagement = lazy(() => import("../../pages/AssetManagement"));
-const FetchPaymentHistory = lazy(
-  () =>
-    import("../../pages/Home/components/HomeContainer/view/FetchPaymentHistory")
-);
 const SearchSchedule = lazy(
   () => import("../../pages/Home/components/HomeContainer/view/SearchSchedule")
 );
@@ -56,10 +52,6 @@ const HOME_ROUTES: RouterDOM[] = [
   {
     path: PATH.assetManagement,
     element: <AssetManagement />,
-  },
-  {
-    path: PATH.fetchPaymentHistory,
-    element: <FetchPaymentHistory />,
   },
   {
     path: PATH.searchSchedule,
