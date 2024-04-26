@@ -9,10 +9,6 @@ import {
 import AnalysisMode from "./headerMode/AnalysisMode.tsx";
 import HomeMode from "./headerMode/HomeMode.tsx";
 import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
-import { selectSavingPopUpSetting } from "@redux/slices/assetSlice.tsx";
-import PopupButton from "./buttons/PopupButton.tsx";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "@constants/path.ts";
 import SettingsMode from "./headerMode/SettingsMode.tsx";
 import SignMode from "./headerMode/SignMode.tsx";
 import SearchMode from "./headerMode/SearchMode.tsx";
@@ -20,12 +16,10 @@ import AssetMode from "./headerMode/AssetMode.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 
 function TopBar() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { data: user } = useUser();
   const isHeaderOpen = useAppSelector(selectHeaderOpen);
   const headerMode = useAppSelector(selectHeaderMode);
-  const popupSetting = useAppSelector(selectSavingPopUpSetting);
 
   useEffect(() => {
     if (user?.name === "guest by msw") {
@@ -37,14 +31,6 @@ function TopBar() {
       dispatch(setGuestModeFalse());
     }
   }, [user]);
-
-  const handleClickPopup = () => {
-    if (popupSetting.settings.connect === "적금 계좌 APP") {
-      console.log("계좌 열기");
-    } else {
-      navigate(PATH.savingsGoal);
-    }
-  };
 
   return (
     isHeaderOpen && (
@@ -70,9 +56,6 @@ function TopBar() {
             {headerMode === "search" && <SearchMode />}
             {headerMode === "assetManagement" && <AssetMode />}
           </Stack>
-          {popupSetting.isOn && (
-            <PopupButton handleClickPopup={handleClickPopup} />
-          )}
         </Box>
       </>
     )

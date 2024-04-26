@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
-import { setSavingGoal } from "@redux/slices/assetSlice.tsx";
 import { useAppDispatch } from "@redux/hooks.ts";
 import ResetButton from "@components/common/ResetButton.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
@@ -119,7 +118,6 @@ function InputModal({
         fullWidth
         variant="contained"
         onClick={() => {
-          dispatch(setSavingGoal(form));
           handleSetSavingGoal(form.year);
           closeSavingGoalModal();
         }}
