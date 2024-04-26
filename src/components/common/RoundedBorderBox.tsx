@@ -1,7 +1,8 @@
 import { Box } from "@mui/material";
+import { ReactNode } from "react";
 
 interface RoundedBorderBoxProps {
-  children: Element;
+  children: ReactNode;
   greyBorder?: Boolean;
 }
 
