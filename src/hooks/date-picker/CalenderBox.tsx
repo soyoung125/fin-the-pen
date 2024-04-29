@@ -62,9 +62,6 @@ function CalenderBox({
         '.MuiDayCalendar-monthContainer [role="row"]': {
           margin: 0,
         },
-        // "& .MuiPickersDay-dayWithMargin": {
-        //   margin: 0,
-        // },
         "& .MuiDayCalendar-weekContainer": {
           height: DATE_HEIGHT,
         },
