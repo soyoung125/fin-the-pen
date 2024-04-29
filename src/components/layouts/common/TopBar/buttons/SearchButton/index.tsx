@@ -15,7 +15,7 @@ function SearchButton() {
 
   return (
     <Box ref={searchBtn}>
-      <RoundedButton value="user" onClick={handleClick}>
+      <RoundedButton value="search" onClick={handleClick}>
         <img src={search} alt="search" />
       </RoundedButton>
     </Box>

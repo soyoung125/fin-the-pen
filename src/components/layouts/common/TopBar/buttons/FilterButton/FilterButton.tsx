@@ -8,7 +8,7 @@ function FilterButton() {
 
   return (
     <>
-      <RoundedButton value="user" onClick={() => setBottomDrawerOpen(true)}>
+      <RoundedButton value="filter" onClick={() => setBottomDrawerOpen(true)}>
         <img src={filter_main} alt="filter" />
       </RoundedButton>
       <FilterDrawer
