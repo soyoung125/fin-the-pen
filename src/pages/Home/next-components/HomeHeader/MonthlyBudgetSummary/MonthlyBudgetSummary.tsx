@@ -46,14 +46,6 @@ function MonthlyBudgetSummary({
         ))}
       </SummaryItem>
 
-      {/*<SummaryItem $useable={true}>*/}
-      {/*  /!*{expect && <SummaryCard title={predict.expect} amount={expect ?? 0} />}*!/*/}
-      {/*  <SummaryCard*/}
-      {/*    title={predict.availableAmount}*/}
-      {/*    amount={availableAmount ?? 0}*/}
-      {/*  />*/}
-      {/*</SummaryItem>*/}
-
       {showPredict && (
         <SummaryItem $useable={true}>
           {expect !== undefined && (

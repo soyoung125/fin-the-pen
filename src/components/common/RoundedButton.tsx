@@ -20,6 +20,7 @@ function RoundedButton({ children, onClick, value }: RoundedButtonProps) {
         padding: "0px",
       }}
       onClick={onClick}
+      aria-label={value}
     >
       {children}
     </ToggleButton>

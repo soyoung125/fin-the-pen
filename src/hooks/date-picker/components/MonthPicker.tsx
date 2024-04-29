@@ -22,9 +22,6 @@ function MonthPicker({
   onClickReject,
 }: MonthPickerProps) {
   const [newDate, setNewDate] = useState(moment(defaultDate));
-  // const handleCloseModal = () => {
-  //   onClickReject(moment(defaultDate));
-  // };
 
   const handleSetDate = () => {
     onClickApprove(moment(newDate));

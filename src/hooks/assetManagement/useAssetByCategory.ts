@@ -5,7 +5,6 @@ import moment from "moment/moment";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import { useSetAssetsByCategory } from "@app/tanstack-query/assetManagement/AssetByCategory/useSetAssetsByCategory.ts";
 import { setAssetByCategory } from "@app/types/asset.ts";
-import { setAssetsByCategory } from "@redux/slices/assetSlice.tsx";
 import { useDeleteAssetsByCategory } from "@app/tanstack-query/assetManagement/AssetByCategory/useDeleteAssetsByCategory.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 

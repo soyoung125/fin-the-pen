@@ -4,7 +4,6 @@ import {
   setDrawerScheduleForm,
 } from "@redux/slices/scheduleSlice.tsx";
 import moment from "moment/moment";
-// import { CATEGORIES, Category } from "@constants.ts/categories.ts";
 import {
   INIT_PERIOD,
   INIT_REPEAT,

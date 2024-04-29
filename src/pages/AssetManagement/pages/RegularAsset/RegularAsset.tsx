@@ -5,9 +5,6 @@ import { SyntheticEvent, useState } from "react";
 import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
 import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import MonthSchedulePage from "@pages/Home/pages/MonthSchedulePage/MonthSchedulePage.tsx";
-import WeekSchedulePage from "@pages/Home/pages/WeekSchedulePage/WeekSchedulePage.tsx";
-import DaySchedulePage from "@pages/Home/pages/DaySchedulePage/DaySchedulePage.tsx";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList";
 
 function RegularAsset() {

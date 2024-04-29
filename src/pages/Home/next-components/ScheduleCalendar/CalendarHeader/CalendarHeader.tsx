@@ -1,7 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import moment from "moment";
-import "moment/dist/locale/ko";
 import TodayBadge from "@components/common/TodayBadge";
 
 export interface CalendarHeaderProps {

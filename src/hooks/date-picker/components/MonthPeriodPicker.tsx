@@ -61,56 +61,6 @@ function MonthPeriodPicker({
     onClickApprove(startDate, endDate);
   };
 
-  // const renderDayInPicker = (props: PickersDayProps<moment.Moment>) => {
-  //   const { day, ...other } = props;
-  //   const { startDate, endDate } = newDate;
-  //   if (moment(startDate).isSame(endDate)) {
-  //     return <PickersDay {...props} />;
-  //   }
-  //   if (moment(startDate).isSame(day)) {
-  //     return (
-  //       <PickersDay
-  //         sx={{
-  //           borderTopRightRadius: 0,
-  //           borderBottomRightRadius: 0,
-  //           marginX: 0,
-  //           width: "40px",
-  //         }}
-  //         className="Mui-selected"
-  //         {...props}
-  //       />
-  //     );
-  //   }
-  //   if (moment(endDate).isSame(day)) {
-  //     return (
-  //       <PickersDay
-  //         sx={{
-  //           borderTopLeftRadius: 0,
-  //           borderBottomLeftRadius: 0,
-  //           marginX: 0,
-  //           width: "40px",
-  //         }}
-  //         className="Mui-selected"
-  //         {...props}
-  //       />
-  //     );
-  //   }
-  //   if (moment(startDate).isBefore(day) && moment(endDate).isAfter(day)) {
-  //     return (
-  //       <PickersDay
-  //         sx={{
-  //           borderRadius: 0,
-  //           marginX: 0,
-  //           width: "40px",
-  //         }}
-  //         className="Mui-selected"
-  //         {...props}
-  //       />
-  //     );
-  //   }
-  //   return <PickersDay {...props} />;
-  // };
-
   return (
     <Modal>
       <DialogTitle id="alert-dialog-title">날짜 선택</DialogTitle>
@@ -128,9 +78,6 @@ function MonthPeriodPicker({
             onChange={(newValue) => {
               newValue && changeDate(newValue.format("YYYY-MM"));
             }}
-            // slots={{
-            //   day: renderDayInPicker,
-            // }}
           />
         </LocalizationProvider>
       </DialogContent>
