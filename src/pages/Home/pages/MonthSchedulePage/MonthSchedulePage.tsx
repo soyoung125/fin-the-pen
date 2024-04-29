@@ -3,6 +3,7 @@ import ThickDivider from "@components/common/ThickDivider.tsx";
 import CalendarHeader from "@pages/Home/next-components/ScheduleCalendar/CalendarHeader";
 import Calendar from "pages/Home/pages/MonthSchedulePage/components/Calendar";
 import moment from "moment/moment";
+import "moment/dist/locale/ko";
 import ScheduleList from "@components/ScheduleList";
 import useMonthSchedule from "@hooks/home/useMonthSchedule.ts";
 import MonthlyBudgetSummarySkeleton from "@pages/Home/next-components/HomeHeader/MonthlyBudgetSummary/MonthlyBudgetSummarySkeleton.tsx";
