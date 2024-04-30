@@ -20,7 +20,7 @@ async function main() {
   if (import.meta.env.VITE_LOCAL_MODE !== "true") {
     await worker.start({
       serviceWorker: {
-        url: "/fin-the-pen-web/mockServiceWorker.js",
+        url: "mockServiceWorker.js",
       },
       onUnhandledRequest: "bypass",
     });
