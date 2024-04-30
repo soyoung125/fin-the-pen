@@ -1,12 +1,16 @@
 // This is the "Offline copy of pages" service worker
 
-const CACHE_NAME = "cache-v1";
+const CACHE_NAME = "cache-v3";
 
-const FILES_TO_CACHE = ["/offline.html", "/icons/favicon.ico"];
+const FILES_TO_CACHE = ["offline.html", "icons/favicon.ico", "index.html"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      console.log("[Service Worker] Caching all: app shell and content");
+      await cache.addAll(FILES_TO_CACHE);
+    })()
   );
 });
 
@@ -27,7 +31,7 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     fetch(event.request).catch(() =>
-      caches.open(CACHE_NAME).then((cache) => cache.match("/offline.html"))
+      caches.open(CACHE_NAME).then((cache) => cache.match("offline.html"))
     )
   );
 });

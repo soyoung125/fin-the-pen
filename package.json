@@ -77,7 +77,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": "./public"
   },
   "packageManager": "yarn@4.0.2"
 }
