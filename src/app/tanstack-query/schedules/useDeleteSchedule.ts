@@ -12,13 +12,23 @@ interface PropsInterface {
   user_id: string;
 }
 
+export interface RequestDeleteSchedule {
+  schedule_id?: string;
+  delete_options: string;
+  user_id: string;
+}
+
 const fetchDeleteSchedule = async ({
   schedule,
   delete_options,
   user_id,
 }: PropsInterface) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
-  const data = { schedule_id: schedule.schedule_id, delete_options, user_id };
+  const data: RequestDeleteSchedule = {
+    schedule_id: schedule.schedule_id,
+    delete_options,
+    user_id,
+  };
 
   return fetch(`${DOMAIN}/deleteSchedule`, {
     method: "DELETE",
