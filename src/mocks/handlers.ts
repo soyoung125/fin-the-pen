@@ -53,7 +53,6 @@ export const handlers = [
       );
 
       if (prevUsers.find((user) => user.user_id === newUser.user_id)) {
-        // return res(ctx.delay(1000), ctx.status(200), ctx.json(false));
         return HttpResponse.json({ ...newUser, user_id: "" }, { status: 200 });
       }
 
@@ -61,7 +60,6 @@ export const handlers = [
 
       setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
 
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(newUser));
       return HttpResponse.json(newUser, { status: 200 });
     }
   ),
@@ -79,7 +77,6 @@ export const handlers = [
       delay(1000);
 
       if (user === undefined) {
-        // return res(ctx.delay(1000), ctx.status(200), ctx.json(""));
         return HttpResponse.json("", { status: 200 });
       }
 
@@ -87,11 +84,6 @@ export const handlers = [
         10000000 + Math.random() * 90000000
       ).toString();
 
-      // return res(
-      //   ctx.delay(1000),
-      //   ctx.status(200),
-      //   ctx.json({ ...user, token: randomEightDigit })
-      // );
       return HttpResponse.json(
         { ...user, token: randomEightDigit },
         { status: 200 }
@@ -113,7 +105,6 @@ export const handlers = [
       await delay(1000);
 
       if (isExist) {
-        // return res(ctx.delay(1000), ctx.status(400), ctx.json(false));
         return HttpResponse.json(false, { status: 400 });
       }
       const repeatType = schedule.repeat.kind_type;
@@ -141,7 +132,6 @@ export const handlers = [
         },
       ];
       setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
       return HttpResponse.json(true, { status: 200 });
     }
   ),
@@ -158,7 +148,6 @@ export const handlers = [
         (schedule) => schedule.schedule_id !== schedule_id
       );
       setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
       await delay(1000);
       return HttpResponse.json(true, { status: 200 });
     }
@@ -194,7 +183,6 @@ export const handlers = [
           : s
       );
       setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
       await delay(1000);
       return HttpResponse.json(true, { status: 200 });
     }
@@ -213,17 +201,6 @@ export const handlers = [
     );
     await delay(1000);
     if (monthSchedules.length === 0) {
-      // return res(
-      //   ctx.delay(1000),
-      //   ctx.status(200),
-      //   ctx.json({
-      //     income: "0",
-      //     available: "0",
-      //     data: [],
-      //     expense: "0",
-      //     count: 0,
-      //   })
-      // );
       return HttpResponse.json(
         {
           income: "0",
@@ -245,23 +222,11 @@ export const handlers = [
       },
       { status: 200 }
     );
-    // return res(
-    //   ctx.delay(1000),
-    //   ctx.status(200),
-    //   ctx.json({
-    //     income: "10000",
-    //     available: "2000",
-    //     data: monthSchedules,
-    //     expense: "8000",
-    //     count: monthSchedules.length,
-    //   })
-    // );
   }),
 
-  http.post<object, HomeQuery>(`${DOMAIN}/home/week`, async () => {
-    // return res(ctx.delay(1000), ctx.status(400));
+  http.post(`${DOMAIN}/home/week`, async ({ request }) => {
     await delay(1000);
-    HttpResponse.json({}, { status: 400 });
+    return HttpResponse.json({}, { status: 400 });
   }),
 
   http.post<object, HomeQuery>(`${DOMAIN}/home/day`, async ({ request }) => {
@@ -278,7 +243,7 @@ export const handlers = [
     await delay(1000);
 
     if (monthSchedules.length === 0) {
-      HttpResponse.json(
+      return HttpResponse.json(
         {
           income: "0",
           available: "0",
@@ -288,19 +253,8 @@ export const handlers = [
         },
         { status: 200 }
       );
-      // return res(
-      //   ctx.delay(1000),
-      //   ctx.status(200),
-      //   ctx.json({
-      //     income: "0",
-      //     available: "0",
-      //     dayExpense: "0",
-      //     expect: "0",
-      //     schedule_count: 0,
-      //   })
-      // );
     }
-    HttpResponse.json(
+    return HttpResponse.json(
       {
         income: "10000",
         available: "1000",
@@ -310,17 +264,6 @@ export const handlers = [
       },
       { status: 200 }
     );
-    // return res(
-    //   ctx.delay(1000),
-    //   ctx.status(200),
-    //   ctx.json({
-    //     income: "10000",
-    //     available: "1000",
-    //     dayExpense: "8000",
-    //     expect: "1000",
-    //     schedule_count: monthSchedules.length,
-    //   })
-    // );
   }),
 
   http.get<MonthScheduleQuery>(`${DOMAIN}/report/month`, async ({ params }) => {
@@ -339,7 +282,7 @@ export const handlers = [
     await delay(1000);
 
     if (monthSchedules.length === 0) {
-      HttpResponse.json(
+      return HttpResponse.json(
         {
           date: date,
           expenditure_this_month: {
@@ -368,36 +311,6 @@ export const handlers = [
         },
         { status: 200 }
       );
-      // return res(
-      //   ctx.delay(1000),
-      //   ctx.status(200),
-      //   ctx.json({
-      //     date: date,
-      //     expenditure_this_month: {
-      //       last_month_Amount: "0",
-      //       "1st_month_Amount": "0",
-      //       goal_amount: "0",
-      //       result_amount: "0",
-      //     },
-      //     availableAmount: "0",
-      //     expenseGoalAmount: "0",
-      //     month_report: {
-      //       current: "0",
-      //       second_previous: "0",
-      //       previous: "0",
-      //     },
-      //     category_consume_report: "0",
-      //     Nmonth_fixed: {
-      //       previous_diff_plus: "0",
-      //       fixed_deposit: "0",
-      //       fixed_withdraw: "0",
-      //       previous_diff_minus: "0",
-      //       current_month: date,
-      //       previous_month: "2024-01-29",
-      //     },
-      //     totalSpentToday: "0",
-      //   })
-      // );
     }
 
     const data = {
@@ -441,8 +354,7 @@ export const handlers = [
         previous: 0,
       },
     };
-    // return res(ctx.delay(1000), ctx.status(200), ctx.json(data));
-    HttpResponse.json(data, { status: 200 });
+    return HttpResponse.json(data, { status: 200 });
   }),
 
   http.post<object, GoalResponse>(
@@ -451,8 +363,7 @@ export const handlers = [
       const { expenditure_amount } = await request.json();
       setLocalStorage(LOCAL_STORAGE_KEY_GOAL, expenditure_amount);
       await delay(1000);
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-      HttpResponse.json(true, { status: 200 });
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
 
@@ -476,9 +387,8 @@ export const handlers = [
           month_amount: "?",
         },
       });
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
       await delay(1000);
-      HttpResponse.json(goal, { status: 200 });
+      return HttpResponse.json(goal, { status: 200 });
     }
   ),
 
@@ -512,9 +422,8 @@ export const handlers = [
         },
       });
 
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
       await delay(1000);
-      HttpResponse.json(true, { status: 200 });
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
 
@@ -551,8 +460,7 @@ export const handlers = [
       });
 
       await delay(1000);
-      HttpResponse.json(true, { status: 200 });
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
 
@@ -563,8 +471,7 @@ export const handlers = [
     );
 
     await delay(1000);
-    HttpResponse.json(goal, { status: 200 });
-    // return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
+    return HttpResponse.json(goal, { status: 200 });
   }),
 
   http.post<object, setSpendingGoal>(
@@ -610,8 +517,7 @@ export const handlers = [
       }
 
       await delay(1000);
-      HttpResponse.json(true, { status: 200 });
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
 
@@ -629,21 +535,13 @@ export const handlers = [
       : goal.offSpendAmount;
 
     await delay(1000);
-    HttpResponse.json(
+    return HttpResponse.json(
       {
         ...assetsByCategory,
         spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
       },
       { status: 200 }
     );
-    // return res(
-    //   ctx.delay(1000),
-    //   ctx.status(200),
-    //   ctx.json({
-    //     ...assetsByCategory,
-    //     spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
-    //   })
-    // );
   }),
 
   http.post<object, setAssetByCategory>(
@@ -701,8 +599,7 @@ export const handlers = [
       });
 
       await delay(1000);
-      HttpResponse.json(true, { status: 200 });
-      // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
 
@@ -712,7 +609,6 @@ export const handlers = [
       INIT_ASSET_BY_CATEGORY
     );
     await delay(1000);
-    HttpResponse.json(true, { status: 200 });
-    // return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+    return HttpResponse.json(true, { status: 200 });
   }),
 ];
