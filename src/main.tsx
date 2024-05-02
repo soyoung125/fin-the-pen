@@ -20,7 +20,7 @@ async function main() {
   if (import.meta.env.VITE_LOCAL_MODE !== "true") {
     await worker.start({
       serviceWorker: {
-        url: "mockServiceWorker.js",
+        url: "/fin-the-pen-web/mockServiceWorker.js",
       },
       onUnhandledRequest: "bypass",
     });
@@ -38,11 +38,11 @@ async function main() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <CustomThemeProvider>
-              <OverlayProvider>
-                <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<>loading...</>}>
+                <OverlayProvider>
                   <RouterProvider router={router} />
-                </Suspense>
-              </OverlayProvider>
+                </OverlayProvider>
+              </Suspense>
             </CustomThemeProvider>
           </PersistGate>
         </Provider>
