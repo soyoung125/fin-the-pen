@@ -1,25 +1,11 @@
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
 import { lazy } from "react";
-
-const SavingsGoal = lazy(
-  () => import("@pages/AssetManagement/pages/SavingGoal")
-);
-const RegularAsset = lazy(
-  () => import("@pages/AssetManagement/pages/RegularAsset")
-);
-const RegularAssetDetail = lazy(
-  () =>
-    import(
-      "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/RegularAssetDetail.tsx"
-    )
-);
-const AssetByCategory = lazy(
-  () => import("@pages/AssetManagement/pages/AssetBuCategory")
-);
-const SpendingGoal = lazy(
-  () => import("@pages/AssetManagement/pages/SpendingGoal")
-);
+import SavingsGoal from "@pages/AssetManagement/pages/SavingGoal";
+import RegularAsset from "@pages/AssetManagement/pages/RegularAsset";
+import RegularAssetDetail from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail";
+import AssetByCategory from "@pages/AssetManagement/pages/AssetBuCategory";
+import SpendingGoal from "@pages/AssetManagement/pages/SpendingGoal";
 
 const MANAGEMENT_ROUTES: RouterDOM[] = [
   {

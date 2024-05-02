@@ -2,17 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import HOME_ROUTES from "./routes/HOME_ROUTES";
 import MANAGEMENT_ROUTES from "./routes/MANAGEMENT_ROUTES";
 import REPORT_ROUTES from "@routes/REPORT_ROUTES.tsx";
-import { lazy } from "react";
-
-const HomeLayout = lazy(
-  () => import("../components/layouts/containerLayout/HomeLayout")
-);
-const ManagementLayout = lazy(
-  () => import("../components/layouts/containerLayout/ManagementLayout")
-);
-const ReportLayout = lazy(
-  () => import("../components/layouts/containerLayout/ReportLayout")
-);
+import HomeLayout from "@components/layouts/containerLayout/HomeLayout.tsx";
+import ManagementLayout from "@components/layouts/containerLayout/ManagementLayout.tsx";
+import ReportLayout from "@components/layouts/containerLayout/ReportLayout.tsx";
 
 const router = createBrowserRouter(
   [
