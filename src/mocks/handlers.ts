@@ -1,5 +1,6 @@
 // src/mocks/handlers.js
-import { rest } from "msw";
+// import { rest } from "msw";
+import { delay, http, HttpResponse } from "msw";
 import {
   LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
   LOCAL_STORAGE_KEY_GOAL,
@@ -11,140 +12,184 @@ import {
 import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
 import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
-import { Schedule } from "@app/types/schedule.ts";
+import {
+  DaySchedule,
+  HomeQuery,
+  MonthSchedule,
+  MonthScheduleQuery,
+  RequestSchedule,
+  Schedule,
+  WeekSchedule,
+} from "@app/types/schedule.ts";
 import moment from "moment";
 import {
   AssetByCategory,
   AssetsByCategory,
   SavingGoal,
+  setAssetByCategory,
+  SetPersonalGoalQuery,
+  setSavingGoalQuery,
+  setSpendingGoal,
   SpendingGoal,
 } from "@app/types/asset.ts";
 import { INIT_ASSET_BY_CATEGORY } from "@app/tanstack-query/assetManagement/AssetByCategory/utils.ts";
+import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSchedule.ts";
+import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
+import { GoalResponse } from "@app/types/report.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
 export const handlers = [
-  rest.post(`${DOMAIN}/sign-up`, async (req, res, ctx) => {
-    type MockUser = User & { password: string };
+  http.post<object, MockUser, MockUser>(
+    `${DOMAIN}/sign-up`,
+    async ({ request }) => {
+      type MockUser = User & { password: string };
+      await delay(1000);
 
-    const newUser: MockUser = await req.json();
-    const prevUsers = getLocalStorage<MockUser[]>(LOCAL_STORAGE_KEY_USERS, []);
+      const newUser: MockUser = await request.json();
+      const prevUsers = getLocalStorage<MockUser[]>(
+        LOCAL_STORAGE_KEY_USERS,
+        []
+      );
 
-    if (prevUsers.find((user) => user.user_id === newUser.user_id)) {
-      return res(ctx.delay(1000), ctx.status(200), ctx.json(false));
+      if (prevUsers.find((user) => user.user_id === newUser.user_id)) {
+        return HttpResponse.json({ ...newUser, user_id: "" }, { status: 200 });
+      }
+
+      const newUsers: MockUser[] = [...prevUsers, newUser];
+
+      setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
+
+      return HttpResponse.json(newUser, { status: 200 });
     }
+  ),
 
-    const newUsers: MockUser[] = [...prevUsers, newUser];
+  http.post<object, SignUp, MockUser | string>(
+    `${DOMAIN}/sign-in`,
+    async ({ request }) => {
+      const credentials: SignUp = await request.json();
+      const users = getLocalStorage<MockUser[]>(LOCAL_STORAGE_KEY_USERS, []);
+      const user = users.find(
+        (user) =>
+          user.user_id === credentials.user_id &&
+          user.password === credentials.password
+      );
+      delay(1000);
 
-    setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
+      if (user === undefined) {
+        return HttpResponse.json("", { status: 200 });
+      }
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(newUser));
-  }),
+      const randomEightDigit = Math.floor(
+        10000000 + Math.random() * 90000000
+      ).toString();
 
-  rest.post(`${DOMAIN}/sign-in`, async (req, res, ctx) => {
-    const credentials: SignUp = await req.json();
-    const users = getLocalStorage<MockUser[]>(LOCAL_STORAGE_KEY_USERS, []);
-    const user = users.find(
-      (user) =>
-        user.user_id === credentials.user_id &&
-        user.password === credentials.password
-    );
-    if (user === undefined) {
-      return res(ctx.delay(1000), ctx.status(200), ctx.json(""));
+      return HttpResponse.json(
+        { ...user, token: randomEightDigit },
+        { status: 200 }
+      );
     }
+  ),
 
-    const randomEightDigit = Math.floor(
-      10000000 + Math.random() * 90000000
-    ).toString();
+  http.post<object, RequestSchedule>(
+    `${DOMAIN}/createSchedule`,
+    async ({ request }) => {
+      const schedule = await request.json();
+      const prevSchedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+      const isExist = prevSchedules.find(
+        (s) => s.schedule_id === schedule.schedule_id
+      );
+      await delay(1000);
 
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json({ ...user, token: randomEightDigit })
-    );
-  }),
-
-  rest.post(`${DOMAIN}/createSchedule`, async (req, res, ctx) => {
-    const schedule = await req.json();
-    const prevSchedules = getLocalStorage<Schedule[]>(
-      LOCAL_STORAGE_KEY_SCHEDULES,
-      []
-    );
-    const isExist = prevSchedules.find(
-      (s) => s.schedule_id === schedule.schedule_id
-    );
-    if (isExist) {
-      return res(ctx.delay(1000), ctx.status(400), ctx.json(false));
-    }
-    const repeatType = schedule.repeat.kind_type;
-    const newSchedules: Schedule[] = [
-      ...prevSchedules,
-      {
-        ...schedule,
-        price_type: getSign(schedule.price_type),
-        all_day: schedule.is_all_day,
-        repeat_kind: repeatType.toLocaleUpperCase(),
-        repeat_options: {
-          term:
-            repeatType !== "none"
-              ? schedule.repeat[`${repeatType}_type`].repeat_term
-              : null,
-          options: null,
+      if (isExist) {
+        return HttpResponse.json(false, { status: 400 });
+      }
+      const repeatType = schedule.repeat.kind_type;
+      const newSchedules: Schedule[] = [
+        ...prevSchedules,
+        {
+          ...schedule,
+          price_type: getSign(schedule.price_type),
+          all_day: schedule.is_all_day,
+          repeat_kind: repeatType.toLocaleUpperCase() as
+            | "NONE"
+            | "DAY"
+            | "WEEK"
+            | "MONTH"
+            | "YEAR",
+          repeat_options: {
+            term:
+              repeatType !== "none"
+                ? schedule.repeat[`${repeatType}_type`].repeat_term
+                : "null",
+            options: "null",
+          },
+          amount: schedule.set_amount,
+          exclude: schedule.exclusion,
         },
-        amount: schedule.set_amount,
-        exclude: schedule.exclusion,
-      },
-    ];
-    setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
+      ];
+      setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
+      return HttpResponse.json(true, { status: 200 });
+    }
+  ),
 
-  rest.delete(`${DOMAIN}/deleteSchedule`, async (req, res, ctx) => {
-    const { schedule_id } = await req.json();
-    const prevSchedules = getLocalStorage<Schedule[]>(
-      LOCAL_STORAGE_KEY_SCHEDULES,
-      []
-    );
-    const newSchedules = prevSchedules.filter(
-      (schedule) => schedule.schedule_id !== schedule_id
-    );
-    setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
+  http.delete<object, RequestDeleteSchedule>(
+    `${DOMAIN}/deleteSchedule`,
+    async ({ request }) => {
+      const { schedule_id } = await request.json();
+      const prevSchedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+      const newSchedules = prevSchedules.filter(
+        (schedule) => schedule.schedule_id !== schedule_id
+      );
+      setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
+    }
+  ),
 
-  rest.post(`${DOMAIN}/modifySchedule`, async (req, res, ctx) => {
-    const schedule = await req.json();
+  http.post<object, RequestModifySchedule>(
+    `${DOMAIN}/modifySchedule`,
+    async ({ request }) => {
+      const schedule = await request.json();
 
-    const prevSchedules = getLocalStorage<Schedule[]>(
-      LOCAL_STORAGE_KEY_SCHEDULES,
-      []
-    );
-    const repeatType = schedule.repeat.kind_type;
-    const newSchedules = prevSchedules.map((s) =>
-      s.schedule_id === schedule.schedule_id
-        ? {
-            ...schedule,
-            price_type: getSign(schedule.price_type),
-            all_day: schedule.is_all_day,
-            repeat_kind: repeatType.toLocaleUpperCase(),
-            repeat_options: {
-              term:
-                repeatType !== "none"
-                  ? schedule.repeat[`${repeatType}_type`].repeat_term
-                  : null,
-              options: null,
-            },
-            amount: schedule.set_amount,
-            exclude: schedule.exclusion,
-          }
-        : s
-    );
-    setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
+      const prevSchedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+      const repeatType = schedule.repeat.kind_type;
+      const newSchedules = prevSchedules.map((s) =>
+        s.schedule_id === schedule.schedule_id
+          ? {
+              ...schedule,
+              price_type: getSign(schedule.price_type),
+              all_day: schedule.is_all_day,
+              repeat_kind: repeatType.toLocaleUpperCase(),
+              repeat_options: {
+                term:
+                  repeatType !== "none"
+                    ? schedule.repeat[`${repeatType}_type`].repeat_term
+                    : null,
+                options: null,
+              },
+              amount: schedule.set_amount,
+              exclude: schedule.exclusion,
+            }
+          : s
+      );
+      setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
+    }
+  ),
 
-  rest.post(`${DOMAIN}/home/month`, async (req, res, ctx) => {
-    const { user_id, calendar_date } = await req.json();
+  http.post<object, HomeQuery>(`${DOMAIN}/home/month`, async ({ request }) => {
+    const { user_id, calendar_date } = await request.json();
     const schedules = getLocalStorage<Schedule[]>(
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
@@ -154,38 +199,38 @@ export const handlers = [
         schedule.user_id === user_id &&
         moment(calendar_date).isSame(schedule.start_date, "month")
     );
+    await delay(1000);
     if (monthSchedules.length === 0) {
-      return res(
-        ctx.delay(1000),
-        ctx.status(200),
-        ctx.json({
+      return HttpResponse.json(
+        {
           income: "0",
           available: "0",
           data: [],
           expense: "0",
           count: 0,
-        })
+        },
+        { status: 200 }
       );
     }
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json({
+    return HttpResponse.json(
+      {
         income: "10000",
         available: "2000",
         data: monthSchedules,
         expense: "8000",
         count: monthSchedules.length,
-      })
+      },
+      { status: 200 }
     );
   }),
 
-  rest.post(`${DOMAIN}/home/week`, async (req, res, ctx) => {
-    return res(ctx.delay(1000), ctx.status(400));
+  http.post(`${DOMAIN}/home/week`, async ({ request }) => {
+    await delay(1000);
+    return HttpResponse.json({}, { status: 400 });
   }),
 
-  rest.post(`${DOMAIN}/home/day`, async (req, res, ctx) => {
-    const { user_id, calendar_date } = await req.json();
+  http.post<object, HomeQuery>(`${DOMAIN}/home/day`, async ({ request }) => {
+    const { user_id, calendar_date } = await request.json();
     const schedules = getLocalStorage<Schedule[]>(
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
@@ -195,35 +240,36 @@ export const handlers = [
         schedule.user_id === user_id &&
         moment(calendar_date).isSame(schedule.start_date, "month")
     );
+    await delay(1000);
+
     if (monthSchedules.length === 0) {
-      return res(
-        ctx.delay(1000),
-        ctx.status(200),
-        ctx.json({
+      return HttpResponse.json(
+        {
           income: "0",
           available: "0",
           dayExpense: "0",
           expect: "0",
           schedule_count: 0,
-        })
+        },
+        { status: 200 }
       );
     }
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json({
+    return HttpResponse.json(
+      {
         income: "10000",
         available: "1000",
         dayExpense: "8000",
         expect: "1000",
         schedule_count: monthSchedules.length,
-      })
+      },
+      { status: 200 }
     );
   }),
 
-  rest.get(`${DOMAIN}/report/month`, async (req, res, ctx) => {
-    const user_id = req.url.searchParams.get("user_id");
-    const date = req.url.searchParams.get("date");
+  http.get<MonthScheduleQuery>(`${DOMAIN}/report/month`, async ({ params }) => {
+    // const user_id = req.url.searchParams.get("user_id");
+    // const date = req.url.searchParams.get("date");
+    const { user_id, date } = params;
     const schedules = getLocalStorage<Schedule[]>(
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
@@ -233,12 +279,11 @@ export const handlers = [
         schedule.user_id === user_id &&
         moment(date).isSame(schedule.start_date, "month")
     );
+    await delay(1000);
 
     if (monthSchedules.length === 0) {
-      return res(
-        ctx.delay(1000),
-        ctx.status(200),
-        ctx.json({
+      return HttpResponse.json(
+        {
           date: date,
           expenditure_this_month: {
             last_month_Amount: "0",
@@ -263,7 +308,8 @@ export const handlers = [
             previous_month: "2024-01-29",
           },
           totalSpentToday: "0",
-        })
+        },
+        { status: 200 }
       );
     }
 
@@ -308,210 +354,174 @@ export const handlers = [
         previous: 0,
       },
     };
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(data));
+    return HttpResponse.json(data, { status: 200 });
   }),
 
-  rest.post(`${DOMAIN}/report/set-amount`, async (req, res, ctx) => {
-    const { expenditure_amount } = await req.json();
-    setLocalStorage(LOCAL_STORAGE_KEY_GOAL, expenditure_amount);
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
-
-  rest.post(`${DOMAIN}/report/inquiry`, async (req, res, ctx) => {
-    const { user_id, date } = await req.json();
-    const schedules = getLocalStorage<Schedule[]>(
-      LOCAL_STORAGE_KEY_SCHEDULES,
-      []
-    );
-    const monthSchedules = schedules.filter(
-      (schedule) =>
-        schedule.user_id === user_id &&
-        moment(date).isSame(schedule.start_date, "month")
-    );
-
-    if (monthSchedules.length === 0) {
-      return res(ctx.delay(1000), ctx.status(200), ctx.json({ data: [] }));
+  http.post<object, GoalResponse>(
+    `${DOMAIN}/report/set-amount`,
+    async ({ request }) => {
+      const { expenditure_amount } = await request.json();
+      setLocalStorage(LOCAL_STORAGE_KEY_GOAL, expenditure_amount);
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
     }
-
-    const data = [
-      {
-        amount: 20000,
-        rate: "20",
-        category: "식비",
-      },
-      {
-        amount: 12000,
-        rate: "12",
-        category: "미용",
-      },
-      {
-        amount: 8000,
-        rate: "8",
-        category: "자동차",
-      },
-      {
-        amount: 7000,
-        rate: "7",
-        category: "패션/쇼핑",
-      },
-      {
-        amount: 6000,
-        rate: "6",
-        category: "카페",
-      },
-      {
-        amount: 5000,
-        rate: "5",
-        category: "식비",
-      },
-      {
-        amount: 4000,
-        rate: "4",
-        category: "식비",
-      },
-    ];
-    return res(ctx.delay(1000), ctx.status(200), ctx.json({ data: data }));
-  }),
+  ),
 
   // 자산관리
-  rest.get(`${DOMAIN}/asset/target-amount`, async (req, res, ctx) => {
-    const user_id = req.url.searchParams.get("user_id");
-    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
-      goal_amount: {
-        key_id: "1",
-        user_id: user_id ?? "?",
-        years_goal_amount: "?",
-        months_goal_amount: "?",
-      },
-      personal_goal: {
-        user_id: user_id ?? "?",
-        goal_name: "?",
-        goal_amount: "?",
-        period: "?",
-        month_amount: "?",
-      },
-    });
+  http.get<{ user_id: string }>(
+    `${DOMAIN}/asset/target-amount`,
+    async ({ params }) => {
+      const { user_id } = params;
+      const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+        goal_amount: {
+          key_id: "1",
+          user_id: user_id ?? "?",
+          years_goal_amount: "?",
+          months_goal_amount: "?",
+        },
+        personal_goal: {
+          user_id: user_id ?? "?",
+          goal_name: "?",
+          goal_amount: "?",
+          period: "?",
+          month_amount: "?",
+        },
+      });
+      await delay(1000);
+      return HttpResponse.json(goal, { status: 200 });
+    }
+  ),
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
-  }),
+  http.post<object, setSavingGoalQuery>(
+    `${DOMAIN}/asset/target-amount/set`,
+    async ({ request }) => {
+      const { user_id, years_goal_amount } = await request.json();
+      const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+        goal_amount: {
+          key_id: "1",
+          user_id: user_id ?? "?",
+          years_goal_amount: "?",
+          months_goal_amount: "?",
+        },
+        personal_goal: {
+          user_id: user_id ?? "?",
+          goal_name: "?",
+          goal_amount: "?",
+          period: "?",
+          month_amount: "?",
+        },
+      });
 
-  rest.post(`${DOMAIN}/asset/target-amount/set`, async (req, res, ctx) => {
-    const { user_id, years_goal_amount } = await req.json();
-    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
-      goal_amount: {
-        key_id: "1",
-        user_id: user_id ?? "?",
-        years_goal_amount: "?",
-        months_goal_amount: "?",
-      },
-      personal_goal: {
-        user_id: user_id ?? "?",
-        goal_name: "?",
-        goal_amount: "?",
-        period: "?",
-        month_amount: "?",
-      },
-    });
+      setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+        ...goal,
+        goal_amount: {
+          key_id: (Number(goal.goal_amount.key_id) + 1).toString(),
+          user_id: user_id,
+          years_goal_amount: years_goal_amount,
+          months_goal_amount: (Number(years_goal_amount) / 12).toString(),
+        },
+      });
 
-    setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
-      ...goal,
-      goal_amount: {
-        key_id: (Number(goal.goal_amount.key_id) + 1).toString(),
-        user_id: user_id,
-        years_goal_amount: years_goal_amount,
-        months_goal_amount: (Number(years_goal_amount) / 12).toString(),
-      },
-    });
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
+    }
+  ),
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
+  http.post<object, SetPersonalGoalQuery>(
+    `${DOMAIN}/asset/personal-goal`,
+    async ({ request }) => {
+      const { user_id, personal_goal, goal_amount, period, month_amount } =
+        await request.json();
+      const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+        goal_amount: {
+          key_id: "1",
+          user_id: user_id ?? "?",
+          years_goal_amount: "?",
+          months_goal_amount: "?",
+        },
+        personal_goal: {
+          user_id: user_id ?? "?",
+          goal_name: "?",
+          goal_amount: "?",
+          period: "?",
+          month_amount: "?",
+        },
+      });
 
-  rest.post(`${DOMAIN}/asset/personal-goal`, async (req, res, ctx) => {
-    const { user_id, personal_goal, goal_amount, period, month_amount } =
-      await req.json();
-    const goal = getLocalStorage<SavingGoal>(LOCAL_STORAGE_KEY_SAVING_GOAL, {
-      goal_amount: {
-        key_id: "1",
-        user_id: user_id ?? "?",
-        years_goal_amount: "?",
-        months_goal_amount: "?",
-      },
-      personal_goal: {
-        user_id: user_id ?? "?",
-        goal_name: "?",
-        goal_amount: "?",
-        period: "?",
-        month_amount: "?",
-      },
-    });
+      setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
+        ...goal,
+        personal_goal: {
+          user_id: user_id,
+          goal_name: personal_goal,
+          goal_amount: goal_amount,
+          period: period,
+          month_amount: month_amount,
+        },
+      });
 
-    setLocalStorage(LOCAL_STORAGE_KEY_SAVING_GOAL, {
-      ...goal,
-      personal_goal: {
-        user_id: user_id,
-        goal_name: personal_goal,
-        goal_amount: goal_amount,
-        period: period,
-        month_amount: month_amount,
-      },
-    });
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
+    }
+  ),
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
-
-  rest.get(`${DOMAIN}/asset/spend-goal/view`, async (req, res, ctx) => {
+  http.get(`${DOMAIN}/asset/spend-goal/view`, async ({ request }) => {
     const goal = getLocalStorage<SpendingGoal>(
       LOCAL_STORAGE_KEY_SPENDING_GOAL,
       {}
     );
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(goal));
+    await delay(1000);
+    return HttpResponse.json(goal, { status: 200 });
   }),
 
-  rest.post(`${DOMAIN}/asset/spend-goal/set`, async (req, res, ctx) => {
-    const {
-      user_id,
-      start_date,
-      end_date,
-      regular,
-      spend_goal_amount,
-      is_batch,
-    } = await req.json();
-    const goal = getLocalStorage<SpendingGoal>(
-      LOCAL_STORAGE_KEY_SPENDING_GOAL,
-      {}
-    );
-    const result = {
-      user_id: user_id,
-      date: start_date,
-      start_date: start_date,
-      end_date: end_date,
-      spend_goal_amount: spend_goal_amount,
-      spend_amount: "0",
-    };
+  http.post<object, setSpendingGoal>(
+    `${DOMAIN}/asset/spend-goal/set`,
+    async ({ request }) => {
+      const {
+        user_id,
+        start_date,
+        end_date,
+        regular,
+        spend_goal_amount,
+        is_batch,
+      } = await request.json();
+      const goal = getLocalStorage<SpendingGoal>(
+        LOCAL_STORAGE_KEY_SPENDING_GOAL,
+        {}
+      );
+      const result = {
+        user_id: user_id,
+        date: start_date,
+        start_date: start_date,
+        end_date: end_date,
+        spend_goal_amount: spend_goal_amount,
+        spend_amount: "0",
+      };
 
-    if (regular === "ON") {
-      if (is_batch) {
-        setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
-          OnSpendAmount: result,
-        });
+      if (regular === "ON") {
+        if (is_batch) {
+          setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+            OnSpendAmount: result,
+          });
+        } else {
+          setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
+            ...goal,
+            OnSpendAmount: result,
+          });
+        }
       } else {
         setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
           ...goal,
-          OnSpendAmount: result,
+          offSpendAmount: result,
         });
       }
-    } else {
-      setLocalStorage(LOCAL_STORAGE_KEY_SPENDING_GOAL, {
-        ...goal,
-        offSpendAmount: result,
-      });
+
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
     }
+  ),
 
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
-
-  rest.get(`${DOMAIN}/asset/category-amount`, async (req, res, ctx) => {
+  http.get(`${DOMAIN}/asset/category-amount`, async () => {
     const assetsByCategory = getLocalStorage<AssetsByCategory>(
       LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
       INIT_ASSET_BY_CATEGORY
@@ -524,78 +534,81 @@ export const handlers = [
       ? goal.OnSpendAmount
       : goal.offSpendAmount;
 
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json({
+    await delay(1000);
+    return HttpResponse.json(
+      {
         ...assetsByCategory,
         spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
-      })
+      },
+      { status: 200 }
     );
   }),
 
-  rest.post(`${DOMAIN}/asset/category-amount/set`, async (req, res, ctx) => {
-    const { date, medium_name, medium_value, small_map } = await req.json();
-    const assetsByCategory = getLocalStorage<AssetsByCategory>(
-      LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
-      INIT_ASSET_BY_CATEGORY
-    );
-    const goal = getLocalStorage<SpendingGoal>(
-      LOCAL_STORAGE_KEY_SPENDING_GOAL,
-      {}
-    );
-    const goalAmount = goal.OnSpendAmount
-      ? goal.OnSpendAmount
-      : goal.offSpendAmount;
-    const assetByCategory = {
-      category_name: medium_name,
-      category_total: medium_value,
-      list: Object.keys(small_map).map((k) => {
-        return { name: k, value: small_map[k] };
-      }),
-    };
-
-    const result = {
-      date: date,
-      spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
-      ratio: "0",
-    };
-
-    let newList: AssetByCategory[] = [];
-
-    if (
-      assetsByCategory.category_list.find(
-        (l) => l.category_name === medium_name
-      )
-    ) {
-      newList = assetsByCategory.category_list.map((l) =>
-        l.category_name === medium_name ? assetByCategory : l
-      );
-    } else {
-      newList = assetsByCategory.category_list.concat(assetByCategory);
-    }
-    const total = newList.reduce((result, curr) => {
-      return result + Number(curr.category_total);
-    }, 0);
-
-    setLocalStorage(LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY, {
-      ...result,
-      category_list: newList,
-      category_total: total.toString(),
-      ratio: ((total / Number(result.spend_goal_amount)) * 100).toString(),
-    });
-
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
-  }),
-
-  rest.delete(
-    `${DOMAIN}/asset/category-amount/delete`,
-    async (req, res, ctx) => {
-      setLocalStorage(
+  http.post<object, setAssetByCategory>(
+    `${DOMAIN}/asset/category-amount/set`,
+    async ({ request }) => {
+      const { date, medium_name, medium_value, small_map } =
+        await request.json();
+      const assetsByCategory = getLocalStorage<AssetsByCategory>(
         LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
         INIT_ASSET_BY_CATEGORY
       );
-      return res(ctx.delay(1000), ctx.status(200), ctx.json(true));
+      const goal = getLocalStorage<SpendingGoal>(
+        LOCAL_STORAGE_KEY_SPENDING_GOAL,
+        {}
+      );
+      const goalAmount = goal.OnSpendAmount
+        ? goal.OnSpendAmount
+        : goal.offSpendAmount;
+      const assetByCategory = {
+        category_name: medium_name,
+        category_total: medium_value,
+        list: Object.keys(small_map).map((k) => {
+          return { name: k, value: small_map[k] };
+        }),
+      };
+
+      const result = {
+        date: date,
+        spend_goal_amount: goalAmount ? goalAmount.spend_goal_amount : "0",
+        ratio: "0",
+      };
+
+      let newList: AssetByCategory[] = [];
+
+      if (
+        assetsByCategory.category_list.find(
+          (l) => l.category_name === medium_name
+        )
+      ) {
+        newList = assetsByCategory.category_list.map((l) =>
+          l.category_name === medium_name ? assetByCategory : l
+        );
+      } else {
+        newList = assetsByCategory.category_list.concat(assetByCategory);
+      }
+      const total = newList.reduce((result, curr) => {
+        return result + Number(curr.category_total);
+      }, 0);
+
+      setLocalStorage(LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY, {
+        ...result,
+        category_list: newList,
+        category_total: total.toString(),
+        ratio: ((total / Number(result.spend_goal_amount)) * 100).toString(),
+      });
+
+      await delay(1000);
+      return HttpResponse.json(true, { status: 200 });
     }
   ),
+
+  http.delete(`${DOMAIN}/asset/category-amount/delete`, async () => {
+    setLocalStorage(
+      LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
+      INIT_ASSET_BY_CATEGORY
+    );
+    await delay(1000);
+    return HttpResponse.json(true, { status: 200 });
+  }),
 ];

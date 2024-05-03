@@ -21,6 +21,7 @@ const fetchWeekSchedules = async (query: HomeQuery) => {
     },
     body: JSON.stringify(query),
   }).then<WeekSchedule>(async (res) => {
+    console.log(res);
     if (!res.ok) {
       return init_data(query.main_month);
     }
@@ -35,7 +36,7 @@ export const useWeekSchedules = (query: HomeQuery) => {
   });
 };
 
-const init_data = (date: string) => {
+export const init_data = (date: string) => {
   const selected = moment(`${date}-01`);
   const format = "M/D";
   const lastDay = moment(`${date}-01`).endOf("month").format("YYYY-MM-DD");

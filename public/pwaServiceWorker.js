@@ -1,8 +1,8 @@
 // This is the "Offline copy of pages" service worker
 
-const CACHE_NAME = "cache-v3";
+const CACHE_NAME = "cache-v4";
 
-const FILES_TO_CACHE = ["offline.html", "icons/favicon.ico", "index.html"];
+const FILES_TO_CACHE = ["offline.html", "icons/favicon.ico"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -11,15 +11,14 @@ function ManagementLayout() {
 
   useHeader(true, HEADER_MODE.assetManagement);
 
+  if (!isAuthenticated) {
+    return <EasyAuthentication />;
+  }
+
   return (
-    <>
-      <EasyAuthentication />
-      {isAuthenticated && (
-        <Box sx={{ wordBreak: "keep-all", fontWeight: "bold" }}>
-          <Outlet />
-        </Box>
-      )}
-    </>
+    <Box sx={{ wordBreak: "keep-all", fontWeight: "bold" }}>
+      <Outlet />
+    </Box>
   );
 }
 

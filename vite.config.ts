@@ -17,6 +17,13 @@ export default defineConfig({
     },
   },
   build: {
+    // modulePreload: true,
+    // modulePreload: {
+    //   resolveDependencies: (filename, deps, { hostId, hostType }) => {
+    //     console.log(filename, deps);
+    //     return deps;
+    //   },
+    // },
     rollupOptions: {
       output: {
         manualChunks: (id) => {

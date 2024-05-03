@@ -12,9 +12,13 @@ interface PropsInterface {
   option: string;
 }
 
+export interface RequestModifySchedule extends RequestSchedule {
+  modify_options: string;
+}
+
 const fetchModifySchedule = async ({ schedule, option }: PropsInterface) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
-  const data = {
+  const data: RequestModifySchedule = {
     // 다른 방법을 생각해 봐야 할 것 같음
     ...schedule,
     price_type: getPriceType(schedule.price_type),
