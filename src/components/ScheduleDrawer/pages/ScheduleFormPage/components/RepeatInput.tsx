@@ -10,7 +10,7 @@ interface RepeatInputProps {
 }
 
 function RepeatInput({ repeatType, onClick, handleChange }: RepeatInputProps) {
-  const { updateRepeat } = useScheduleForm();
+  const { updateRepeat, getRepeat } = useScheduleForm();
 
   const changeRepeat = (state: UpdateStateInterface) => {
     handleChange
@@ -23,9 +23,15 @@ function RepeatInput({ repeatType, onClick, handleChange }: RepeatInputProps) {
 
   return (
     <Box>
-      <Stack direction="row" justifyContent="space-between" sx={{ px: 2.5 }}>
-        <Box sx={{ flexGrow: 1, typography: "h2" }} onClick={onClick}>
+      <Stack direction="row" spacing={1} alignItems="end" sx={{ px: 2.5 }}>
+        <Box sx={{ typography: "h2" }} onClick={onClick}>
           반복
+        </Box>
+        <Box
+          sx={{ flexGrow: 1, typography: "subtitle2", color: "primary.main" }}
+          onClick={onClick}
+        >
+          {getRepeat()}
         </Box>
         <SwitchButton
           checked={repeatType !== "none"}

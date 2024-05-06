@@ -15,6 +15,7 @@ import {
   CATEGORIES,
   INCOME_CATEGORY,
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/constants.ts";
+import { RequestSchedule } from "@app/types/schedule.ts";
 
 export const getType = (category: string) => {
   if (INCOME_CATEGORY.includes(category)) {
@@ -190,6 +191,26 @@ export const useScheduleForm = () => {
     );
   };
 
+  const getRepeat = () => {
+    if (!scheduleForm) return;
+
+    const type = { day: "일", week: "주", month: "달", year: "년" };
+    const repeatType = scheduleForm.repeat.kind_type;
+
+    if (repeatType === "none") return;
+
+    const term = scheduleForm.repeat[`${repeatType}_type`].repeat_term;
+    const repeat = `${term}${type[repeatType]}마다`;
+    switch (scheduleForm.period.kind_type) {
+      case "is_repeat_again":
+        return `${repeat} 반복`;
+      case "repeat_number_time":
+        return `${repeat} ${scheduleForm.period.repeat_number_time}회 반복`;
+      case "repeat_end_line":
+        return `${repeat} ${scheduleForm.period.repeat_end_line}까지 반복`;
+    }
+  };
+
   const updateAllDay = (state: {
     target: { value: boolean; name: string };
   }) => {
@@ -313,6 +334,7 @@ export const useScheduleForm = () => {
     setRandomGeneratedSchedule,
     updatePeriod,
     updateYearRepeat,
+    getRepeat,
     updateCategory,
   };
 };
