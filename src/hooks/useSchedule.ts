@@ -44,6 +44,7 @@ const useSchedule = () => {
     };
 
     createSchedule(scheduleWithUuid);
+    resetSchedule();
   };
 
   const handleDeleteSchedule = async (
