@@ -19,7 +19,7 @@ function ExclusionInput() {
       px={2.5}
       py={1}
     >
-      <Typography variant="h4" sx={{ color: "primary.main" }}>
+      <Typography variant="h2" color="#131416">
         {SCHEDULE_DRAWER.exclusion_title}
       </Typography>
       <Stack direction="row" alignItems="center">

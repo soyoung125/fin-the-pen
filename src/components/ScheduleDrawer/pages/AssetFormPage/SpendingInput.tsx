@@ -62,8 +62,8 @@ function SpendingInput() {
       <Box
         py={1.5}
         sx={{
-          typography: "h4",
-          color: "primary.main",
+          typography: "h2",
+          color: "#131416",
           borderBottom: "1px solid #F7F7F8",
         }}
       >
@@ -175,7 +175,7 @@ function SpendingInput() {
         alignItems="center"
         py={1}
       >
-        <Typography variant="h4" sx={{ color: "primary.main" }}>
+        <Typography variant="h2" color="#131416">
           {SCHEDULE_DRAWER.fix_amount}
         </Typography>
         <Stack direction="row" alignItems="center">

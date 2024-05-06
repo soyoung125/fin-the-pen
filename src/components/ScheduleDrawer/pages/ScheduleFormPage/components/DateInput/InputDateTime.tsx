@@ -67,7 +67,7 @@ function InputDateTime({ date, time, type, isAllDay }: InputDateTimeProps) {
 
   return (
     <Box sx={{ py: 1 }}>
-      <Typography variant="subtitle1" color="primary">
+      <Typography variant="h2" color="#131416">
         {title}
       </Typography>
 

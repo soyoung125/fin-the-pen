@@ -1,5 +1,3 @@
-// src/mocks/handlers.js
-// import { rest } from "msw";
 import { delay, http, HttpResponse } from "msw";
 import {
   LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
@@ -13,13 +11,11 @@ import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
 import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import {
-  DaySchedule,
   HomeQuery,
-  MonthSchedule,
   MonthScheduleQuery,
   RequestSchedule,
   Schedule,
-  WeekSchedule,
+  WeeklySchedule,
 } from "@app/types/schedule.ts";
 import moment from "moment";
 import {
@@ -197,36 +193,115 @@ export const handlers = [
     const monthSchedules = schedules.filter(
       (schedule) =>
         schedule.user_id === user_id &&
-        moment(calendar_date).isSame(schedule.start_date, "month")
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "month") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "month")
     );
+    const { income, expense } = monthSchedules.reduce(
+      (result, curr) => {
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0 }
+    );
+
     await delay(1000);
-    if (monthSchedules.length === 0) {
-      return HttpResponse.json(
-        {
-          income: "0",
-          available: "0",
-          data: [],
-          expense: "0",
-          count: 0,
-        },
-        { status: 200 }
-      );
-    }
     return HttpResponse.json(
       {
-        income: "10000",
-        available: "2000",
+        income: income.toString(),
+        available: "0",
         data: monthSchedules,
-        expense: "8000",
+        expense: expense.toString(),
         count: monthSchedules.length,
       },
       { status: 200 }
     );
   }),
 
-  http.post(`${DOMAIN}/home/week`, async ({ request }) => {
+  http.post<object, HomeQuery>(`${DOMAIN}/home/week`, async ({ request }) => {
+    const { user_id, calendar_date, main_month } = await request.json();
+    const schedules = getLocalStorage<Schedule[]>(
+      LOCAL_STORAGE_KEY_SCHEDULES,
+      []
+    );
+    const monthSchedules = schedules.filter(
+      (schedule) =>
+        schedule.user_id === user_id &&
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "month") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "month")
+    );
+
+    const { income, expense } = monthSchedules.reduce(
+      (result, curr) => {
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0 }
+    );
+
+    const selected = moment(`${main_month}-01`);
+    const format = "YYYY-MM-DD";
+    const lastDay = moment(`${main_month}-01`)
+      .endOf("month")
+      .format("YYYY-MM-DD");
+    let count = 1;
+    let result: WeeklySchedule[] = [];
+
+    while (!selected.isSameOrAfter(lastDay, "date")) {
+      const first = selected.day(1).format(format);
+      const last = selected.day(7).format(format);
+
+      const weekSchedules = monthSchedules.filter(
+        (s) =>
+          !(
+            moment(s.start_date).isAfter(last, "date") ||
+            moment(s.end_date).isBefore(first, "date")
+          )
+      );
+
+      const { weekIncome, weekExpense } = weekSchedules.reduce(
+        (result, curr) => {
+          if (curr.price_type === "+") {
+            return {
+              ...result,
+              weekIncome: result.weekIncome + parseInt(curr.amount),
+            };
+          } else {
+            return {
+              ...result,
+              weekExpense: result.weekExpense + parseInt(curr.amount),
+            };
+          }
+        },
+        { weekIncome: 0, weekExpense: 0 }
+      );
+      result = [
+        ...result,
+        {
+          week_of_number: `${count}주차`,
+          period: `${first}~${last}`,
+          plus: weekIncome,
+          minus: weekExpense,
+        },
+      ];
+      count += 1;
+    }
+
     await delay(1000);
-    return HttpResponse.json({}, { status: 400 });
+    return HttpResponse.json(
+      {
+        week_schedule: result,
+        income: income.toString(),
+        available: "0",
+        expense: expense.toString(),
+      },
+      { status: 200 }
+    );
   }),
 
   http.post<object, HomeQuery>(`${DOMAIN}/home/day`, async ({ request }) => {
@@ -235,14 +310,30 @@ export const handlers = [
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
     );
-    const monthSchedules = schedules.filter(
+    const daySchedules = schedules.filter(
       (schedule) =>
         schedule.user_id === user_id &&
-        moment(calendar_date).isSame(schedule.start_date, "month")
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "date") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "date")
     );
+    const { income, expense, expect } = daySchedules.reduce(
+      (result, curr) => {
+        const dateAndTime = `${curr.start_date} ${curr.start_time}`;
+        if (moment().isBefore(dateAndTime)) {
+          return { ...result, expect: result.expect + parseInt(curr.amount) };
+        }
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0, expect: 0 }
+    );
+
     await delay(1000);
 
-    if (monthSchedules.length === 0) {
+    if (daySchedules.length === 0) {
       return HttpResponse.json(
         {
           income: "0",
@@ -256,11 +347,11 @@ export const handlers = [
     }
     return HttpResponse.json(
       {
-        income: "10000",
-        available: "1000",
-        dayExpense: "8000",
-        expect: "1000",
-        schedule_count: monthSchedules.length,
+        income: income.toString(),
+        available: "0",
+        dayExpense: expense.toString(),
+        expect: expect.toString(),
+        schedule_count: daySchedules.length,
       },
       { status: 200 }
     );
@@ -464,7 +555,7 @@ export const handlers = [
     }
   ),
 
-  http.get(`${DOMAIN}/asset/spend-goal/view`, async ({ request }) => {
+  http.get(`${DOMAIN}/asset/spend-goal/view`, async () => {
     const goal = getLocalStorage<SpendingGoal>(
       LOCAL_STORAGE_KEY_SPENDING_GOAL,
       {}

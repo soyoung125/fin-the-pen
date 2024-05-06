@@ -43,7 +43,9 @@ function DateInput({ showError }: DateInputProps) {
         alignItems="center"
         sx={{ height: "34px", py: 1 }}
       >
-        <Typography variant="h4">{SCHEDULE_DRAWER.all_day}</Typography>
+        <Typography variant="h2" color="#131416">
+          {SCHEDULE_DRAWER.all_day}
+        </Typography>
         <SwitchButton
           checked={isAllDay}
           handleChange={() =>

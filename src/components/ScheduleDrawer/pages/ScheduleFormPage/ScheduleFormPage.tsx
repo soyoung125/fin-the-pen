@@ -7,6 +7,7 @@ import RepeatInput from "./components/RepeatInput.tsx";
 import { useSelector } from "react-redux";
 import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
 import { Dispatch, SetStateAction } from "react";
+import SelectTemplate from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate";
 
 export interface ScheduleFormPageProps {
   showError: boolean;
@@ -24,6 +25,7 @@ function ScheduleFormPage({
     return (
       <Stack spacing={2} pt={2}>
         <Stack spacing="10px">
+          <SelectTemplate />
           {/* 이벤트 제목 */}
           <NameInput showError={showError} />
 

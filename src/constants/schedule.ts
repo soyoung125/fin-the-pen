@@ -123,6 +123,8 @@ export const SCHEDULE_DRAWER = {
     read: "일정",
     modify: "일정 편집",
   },
+  template: "기록된 반복 일정",
+  showAllTemplate: "전체보기",
   name: "제목",
   date: "날짜",
   start: "시작",
@@ -139,7 +141,7 @@ export const SCHEDULE_DRAWER = {
   won: "원",
   expected_spending: "예상 비용",
   fix_amount: "금액 고정",
-  set_payment_type_title: "일정 중요도",
+  set_payment_type_title: "결제 수단",
   account: "ACCOUNT", // 저장 데이터와 연동되어 있음 (수정금지)
   card: "CARD", // 저장 데이터와 연동되어 있음 (수정금지)
   cash: "CASH", // 저장 데이터와 연동되어 있음 (수정금지)

@@ -22,7 +22,7 @@ function SelectDateTime({
       sx={{ height: "50px", borderBottom: "1px solid #F7F7F8", flexGrow: 1 }}
     >
       <Box>{dateTime}</Box>
-      <ExpandMoreRoundedIcon />
+      <ExpandMoreRoundedIcon color="primary" />
     </Stack>
   );
 }

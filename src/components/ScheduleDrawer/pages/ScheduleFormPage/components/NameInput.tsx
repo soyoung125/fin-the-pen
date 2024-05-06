@@ -38,7 +38,7 @@ function NameInput({ showError }: NameInputProps) {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Box sx={{ color: "primary.main", fontWeight: 500 }}>
+              <Box sx={{ typography: "h2", color: "#131416" }}>
                 {SCHEDULE_DRAWER.name}
               </Box>
             </InputAdornment>
