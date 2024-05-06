@@ -199,25 +199,24 @@ export const handlers = [
         schedule.user_id === user_id &&
         moment(calendar_date).isSame(schedule.start_date, "month")
     );
+    const { income, expense } = monthSchedules.reduce(
+      (result, curr) => {
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0 }
+    );
+
     await delay(1000);
-    if (monthSchedules.length === 0) {
-      return HttpResponse.json(
-        {
-          income: "0",
-          available: "0",
-          data: [],
-          expense: "0",
-          count: 0,
-        },
-        { status: 200 }
-      );
-    }
     return HttpResponse.json(
       {
-        income: "10000",
-        available: "2000",
+        income: income.toString(),
+        available: "0",
         data: monthSchedules,
-        expense: "8000",
+        expense: expense.toString(),
         count: monthSchedules.length,
       },
       { status: 200 }
