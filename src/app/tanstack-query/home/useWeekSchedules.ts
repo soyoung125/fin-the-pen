@@ -21,7 +21,6 @@ const fetchWeekSchedules = async (query: HomeQuery) => {
     },
     body: JSON.stringify(query),
   }).then<WeekSchedule>(async (res) => {
-    console.log(res);
     if (!res.ok) {
       return init_data(query.main_month);
     }
