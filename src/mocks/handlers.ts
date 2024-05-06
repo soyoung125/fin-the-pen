@@ -15,6 +15,7 @@ import {
   MonthScheduleQuery,
   RequestSchedule,
   Schedule,
+  WeeklySchedule,
 } from "@app/types/schedule.ts";
 import moment from "moment";
 import {
@@ -219,9 +220,88 @@ export const handlers = [
     );
   }),
 
-  http.post(`${DOMAIN}/home/week`, async () => {
+  http.post<object, HomeQuery>(`${DOMAIN}/home/week`, async ({ request }) => {
+    const { user_id, calendar_date, main_month } = await request.json();
+    const schedules = getLocalStorage<Schedule[]>(
+      LOCAL_STORAGE_KEY_SCHEDULES,
+      []
+    );
+    const monthSchedules = schedules.filter(
+      (schedule) =>
+        schedule.user_id === user_id &&
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "month") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "month")
+    );
+
+    const { income, expense } = monthSchedules.reduce(
+      (result, curr) => {
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0 }
+    );
+
+    const selected = moment(`${main_month}-01`);
+    const format = "YYYY-MM-DD";
+    const lastDay = moment(`${main_month}-01`)
+      .endOf("month")
+      .format("YYYY-MM-DD");
+    let count = 1;
+    let result: WeeklySchedule[] = [];
+
+    while (!selected.isSameOrAfter(lastDay, "date")) {
+      const first = selected.day(1).format(format);
+      const last = selected.day(7).format(format);
+
+      const weekSchedules = monthSchedules.filter(
+        (s) =>
+          !(
+            moment(s.start_date).isAfter(last, "date") ||
+            moment(s.end_date).isBefore(first, "date")
+          )
+      );
+
+      const { weekIncome, weekExpense } = weekSchedules.reduce(
+        (result, curr) => {
+          if (curr.price_type === "+") {
+            return {
+              ...result,
+              weekIncome: result.weekIncome + parseInt(curr.amount),
+            };
+          } else {
+            return {
+              ...result,
+              weekExpense: result.weekExpense + parseInt(curr.amount),
+            };
+          }
+        },
+        { weekIncome: 0, weekExpense: 0 }
+      );
+      result = [
+        ...result,
+        {
+          week_of_number: `${count}주차`,
+          period: `${first}~${last}`,
+          plus: weekIncome,
+          minus: weekExpense,
+        },
+      ];
+      count += 1;
+    }
+
     await delay(1000);
-    return HttpResponse.json({}, { status: 400 });
+    return HttpResponse.json(
+      {
+        week_schedule: result,
+        income: income.toString(),
+        available: "0",
+        expense: expense.toString(),
+      },
+      { status: 200 }
+    );
   }),
 
   http.post<object, HomeQuery>(`${DOMAIN}/home/day`, async ({ request }) => {
