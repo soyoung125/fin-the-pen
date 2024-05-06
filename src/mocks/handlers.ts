@@ -197,7 +197,8 @@ export const handlers = [
     const monthSchedules = schedules.filter(
       (schedule) =>
         schedule.user_id === user_id &&
-        moment(calendar_date).isSame(schedule.start_date, "month")
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "month") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "month")
     );
     const { income, expense } = monthSchedules.reduce(
       (result, curr) => {
@@ -223,7 +224,7 @@ export const handlers = [
     );
   }),
 
-  http.post(`${DOMAIN}/home/week`, async ({ request }) => {
+  http.post(`${DOMAIN}/home/week`, async () => {
     await delay(1000);
     return HttpResponse.json({}, { status: 400 });
   }),
@@ -234,14 +235,30 @@ export const handlers = [
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
     );
-    const monthSchedules = schedules.filter(
+    const daySchedules = schedules.filter(
       (schedule) =>
         schedule.user_id === user_id &&
-        moment(calendar_date).isSame(schedule.start_date, "month")
+        moment(calendar_date).isSameOrAfter(schedule.start_date, "date") &&
+        moment(calendar_date).isSameOrBefore(schedule.end_date, "date")
     );
+    const { income, expense, expect } = daySchedules.reduce(
+      (result, curr) => {
+        const dateAndTime = `${curr.start_date} ${curr.start_time}`;
+        if (moment().isBefore(dateAndTime)) {
+          return { ...result, expect: result.expect + parseInt(curr.amount) };
+        }
+        if (curr.price_type === "+") {
+          return { ...result, income: result.income + parseInt(curr.amount) };
+        } else {
+          return { ...result, expense: result.expense + parseInt(curr.amount) };
+        }
+      },
+      { income: 0, expense: 0, expect: 0 }
+    );
+
     await delay(1000);
 
-    if (monthSchedules.length === 0) {
+    if (daySchedules.length === 0) {
       return HttpResponse.json(
         {
           income: "0",
@@ -255,11 +272,11 @@ export const handlers = [
     }
     return HttpResponse.json(
       {
-        income: "10000",
-        available: "1000",
-        dayExpense: "8000",
-        expect: "1000",
-        schedule_count: monthSchedules.length,
+        income: income.toString(),
+        available: "0",
+        dayExpense: expense.toString(),
+        expect: expect.toString(),
+        schedule_count: daySchedules.length,
       },
       { status: 200 }
     );
