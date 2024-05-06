@@ -1,5 +1,3 @@
-// src/mocks/handlers.js
-// import { rest } from "msw";
 import { delay, http, HttpResponse } from "msw";
 import {
   LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
@@ -13,13 +11,10 @@ import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
 import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import {
-  DaySchedule,
   HomeQuery,
-  MonthSchedule,
   MonthScheduleQuery,
   RequestSchedule,
   Schedule,
-  WeekSchedule,
 } from "@app/types/schedule.ts";
 import moment from "moment";
 import {
@@ -480,7 +475,7 @@ export const handlers = [
     }
   ),
 
-  http.get(`${DOMAIN}/asset/spend-goal/view`, async ({ request }) => {
+  http.get(`${DOMAIN}/asset/spend-goal/view`, async () => {
     const goal = getLocalStorage<SpendingGoal>(
       LOCAL_STORAGE_KEY_SPENDING_GOAL,
       {}
