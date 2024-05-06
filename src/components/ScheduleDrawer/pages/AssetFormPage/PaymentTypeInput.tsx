@@ -15,8 +15,9 @@ function PaymentTypeInput() {
   return (
     <Stack spacing="10px" px={2.5}>
       <Typography
-        variant="h4"
-        sx={{ color: "primary.main", py: 1, borderBottom: "1px solid #F7F7F8" }}
+        variant="h2"
+        color="#131416"
+        sx={{ py: 1, borderBottom: "1px solid #F7F7F8" }}
       >
         {SCHEDULE_DRAWER.set_payment_type_title}
       </Typography>

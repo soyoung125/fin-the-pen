@@ -24,7 +24,7 @@ function RepeatInput({ repeatType, onClick, handleChange }: RepeatInputProps) {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" sx={{ px: 2.5 }}>
-        <Box sx={{ color: "primary.main", flexGrow: 1 }} onClick={onClick}>
+        <Box sx={{ flexGrow: 1, typography: "h2" }} onClick={onClick}>
           반복
         </Box>
         <SwitchButton
