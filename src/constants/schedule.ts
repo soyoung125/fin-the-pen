@@ -123,6 +123,8 @@ export const SCHEDULE_DRAWER = {
     read: "일정",
     modify: "일정 편집",
   },
+  template: "기록된 반복 일정",
+  showAllTemplate: "전체보기",
   name: "제목",
   date: "날짜",
   start: "시작",
