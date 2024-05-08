@@ -16,6 +16,7 @@ import CalendarIcon from "@components/layouts/common/BottomBar/buttons/Calendar.
 import ReportIcon from "@components/layouts/common/BottomBar/buttons/Report.tsx";
 import AssetIcon from "@components/layouts/common/BottomBar/buttons/asset.tsx";
 import SettingIcon from "@components/layouts/common/BottomBar/buttons/setting.tsx";
+import IconSVG from "@components/common/IconSVG";
 
 function BottomBar() {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ function BottomBar() {
       />
       <BottomNavigationAction
         label=""
-        icon={<img src={add_button} alt="add schedule" />}
+        icon={<IconSVG id={"add-button"} size={48} />}
         onClick={() =>
           openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")))
         }

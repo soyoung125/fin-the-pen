@@ -1,11 +1,13 @@
-import setting_primary from "@assets/icons/bottom/setting_primary.svg";
-import setting_secondary from "@assets/icons/bottom/setting_secondary.svg";
 import { ButtonIcon } from "@components/layouts/common/BottomBar/buttons/types.ts";
+import IconSVG from "@components/common/IconSVG";
 
 function SettingIcon({ selected }: ButtonIcon) {
-  if (selected) return <img src={setting_primary} alt="setting_primary" />;
-
-  return <img src={setting_secondary} alt="setting_secondary" />;
+  return (
+    <IconSVG
+      id={selected ? "setting-primary" : "setting-secondary"}
+      size={28}
+    />
+  );
 }
 
 export default SettingIcon;

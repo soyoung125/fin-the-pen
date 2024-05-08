@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  css: {},
   base: "/fin-the-pen-web/",
   server: {
     proxy: {
@@ -17,13 +18,6 @@ export default defineConfig({
     },
   },
   build: {
-    // modulePreload: true,
-    // modulePreload: {
-    //   resolveDependencies: (filename, deps, { hostId, hostType }) => {
-    //     console.log(filename, deps);
-    //     return deps;
-    //   },
-    // },
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -34,5 +28,6 @@ export default defineConfig({
         },
       },
     },
+    cssMinify: "esbuild",
   },
 });

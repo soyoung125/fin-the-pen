@@ -1,11 +1,12 @@
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
-import filter_main from "@assets/icons/header/filter_main.svg";
 import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import moment from "moment";
 import EmptySpendCard from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/EmptySpendCard.tsx";
+import IconSVG from "@components/common/IconSVG";
+import React from "react";
 
 export interface MonthSpendingGoalProps {
   date: string;
@@ -45,7 +46,7 @@ function MonthSpendingGoal({
         >
           <Box sx={{ fontSize: "18px", fontWeight: "700" }}>지출 목표 금액</Box>
           <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>
-            <img src={filter_main} alt="filter" />
+            <IconSVG id={"filter-main"} size={24} />
           </IconButton>
         </Stack>
         <RoundedBorderBox>
