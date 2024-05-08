@@ -56,7 +56,8 @@ function Report() {
   if (isPending) {
     return <>loading</>;
   }
-  if (!report?.date || isError) {
+
+  if (!report?.expenditure_this_month || isError) {
     return <>소비 데이터가 없습니다.</>;
   }
 

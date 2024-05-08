@@ -357,10 +357,10 @@ export const handlers = [
     );
   }),
 
-  http.get<MonthScheduleQuery>(`${DOMAIN}/report/month`, async ({ params }) => {
-    // const user_id = req.url.searchParams.get("user_id");
-    // const date = req.url.searchParams.get("date");
-    const { user_id, date } = params;
+  http.get(`${DOMAIN}/report/month`, async ({ request }) => {
+    const url = new URL(request.url);
+    const user_id = url.searchParams.get("user_id");
+    const date = url.searchParams.get("date");
     const schedules = getLocalStorage<Schedule[]>(
       LOCAL_STORAGE_KEY_SCHEDULES,
       []
@@ -368,10 +368,10 @@ export const handlers = [
     const monthSchedules = schedules.filter(
       (schedule) =>
         schedule.user_id === user_id &&
-        moment(date).isSame(schedule.start_date, "month")
+        moment(date).isSameOrAfter(schedule.start_date, "month") &&
+        moment(date).isSameOrBefore(schedule.end_date, "month")
     );
     await delay(1000);
-
     if (monthSchedules.length === 0) {
       return HttpResponse.json(
         {
