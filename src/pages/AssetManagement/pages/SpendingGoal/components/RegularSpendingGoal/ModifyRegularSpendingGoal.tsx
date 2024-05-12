@@ -4,10 +4,10 @@ import {
   Highlight,
   HighLightInput,
 } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
-import { ChangeEvent, useState } from "react";
-import calendar_primary from "@assets/icons/bottom/calendar_primary.svg";
+import React, { ChangeEvent, useState } from "react";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
+import IconSVG from "@components/common/IconSVG";
 
 export interface ModifyRegularSpendingGoalProps {
   goal: string;
@@ -73,12 +73,7 @@ function ModifyRegularSpendingGoal({
         title={"기간"}
         Icon={
           <Box pt={1.5} onClick={handleChangePeriod}>
-            <img
-              src={calendar_primary}
-              alt="calendar_primary"
-              width={20}
-              height={20}
-            />
+            <IconSVG id={"calendar-primary"} size={20} />
           </Box>
         }
         start={

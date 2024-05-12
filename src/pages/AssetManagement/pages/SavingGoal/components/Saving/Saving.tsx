@@ -6,7 +6,8 @@ import { MonthSavingGoal } from "@app/types/asset.ts";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
-import filter_main from "@assets/icons/header/filter_main.svg";
+import IconSVG from "@components/common/IconSVG";
+import React from "react";
 
 interface SavingProps {
   saving?: MonthSavingGoal;
@@ -51,7 +52,7 @@ function Saving({ saving, handleSetSavingGoal }: SavingProps) {
             한 해 저축 목표
           </Box>
           <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>
-            <img src={filter_main} alt="filter" />
+            <IconSVG id={"filter-main"} size={24} />
           </IconButton>
         </Stack>
         <RoundedBorderBox>

@@ -11,7 +11,6 @@ import {
 } from "@redux/slices/commonSlice.tsx";
 import { PATH } from "@constants/path.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
-import add_button from "@assets/icons/bottom/add_button.svg";
 import CalendarIcon from "@components/layouts/common/BottomBar/buttons/Calendar.tsx";
 import ReportIcon from "@components/layouts/common/BottomBar/buttons/Report.tsx";
 import AssetIcon from "@components/layouts/common/BottomBar/buttons/asset.tsx";
