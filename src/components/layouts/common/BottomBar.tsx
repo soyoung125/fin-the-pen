@@ -61,6 +61,7 @@ function BottomBar() {
       />
       <BottomNavigationAction
         label=""
+        aria-label="add_button"
         icon={<IconSVG id={"add-button"} size={48} />}
         onClick={() =>
           openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")))
