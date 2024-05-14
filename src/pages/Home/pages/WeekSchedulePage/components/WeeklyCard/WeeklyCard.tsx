@@ -3,6 +3,7 @@ import { WeeklySchedule } from "@app/types/schedule.ts";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import TodayBadge from "@components/common/TodayBadge";
 import WeeklyAmountCard from "@pages/Home/pages/WeekSchedulePage/components/WeeklyAmountCard";
+import moment from "moment";
 
 export interface WeeklyCardProps {
   weeklyData: WeeklySchedule;
@@ -11,6 +12,8 @@ export interface WeeklyCardProps {
 }
 
 function WeeklyCard({ weeklyData, isThisWeek, navigateTo }: WeeklyCardProps) {
+  const [start, end] = weeklyData.period.split("~");
+  const pattern = "M/D";
   return (
     <Box p={2}>
       <Stack
@@ -23,7 +26,9 @@ function WeeklyCard({ weeklyData, isThisWeek, navigateTo }: WeeklyCardProps) {
         <Typography variant="h2" color="primary.main">
           {weeklyData.week_of_number}
         </Typography>
-        <Typography color="#5B5F67">{weeklyData.period}</Typography>
+        <Typography color="#5B5F67">{`${moment(start).format(
+          pattern
+        )} - ${moment(end).format(pattern)}`}</Typography>
         {isThisWeek && <TodayBadge isWeek />}
         {navigateTo && (
           <Box sx={{ flexGrow: 1, textAlign: "right" }} onClick={navigateTo}>
