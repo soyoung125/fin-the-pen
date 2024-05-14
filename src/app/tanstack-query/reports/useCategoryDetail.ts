@@ -10,7 +10,7 @@ import { Schedule } from "@app/types/schedule.ts";
 const fetchCategoryDetail = async (query: CategoryDetailQuery) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
 
-  return fetch(`${DOMAIN}/report/month/detail`, {
+  return fetch(`${DOMAIN}/report/month/details`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
