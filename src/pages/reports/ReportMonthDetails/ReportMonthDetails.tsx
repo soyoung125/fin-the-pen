@@ -43,8 +43,8 @@ function ReportMonthDetails() {
           year={year}
           month={month}
           onClickMonth={pickMonth}
-          goal={Number(report?.expenseGoalAmount)}
-          spent={Number(report?.totalSpentToday)}
+          goal={Number(report?.spend_amount)}
+          spent={Number(report?.first_month_amount)}
         />
 
         <ReportList

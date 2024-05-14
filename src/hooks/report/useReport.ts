@@ -20,9 +20,7 @@ const useReport = () => {
   const { openMonthPicker } = useDatePicker();
   const { setGoal } = useSetGoal();
   const reportList =
-    report?.category_consume_report === "0"
-      ? []
-      : report?.category_consume_report;
+    report?.category_consume_list === "?" ? [] : report?.category_consume_list;
 
   const maxPercent = Math.max(
     ...(reportList?.map((l) => parseFloat(l.rate)) ?? [])
