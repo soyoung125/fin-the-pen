@@ -12,7 +12,6 @@ import { DOMAIN } from "@api/url.ts";
 import { MockUser, SignUp, User } from "@app/types/auth.ts";
 import {
   HomeQuery,
-  MonthScheduleQuery,
   RequestSchedule,
   Schedule,
   WeeklySchedule,
@@ -375,41 +374,41 @@ export const handlers = [
     if (monthSchedules.length === 0) {
       return HttpResponse.json(
         {
-          date: date,
-          expenditure_this_month: {
-            last_month_Amount: "0",
-            "1st_month_Amount": "0",
-            goal_amount: "0",
-            result_amount: "0",
+          current_date: date,
+          expenditure_data: {
+            last_Nmonth_Amount: "0",
+            first_Nmonth_Amount: "0",
+            spend_amount: "0",
+            available_Nmonth_amount: "0",
           },
-          availableAmount: "0",
-          expenseGoalAmount: "0",
-          month_report: {
-            current: "0",
-            second_previous: "0",
-            previous: "0",
+          available_amount: 0,
+          spend_amount: "0",
+          monthly_report: {
+            current_amount: 0,
+            second_amount: 0,
+            previous_amount: 0,
           },
-          category_consume_report: "0",
+          category_consume_list: "?",
           Nmonth_fixed: {
-            previous_diff_plus: "0",
-            fixed_deposit: "0",
-            fixed_withdraw: "0",
-            previous_diff_minus: "0",
+            diff_plus: "0",
+            current_fixed_plus: 0,
+            current_fixed_Minus: 0,
+            diff_minus: "0",
             current_month: date,
             previous_month: "2024-01-29",
           },
-          totalSpentToday: "0",
+          first_month_amount: "0",
         },
         { status: 200 }
       );
     }
 
     const data = {
-      date: date,
-      availableAmount: -440000,
-      expenseGoalAmount: 100000,
-      totalSpentToday: 540000,
-      category_consume_report: [
+      current_date: date,
+      available_amount: -440000,
+      spend_amount: 100000,
+      first_month_amount: 540000,
+      category_consume_list: [
         {
           // 카테고리
           category: "카페",
@@ -424,25 +423,25 @@ export const handlers = [
           rate: "26%",
         },
       ],
-      expenditure_this_month: {
+      expenditure_data: {
         // 소비 예측 리포트
-        last_month_Amount: 450000, // 지출 예정 금액
-        "1st_month_Amount": 90000, // 지출 금액
-        goal_amount: 100000, // 지출 목표
-        result_amount: 10000, // 사용 가능 금액
+        last_Nmonth_Amount: 450000, // 지출 예정 금액
+        first_Nmonth_Amount: 90000, // 지출 금액
+        spend_amount: 100000, // 지출 목표
+        available_Nmonth_amount: 10000, // 사용 가능 금액
       },
       Nmonth_fixed: {
-        previous_diff_plus: "+0",
-        fixed_deposit: 0,
-        fixed_withdraw: 360000,
-        previous_diff_minus: "-360000",
+        diff_plus: "+0",
+        current_fixed_plus: 0,
+        current_fixed_Minus: 360000,
+        diff_minus: "-360000",
         current_month: date,
         previous_month: "2024-01-02",
       },
-      month_report: {
-        current: 90000,
-        second_previous: 30000,
-        previous: 0,
+      monthly_report: {
+        current_amount: 90000,
+        second_amount: 30000,
+        previous_amount: 0,
       },
     };
     return HttpResponse.json(data, { status: 200 });

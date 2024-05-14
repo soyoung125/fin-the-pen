@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const TodayButtonConainer = styled.div`
+export const BottomButtonConainer = styled.div`
   width: 100%;
   display: flex;
   position: fixed;
