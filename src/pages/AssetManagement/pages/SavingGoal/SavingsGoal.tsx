@@ -10,7 +10,7 @@ function SavingsGoal() {
   const { goal, handleSetSavingGoal, handleSetPersonalGoal } = useSavingGoal();
 
   return (
-    <Box>
+    <Box px={2.5} pt={2.5}>
       <Stack justifyContent="space-between" spacing="7px">
         <Typography variant="h2">
           <span style={{ fontSize: "20px", color: "#735BF2", fontWeight: 500 }}>
@@ -33,10 +33,10 @@ function SavingsGoal() {
         handleSetSavingGoal={handleSetSavingGoal}
       />
 
-      <Personal
-        personal={goal?.personal_goal}
-        handleSetPersonalGoal={handleSetPersonalGoal}
-      />
+      {/*<Personal*/}
+      {/*  personal={goal?.personal_goal}*/}
+      {/*  handleSetPersonalGoal={handleSetPersonalGoal}*/}
+      {/*/>*/}
     </Box>
   );
 }

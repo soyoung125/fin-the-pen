@@ -81,7 +81,7 @@ function SpendingGoal() {
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} px={2.5} pt={2.5}>
       <MonthSpendingGoal
         date={yearMonth}
         changeYearAndMonth={pickMonth}
