@@ -1,13 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Saving from "@pages/AssetManagement/pages/SavingGoal/components/Saving/Saving.tsx";
-import Personal from "./components/Personal/Personal.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import useSavingGoal from "@hooks/assetManagement/useSavingGoal.ts";
 import React from "react";
 
 function SavingsGoal() {
   const { data: user } = useUser();
-  const { goal, handleSetSavingGoal, handleSetPersonalGoal } = useSavingGoal();
+  const { goal, handleSetSavingGoal } = useSavingGoal();
 
   return (
     <Box px={2.5} pt={2.5}>

@@ -7,6 +7,7 @@ import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import filter_main from "@assets/icons/header/filter_main.svg";
+import Goal from "@pages/AssetManagement/pages/SavingGoal/components/Saving/Goal.tsx";
 
 interface SavingProps {
   saving?: MonthSavingGoal;
@@ -40,50 +41,58 @@ function Saving({ saving, handleSetSavingGoal }: SavingProps) {
 
   return (
     <Box mt="30px">
-      <RoundedPaper my={2}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          pb={1}
-        >
-          <Box sx={{ fontSize: "18px", fontWeight: "700" }}>
-            한 해 저축 목표
-          </Box>
-          <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>
-            <img src={filter_main} alt="filter" />
-          </IconButton>
-        </Stack>
-        <RoundedBorderBox>
-          <Box
-            sx={{
-              typography: "h6",
-              fontWeight: "bold",
-              color: "primary.main",
-              textAlign: "end",
-              p: 2,
-            }}
-          >
-            {getAmount(saving?.years_goal_amount).toLocaleString()}원
-          </Box>
-        </RoundedBorderBox>
+      <RoundedPaper>
+        {/*<Stack*/}
+        {/*  direction="row"*/}
+        {/*  justifyContent="space-between"*/}
+        {/*  alignItems="center"*/}
+        {/*  pb={1}*/}
+        {/*>*/}
+        {/*  <Box sx={{ typography: "h2" }}>한 해 저축 목표</Box>*/}
+        {/*  <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>*/}
+        {/*    <img src={filter_main} alt="filter" />*/}
+        {/*  </IconButton>*/}
+        {/*</Stack>*/}
+        {/*<RoundedBorderBox>*/}
+        {/*  <Box*/}
+        {/*    sx={{*/}
+        {/*      typography: "h6",*/}
+        {/*      fontWeight: "bold",*/}
+        {/*      color: "primary.main",*/}
+        {/*      textAlign: "end",*/}
+        {/*      p: 2,*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    {getAmount(saving?.years_goal_amount).toLocaleString()}원*/}
+        {/*  </Box>*/}
+        {/*</RoundedBorderBox>*/}
 
-        <Box sx={{ fontSize: "18px", fontWeight: "700" }} pb={1} pt={2}>
-          월 저축 목표
-        </Box>
-        <RoundedBorderBox>
-          <Box
-            sx={{
-              typography: "h6",
-              fontWeight: "bold",
-              color: "primary.main",
-              textAlign: "end",
-              p: 2,
-            }}
-          >
-            {getAmount(saving?.months_goal_amount).toLocaleString()}원
-          </Box>
-        </RoundedBorderBox>
+        {/*<Box sx={{ typography: "h2" }} pb={1} pt={2}>*/}
+        {/*  월 저축 목표*/}
+        {/*</Box>*/}
+        {/*<RoundedBorderBox>*/}
+        {/*  <Box*/}
+        {/*    sx={{*/}
+        {/*      typography: "h6",*/}
+        {/*      fontWeight: "bold",*/}
+        {/*      color: "primary.main",*/}
+        {/*      textAlign: "end",*/}
+        {/*      p: 2,*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    {getAmount(saving?.months_goal_amount).toLocaleString()}원*/}
+        {/*  </Box>*/}
+        {/*</RoundedBorderBox>*/}
+        <Stack spacing="26px">
+          <Goal
+            title={"한 해 저축 목표"}
+            amount={getAmount(saving?.years_goal_amount)}
+          />
+          <Goal
+            title={"월 저축 목표"}
+            amount={getAmount(saving?.months_goal_amount)}
+          />
+        </Stack>
       </RoundedPaper>
     </Box>
   );
