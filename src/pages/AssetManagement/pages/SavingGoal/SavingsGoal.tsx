@@ -3,7 +3,7 @@ import Saving from "@pages/AssetManagement/pages/SavingGoal/components/Saving/Sa
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import useSavingGoal from "@hooks/assetManagement/useSavingGoal.ts";
 import React from "react";
-import GoalSetting from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting/GoalSetting.tsx";
+import GoalSetting from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting";
 import { useSettingGoalDrawer } from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting/SettingDrawer/useSettingDrawer.tsx";
 import { TotalSavingCard } from "@pages/AssetManagement/pages/SavingGoal/SavingGoal.styles.ts";
 

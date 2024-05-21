@@ -6,7 +6,7 @@ import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
 import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList";
-import DeleteButton from "@pages/AssetManagement/pages/RegularAsset/components/DeleteButton/DeleteButton.tsx";
+import DeleteButton from "@pages/AssetManagement/pages/RegularAsset/components/DeleteButton";
 
 function RegularAsset() {
   const {
