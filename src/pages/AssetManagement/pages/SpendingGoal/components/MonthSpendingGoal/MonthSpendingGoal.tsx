@@ -1,11 +1,9 @@
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import filter_main from "@assets/icons/header/filter_main.svg";
+import { Box, Stack, Typography } from "@mui/material";
 import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import moment from "moment";
-import EmptySpendCard from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/EmptySpendCard.tsx";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 export interface MonthSpendingGoalProps {
   date: string;
@@ -28,60 +26,67 @@ function MonthSpendingGoal({
         <Stack
           direction="row"
           alignItems="center"
+          spacing={1}
           onClick={changeYearAndMonth}
           mb={3}
         >
           <Typography variant="h2">
             {moment(date).format("YYYY년 M월")}
           </Typography>
-          <ExpandMoreRoundedIcon />
+          <ArrowForwardIosRoundedIcon
+            sx={{ color: "#8C919C" }}
+            fontSize="small"
+          />
         </Stack>
 
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          pb={1}
-        >
-          <Box sx={{ fontSize: "18px", fontWeight: "700" }}>지출 목표 금액</Box>
-          <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>
-            <img src={filter_main} alt="filter" />
-          </IconButton>
-        </Stack>
+        <Box sx={{ typography: "h2", mb: 1 }}>지출 목표 금액</Box>
+
         <RoundedBorderBox>
-          <Box
-            sx={{
-              typography: "h6",
-              fontWeight: "bold",
-              color: "primary.main",
-              textAlign: "end",
-              p: 2,
-            }}
-          >
-            {getAmount(goal).toLocaleString()}원
-          </Box>
-        </RoundedBorderBox>
-
-        <Box sx={{ fontSize: "18px", fontWeight: "700" }} pb={1} pt={2}>
-          지출 금액
-        </Box>
-        {moment().isBefore(date, "month") ? (
-          <EmptySpendCard />
-        ) : (
-          <RoundedBorderBox>
+          <Stack direction="row" justifyContent="space-between" p={1.5}>
             <Box
               sx={{
-                typography: "h6",
-                fontWeight: "bold",
+                typography: "caption",
+                fontWeight: 500,
                 color: "primary.main",
-                textAlign: "end",
-                p: 2,
               }}
             >
-              {getAmount(spent).toLocaleString()}원
+              {getAmount(goal).toLocaleString()} 원
             </Box>
-          </RoundedBorderBox>
-        )}
+
+            <Box
+              sx={{
+                typography: "caption",
+                fontWeight: 500,
+                color: "#8C919C",
+                textDecorationLine: "underline",
+              }}
+              onClick={handleModify}
+            >
+              금액설정
+            </Box>
+          </Stack>
+        </RoundedBorderBox>
+
+        {/*<Box sx={{ fontSize: "18px", fontWeight: "700" }} pb={1} pt={2}>*/}
+        {/*  지출 금액*/}
+        {/*</Box>*/}
+        {/*{moment().isBefore(date, "month") ? (*/}
+        {/*  <EmptySpendCard />*/}
+        {/*) : (*/}
+        {/*  <RoundedBorderBox>*/}
+        {/*    <Box*/}
+        {/*      sx={{*/}
+        {/*        typography: "h6",*/}
+        {/*        fontWeight: "bold",*/}
+        {/*        color: "primary.main",*/}
+        {/*        textAlign: "end",*/}
+        {/*        p: 2,*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      {getAmount(spent).toLocaleString()}원*/}
+        {/*    </Box>*/}
+        {/*  </RoundedBorderBox>*/}
+        {/*)}*/}
       </RoundedPaper>
     </Box>
   );

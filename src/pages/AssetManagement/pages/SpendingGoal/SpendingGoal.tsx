@@ -1,5 +1,5 @@
 import useSpendingGoal from "@hooks/assetManagement/useSpendingGoal.ts";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import MonthSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal";
 import RegularSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal";
 import { useModal } from "@hooks/modal/useModal.tsx";
@@ -15,6 +15,7 @@ function SpendingGoal() {
   const {
     offSpendAmount,
     onSpendAmount,
+    userName,
     yearMonth,
     pickMonth,
     handleSetSpendingGoal,
@@ -81,7 +82,14 @@ function SpendingGoal() {
   };
 
   return (
-    <Stack spacing={2} px={2.5} pt={2.5}>
+    <Stack spacing={4} px={2.5} pt={2.5}>
+      <Box sx={{ fontSize: "20px", fontWeight: 500 }}>
+        <span style={{ fontSize: "20px", color: "#735BF2", fontWeight: 500 }}>
+          {userName}
+        </span>
+        {"님의 지출 목표"}
+      </Box>
+
       <MonthSpendingGoal
         date={yearMonth}
         changeYearAndMonth={pickMonth}
@@ -89,15 +97,15 @@ function SpendingGoal() {
         goal={offSpendAmount.spend_goal_amount}
         spent={offSpendAmount.spend_amount}
       />
-      <RegularSpendingGoal
-        handleModify={() => setIsModify(true)}
-        handleSubmit={handleSubmit}
-        closeModify={() => setIsModify(false)}
-        isModify={isModify}
-        goal={onSpendAmount.spend_goal_amount}
-        startDate={getDate(onSpendAmount.start_date) ?? yearMonth}
-        endDate={getDate(onSpendAmount.end_date) ?? yearMonth}
-      />
+      {/*<RegularSpendingGoal*/}
+      {/*  handleModify={() => setIsModify(true)}*/}
+      {/*  handleSubmit={handleSubmit}*/}
+      {/*  closeModify={() => setIsModify(false)}*/}
+      {/*  isModify={isModify}*/}
+      {/*  goal={onSpendAmount.spend_goal_amount}*/}
+      {/*  startDate={getDate(onSpendAmount.start_date) ?? yearMonth}*/}
+      {/*  endDate={getDate(onSpendAmount.end_date) ?? yearMonth}*/}
+      {/*/>*/}
     </Stack>
   );
 }

@@ -42,6 +42,7 @@ const useSpendingGoal = () => {
   };
 
   return {
+    userName: user?.name,
     offSpendAmount,
     onSpendAmount,
     isPending,
