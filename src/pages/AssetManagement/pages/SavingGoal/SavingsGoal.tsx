@@ -3,10 +3,18 @@ import Saving from "@pages/AssetManagement/pages/SavingGoal/components/Saving/Sa
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import useSavingGoal from "@hooks/assetManagement/useSavingGoal.ts";
 import React from "react";
+import GoalSetting from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting/GoalSetting.tsx";
+import { useSettingGoalDrawer } from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting/SettingDrawer/useSettingDrawer.tsx";
 
 function SavingsGoal() {
   const { data: user } = useUser();
   const { goal, handleSetSavingGoal } = useSavingGoal();
+
+  const { openSettingGaolDrawer } = useSettingGoalDrawer();
+
+  const handleModify = () => {
+    openSettingGaolDrawer(goal?.goal_amount);
+  };
 
   return (
     <Box px={2.5} pt={2.5}>
@@ -26,6 +34,8 @@ function SavingsGoal() {
           {"원을 저축했어요."}
         </Typography>
       </Stack>
+
+      <GoalSetting name={user?.name} handleModify={handleModify} />
 
       <Saving
         saving={goal?.goal_amount}

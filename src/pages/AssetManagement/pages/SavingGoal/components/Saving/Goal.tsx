@@ -1,6 +1,5 @@
 import { Box, Stack } from "@mui/material";
 import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
-import { getAmount } from "@pages/AssetManagement/utils.ts";
 
 interface GoalProps {
   title: string;
