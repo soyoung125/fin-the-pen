@@ -26,10 +26,6 @@ function RegularAsset() {
     setValue(newValue);
   };
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   return (
     <>
       <RegularAssetHeader
