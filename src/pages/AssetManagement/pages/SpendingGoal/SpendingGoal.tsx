@@ -10,13 +10,18 @@ import ModifyModal from "pages/AssetManagement/pages/SpendingGoal/components/Mon
 import { getDate } from "@pages/AssetManagement/pages/SpendingGoal/utils.ts";
 import moment from "moment";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
+import RoundedPaper from "@components/common/RoundedPaper.tsx";
+import MonthlyReport from "@pages/reports/Report/components/MonthlyReport";
+import ReportLayout from "@pages/reports/Report/components/layout/ReportLayout";
 
 function SpendingGoal() {
   const {
     offSpendAmount,
     onSpendAmount,
+    monthlyReport,
     userName,
     yearMonth,
+    month,
     pickMonth,
     handleSetSpendingGoal,
   } = useSpendingGoal();
@@ -97,6 +102,20 @@ function SpendingGoal() {
         goal={offSpendAmount.spend_goal_amount}
         spent={offSpendAmount.spend_amount}
       />
+
+      <RoundedPaper my={2}>
+        <ReportLayout
+          title="월별 소비 리포트"
+          content={
+            <MonthlyReport
+              month={month}
+              previousSpending={monthlyReport?.previous_amount ?? 0}
+              spending={monthlyReport?.current_amount ?? 0}
+              twoMonthsAgoSpending={monthlyReport?.second_amount ?? 0}
+            />
+          }
+        />
+      </RoundedPaper>
       {/*<RegularSpendingGoal*/}
       {/*  handleModify={() => setIsModify(true)}*/}
       {/*  handleSubmit={handleSubmit}*/}

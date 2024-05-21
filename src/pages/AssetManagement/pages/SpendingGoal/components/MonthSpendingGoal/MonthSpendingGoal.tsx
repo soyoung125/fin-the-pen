@@ -21,7 +21,6 @@ function MonthSpendingGoal({
   spent,
 }: MonthSpendingGoalProps) {
   return (
-    <Box mt="30px">
       <RoundedPaper my={2}>
         <Stack
           direction="row"
@@ -88,7 +87,6 @@ function MonthSpendingGoal({
         {/*  </RoundedBorderBox>*/}
         {/*)}*/}
       </RoundedPaper>
-    </Box>
   );
 }
 
