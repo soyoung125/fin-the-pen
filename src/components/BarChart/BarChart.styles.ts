@@ -42,8 +42,9 @@ export const BarLabelComponent = styled.div<{
 
 export const BarLabelBox = styled.div<{
   $isSelected: boolean;
+  $width: Bar["data"];
 }>`
-  min-width: 24px;
+  width: fit-content;
   margin: 0 auto;
   bottom: 6px;
   padding: 3px 10px;
@@ -58,7 +59,6 @@ export const BarLabelBox = styled.div<{
 export const LabelLine = styled.div<{
   $isSelected: boolean;
 }>`
-  //position: absolute;
   margin: auto;
   height: 6px;
   border: 1px dashed

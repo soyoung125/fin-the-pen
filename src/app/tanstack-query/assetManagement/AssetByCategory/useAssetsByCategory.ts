@@ -22,12 +22,12 @@ const fetchAssetByCategory = async (user_id: string, date: string) => {
     if (!res.ok) {
       return INIT_ASSET_BY_CATEGORY;
     }
-    
+
     const result = await res.json();
     if (result.data === "no data") {
       return INIT_ASSET_BY_CATEGORY;
     }
-    return res.json();
+    return result;
   });
 };
 

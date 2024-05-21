@@ -42,7 +42,7 @@ function BarChart({
                 $width={data[idx]}
                 onClick={() => setSelected(v)}
               >
-                <BarLabelBox $isSelected={selected === v}>
+                <BarLabelBox $isSelected={selected === v} $width={data[idx]}>
                   {titles[idx]}
                 </BarLabelBox>
                 <LabelLine $isSelected={selected === v} />
