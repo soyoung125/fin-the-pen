@@ -16,7 +16,7 @@ const assetManagements: ReadonlyArray<AssetManagement> = [
   {
     title: "지출 목표 금액 설정 ",
     color: teal[200],
-    path: PATH.scheduleManagement,
+    path: PATH.spendingGoal,
   },
   {
     title: "카테고리별 지출액 설정",

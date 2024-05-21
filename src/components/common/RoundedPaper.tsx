@@ -3,17 +3,17 @@ import React from "react";
 
 interface RoundedPaperProps {
   children: React.ReactNode;
-  my: number;
+  my?: number;
 }
 
 function RoundedPaper({ children, my }: RoundedPaperProps) {
   return (
     <Box
       sx={{
-        marginY: my,
+        marginY: my ?? 0,
         padding: "20px",
         borderRadius: "20px",
-        boxShadow: "0px 0px 12px 0px rgba(0, 0, 0, 0.15)",
+        border: "1px solid #DEE0E3",
       }}
     >
       {children}

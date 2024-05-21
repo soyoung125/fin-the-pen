@@ -24,7 +24,7 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
     element: <AssetByCategory />,
   },
   {
-    path: PATH.scheduleManagement,
+    path: PATH.spendingGoal,
     element: <SpendingGoal />,
   },
 ];

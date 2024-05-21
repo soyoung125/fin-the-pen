@@ -12,6 +12,7 @@ export interface ListItemHeaderProps {
   category: { name: string; subCategory: string[] };
   open: boolean;
   modifyTotal: boolean;
+  isAutoFocus: boolean;
   total: number;
   smallSummary: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ function ListItemHeader({
   setOpen,
   total,
   open,
+  isAutoFocus,
   smallSummary,
   handleChangeTotal,
   handleClickTotal,
@@ -57,7 +59,7 @@ function ListItemHeader({
             onClick={(e) => e.stopPropagation()}
             $color={open ? "#EAE1FD" : "#fff"}
             $isShake={smallSummary > total}
-            autoFocus
+            autoFocus={isAutoFocus}
           />
           <span>원</span>
         </UnderlinedInputBox>

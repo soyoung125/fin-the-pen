@@ -45,7 +45,7 @@ function Report() {
           closeModal={closeModal}
           navigateTo={() => {
             closeModal();
-            navigate(PATH.savingsGoal);
+            navigate(PATH.spendingGoal);
           }}
         />
       ),
