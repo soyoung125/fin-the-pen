@@ -1,6 +1,6 @@
 import TemplateListItem, {
   TemplateListItemProps,
-} from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem.tsx";
+} from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem/TemplateListItem.tsx";
 import { Meta } from "@storybook/react";
 import { SchedulePeriod } from "@app/types/schedule.ts";
 

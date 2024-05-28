@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { RepeatBadge } from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem.style.ts";
+import { RepeatBadge } from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem/TemplateListItem.style.ts";
 import { Schedule } from "@app/types/schedule.ts";
 import { getTitle } from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList/utils.ts";
 import ListItem from "@components/TemplateDrawer/components/ListItem";
