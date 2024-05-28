@@ -25,7 +25,6 @@ function ScheduleFormPage({
     return (
       <Stack spacing={2} pt={2}>
         <Stack spacing="10px">
-          <SelectTemplate />
           {/* 이벤트 제목 */}
           <NameInput showError={showError} />
 
@@ -35,6 +34,8 @@ function ScheduleFormPage({
             showError={showError}
             onClick={() => setIsCategoryPickerOpen((prev) => !prev)}
           />
+
+          <SelectTemplate />
         </Stack>
         <ThickDivider />
 
