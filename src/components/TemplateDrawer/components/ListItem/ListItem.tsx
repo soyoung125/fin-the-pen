@@ -15,7 +15,7 @@ export interface ListItemProps {
 
 function ListItem({ category, amount, title }: ListItemProps) {
   return (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
       <CategoryIconSVG id={CATEGORY_ICONS[category]} size={40} />
 
       <Stack>
