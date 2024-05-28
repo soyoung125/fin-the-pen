@@ -1,5 +1,5 @@
 import ListItem from "@components/TemplateDrawer/components/ListItem";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Schedule } from "@app/types/schedule.ts";
 import MenuIcon from "@assets/icons/menu.svg";
 
