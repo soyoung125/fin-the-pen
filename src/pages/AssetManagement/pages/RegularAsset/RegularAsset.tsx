@@ -7,6 +7,7 @@ import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList";
 import DeleteButton from "@pages/AssetManagement/pages/RegularAsset/components/DeleteButton";
+import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
 
 function RegularAsset() {
   const {
@@ -17,6 +18,7 @@ function RegularAsset() {
     endDate,
     pickDate,
   } = useRegularAsset();
+  const { openDeleteAssetDrawer } = useRegularAssetDrawer();
   const labels = ["입금", "출금"];
   const [value, setValue] = useState(0);
   const [swiper, setSwiper] = useState<SwiperType>();
@@ -55,7 +57,7 @@ function RegularAsset() {
           />
         </SwiperSlide>
       </Swiper>
-      <DeleteButton clickAction={() => alert("click")} />
+      <DeleteButton clickAction={openDeleteAssetDrawer} />
     </>
   );
 }

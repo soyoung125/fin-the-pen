@@ -3,6 +3,7 @@ import { useAppDispatch } from "@redux/hooks.ts";
 import { setDrawerScheduleForm } from "@redux/slices/scheduleSlice.tsx";
 import { RequestSchedule } from "@app/types/schedule.ts";
 import RegularAssetDrawer from "@components/assetManagement/RegularAssetDrawer";
+import DeleteRegularAssets from "@pages/AssetManagement/pages/RegularAsset/pages/DeleteRegularAssets";
 
 export const useRegularAssetDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
@@ -16,5 +17,13 @@ export const useRegularAssetDrawer = () => {
     );
   };
 
-  return { openRegularAssetDrawer, closeScheduleDrawer: closeOverlay };
+  const openDeleteAssetDrawer = () => {
+    openOverlay(<DeleteRegularAssets closeDrawer={closeOverlay} />);
+  };
+
+  return {
+    openRegularAssetDrawer,
+    closeDrawer: closeOverlay,
+    openDeleteAssetDrawer,
+  };
 };
