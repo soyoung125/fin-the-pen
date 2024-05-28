@@ -18,8 +18,7 @@ function CalendarHeaderSkeleton({ date }: CalendarHeaderSkeleton) {
     >
       <Stack direction={"row"} alignItems="center" spacing="5px">
         <Typography variant="h1">
-          {/*{moment(date).format("M월 D일 dddd")}*/}
-          111
+          {moment(date).format("M월 D일 dddd")}
         </Typography>
         <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
           <Skeleton width="50px" />
