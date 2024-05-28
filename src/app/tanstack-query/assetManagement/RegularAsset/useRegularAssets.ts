@@ -3,10 +3,7 @@ import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
 import { RegularAssetsRequest } from "@app/types/asset.ts";
 import { useQuery } from "@tanstack/react-query";
-import {
-  QUERY_KEY_REGULAR_ASSET,
-  QUERY_KEY_SCHEDULES,
-} from "@constants/queryKeys.ts";
+import { QUERY_KEY_REGULAR_ASSET } from "@constants/queryKeys.ts";
 import { Schedule } from "@app/types/schedule.ts";
 
 const fetchRegularAssets = async (query: RegularAssetsRequest) => {

@@ -18,7 +18,6 @@ function MonthSpendingGoal({
   changeYearAndMonth,
   handleModify,
   goal,
-  spent,
 }: MonthSpendingGoalProps) {
   return (
     <RoundedPaper my={2}>
