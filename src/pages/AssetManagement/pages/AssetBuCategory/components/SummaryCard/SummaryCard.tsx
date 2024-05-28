@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { RoundedCard } from "@pages/AssetManagement/pages/AssetBuCategory/components/SummaryCard/SummaryCard.styles.ts";
-import setting_secondary from "@assets/icons/setting_secondary.svg";
 import BarChart from "@components/BarChart";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   getColors,
   getData,
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/SummaryCard/utils.ts";
+import IconSVG from "@components/common/IconSVG";
 
 export interface SummaryCardProps {
   used: number;
@@ -31,7 +31,7 @@ function SummaryCard({ ratio, used, goal, handleSetting }: SummaryCardProps) {
             onClick={handleSetting}
             sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
           >
-            <img src={setting_secondary} alt={"setting_secondary_icon"} />
+            <IconSVG id={"setting-secondary"} size={24} />
           </Box>
           <Typography fontWeight={500}>{goal.toLocaleString()}원</Typography>
         </Stack>

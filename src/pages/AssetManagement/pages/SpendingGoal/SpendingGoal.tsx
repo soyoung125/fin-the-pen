@@ -1,13 +1,8 @@
 import useSpendingGoal from "@hooks/assetManagement/useSpendingGoal.ts";
 import { Box, Stack } from "@mui/material";
 import MonthSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal";
-import RegularSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal";
 import { useModal } from "@hooks/modal/useModal.tsx";
-import { Form } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
-import ConfirmModal from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/ConfirmModal";
-import { useState } from "react";
 import ModifyModal from "pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal/components/ModifyModal";
-import { getDate } from "@pages/AssetManagement/pages/SpendingGoal/utils.ts";
 import moment from "moment";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
@@ -17,7 +12,6 @@ import ReportLayout from "@pages/reports/Report/components/layout/ReportLayout";
 function SpendingGoal() {
   const {
     offSpendAmount,
-    onSpendAmount,
     monthlyReport,
     userName,
     yearMonth,
@@ -33,8 +27,6 @@ function SpendingGoal() {
     regular: "OFF" as const,
     is_batch: false,
   };
-
-  const [isModify, setIsModify] = useState(false);
 
   const handleModify = () => {
     openModal({
@@ -53,37 +45,6 @@ function SpendingGoal() {
       ),
       isBackdropClickable: false,
     });
-  };
-
-  const handleSubmit = (form: Form) => {
-    if (offSpendAmount.spend_goal_amount !== "?") {
-      openModal({
-        modalElement: (
-          <ConfirmModal
-            closeModal={closeModal}
-            handleApprove={() => {
-              changeRegularGoal(form, true);
-            }}
-            handleReject={() => {
-              changeRegularGoal(form, false);
-            }}
-          />
-        ),
-        isBackdropClickable: false,
-      });
-    } else {
-      changeRegularGoal(form, true);
-    }
-  };
-
-  const changeRegularGoal = (form: Form, isBatch: boolean) => {
-    handleSetSpendingGoal({
-      ...form,
-      regular: "ON" as const,
-      is_batch: isBatch,
-    });
-    setIsModify(false);
-    closeModal();
   };
 
   return (
@@ -116,15 +77,6 @@ function SpendingGoal() {
           }
         />
       </RoundedPaper>
-      {/*<RegularSpendingGoal*/}
-      {/*  handleModify={() => setIsModify(true)}*/}
-      {/*  handleSubmit={handleSubmit}*/}
-      {/*  closeModify={() => setIsModify(false)}*/}
-      {/*  isModify={isModify}*/}
-      {/*  goal={onSpendAmount.spend_goal_amount}*/}
-      {/*  startDate={getDate(onSpendAmount.start_date) ?? yearMonth}*/}
-      {/*  endDate={getDate(onSpendAmount.end_date) ?? yearMonth}*/}
-      {/*/>*/}
     </Stack>
   );
 }

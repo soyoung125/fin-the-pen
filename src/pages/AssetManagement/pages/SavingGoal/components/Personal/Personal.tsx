@@ -5,8 +5,9 @@ import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useModal } from "@hooks/modal/useModal.tsx";
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
-import filter_main from "@assets/icons/header/filter_main.svg";
 import GoalCard from "pages/AssetManagement/pages/SavingGoal/components/Personal/components/GoalCard";
+import IconSVG from "@components/common/IconSVG";
+import React from "react";
 
 interface PersonalProps {
   personal?: PersonalGoal;
@@ -50,7 +51,7 @@ function Personal({ personal, handleSetPersonalGoal }: PersonalProps) {
             나만의 저축 목표
           </Box>
           <IconButton color="primary" onClick={handleModify}>
-            <img src={filter_main} alt="filter" />
+            <IconSVG id={"filter-main"} size={24} />
           </IconButton>
         </Stack>
 

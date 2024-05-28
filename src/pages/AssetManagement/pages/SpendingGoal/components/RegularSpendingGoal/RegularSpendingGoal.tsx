@@ -1,12 +1,13 @@
 import RoundedPaper from "@components/common/RoundedPaper.tsx";
 import { Box, IconButton, Stack } from "@mui/material";
-import filter_main from "@assets/icons/header/filter_main.svg";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import GoalCard from "pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/components/GoalCard";
 import { Highlight } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/RegularSpendingGoal.styles.ts";
 import ModifyRegularSpendingGoal, {
   Form,
 } from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal/ModifyRegularSpendingGoal.tsx";
+import IconSVG from "@components/common/IconSVG";
+import React from "react";
 
 export interface RegularSpendingGoalProps {
   handleModify: () => void;
@@ -40,7 +41,7 @@ function RegularSpendingGoal({
             정기 지출 목표액
           </Box>
           <IconButton color="primary" onClick={handleModify}>
-            <img src={filter_main} alt="filter" />
+            <IconSVG id={"filter-main"} size={24} />
           </IconButton>
         </Stack>
         {isModify ? (

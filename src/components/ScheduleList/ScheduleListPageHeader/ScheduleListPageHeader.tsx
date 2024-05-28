@@ -4,7 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import SelectYearMonth from "@components/common/SelectYearMonth";
 import { HeaderBox } from "./ScheduleListPageHeader.styles.ts";
-import filter_white from "@assets/icons/header/filter_white.svg";
+import IconSVG from "@components/common/IconSVG";
+import React from "react";
 
 export interface ScheduleListPageHeaderProps {
   date: string;
@@ -58,7 +59,7 @@ function ScheduleListPageHeader({
             changeYearAndMonth={changeMonth}
           />
           <Box onClick={handleClickFilter} height="24px">
-            <img src={filter_white} alt={"filter"} width="24px" height="24px" />
+            <IconSVG id={"filter-white"} size={24} />
           </Box>
         </Stack>
       </HeaderBox>

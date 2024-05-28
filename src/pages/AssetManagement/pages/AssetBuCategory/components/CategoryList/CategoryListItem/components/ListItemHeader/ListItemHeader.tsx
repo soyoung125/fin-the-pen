@@ -1,4 +1,4 @@
-import { Avatar, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -7,6 +7,7 @@ import {
   UnderlinedInput,
   UnderlinedInputBox,
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryList.styles.ts";
+import CategoryIconSVG from "@components/common/CategoryIconSVG";
 
 export interface ListItemHeaderProps {
   category: { name: string; subCategory: string[] };
@@ -41,13 +42,14 @@ function ListItemHeader({
       bgcolor={open ? "#EAE1FD" : "#fff"}
       borderBottom="1px solid #F7F7F8"
     >
-      <Avatar
-        alt="category icon"
-        src={CATEGORY_ICONS[category.subCategory[0]]}
-        sx={{ width: 42, height: 42 }}
-      >
-        {category.name}
-      </Avatar>
+      {/*<Avatar*/}
+      {/*  alt="category icon"*/}
+      {/*  src={CATEGORY_ICONS[category.subCategory[0]]}*/}
+      {/*  sx={{ width: 42, height: 42 }}*/}
+      {/*>*/}
+      {/*  {category.name}*/}
+      {/*</Avatar>*/}
+      <CategoryIconSVG id={CATEGORY_ICONS[category.subCategory[0]]} size={42} />
       <Typography variant="h4" sx={{ flexGrow: 1 }}>
         {category.name}
       </Typography>

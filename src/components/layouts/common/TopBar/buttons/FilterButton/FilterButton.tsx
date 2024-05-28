@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RoundedButton from "../../../../../common/RoundedButton.tsx";
 import FilterDrawer from "@components/layouts/common/TopBar/buttons/FilterButton/FilterDrawer.tsx";
-import filter_main from "@assets/icons/header/filter_main.svg";
+import IconSVG from "@components/common/IconSVG";
 
 function FilterButton() {
   const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false);
@@ -9,7 +9,7 @@ function FilterButton() {
   return (
     <>
       <RoundedButton value="filter" onClick={() => setBottomDrawerOpen(true)}>
-        <img src={filter_main} alt="filter" />
+        <IconSVG id={"filter-main"} size={24} />
       </RoundedButton>
       <FilterDrawer
         bottomDrawerOpen={bottomDrawerOpen}
