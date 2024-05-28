@@ -9,6 +9,7 @@ import ScheduleFormPage from "./pages/ScheduleFormPage";
 import CategoryPicker from "./pages/ScheduleFormPage/components/CategoryPicker";
 import RepeatPicker from "./pages/ScheduleFormPage/components/RepeatPicker";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
+import { Puller } from "@components/ScheduleDrawer/ScheduleDrawer.styles.ts";
 
 interface ScheduleDrawerProps {
   handleClose: () => void;
@@ -58,6 +59,7 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
           mb: 3,
         }}
       >
+        <Puller />
         <ScheduleDrawerHeader
           value={value}
           handleChange={handleChange}
