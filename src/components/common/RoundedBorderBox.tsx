@@ -3,15 +3,15 @@ import { ReactNode } from "react";
 
 interface RoundedBorderBoxProps {
   children: ReactNode;
-  greyBorder?: Boolean;
+  greyBorder?: boolean;
 }
 
 function RoundedBorderBox({ children, greyBorder }: RoundedBorderBoxProps) {
   return (
     <Box
       sx={{
-        border: "2px solid",
-        borderRadius: 2,
+        border: "1px solid",
+        borderRadius: "4px",
         borderColor: greyBorder ? "#EDF1F7" : "primary.main",
         overflow: "hidden",
       }}

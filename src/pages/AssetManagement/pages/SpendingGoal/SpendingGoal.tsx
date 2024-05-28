@@ -1,5 +1,5 @@
 import useSpendingGoal from "@hooks/assetManagement/useSpendingGoal.ts";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import MonthSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/MonthSpendingGoal";
 import RegularSpendingGoal from "@pages/AssetManagement/pages/SpendingGoal/components/RegularSpendingGoal";
 import { useModal } from "@hooks/modal/useModal.tsx";
@@ -10,12 +10,18 @@ import ModifyModal from "pages/AssetManagement/pages/SpendingGoal/components/Mon
 import { getDate } from "@pages/AssetManagement/pages/SpendingGoal/utils.ts";
 import moment from "moment";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
+import RoundedPaper from "@components/common/RoundedPaper.tsx";
+import MonthlyReport from "@pages/reports/Report/components/MonthlyReport";
+import ReportLayout from "@pages/reports/Report/components/layout/ReportLayout";
 
 function SpendingGoal() {
   const {
     offSpendAmount,
     onSpendAmount,
+    monthlyReport,
+    userName,
     yearMonth,
+    month,
     pickMonth,
     handleSetSpendingGoal,
   } = useSpendingGoal();
@@ -81,7 +87,14 @@ function SpendingGoal() {
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={4} px={2.5} pt={2.5}>
+      <Box sx={{ fontSize: "20px", fontWeight: 500 }}>
+        <span style={{ fontSize: "20px", color: "#735BF2", fontWeight: 500 }}>
+          {userName}
+        </span>
+        {"님의 지출 목표"}
+      </Box>
+
       <MonthSpendingGoal
         date={yearMonth}
         changeYearAndMonth={pickMonth}
@@ -89,15 +102,29 @@ function SpendingGoal() {
         goal={offSpendAmount.spend_goal_amount}
         spent={offSpendAmount.spend_amount}
       />
-      <RegularSpendingGoal
-        handleModify={() => setIsModify(true)}
-        handleSubmit={handleSubmit}
-        closeModify={() => setIsModify(false)}
-        isModify={isModify}
-        goal={onSpendAmount.spend_goal_amount}
-        startDate={getDate(onSpendAmount.start_date) ?? yearMonth}
-        endDate={getDate(onSpendAmount.end_date) ?? yearMonth}
-      />
+
+      <RoundedPaper my={2}>
+        <ReportLayout
+          title="월별 소비 리포트"
+          content={
+            <MonthlyReport
+              month={month}
+              previousSpending={monthlyReport?.previous_amount ?? 0}
+              spending={monthlyReport?.current_amount ?? 0}
+              twoMonthsAgoSpending={monthlyReport?.second_amount ?? 0}
+            />
+          }
+        />
+      </RoundedPaper>
+      {/*<RegularSpendingGoal*/}
+      {/*  handleModify={() => setIsModify(true)}*/}
+      {/*  handleSubmit={handleSubmit}*/}
+      {/*  closeModify={() => setIsModify(false)}*/}
+      {/*  isModify={isModify}*/}
+      {/*  goal={onSpendAmount.spend_goal_amount}*/}
+      {/*  startDate={getDate(onSpendAmount.start_date) ?? yearMonth}*/}
+      {/*  endDate={getDate(onSpendAmount.end_date) ?? yearMonth}*/}
+      {/*/>*/}
     </Stack>
   );
 }

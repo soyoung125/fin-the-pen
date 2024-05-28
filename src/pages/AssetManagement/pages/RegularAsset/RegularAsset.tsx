@@ -6,6 +6,7 @@ import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
 import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList";
+import DeleteButton from "@pages/AssetManagement/pages/RegularAsset/components/DeleteButton";
 
 function RegularAsset() {
   const {
@@ -22,10 +23,6 @@ function RegularAsset() {
 
   const handleChangeTab = (event: SyntheticEvent, newValue: number) => {
     swiper?.slideTo(newValue);
-    setValue(newValue);
-  };
-
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -58,6 +55,7 @@ function RegularAsset() {
           />
         </SwiperSlide>
       </Swiper>
+      <DeleteButton clickAction={() => alert("click")} />
     </>
   );
 }

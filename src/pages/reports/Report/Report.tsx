@@ -45,7 +45,7 @@ function Report() {
           closeModal={closeModal}
           navigateTo={() => {
             closeModal();
-            navigate(PATH.savingsGoal);
+            navigate(PATH.spendingGoal);
           }}
         />
       ),
@@ -57,7 +57,7 @@ function Report() {
     return <>loading</>;
   }
 
-  if (!report?.expenditure_this_month || isError) {
+  if (!report?.expenditure_data || isError) {
     return <>소비 데이터가 없습니다.</>;
   }
 
@@ -66,7 +66,7 @@ function Report() {
       <ReportTitle
         year={year}
         month={month}
-        amount={Number(report.totalSpentToday)}
+        amount={Number(report.first_month_amount)}
         pickMonth={pickMonth}
       />
       <Stack direction="row" gap="10px">
@@ -75,7 +75,7 @@ function Report() {
           titleIcon={
             <img src={asset_icon} alt="asset" width="28px" height="28px" />
           }
-          amount={Number(report.expenseGoalAmount)}
+          amount={Number(report.spend_amount)}
           navigateIcon={<img src={setting_icon} alt="setting" />}
           handleClick={handleClickAccountSetting}
         />
@@ -84,7 +84,7 @@ function Report() {
           titleIcon={
             <img src={money_icon} alt="info" width="28px" height="28px" />
           }
-          amount={Math.abs(Number(report.availableAmount))}
+          amount={Math.abs(report.available_amount)}
           navigateIcon={<img src={info_icon} alt="info" />}
           handleClick={handleClickAccountInfo}
         />
@@ -110,14 +110,12 @@ function Report() {
                   selected={selected}
                   setSelected={setSelected}
                   month={month}
-                  goal={Number(report.expenditure_this_month.goal_amount)}
-                  predict={Number(
-                    report.expenditure_this_month.last_month_Amount
+                  goal={Number(report.expenditure_data.spend_amount)}
+                  predict={Number(report.expenditure_data.last_Nmonth_Amount)}
+                  used={Number(report.expenditure_data.first_Nmonth_Amount)}
+                  useable={Number(
+                    report.expenditure_data.available_Nmonth_amount
                   )}
-                  used={Number(
-                    report.expenditure_this_month["1st_month_Amount"]
-                  )}
-                  useable={Number(report.expenditure_this_month.result_amount)}
                 />
               }
             />
@@ -127,19 +125,19 @@ function Report() {
                 <Stack spacing={1.5} pt={3}>
                   <FixedTransaction
                     title={"고정 수입"}
-                    amount={Number(report.Nmonth_fixed.fixed_deposit)}
+                    amount={report.Nmonth_fixed.current_fixed_plus}
                     month={moment(report.Nmonth_fixed.previous_month).format(
                       "M"
                     )}
-                    difference={Number(report.Nmonth_fixed.previous_diff_plus)}
+                    difference={Number(report.Nmonth_fixed.diff_plus)}
                   />
                   <FixedTransaction
                     title={"고정 지출"}
-                    amount={Number(report.Nmonth_fixed.fixed_withdraw)}
+                    amount={report.Nmonth_fixed.current_fixed_Minus}
                     month={moment(report.Nmonth_fixed.previous_month).format(
                       "M"
                     )}
-                    difference={Number(report.Nmonth_fixed.previous_diff_minus)}
+                    difference={Number(report.Nmonth_fixed.diff_minus)}
                   />
                 </Stack>
               }
@@ -149,11 +147,9 @@ function Report() {
               content={
                 <MonthlyReport
                   month={month}
-                  previousSpending={Number(report.month_report.previous)}
-                  spending={Number(report.month_report.current)}
-                  twoMonthsAgoSpending={Number(
-                    report.month_report.second_previous
-                  )}
+                  previousSpending={report.monthly_report.previous_amount}
+                  spending={report.monthly_report.current_amount}
+                  twoMonthsAgoSpending={report.monthly_report.second_amount}
                 />
               }
             />

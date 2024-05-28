@@ -4,33 +4,34 @@ import {
   FormControl,
   IconButton,
   Stack,
+  Box,
   TextField,
   Typography,
 } from "@mui/material";
+import ResetButton from "@components/common/ResetButton.tsx";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
-import { useAppDispatch } from "@redux/hooks.ts";
-import ResetButton from "@components/common/ResetButton.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
-import { MonthSavingGoal } from "@app/types/asset.ts";
-import { getAmount } from "@pages/AssetManagement/utils.ts";
 
-interface InputModalProps {
-  closeSavingGoalModal: () => void;
-  saving?: MonthSavingGoal;
-  handleSetSavingGoal: (amount: number) => void;
+export interface SettingDrawerProps {
+  closeDrawer: () => void;
+  yearAmount: number;
+  monthAmount: number;
+  handleSubmit: (amount: number) => void;
 }
 
-function InputModal({
-  closeSavingGoalModal,
-  saving,
-  handleSetSavingGoal,
-}: InputModalProps) {
-  const [form, setForm] = useState({
-    year: getAmount(saving?.years_goal_amount),
-    month: getAmount(saving?.months_goal_amount),
-  });
+function SettingDrawer({
+  yearAmount,
+  monthAmount,
+  closeDrawer,
+  handleSubmit,
+}: SettingDrawerProps) {
   const { openConfirm } = useDialog();
+
+  const [form, setForm] = useState({
+    year: yearAmount,
+    month: monthAmount,
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = event.target;
@@ -45,11 +46,6 @@ function InputModal({
       alert("숫자는 0 이하일 수 없습니다.");
     }
   };
-
-  /**
-   * redux에 이미 저장된 목표 값 불러오기
-   */
-  const dispatch = useAppDispatch();
 
   const handleReset = async () => {
     const answer = await openConfirm({
@@ -67,20 +63,26 @@ function InputModal({
   };
 
   return (
-    <Stack p={2} spacing={1} sx={{ minWidth: "320px" }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+    <Stack spacing={2} sx={{ height: "100%" }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        px={2.5}
+        py={1.5}
+      >
         <ResetButton handleClick={handleReset} />
         <Typography sx={{ fontWeight: 500, fontSize: "17px" }}>
           저축 목표 설정
         </Typography>
-        <IconButton onClick={() => closeSavingGoalModal()}>
+        <IconButton onClick={closeDrawer}>
           <ClearIcon />
         </IconButton>
       </Stack>
 
       <Divider sx={{ marginY: 1 }} />
 
-      <Stack spacing={1}>
+      <Stack spacing={1.5} flexGrow={1} px={2.5}>
         <Typography variant="h2" sx={{ fontWeight: "bold" }}>
           한 해 저축 목표
         </Typography>
@@ -88,7 +90,7 @@ function InputModal({
           fullWidth
           placeholder="한해동안의 저축 목표액을 입력하세요"
           type="text"
-          value={form.year !== 0 ? form.year.toLocaleString("ko-KR") : ""}
+          value={form.year.toLocaleString("ko-KR")}
           onFocus={(e) => e.target.select()}
           onChange={handleChange}
           id="year"
@@ -103,7 +105,7 @@ function InputModal({
           <TextField
             placeholder="한해 저축 목표액을 입력하면 한달 저축 목표금액이 표시됩니다."
             type="text"
-            value={form.month !== 0 ? form.month.toLocaleString("ko-KR") : ""}
+            value={form.month.toLocaleString("ko-KR")}
             onFocus={(e) => e.target.select()}
             onChange={handleChange}
             id="month"
@@ -112,20 +114,22 @@ function InputModal({
             }}
           />
         </FormControl>
+        <Typography fontSize="12px" fontWeight={600} color="primary">
+          * 한해 저축 목표액을 입력하면 한달 저축 목표금액이 표시됩니다.
+        </Typography>
       </Stack>
 
-      <Button
-        fullWidth
-        variant="contained"
-        onClick={() => {
-          handleSetSavingGoal(form.year);
-          closeSavingGoalModal();
-        }}
-      >
-        완료
-      </Button>
+      <Box px={2.5} pt={1} pb={3.5} borderTop="1px solid #DEE0E3">
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={() => handleSubmit(form.year)}
+        >
+          완료
+        </Button>
+      </Box>
     </Stack>
   );
 }
 
-export default InputModal;
+export default SettingDrawer;

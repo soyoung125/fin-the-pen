@@ -20,5 +20,5 @@ export const PATH = {
   DetailSetting: "/management/regular-assets-setting",
   DetailInformation: "/management/regular-assets-detail-info",
   assetsByCategory: "/management/assets-by-category",
-  scheduleManagement: "/management/schedule-management",
+  spendingGoal: "/management/spending-goal",
 } as const;

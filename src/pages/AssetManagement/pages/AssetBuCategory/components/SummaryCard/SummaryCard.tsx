@@ -50,8 +50,15 @@ function SummaryCard({ ratio, used, goal, handleSetting }: SummaryCardProps) {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography variant="h3">{`설정한 금액 ${used.toLocaleString()}원`}</Typography>
-            <Typography color="#8C919C">{`지출목표액 ${goal.toLocaleString()}원`}</Typography>
+            <Typography
+              fontSize="13px"
+              fontWeight={500}
+            >{`설정한 금액 ${used.toLocaleString()}원`}</Typography>
+            <Typography
+              fontSize="13px"
+              fontWeight={500}
+              color="#8C919C"
+            >{`지출목표액 ${goal.toLocaleString()}원`}</Typography>
           </Stack>
         </Box>
       </Stack>

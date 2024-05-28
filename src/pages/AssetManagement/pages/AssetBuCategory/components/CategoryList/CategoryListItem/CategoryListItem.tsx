@@ -1,5 +1,12 @@
 import { Stack, Typography, Collapse } from "@mui/material";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { AssetByCategory, setAssetByCategory } from "@app/types/asset.ts";
 import ListItemAction from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemAction";
 import ListItemHeader from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/components/ListItemHeader";
@@ -14,7 +21,7 @@ export interface CategoryListItemProps {
   category: { name: string; subCategory: string[] };
   categoryList: AssetByCategory;
   control: string;
-  setControl: () => void;
+  setControl: Dispatch<SetStateAction<string>>;
   closeControl: () => void;
   handleSubmit: (form: Omit<setAssetByCategory, "user_id" | "date">) => void;
   compareTotal: (prev: number, curr: number) => void;
@@ -32,6 +39,10 @@ function CategoryListItem({
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(Number(categoryList.category_total));
   const [form, setForm] = useState(categoryList.list);
+
+  const isModify =
+    control === category.name ||
+    categoryList.list.filter((c) => c.name === control).length !== 0;
 
   const { openConfirm } = useDialog();
 
@@ -95,7 +106,7 @@ function CategoryListItem({
 
   const handleClickTotal = (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
-    setControl();
+    setControl(category.name);
     setOpen(true);
   };
 
@@ -133,7 +144,8 @@ function CategoryListItem({
         category={category}
         open={open}
         total={total}
-        modifyTotal={control === category.name}
+        modifyTotal={isModify}
+        isAutoFocus={control === category.name}
         smallSummary={smallSummary}
         setOpen={setOpen}
         handleClickTotal={handleClickTotal}
@@ -154,7 +166,7 @@ function CategoryListItem({
             <Typography variant="h4">
               <li>{c.name}</li>
             </Typography>
-            {control === category.name ? (
+            {isModify ? (
               <UnderlinedInputBox>
                 <UnderlinedInput
                   id={c.name}
@@ -162,7 +174,7 @@ function CategoryListItem({
                     c.value === "?" ? "0" : parseInt(c.value).toLocaleString()
                   }
                   onChange={handleChange}
-                  autoFocus
+                  autoFocus={control === c.name}
                 />
                 <span>원</span>
               </UnderlinedInputBox>
@@ -170,7 +182,7 @@ function CategoryListItem({
               <Typography
                 variant="h5"
                 color={c.value === "?" ? "#8C919C" : "#131416"}
-                onClick={setControl}
+                onClick={() => setControl(c.name)}
               >
                 {c.value === "?" ? c.value : parseInt(c.value).toLocaleString()}
                 원
@@ -179,7 +191,7 @@ function CategoryListItem({
           </Stack>
         ))}
 
-        {control === category.name && (
+        {isModify && (
           <ListItemAction
             handleCancel={handleClickCancel}
             handleSubmit={handleClickSubmit}

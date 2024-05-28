@@ -23,6 +23,7 @@ function AssetByCategory() {
     deleteAssetByCategory,
   } = useAssetByCategory();
   const { openToast, closeToast } = useToast();
+  console.log(assetsByCategory);
 
   const [control, setControl] = useState("");
 
@@ -81,7 +82,7 @@ function AssetByCategory() {
             category={category}
             categoryList={categoryList}
             control={control}
-            setControl={() => setControl(category.name)}
+            setControl={setControl}
             closeControl={() => setControl("")}
             handleSubmit={handleSubmit}
             compareTotal={compareTotal}
