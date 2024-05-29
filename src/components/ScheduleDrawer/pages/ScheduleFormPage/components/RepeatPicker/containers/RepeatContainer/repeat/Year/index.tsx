@@ -8,9 +8,9 @@ import Option from "./Option.tsx";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import RepeatInputLabel from "../RepeatInputLabel.tsx";
-import { RepeatTypeProps } from "@app/types/schedule.ts";
+import { RepeatProps } from "@app/types/schedule.ts";
 
-function Year({ repeatType }: RepeatTypeProps) {
+function Year({ repeatType, repeat, handleChangeOption }: RepeatProps) {
   const schedule = useSelector(selectScheduleForm);
   const startDate = useSelector(selectStartDate);
 
@@ -48,6 +48,8 @@ function Year({ repeatType }: RepeatTypeProps) {
             max={10}
             option="year"
             repeatType={repeatType}
+            repeat={repeat}
+            updateRepeat={handleChangeOption}
           />
         }
       />

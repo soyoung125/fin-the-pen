@@ -1,21 +1,19 @@
-import {
-  selectScheduleForm,
-  selectStartDate,
-} from "@redux/slices/scheduleSlice.tsx";
+import { selectStartDate } from "@redux/slices/scheduleSlice.tsx";
 import DateButton from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/buttons/DateButton.tsx";
 import OptionButton from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/buttons/OptionButton.tsx";
 import { Grid } from "@mui/material";
-import { RepeatOptionProps } from "@app/types/schedule.ts";
+import { RepeatProps } from "@app/types/schedule.ts";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
-function Option({ handleChangeOption }: RepeatOptionProps) {
-  const schedule = useSelector(selectScheduleForm);
+function Option({
+  handleChangeOption,
+  repeat,
+}: Omit<RepeatProps, "repeatType">) {
   const startDate = useSelector(selectStartDate);
   const months = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
-  const todayRepeat = schedule?.repeat.month_type.today_repeat ?? true;
-  const selectedDate =
-    schedule?.repeat.month_type.select_date.split(", ") ?? [];
+  const todayRepeat = repeat.month_type.today_repeat ?? true;
+  const selectedDate = repeat.month_type.select_date.split(", ") ?? [];
 
   const changeSelectDate = (date: string) => {
     handleChangeOption({ target: { id: "select_date", value: date } });

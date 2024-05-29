@@ -3,7 +3,7 @@ import Option from "./Option.tsx";
 import { RepeatProps } from "@app/types/schedule.ts";
 import RepeatInputLabel from "../RepeatInputLabel.tsx";
 
-function Month({ repeatType, handleChangeOption }: RepeatProps) {
+function Month({ repeatType, handleChangeOption, repeat }: RepeatProps) {
   return (
     <>
       <RadioLabel
@@ -15,12 +15,14 @@ function Month({ repeatType, handleChangeOption }: RepeatProps) {
             max={12}
             option="month"
             repeatType={repeatType}
+            repeat={repeat}
+            updateRepeat={handleChangeOption}
           />
         }
       />
 
       {repeatType === "month" && (
-        <Option handleChangeOption={handleChangeOption} />
+        <Option handleChangeOption={handleChangeOption} repeat={repeat} />
       )}
     </>
   );

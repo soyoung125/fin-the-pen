@@ -3,7 +3,7 @@ import Option from "./Option.tsx";
 import { RepeatProps } from "@app/types/schedule.ts";
 import RepeatInputLabel from "../RepeatInputLabel.tsx";
 
-function Week({ repeatType, handleChangeOption }: RepeatProps) {
+function Week({ repeatType, repeat, handleChangeOption }: RepeatProps) {
   const changeDayOfWeek = (week: string) => {
     handleChangeOption({ target: { id: "repeat_day_of_week", value: week } });
   };
@@ -19,11 +19,15 @@ function Week({ repeatType, handleChangeOption }: RepeatProps) {
             max={52}
             option="week"
             repeatType={repeatType}
+            repeat={repeat}
+            updateRepeat={handleChangeOption}
           />
         }
       />
 
-      {repeatType === "week" && <Option changeDayOfWeek={changeDayOfWeek} />}
+      {repeatType === "week" && (
+        <Option changeDayOfWeek={changeDayOfWeek} repeat={repeat} />
+      )}
     </>
   );
 }

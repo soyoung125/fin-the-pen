@@ -1,5 +1,6 @@
 import InputLabel from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/RepeatContainer/radio/RadioLabel/labels/InputLabel.tsx";
-import { useScheduleForm } from "../../../../../../../hooks/useScheduleForm.ts";
+import { ScheduleRepeat } from "@app/types/schedule.ts";
+import { UpdateStateInterface } from "@app/types/common.ts";
 
 interface InputLabelProps {
   label: string;
@@ -7,6 +8,8 @@ interface InputLabelProps {
   max: number;
   option: "day" | "week" | "month" | "year";
   repeatType: string;
+  repeat: ScheduleRepeat;
+  updateRepeat: (state: UpdateStateInterface) => void;
 }
 
 function RepeatInputLabel({
@@ -15,10 +18,11 @@ function RepeatInputLabel({
   max,
   option,
   repeatType,
+  repeat,
+  updateRepeat,
 }: InputLabelProps) {
-  const { scheduleForm, updateRepeat } = useScheduleForm();
   const type = `${option}_type` as const;
-  const repeatValue = scheduleForm?.repeat[type].repeat_term;
+  const repeatValue = repeat[type].repeat_term;
 
   const handleUpdate = (value: string) =>
     updateRepeat({ target: { id: "repeat_term", value: value } });
