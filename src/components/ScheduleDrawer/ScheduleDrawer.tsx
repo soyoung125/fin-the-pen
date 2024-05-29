@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import AssetFormPage from "./pages/AssetFormPage";
 import ScheduleDrawerHeader from "./layouts/ScheduleDrawerHeader/ScheduleDrawerHeader.tsx";
@@ -9,7 +9,6 @@ import ScheduleFormPage from "./pages/ScheduleFormPage";
 import CategoryPicker from "./pages/ScheduleFormPage/components/CategoryPicker";
 import RepeatPicker from "./pages/ScheduleFormPage/components/RepeatPicker";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
-import { Puller } from "@components/ScheduleDrawer/ScheduleDrawer.styles.ts";
 
 interface ScheduleDrawerProps {
   handleClose: () => void;

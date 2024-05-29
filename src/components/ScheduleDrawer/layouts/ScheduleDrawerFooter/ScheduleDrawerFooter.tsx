@@ -1,6 +1,6 @@
-import { Box, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
-import { RequestSchedule, Schedule } from "@app/types/schedule.ts";
+import { RequestSchedule } from "@app/types/schedule.ts";
 import { useAppSelector } from "@redux/hooks.ts";
 import Save from "@assets/icons/save_icon.svg";
 import ModifyFooter from "./ModifyFooter.tsx";

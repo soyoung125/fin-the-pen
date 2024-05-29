@@ -1,6 +1,6 @@
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import { RequestSchedule } from "@app/types/schedule.ts";
-import { Box, styled, SwipeableDrawer } from "@mui/material";
+import { Box, SwipeableDrawer } from "@mui/material";
 import ScheduleDrawer from "@components/ScheduleDrawer";
 import {
   selectScheduleForm,
