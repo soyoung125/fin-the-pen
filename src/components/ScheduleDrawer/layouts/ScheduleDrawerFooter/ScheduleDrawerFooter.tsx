@@ -5,6 +5,11 @@ import { useAppSelector } from "@redux/hooks.ts";
 import Save from "@assets/icons/save_icon.svg";
 import ModifyFooter from "./ModifyFooter.tsx";
 import CreateFooter from "./CreateFooter.tsx";
+import {
+  ActionContainer,
+  AutoSaveContainer,
+  FooterContainer,
+} from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.style.ts";
 
 interface ScheduleDrawerFooterProps {
   handleClose: () => void;
@@ -32,30 +37,22 @@ function ScheduleDrawerFooter({
   };
 
   return (
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          color: "#8C919C",
-          fontSize: "14px",
-          mb: 0.5,
-        }}
-      >
+    <FooterContainer>
+      <AutoSaveContainer>
         <img src={Save} alt="save" />
         입력 정보는 자동으로 저장됩니다.
-      </Box>
+      </AutoSaveContainer>
 
-      <Divider />
+      <ActionContainer>
+        <Divider />
 
-      {schedule && schedule.schedule_id ? (
-        <ModifyFooter handleSubmit={handleSubmit} handleClose={handleClose} />
-      ) : (
-        <CreateFooter handleSubmit={handleSubmit} handleClose={handleClose} />
-      )}
-    </Box>
+        {schedule && schedule.schedule_id ? (
+          <ModifyFooter handleSubmit={handleSubmit} handleClose={handleClose} />
+        ) : (
+          <CreateFooter handleSubmit={handleSubmit} handleClose={handleClose} />
+        )}
+      </ActionContainer>
+    </FooterContainer>
   );
 }
 

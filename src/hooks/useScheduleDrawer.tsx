@@ -1,6 +1,6 @@
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import { RequestSchedule } from "@app/types/schedule.ts";
-import { styled, SwipeableDrawer } from "@mui/material";
+import { Box, styled, SwipeableDrawer } from "@mui/material";
 import ScheduleDrawer from "@components/ScheduleDrawer";
 import {
   selectScheduleForm,
@@ -17,10 +17,6 @@ export const useScheduleDrawer = () => {
     !newOpen && closeOverlay();
   };
 
-  const Root = styled("div")(() => ({
-    height: "100%",
-  }));
-
   const openScheduleDrawer = (data: RequestSchedule) => {
     if (schedule?.schedule_id !== data.schedule_id)
       dispatch(setDrawerScheduleForm(data));
@@ -30,7 +26,7 @@ export const useScheduleDrawer = () => {
     const resetSchedule = () => dispatch(setDrawerScheduleForm(data));
 
     openOverlay(
-      <Root>
+      <Box>
         <CssBaseline />
         <SwipeableDrawer
           anchor="bottom"
@@ -45,6 +41,7 @@ export const useScheduleDrawer = () => {
             style: {
               borderTopLeftRadius: "20px",
               borderTopRightRadius: "20px",
+              height: "calc(100dvh - 48px)",
             },
           }}
         >
@@ -53,7 +50,7 @@ export const useScheduleDrawer = () => {
             resetSchedule={resetSchedule}
           />
         </SwipeableDrawer>
-      </Root>
+      </Box>
     );
   };
 
