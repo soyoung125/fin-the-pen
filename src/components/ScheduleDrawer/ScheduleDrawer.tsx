@@ -1,7 +1,7 @@
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import AssetFormPage from "./pages/AssetFormPage";
-import ScheduleDrawerHeader from "./layouts/ScheduleDrawerHeader.tsx";
+import ScheduleDrawerHeader from "./layouts/ScheduleDrawerHeader/ScheduleDrawerHeader.tsx";
 import ScheduleDrawerFooter from "./layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.tsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
@@ -50,51 +50,39 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
   }
 
   return (
-    <div>
-      <Box
-        sx={{
-          height: "100%",
-          pt: 1,
-          mb: 3,
-        }}
+    <Box>
+      <ScheduleDrawerHeader
+        value={value}
+        handleChange={handleChange}
+        handleReset={handleReset}
+      />
+
+      <Swiper
+        className="mySwiper"
+        spaceBetween={50}
+        autoHeight={true}
+        onSlideChange={(e) => setValue(e.activeIndex)}
+        onSwiper={(swiper) => setSwiper(swiper)}
+        style={{ marginBottom: "135px" }}
       >
-        <ScheduleDrawerHeader
-          value={value}
-          handleChange={handleChange}
-          handleReset={handleReset}
-        />
-
-        <Stack
-          justifyContent="space-between"
-          spacing={2}
-          onTouchStart={(e) => e.stopPropagation()}
-        >
-          <Swiper
-            className="mySwiper"
-            spaceBetween={50}
-            onSlideChange={(e) => setValue(e.activeIndex)}
-            onSwiper={(swiper) => setSwiper(swiper)}
-          >
-            <SwiperSlide style={{ overflow: "scroll" }}>
-              <ScheduleFormPage
-                showError={showError}
-                setIsCategoryPickerOpen={setIsCategoryPickerOpen}
-                setIsRepeatPickerOpen={setIsRepeatPickerOpen}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <AssetFormPage />
-            </SwiperSlide>
-          </Swiper>
-
-          {/* 제출 버튼 */}
-          <ScheduleDrawerFooter
-            handleClose={handleClose}
-            setShowError={setShowError}
+        <SwiperSlide style={{ overflow: "scroll" }}>
+          <ScheduleFormPage
+            showError={showError}
+            setIsCategoryPickerOpen={setIsCategoryPickerOpen}
+            setIsRepeatPickerOpen={setIsRepeatPickerOpen}
           />
-        </Stack>
-      </Box>
-    </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <AssetFormPage />
+        </SwiperSlide>
+      </Swiper>
+
+      {/* 제출 버튼 */}
+      <ScheduleDrawerFooter
+        handleClose={handleClose}
+        setShowError={setShowError}
+      />
+    </Box>
   );
 }
 

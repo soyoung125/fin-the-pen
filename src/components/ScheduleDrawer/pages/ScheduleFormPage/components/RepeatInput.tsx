@@ -7,10 +7,16 @@ interface RepeatInputProps {
   repeatType: string;
   onClick?: () => void;
   handleChange?: (value: string) => void;
+  repeatTitle?: string;
 }
 
-function RepeatInput({ repeatType, onClick, handleChange }: RepeatInputProps) {
-  const { updateRepeat, getRepeat } = useScheduleForm();
+function RepeatInput({
+  repeatType,
+  onClick,
+  handleChange,
+  repeatTitle,
+}: RepeatInputProps) {
+  const { updateRepeat } = useScheduleForm();
 
   const changeRepeat = (state: UpdateStateInterface) => {
     handleChange
@@ -31,7 +37,7 @@ function RepeatInput({ repeatType, onClick, handleChange }: RepeatInputProps) {
           sx={{ flexGrow: 1, typography: "subtitle2", color: "primary.main" }}
           onClick={onClick}
         >
-          {getRepeat()}
+          {repeatTitle}
         </Box>
         <SwitchButton
           checked={repeatType !== "none"}

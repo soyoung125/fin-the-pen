@@ -1,8 +1,8 @@
-import { RepeatTypeProps } from "@app/types/schedule.ts";
+import { RepeatProps } from "@app/types/schedule.ts";
 import RadioLabel from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/RepeatContainer/radio/RadioLabel";
 import RepeatInputLabel from "./RepeatInputLabel.tsx";
 
-function AllDay({ repeatType }: RepeatTypeProps) {
+function AllDay({ repeatType, repeat, handleChangeOption }: RepeatProps) {
   return (
     <RadioLabel
       value="day"
@@ -13,6 +13,8 @@ function AllDay({ repeatType }: RepeatTypeProps) {
           max={365}
           option="day"
           repeatType={repeatType}
+          repeat={repeat}
+          updateRepeat={handleChangeOption}
         />
       }
     />

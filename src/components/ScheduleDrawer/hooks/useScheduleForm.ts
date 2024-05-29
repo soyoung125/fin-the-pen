@@ -15,7 +15,7 @@ import {
   CATEGORIES,
   INCOME_CATEGORY,
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/constants.ts";
-import { RequestSchedule } from "@app/types/schedule.ts";
+import { SchedulePeriod, ScheduleRepeat } from "@app/types/schedule.ts";
 
 export const getType = (category: string) => {
   if (INCOME_CATEGORY.includes(category)) {
@@ -32,7 +32,7 @@ export const getPriceTypeSign = (type: string) => {
   return type;
 };
 
-const getRepeatEndDate = (
+export const getRepeatEndDate = (
   startDate: string | undefined,
   type: string | undefined
 ) => {
@@ -192,12 +192,12 @@ export const useScheduleForm = () => {
   };
 
   const getRepeat = () => {
-    if (!scheduleForm) return;
+    if (!scheduleForm) return "";
 
     const type = { day: "일", week: "주", month: "달", year: "년" };
     const repeatType = scheduleForm.repeat.kind_type;
 
-    if (repeatType === "none") return;
+    if (repeatType === "none") return "";
 
     const term = scheduleForm.repeat[`${repeatType}_type`].repeat_term;
     const repeat = `${term}${type[repeatType]}마다`;
@@ -223,77 +223,51 @@ export const useScheduleForm = () => {
   };
 
   const updateRepeat = (state: UpdateStateInterface) => {
-    const { id, value } = state.target;
-    if (id === "repeat") {
-      const period = {
-        ...scheduleForm?.period,
-        repeat_end_line: getRepeatEndDate(
-          scheduleForm?.start_date,
-          value as string
-        ),
-      };
-      dispatch(
-        setDrawerScheduleForm({
-          ...scheduleForm,
-          repeat: {
-            ...scheduleForm?.repeat,
-            kind_type: value,
-          },
-          period,
-          is_all_day: true,
-        })
-      );
-      return;
-    }
-
-    const type = scheduleForm?.repeat.kind_type ?? "none";
-    if (type !== "none") {
-      const kind_type = `${type}_type` as const;
-      const newValue = {
-        ...scheduleForm?.repeat[kind_type],
-        [id]: value,
-      };
-      dispatch(
-        setDrawerScheduleForm({
-          ...scheduleForm,
-          repeat: {
-            ...scheduleForm?.repeat,
-            [kind_type]: newValue,
-          },
-        })
-      );
-    }
+    const { value } = state.target;
+    const period = {
+      ...scheduleForm?.period,
+      repeat_end_line: getRepeatEndDate(
+        scheduleForm?.start_date,
+        value as string
+      ),
+    };
+    dispatch(
+      setDrawerScheduleForm({
+        ...scheduleForm,
+        repeat: {
+          ...scheduleForm?.repeat,
+          kind_type: value,
+        },
+        period,
+        is_all_day: true,
+      })
+    );
   };
 
   const updateExclusion = (state: boolean) => {
     dispatch(setDrawerScheduleForm({ ...scheduleForm, exclusion: state }));
   };
 
-  const updatePeriod = (state: UpdateStateInterface) => {
-    const { id, value } = state.target;
-    if (id === "period") {
+  const updateRepeatAndPeriod = (
+    repeat: ScheduleRepeat,
+    period: SchedulePeriod
+  ) => {
+    if (repeat.kind_type !== "none") {
       dispatch(
         setDrawerScheduleForm({
           ...scheduleForm,
-          period: {
-            ...scheduleForm?.period,
-            is_repeat_again: value === "is_repeat_again",
-            kind_type: value,
-          },
+          repeat,
+          period,
+          is_all_day: true,
         })
       );
-      return;
-    }
-
-    const type = scheduleForm?.period.kind_type ?? "";
-    if (type !== "") {
+    } else {
       dispatch(
         setDrawerScheduleForm({
           ...scheduleForm,
-          period: {
-            ...scheduleForm?.period,
-            [type]: value,
-          },
+          repeat,
+          period,
+          is_all_day: false,
         })
       );
     }
@@ -332,7 +306,7 @@ export const useScheduleForm = () => {
     updateRepeat,
     updateExclusion,
     setRandomGeneratedSchedule,
-    updatePeriod,
+    updateRepeatAndPeriod,
     updateYearRepeat,
     getRepeat,
     updateCategory,

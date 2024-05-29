@@ -1,20 +1,18 @@
-import {
-  selectRepeatEndDate,
-  selectScheduleForm,
-  selectStartDate,
-} from "@redux/slices/scheduleSlice.tsx";
+import { selectStartDate } from "@redux/slices/scheduleSlice.tsx";
 import { Box, Stack } from "@mui/material";
 import { useSelector } from "react-redux";
 import RadioLabel from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/RepeatContainer/radio/RadioLabel";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import Input from "./Input.tsx";
-import { RepeatOptionProps } from "@app/types/schedule.ts";
+import { PeriodProps } from "@app/types/schedule.ts";
 
-function EndDate({ handleChangeOption }: RepeatOptionProps) {
-  const schedule = useSelector(selectScheduleForm);
+function EndDate({
+  handleChangeOption,
+  period,
+}: Omit<PeriodProps, "periodType">) {
   const startDate = useSelector(selectStartDate);
-  const repeatEndDate = useSelector(selectRepeatEndDate);
+  const repeatEndDate = period.repeat_end_line;
 
   const [date, setDate] = useState({
     year: 2023,
@@ -93,7 +91,7 @@ function EndDate({ handleChangeOption }: RepeatOptionProps) {
     <>
       <RadioLabel value="repeat_end_line" label="종료 날짜" />
 
-      {schedule?.period.kind_type === "repeat_end_line" && (
+      {period.kind_type === "repeat_end_line" && (
         <Stack
           direction="row"
           spacing={1}
