@@ -1,10 +1,36 @@
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 
+function addPreloadToCSS(): Plugin {
+  return {
+    name: "add-preload-to-css",
+    enforce: "post",
+    apply: "build",
+    generateBundle(_, bundle) {
+      const htmlFileName = Object.keys(bundle).find((name) =>
+        name.endsWith(".html")
+      );
+
+      if (htmlFileName) {
+        const htmlFile = bundle[htmlFileName] as { source: string };
+        let html = htmlFile.source;
+
+        // Modify the HTML to add preload to CSS link
+        html = html.replace(
+          `rel="stylesheet"`,
+          `rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"`
+        );
+
+        htmlFile.source = html;
+      }
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react(), tsconfigPaths(), addPreloadToCSS()],
   css: {},
   base: "/fin-the-pen-web/",
   server: {
@@ -29,5 +55,6 @@ export default defineConfig({
       },
     },
     cssMinify: "esbuild",
+    cssCodeSplit: false,
   },
 });
