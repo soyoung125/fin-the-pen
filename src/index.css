@@ -1,35 +1,35 @@
 @font-face {
   font-family: 'Pretendard';
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   src: local('Pretendard Bold'), url(./assets/font/woff2-subset/Pretendard-Bold.subset.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 600;
-  font-display: swap;
+  font-display: block;
   src: local('Pretendard SemiBold'), url(./assets/font/woff2-subset/Pretendard-SemiBold.subset.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 500;
-  font-display: swap;
+  font-display: block;
   src: local('Pretendard Medium'), url(./assets/font/woff2-subset/Pretendard-Medium.subset.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: local('Pretendard Regular'), url(./assets/font/woff2-subset/Pretendard-Regular.subset.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Pretendard';
   font-weight: 300;
-  font-display: swap;
+  font-display: block;
   src: local('Pretendard Light'), url(./assets/font/woff2-subset/Pretendard-Light.subset.woff2) format('woff2');
 }
 
