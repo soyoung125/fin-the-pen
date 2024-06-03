@@ -1,4 +1,3 @@
-test('temp', () => {
+test("temp", () => {
   expect(true).toBeTruthy();
 });
-export { };
