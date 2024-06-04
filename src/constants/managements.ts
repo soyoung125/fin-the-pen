@@ -24,7 +24,7 @@ const assetManagements: ReadonlyArray<AssetManagement> = [
     path: PATH.assetsByCategory,
   },
   {
-    title: "정기 입출금액 설정",
+    title: "정기 템플릿 관리",
     color: yellow[200],
     path: PATH.regularDepositWithdrawal,
   },
