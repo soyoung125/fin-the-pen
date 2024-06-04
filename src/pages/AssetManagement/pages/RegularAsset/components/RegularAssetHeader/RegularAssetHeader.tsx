@@ -20,12 +20,6 @@ function RegularAssetHeader({
 }: RegularAssetHeaderProps) {
   return (
     <RegularAssetHeaderContainer>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography fontSize="22px" fontWeight={500}>
-          {title}
-        </Typography>
-        {clickDetail}
-      </Stack>
       <Stack
         direction="row"
         spacing={1}
@@ -33,9 +27,16 @@ function RegularAssetHeader({
         onClick={changeDate}
       >
         <img src={calendar_outlined} alt="calendar_outlined" />
-        <Typography fontSize="13px" color="#8C919C">
+        <Typography fontSize="15px" fontWeight={500} color="#8C919C">
           {`${startDate} - ${endDate}`}
         </Typography>
+      </Stack>
+
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography fontSize="22px" fontWeight={700}>
+          {title}
+        </Typography>
+        {clickDetail}
       </Stack>
     </RegularAssetHeaderContainer>
   );

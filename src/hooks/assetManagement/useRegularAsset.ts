@@ -50,6 +50,8 @@ const useRegularAsset = () => {
       return result;
     }, []) ?? [];
 
+  const templateCount = spendSchedules.length + saveSchedules.length;
+
   const detailSchedules =
     schedules?.filter(
       (s) => s.event_name === eventName && s.price_type === priceType
@@ -67,6 +69,7 @@ const useRegularAsset = () => {
     detailSchedule: detailSchedules[0],
     eventName,
     priceType,
+    templateCount,
     isPending,
     isError,
     options: ["All"].concat(yearOptions),

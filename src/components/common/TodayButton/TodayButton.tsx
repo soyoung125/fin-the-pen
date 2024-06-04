@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { BottomButtonConainer, Button } from "./TodayButton.styles.ts";
+import { BottomButtonContainer, Button } from "./TodayButton.styles.ts";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { TITLE } from "@components/common/TodayButton/utils.ts";
 
@@ -10,7 +10,7 @@ export interface TodayButtonProps {
 
 function TodayButton({ goToday, type }: TodayButtonProps) {
   return (
-    <BottomButtonConainer onClick={goToday}>
+    <BottomButtonContainer onClick={goToday}>
       <Button>
         <Stack direction="row" spacing={0.5} alignItems="center">
           <Typography variant="h6" lineHeight="22px">
@@ -19,7 +19,7 @@ function TodayButton({ goToday, type }: TodayButtonProps) {
           <ArrowForwardIosRoundedIcon sx={{ fontSize: "12px" }} />
         </Stack>
       </Button>
-    </BottomButtonConainer>
+    </BottomButtonContainer>
   );
 }
 

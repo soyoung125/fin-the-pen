@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BottomButtonConainer = styled.div`
+export const BottomButtonContainer = styled.div`
   width: 100%;
   display: flex;
   position: fixed;
