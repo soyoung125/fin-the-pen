@@ -5,9 +5,9 @@ import { SyntheticEvent, useState } from "react";
 import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
 import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/components/RegularScheduleList";
 import DeleteButton from "@pages/AssetManagement/pages/RegularAsset/components/DeleteButton";
 import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
+import RegularTemplateList from "@pages/AssetManagement/pages/RegularAsset/components/RegularTemplateList";
 
 function RegularAsset() {
   const {
@@ -45,13 +45,13 @@ function RegularAsset() {
         onSwiper={(swiper) => setSwiper(swiper)}
       >
         <SwiperSlide>
-          <RegularScheduleList
+          <RegularTemplateList
             schedules={saveSchedules}
             isPending={isPending}
           />
         </SwiperSlide>
         <SwiperSlide>
-          <RegularScheduleList
+          <RegularTemplateList
             schedules={spendSchedules}
             isPending={isPending}
           />
