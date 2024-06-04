@@ -1,17 +1,16 @@
 import RadioLabel from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/RepeatContainer/radio/RadioLabel";
 import InputLabel from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/RepeatContainer/radio/RadioLabel/labels/InputLabel.tsx";
-import { useScheduleForm } from "../../../../../../../hooks/useScheduleForm.ts";
+import { PeriodProps } from "@app/types/schedule.ts";
 
-export interface RepetitionCountProps {
-  periodType: string;
-}
-
-function RepetitionCount({ periodType }: RepetitionCountProps) {
-  const { scheduleForm, updatePeriod } = useScheduleForm();
-  const value = scheduleForm?.period.repeat_number_time;
+function RepetitionCount({
+  periodType,
+  period,
+  handleChangeOption,
+}: PeriodProps) {
+  const value = period.repeat_number_time;
 
   const handleUpdate = (value: string) =>
-    updatePeriod({ target: { id: "repeat_number_time", value: value } });
+    handleChangeOption({ target: { id: "repeat_number_time", value: value } });
 
   return (
     <RadioLabel

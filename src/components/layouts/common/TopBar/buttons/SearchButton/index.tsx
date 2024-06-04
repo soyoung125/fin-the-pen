@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import RoundedButton from "../../../../../common/RoundedButton.tsx";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@constants/path.ts";
-import search from "@assets/icons/header/search.svg";
+import IconSVG from "@components/common/IconSVG";
 
 function SearchButton() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function SearchButton() {
   return (
     <Box ref={searchBtn}>
       <RoundedButton value="search" onClick={handleClick}>
-        <img src={search} alt="search" />
+        <IconSVG id={"search"} size={24} />
       </RoundedButton>
     </Box>
   );

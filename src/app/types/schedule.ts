@@ -50,8 +50,10 @@ export interface ScheduleRepeat {
     repeat_term: string;
     year_category: YearCategory; //"MonthAndDay" | "NthDayOfMonth" | "LastDayOfMonth"
   };
-  kind_type: "day" | "week" | "month" | "year" | "none";
+  kind_type: repeatKindType;
 }
+
+export type repeatKindType = "day" | "week" | "month" | "year" | "none";
 
 export type YearCategory = "MonthAndDay" | "NthDayOfMonth" | "LastDayOfMonth";
 
@@ -87,6 +89,12 @@ export interface HomeQuery {
 
 export interface RepeatTypeProps {
   repeatType: string;
+  repeat: ScheduleRepeat;
+}
+
+export interface PeriodTypeProps {
+  periodType: string;
+  period: SchedulePeriod;
 }
 
 export interface RepeatOptionProps {
@@ -94,6 +102,8 @@ export interface RepeatOptionProps {
 }
 
 export interface RepeatProps extends RepeatTypeProps, RepeatOptionProps {}
+
+export interface PeriodProps extends PeriodTypeProps, RepeatOptionProps {}
 
 export interface ScheduleResponse {
   count: number;

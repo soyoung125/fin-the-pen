@@ -1,15 +1,15 @@
 import { useScheduleForm } from "../../../../../../../../hooks/useScheduleForm.ts";
 import DateButton from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/buttons/DateButton.tsx";
 import { Stack } from "@mui/material";
+import { ScheduleRepeat } from "@app/types/schedule.ts";
 
 interface OptionProps {
   changeDayOfWeek: (week: string) => void;
+  repeat: ScheduleRepeat;
 }
 
-function Option({ changeDayOfWeek }: OptionProps) {
-  const { scheduleForm } = useScheduleForm();
-
-  const selectedWeek = scheduleForm?.repeat.week_type.repeat_day_of_week ?? "";
+function Option({ changeDayOfWeek, repeat }: OptionProps) {
+  const selectedWeek = repeat.week_type.repeat_day_of_week ?? "";
 
   const weekName: { [key: string]: string } = {
     월: "MONDAY",

@@ -10,7 +10,17 @@ export interface TopNavigationBarProps {
 
 function TopNavigationBar({ title, onClick }: TopNavigationBarProps) {
   return (
-    <Stack gap={1} direction="row" px="20px" py="12px" alignItems="center">
+    <Stack
+      gap={1}
+      direction="row"
+      px="20px"
+      py="12px"
+      alignItems="center"
+      position="sticky"
+      top={0}
+      bgcolor="#FFF"
+      zIndex={1000}
+    >
       <RoundedButton value="arrow-back-ios-icon" onClick={onClick}>
         <ClearIcon sx={{ color: "#131416" }} />
       </RoundedButton>

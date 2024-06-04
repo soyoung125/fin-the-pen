@@ -3,6 +3,7 @@ import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import { AmountComponent, AmountType } from "./ScheduleCard.styles.ts";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
+import CategoryIconSVG from "@components/common/CategoryIconSVG";
 
 export interface ConsumptionCardProps {
   category: string;
@@ -40,13 +41,14 @@ function ScheduleCard({
       onClick={onClick}
     >
       {icon && (
-        <Avatar
-          alt="category icon"
-          src={CATEGORY_ICONS[category]}
-          sx={{ width: 36, height: 36 }}
-        >
-          {category}
-        </Avatar>
+        // <Avatar
+        //   alt="category icon"
+        //   src={CATEGORY_ICONS[category]}
+        //   sx={{ width: 36, height: 36 }}
+        // >
+        //   {category}
+        // </Avatar>
+        <CategoryIconSVG id={CATEGORY_ICONS[category]} size={36} />
       )}
       <Stack
         justifyContent="space-between"

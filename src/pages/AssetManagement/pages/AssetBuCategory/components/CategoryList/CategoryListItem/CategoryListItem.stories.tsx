@@ -3,6 +3,7 @@ import CategoryListItem, {
 } from "@pages/AssetManagement/pages/AssetBuCategory/components/CategoryList/CategoryListItem/CategoryListItem.tsx";
 import { Meta } from "@storybook/react";
 import { EXPENDITURE_CATEGORY } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/constants.ts";
+import { useState } from "react";
 
 const meta = {
   title: "AssetManagement/AssetByCategory/CategoryList/CategoryListItem",
@@ -25,8 +26,6 @@ const meta = {
         },
       ],
     },
-    control: "",
-    handleSubmit: () => alert("submit"),
   },
   argTypes: {
     category: {
@@ -59,5 +58,15 @@ const meta = {
 export default meta;
 
 export const Default = (args: CategoryListItemProps) => {
-  return <CategoryListItem {...args} />;
+  const [control, setControl] = useState("");
+  return (
+    <CategoryListItem
+      {...args}
+      control={control}
+      setControl={setControl}
+      closeControl={() => setControl("")}
+      handleSubmit={() => alert("submit")}
+      compareTotal={(prev, curr) => console.log(prev, curr)}
+    />
+  );
 };

@@ -11,11 +11,11 @@ import {
 } from "@redux/slices/commonSlice.tsx";
 import { PATH } from "@constants/path.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
-import add_button from "@assets/icons/bottom/add_button.svg";
 import CalendarIcon from "@components/layouts/common/BottomBar/buttons/Calendar.tsx";
 import ReportIcon from "@components/layouts/common/BottomBar/buttons/Report.tsx";
 import AssetIcon from "@components/layouts/common/BottomBar/buttons/asset.tsx";
 import SettingIcon from "@components/layouts/common/BottomBar/buttons/setting.tsx";
+import IconSVG from "@components/common/IconSVG";
 
 function BottomBar() {
   const navigate = useNavigate();
@@ -61,7 +61,8 @@ function BottomBar() {
       />
       <BottomNavigationAction
         label=""
-        icon={<img src={add_button} alt="add schedule" />}
+        aria-label="add_button"
+        icon={<IconSVG id={"add-button"} size={48} />}
         onClick={() =>
           openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")))
         }

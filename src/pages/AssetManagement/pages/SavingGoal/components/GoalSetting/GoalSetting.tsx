@@ -1,6 +1,6 @@
 import { IconButton, Stack, Box } from "@mui/material";
-import filter_main from "@assets/icons/header/filter_main.svg";
 import React from "react";
+import IconSVG from "@components/common/IconSVG";
 
 export interface GoalSettingProps {
   name?: string;
@@ -18,7 +18,7 @@ function GoalSetting({ name, handleModify }: GoalSettingProps) {
       </Box>
 
       <IconButton color="primary" onClick={handleModify} sx={{ p: 0 }}>
-        <img src={filter_main} alt="filter" />
+        <IconSVG id={"filter-main"} size={24} />
       </IconButton>
     </Stack>
   );

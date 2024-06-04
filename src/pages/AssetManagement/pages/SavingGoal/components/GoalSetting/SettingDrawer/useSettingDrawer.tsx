@@ -1,22 +1,12 @@
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import { styled, SwipeableDrawer } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import { grey } from "@mui/material/colors";
 import SettingDrawer from "@pages/AssetManagement/pages/SavingGoal/components/GoalSetting/SettingDrawer/SettingDrawer.tsx";
 import { getAmount } from "@pages/AssetManagement/utils.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { MonthSavingGoal } from "@app/types/asset.ts";
 import useSavingGoal from "@hooks/assetManagement/useSavingGoal.ts";
-
-const Puller = styled("div")(({ theme }) => ({
-  width: 30,
-  height: 6,
-  backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
-  borderRadius: 3,
-  position: "absolute",
-  top: 8,
-  left: "calc(50% - 15px)",
-}));
+import { Puller } from "@components/ScheduleDrawer/ScheduleDrawer.styles.ts";
 
 export const useSettingGoalDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();

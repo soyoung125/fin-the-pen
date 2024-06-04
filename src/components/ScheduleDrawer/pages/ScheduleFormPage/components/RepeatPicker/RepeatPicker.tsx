@@ -2,20 +2,27 @@ import { Dispatch, SetStateAction } from "react";
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
 import ThickDivider from "@components/common/ThickDivider.tsx";
 import RepeatInput from "../RepeatInput.tsx";
-import { Box } from "@mui/material";
-import { useScheduleForm } from "../../../../hooks/useScheduleForm.ts";
+import { Box, Button } from "@mui/material";
 import RepeatContainer from "./containers/RepeatContainer/RepeatContainer.tsx";
 import PeriodContainer from "./containers/PeriodContainer/PeriodContainer.tsx";
+import { useCategoryPicker } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/useCategoryPicker.ts";
+import { ActionContainer } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/CategoryPicker.style.ts";
 
 export interface RepeatPickerProps {
   setIsRepeatPickerOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
-  const { updateRepeat, updatePeriod, scheduleForm } = useScheduleForm();
-
-  const repeatType = scheduleForm?.repeat.kind_type ?? "day";
-  const periodType = scheduleForm?.period.kind_type ?? "is_repeat_again";
+  const {
+    repeat,
+    repeatType,
+    period,
+    periodType,
+    updateRepeat,
+    updatePeriod,
+    getRepeat,
+    saveRepeat,
+  } = useCategoryPicker();
 
   const handleRepeatChange = (v: string) => {
     updateRepeat({ target: { id: "repeat", value: v } });
@@ -25,20 +32,31 @@ function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
     updatePeriod({ target: { id: "period", value: v } });
   };
 
+  const handleSave = () => {
+    saveRepeat();
+    setIsRepeatPickerOpen(false);
+  };
+
   return (
-    <Box minHeight="634.5px">
+    <Box>
       <TopNavigationBar
         onClick={() => setIsRepeatPickerOpen(false)}
         title="반복 설정"
       />
 
-      <RepeatInput repeatType={repeatType} handleChange={handleRepeatChange} />
+      <RepeatInput
+        repeatType={repeatType}
+        handleChange={handleRepeatChange}
+        repeatTitle={getRepeat()}
+      />
 
       {repeatType !== "none" && (
-        <>
+        <Box mb="80px">
           <RepeatContainer
             repeatType={repeatType}
+            repeat={repeat}
             handleChange={handleRepeatChange}
+            handleChangeOption={updateRepeat}
           />
 
           <ThickDivider />
@@ -49,9 +67,17 @@ function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
           <PeriodContainer
             periodType={periodType}
             handleChange={handlePeriodChange}
+            period={period}
+            handleChangeOption={updatePeriod}
           />
-        </>
+        </Box>
       )}
+
+      <ActionContainer>
+        <Button fullWidth variant="contained" onClick={handleSave}>
+          저장하기
+        </Button>
+      </ActionContainer>
     </Box>
   );
 }

@@ -7,6 +7,7 @@ import {
 } from "@components/ScheduleList/ScheduleCard/ScheduleCard.styles.ts";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { ConsumptionCardProps } from "@components/ScheduleList/ScheduleCard/ScheduleCard.tsx";
+import CategoryIconSVG from "@components/common/CategoryIconSVG";
 
 function RegularScheduleCard({
   title,
@@ -31,13 +32,14 @@ function RegularScheduleCard({
       onClick={onClick}
     >
       {icon && (
-        <Avatar
-          alt="category icon"
-          src={CATEGORY_ICONS[category]}
-          sx={{ width: 36, height: 36 }}
-        >
-          {category}
-        </Avatar>
+        // <Avatar
+        //   alt="category icon"
+        //   src={CATEGORY_ICONS[category]}
+        //   sx={{ width: 36, height: 36 }}
+        // >
+        //   {category}
+        // </Avatar>
+        <CategoryIconSVG id={CATEGORY_ICONS[category]} size={36} />
       )}
       <Stack
         justifyContent="space-between"
