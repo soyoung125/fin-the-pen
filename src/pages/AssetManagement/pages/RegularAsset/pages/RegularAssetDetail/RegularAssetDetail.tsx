@@ -28,7 +28,7 @@ function RegularAssetDetail() {
     <>
       <TopNavigationBar
         onClick={() => navigate(-1)}
-        title={"정기 입출금액 설정"}
+        title={"정기 템플릿 상세"}
       />
 
       <RegularAssetHeader
