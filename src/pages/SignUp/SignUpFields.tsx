@@ -74,6 +74,9 @@ function SignUpFields() {
         required
         fullWidth
         id="name"
+        inputProps={{
+          "data-testid": "name",
+        }}
         label="성명"
         name="name"
         autoFocus
@@ -85,6 +88,9 @@ function SignUpFields() {
         required
         fullWidth
         id="email"
+        inputProps={{
+          "data-testid": "email",
+        }}
         label="이메일 주소"
         name="email"
         autoComplete="email"
@@ -102,6 +108,9 @@ function SignUpFields() {
         label="비밀번호"
         type="password"
         id="password"
+        inputProps={{
+          "data-testid": "password",
+        }}
         autoComplete="current-password"
         size="small"
         inputRef={inputPWd}
@@ -123,6 +132,9 @@ function SignUpFields() {
         label="비밀번호 확인"
         type="password"
         id="password_check"
+        inputProps={{
+          "data-testid": "password_check",
+        }}
         autoComplete="current-password"
         size="small"
         inputRef={inputPwdCheck}
@@ -148,6 +160,9 @@ function SignUpFields() {
         required
         fullWidth
         id="phoneNumber"
+        inputProps={{
+          "data-testid": "phoneNumber",
+        }}
         label="전화번호"
         name="phoneNumber"
         autoFocus
