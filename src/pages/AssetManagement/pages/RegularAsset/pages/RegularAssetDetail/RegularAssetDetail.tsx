@@ -8,6 +8,7 @@ import RegularAssetHeader from "@pages/AssetManagement/pages/RegularAsset/compon
 import { Typography } from "@mui/material";
 import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
+import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 
 function RegularAssetDetail() {
   useHeader(false);
@@ -31,26 +32,36 @@ function RegularAssetDetail() {
         title={"정기 템플릿 상세"}
       />
 
-      <RegularAssetHeader
-        title={eventName ?? ""}
-        startDate={moment(startDate).format("YYYY.MM.DD")}
-        endDate={moment(endDate).format("YYYY.MM.DD")}
+      <RegularScheduleHeader
+        eventName={eventName ?? ""}
+        category={detailSchedules[0].category}
+        startDate={startDate}
+        endDate={endDate}
         changeDate={pickDate}
-        clickDetail={
-          <Typography
-            fontSize="13px"
-            color="#8C919C"
-            onClick={() =>
-              openRegularAssetDrawer(
-                SCHEDULE_REQUEST(detailSchedule),
-                eventName ?? ""
-              )
-            }
-          >
-            자세히
-          </Typography>
-        }
+        amount={100000}
+        clickModify={() => alert("modify")}
       />
+
+      {/*<RegularAssetHeader*/}
+      {/*  title={eventName ?? ""}*/}
+      {/*  startDate={moment(startDate).format("YYYY.MM.DD")}*/}
+      {/*  endDate={moment(endDate).format("YYYY.MM.DD")}*/}
+      {/*  changeDate={pickDate}*/}
+      {/*  clickDetail={*/}
+      {/*    <Typography*/}
+      {/*      fontSize="13px"*/}
+      {/*      color="#8C919C"*/}
+      {/*      onClick={() =>*/}
+      {/*        openRegularAssetDrawer(*/}
+      {/*          SCHEDULE_REQUEST(detailSchedule),*/}
+      {/*          eventName ?? ""*/}
+      {/*        )*/}
+      {/*      }*/}
+      {/*    >*/}
+      {/*      자세히*/}
+      {/*    </Typography>*/}
+      {/*  }*/}
+      {/*/>*/}
 
       <RegularScheduleList
         options={options}

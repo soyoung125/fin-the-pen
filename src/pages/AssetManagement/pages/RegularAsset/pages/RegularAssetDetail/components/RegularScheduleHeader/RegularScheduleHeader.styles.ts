@@ -1,8 +1,19 @@
 import styled from "@emotion/styled";
 
 export const HeaderContainer = styled.div`
-  padding: 24px 20px 7px 20px;
+  padding: 24px 20px 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const StackContainer = styled.div`
@@ -13,13 +24,10 @@ export const StackContainer = styled.div`
 
 export const CategoryBadge = styled.div`
   display: flex;
-  padding: 2px 6px;
-  border-radius: 30px;
-  background: #735bf2;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 18px; /* 150% */
+  color: #5b5f67;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px; /* 157.143% */
   letter-spacing: 0.4px;
 `;
 
