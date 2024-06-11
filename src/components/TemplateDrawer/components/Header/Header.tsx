@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import delete_icon from "@assets/icons/delete_secondary.svg";
 import { HeaderContainer } from "@components/TemplateDrawer/components/Header/Header.styles.ts";

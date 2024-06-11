@@ -2,7 +2,6 @@ import { Box, Stack, Typography } from "@mui/material";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useState } from "react";
 import { TemplateBadge } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelecteTemplate.styles.ts";
-import CategoryIconSVG from "@components/common/CategoryIconSVG";
 import { useTemplateDrawer } from "@hooks/useTemplateDrawer.tsx";
 
 function SelectTemplate() {
