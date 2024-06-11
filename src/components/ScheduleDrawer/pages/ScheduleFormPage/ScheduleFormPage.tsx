@@ -37,12 +37,6 @@ function ScheduleFormPage({
 
           <SelectTemplate />
         </Stack>
-        <ThickDivider />
-
-        {/* 이벤트 일정 */}
-        <DateInput showError={showError} />
-
-        <ThickDivider />
 
         {/* 이벤트 반복 설정 */}
         <RepeatInput
@@ -50,6 +44,11 @@ function ScheduleFormPage({
           repeatTitle={getRepeat()}
           onClick={() => setIsRepeatPickerOpen((prev) => !prev)}
         />
+
+        <ThickDivider />
+
+        {/* 이벤트 일정 */}
+        <DateInput showError={showError} />
       </Stack>
     );
   }
