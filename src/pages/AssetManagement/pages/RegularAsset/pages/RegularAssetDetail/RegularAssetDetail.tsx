@@ -9,9 +9,11 @@ import { Typography } from "@mui/material";
 import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
+import useBottomBar from "@hooks/useBottomBar.ts";
 
 function RegularAssetDetail() {
   useHeader(false);
+  useBottomBar(false);
   const navigate = useNavigate();
   const {
     eventName,
