@@ -3,8 +3,10 @@ import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useState } from "react";
 import { TemplateBadge } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelecteTemplate.styles.ts";
 import CategoryIconSVG from "@components/common/CategoryIconSVG";
+import { useTemplateDrawer } from "@hooks/useTemplateDrawer.tsx";
 
 function SelectTemplate() {
+  const { openDrawer } = useTemplateDrawer();
   const [selected, setSelected] = useState(0);
   const templates = [
     {
@@ -32,7 +34,12 @@ function SelectTemplate() {
           <Typography variant="h2" color="#131416">
             {SCHEDULE_DRAWER.template}
           </Typography>
-          <Typography fontSize="12px" fontWeight={600} color="#0075FF">
+          <Typography
+            fontSize="12px"
+            fontWeight={600}
+            color="#0075FF"
+            onClick={openDrawer}
+          >
             {SCHEDULE_DRAWER.showAllTemplate}
           </Typography>
         </Stack>
