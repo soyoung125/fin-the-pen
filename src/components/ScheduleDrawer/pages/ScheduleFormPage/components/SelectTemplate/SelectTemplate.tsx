@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useState } from "react";
 import { TemplateBadge } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelecteTemplate.styles.ts";
+import CategoryIconSVG from "@components/common/CategoryIconSVG";
 
 function SelectTemplate() {
   const [selected, setSelected] = useState(0);
@@ -31,7 +32,7 @@ function SelectTemplate() {
           <Typography variant="h2" color="#131416">
             {SCHEDULE_DRAWER.template}
           </Typography>
-          <Typography fontSize="12px" fontWeight={600} color="#8C919C">
+          <Typography fontSize="12px" fontWeight={600} color="#0075FF">
             {SCHEDULE_DRAWER.showAllTemplate}
           </Typography>
         </Stack>

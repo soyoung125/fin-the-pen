@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const TemplateBadge = styled.div<{ $selected: boolean }>`
   display: flex;
-  padding: 7px 10px;
+  padding: 5px 8px;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
