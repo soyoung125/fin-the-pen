@@ -29,6 +29,7 @@ function RegularTemplateList({
         navigate(`${PATH.DetailInformation}/${s.event_name}/${s.price_type}`)
       }
       arrow
+      hideAmount
     />
   ));
 }

@@ -9,12 +9,14 @@ export interface TemplateListItemProps {
   schedule: Schedule;
   handleClick: () => void;
   arrow?: boolean;
+  hideAmount?: boolean;
 }
 
 function TemplateListItem({
   schedule,
   handleClick,
   arrow,
+  hideAmount,
 }: TemplateListItemProps) {
   return (
     <Stack
@@ -28,6 +30,7 @@ function TemplateListItem({
         category={schedule.category}
         title={schedule.event_name}
         amount={Number(schedule.amount)}
+        hideAmount={hideAmount}
       />
       <Stack direction="row" alignItems="center">
         <RepeatBadge>{getTitle(schedule)}</RepeatBadge>
