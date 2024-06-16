@@ -141,6 +141,7 @@ export const Example = () => {
         (schedule) =>
           schedule.schedule_id && (
             <FormControlLabel
+              key={schedule.schedule_id}
               control={
                 <CheckBox
                   checked={selected.includes(schedule.schedule_id)}

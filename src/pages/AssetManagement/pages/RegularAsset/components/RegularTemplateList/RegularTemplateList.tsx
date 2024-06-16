@@ -16,14 +16,14 @@ function RegularTemplateList({
   const navigate = useNavigate();
 
   if (isPending) {
-    return Array.from({ length: 3 }, () => 0).map((num) => (
-      <ScheduleCardSkeleton key={num} />
+    return Array.from({ length: 3 }, () => 0).map((_, idx) => (
+      <ScheduleCardSkeleton key={idx} />
     ));
   }
 
-  return schedules.map((s) => (
+  return schedules.map((s, idx) => (
     <TemplateListItem
-      key={s.schedule_id}
+      key={`${s.event_name}_${idx}`}
       schedule={s}
       handleClick={() =>
         navigate(`${PATH.DetailInformation}/${s.event_name}/${s.price_type}`)

@@ -73,7 +73,7 @@ function ScheduleList({
       {showHeader && <ScheduleDateBox count={count} date={date} />}
       {todaySchedules.map((s, index) => (
         <ScheduleCard
-          key={index}
+          key={s.schedule_id}
           title={`${s.start_time}-${s.end_time}`}
           category={s.category}
           priceType={s.price_type}

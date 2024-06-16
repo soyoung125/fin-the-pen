@@ -55,6 +55,7 @@ function PredictReport({
       <Stack>
         {REPORTTYPE.map((type, idx) => (
           <PredictReportCard
+            key={idx}
             month={month}
             type={type}
             amount={datas[idx]}

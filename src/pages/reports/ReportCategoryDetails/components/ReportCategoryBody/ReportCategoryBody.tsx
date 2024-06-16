@@ -117,9 +117,11 @@ function ReportCategoryBody({
         const todaySchedules =
           selectedOption === "과거순" ? schedules.reverse() : schedules;
         return (
-          <div ref={moment().isSame(date, "date") ? todayRef : undefined}>
+          <div
+            ref={moment().isSame(date, "date") ? todayRef : undefined}
+            key={date}
+          >
             <ScheduleList
-              key={date}
               showHeader
               date={date}
               todaySchedules={todaySchedules}
