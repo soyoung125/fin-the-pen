@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useState } from "react";
-import { TemplateBadge } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelecteTemplate.styles.ts";
 import { useTemplateDrawer } from "@hooks/useTemplateDrawer.tsx";
+import TemplateList from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList";
 
 function SelectTemplate() {
   const { openDrawer } = useTemplateDrawer();
@@ -43,17 +43,11 @@ function SelectTemplate() {
           </Typography>
         </Stack>
 
-        <Stack direction="row" spacing={1}>
-          {templates.map((t) => (
-            <TemplateBadge
-              key={t.id}
-              $selected={selected === t.id}
-              onClick={() => setSelected(t.id)}
-            >
-              {t.name}
-            </TemplateBadge>
-          ))}
-        </Stack>
+        <TemplateList
+          templates={templates}
+          selected={selected}
+          setSelected={setSelected}
+        />
       </Stack>
     </Box>
   );
