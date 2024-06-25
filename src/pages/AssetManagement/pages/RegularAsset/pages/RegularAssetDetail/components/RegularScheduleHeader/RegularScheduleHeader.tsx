@@ -12,7 +12,6 @@ import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import CategoryIconSVG from "@components/common/CategoryIconSVG";
 import modify from "@assets/icons/modify.svg";
 import moment from "moment";
-import { Box } from "@mui/material";
 
 export interface RegularScheduleHeaderProps {
   startDate: string;
@@ -36,7 +35,7 @@ function RegularScheduleHeader({
   const dateFormat = "YYYY.MM.DD";
 
   return (
-    <HeaderContainer onClick={changeDate}>
+    <HeaderContainer>
       <MainContainer>
         <StackContainer>
           <CategoryIconSVG id={CATEGORY_ICONS[category]} size={36} />
@@ -50,7 +49,7 @@ function RegularScheduleHeader({
 
       <AmountBox>{amount.toLocaleString()}원</AmountBox>
 
-      <StackContainer>
+      <StackContainer onClick={changeDate}>
         <IconSVG id={"calendar-primary"} size={16} />
         <PeriodBox>{`${moment(startDate).format(dateFormat)} - ${moment(
           endDate
