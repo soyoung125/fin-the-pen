@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList";
-import moment from "moment/moment";
-import RegularAssetHeader from "@pages/AssetManagement/pages/RegularAsset/components/RegularAssetHeader";
-import { Typography } from "@mui/material";
-import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
-import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 import useBottomBar from "@hooks/useBottomBar.ts";
+import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
+import React, { useState } from "react";
 
 function RegularAssetDetail() {
   useHeader(false);
@@ -18,14 +15,13 @@ function RegularAssetDetail() {
   const {
     eventName,
     detailSchedules,
-    detailSchedule,
     isPending,
     options,
     startDate,
     endDate,
     pickDate,
   } = useRegularAsset();
-  const { openRegularAssetDrawer } = useRegularAssetDrawer();
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
   return (
     <>
@@ -65,11 +61,14 @@ function RegularAssetDetail() {
       {/*  }*/}
       {/*/>*/}
 
-      <RegularScheduleList
+      <ScheduleListHeader
+        count={detailSchedules.length}
         options={options}
-        isPending={isPending}
-        schedules={detailSchedules}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
+
+      <RegularScheduleList isPending={isPending} schedules={detailSchedules} />
     </>
   );
 }

@@ -11,7 +11,7 @@ export interface RegularScheduleCardProps {
   date: string;
   priceType: string;
   amount: number;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function RegularScheduleCard({
