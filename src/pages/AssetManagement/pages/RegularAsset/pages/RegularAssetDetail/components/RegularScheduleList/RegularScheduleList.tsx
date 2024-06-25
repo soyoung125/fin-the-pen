@@ -21,7 +21,7 @@ function RegularScheduleList({
   const [isModify, setIsModify] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
 
-  const { openScheduleDrawer } = useScheduleDrawer();
+  const { openScheduleAssetDrawer } = useScheduleDrawer();
 
   if (isPending) {
     return Array.from({ length: 6 }, () => 0).map((num) => (
@@ -29,9 +29,17 @@ function RegularScheduleList({
     ));
   }
 
-  const handleModal = (schedule: Schedule) => {
-    if (schedule) {
-      openScheduleDrawer(SCHEDULE_REQUEST(schedule));
+  const handleCancle = () => {
+    setIsModify(false);
+    setSelected([]);
+  };
+
+  const handleModal = (schedule?: Schedule) => {
+    if (!schedule) {
+      const s = schedules.find((s) => s.id === selected[0]);
+      s && openScheduleAssetDrawer(SCHEDULE_REQUEST(s));
+    } else {
+      openScheduleAssetDrawer(SCHEDULE_REQUEST(schedule));
     }
   };
 
@@ -79,10 +87,10 @@ function RegularScheduleList({
         </FormGroup>
 
         <ModifyContainer>
-          <ModifyText $isDelete onClick={() => setIsModify(false)}>
+          <ModifyText $isDelete onClick={handleCancle}>
             취소
           </ModifyText>
-          <ModifyText>선택 일정 수정</ModifyText>
+          <ModifyText onClick={() => handleModal()}>선택 일정 수정</ModifyText>
         </ModifyContainer>
       </>
     );
