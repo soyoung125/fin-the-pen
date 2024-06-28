@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const FooterContainer = styled.div`
-  //background-color: transparent;
   position: fixed;
+  width: 100dvw;
   bottom: 0;
   z-index: 1300;
 `;

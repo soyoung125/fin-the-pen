@@ -2,10 +2,11 @@ import ResetButton from "@components/common/ResetButton.tsx";
 import { Stack, Tab, Tabs } from "@mui/material";
 import { HeaderContainer } from "@components/ScheduleDrawer/layouts/ScheduleDrawerHeader/ScheduleDrawerHeader.style.ts";
 import { Puller } from "@components/ScheduleDrawer/ScheduleDrawer.styles.ts";
+import { SyntheticEvent } from "react";
 
 interface ScheduleDrawerHeaderProps {
   value: number;
-  handleChange: (event: React.SyntheticEvent, newValue: number) => void;
+  handleChange?: (event: SyntheticEvent, newValue: number) => void;
   handleReset: () => void;
 }
 

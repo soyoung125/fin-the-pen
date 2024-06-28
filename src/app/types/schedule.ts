@@ -3,6 +3,7 @@ import { UpdateStateInterface } from "./common.ts";
 
 interface ScheduleBase {
   schedule_id?: string;
+  id?: string;
   user_id?: string;
   event_name: string;
   category: string;
@@ -30,6 +31,7 @@ export interface RequestSchedule extends ScheduleBase {
   repeat: ScheduleRepeat;
   set_amount: string;
   exclusion: boolean;
+  register_template: boolean;
 }
 
 export interface ScheduleRepeat {

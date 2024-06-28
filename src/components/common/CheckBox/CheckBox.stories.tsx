@@ -33,6 +33,7 @@ export const Example = () => {
     <FormGroup>
       {Array.from({ length: 3 }, (_, i) => i + 1).map((num) => (
         <FormControlLabel
+          key={num}
           control={
             <CheckBox
               checked={selected.includes(num)}

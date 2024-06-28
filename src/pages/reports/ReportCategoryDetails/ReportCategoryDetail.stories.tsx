@@ -111,6 +111,7 @@ export const ExamplePage = () => {
       <ScheduleDateBox date="2023-10-06" />
       {schedules.map((schedule) => (
         <ScheduleCard
+          key={schedule.schedule_id}
           title={`${schedule.start_time}-${schedule.end_time}`}
           category={schedule.category}
           priceType={schedule.price_type}

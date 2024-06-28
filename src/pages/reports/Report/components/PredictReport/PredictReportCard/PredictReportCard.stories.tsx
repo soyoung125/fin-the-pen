@@ -53,8 +53,9 @@ export const Example = () => {
 
   return (
     <>
-      {REPORTTYPE.map((type) => (
+      {REPORTTYPE.map((type, idx) => (
         <PredictReportCard
+          key={idx}
           month={month}
           type={type}
           amount={99999999}
@@ -77,8 +78,9 @@ export const Empty = () => {
 
   return (
     <>
-      {REPORTTYPE.map((type) => (
+      {REPORTTYPE.map((type, idx) => (
         <EmptyPredictReportCard
+          key={idx}
           month={month}
           type={type}
           selected={selected === type.type}

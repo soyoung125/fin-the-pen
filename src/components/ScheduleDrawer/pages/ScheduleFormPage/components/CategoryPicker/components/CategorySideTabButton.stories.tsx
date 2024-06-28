@@ -53,6 +53,7 @@ export const Dynamics = () => {
     <div style={{ width: "200px" }}>
       {tabList.map((tab) => (
         <CategorySideTabButton
+          key={tab.id}
           isSelected={tab.isActive}
           tab={tab.tab}
           categoryCount={tab.count}

@@ -81,6 +81,7 @@ export const SCHEDULE_REQUEST = (schedule: Schedule) => {
     exclusion: schedule.exclude,
     repeat: repeat,
     repeat_kind: schedule.repeat_kind,
+    register_template: false,
   };
 };
 
@@ -141,7 +142,7 @@ export const SCHEDULE_DRAWER = {
   won: "원",
   expected_spending: "예상 비용",
   fix_amount: "금액 고정",
-  set_payment_type_title: "결제 수단",
+  set_payment_type_title: "입출금 수단",
   account: "ACCOUNT", // 저장 데이터와 연동되어 있음 (수정금지)
   card: "CARD", // 저장 데이터와 연동되어 있음 (수정금지)
   cash: "CASH", // 저장 데이터와 연동되어 있음 (수정금지)
@@ -200,6 +201,7 @@ export const INIT_SCHEDULE = (date: string): RequestSchedule => {
     fix_amount: false,
     payment_type: SCHEDULE_DRAWER.card,
     exclusion: false, // false면 포함
+    register_template: false,
   };
 };
 

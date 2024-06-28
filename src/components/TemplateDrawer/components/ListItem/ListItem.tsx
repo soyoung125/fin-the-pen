@@ -11,9 +11,10 @@ export interface ListItemProps {
   category: string;
   title: string;
   amount: number;
+  hideAmount?: boolean;
 }
 
-function ListItem({ category, amount, title }: ListItemProps) {
+function ListItem({ category, amount, title, hideAmount }: ListItemProps) {
   return (
     <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
       <CategoryIconSVG id={CATEGORY_ICONS[category]} size={40} />
@@ -21,7 +22,7 @@ function ListItem({ category, amount, title }: ListItemProps) {
       <Stack>
         <CategoryLabel>{category}</CategoryLabel>
         <TitleLabel>{title}</TitleLabel>
-        <AmountLabel>{amount.toLocaleString()}원</AmountLabel>
+        {!hideAmount && <AmountLabel>{amount.toLocaleString()}원</AmountLabel>}
       </Stack>
     </Stack>
   );

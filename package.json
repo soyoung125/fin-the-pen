@@ -13,10 +13,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^4.5.8",
-    "@mui/material": "^5.11.2",
+    "@mui/material": "^5.15.19",
     "@reduxjs/toolkit": "^1.9.1",
     "@tanstack/react-query": "^5.14.2",
     "axios": "^1.2.2",

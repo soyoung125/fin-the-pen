@@ -7,29 +7,43 @@ import BackButton from "@components/layouts/common/TopBar/buttons/BackButton.tsx
 
 function AssetMode() {
   const { assetMenu, setMenu } = useAsset();
-  return (
-    <>
-      {/* 헤더 좌측 메뉴 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <BackButton />
-      </Stack>
 
-      {/* 헤더 중앙 메뉴 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        {/*<LogoButton />*/}
-        <SelectAssetMenu
-          selectedOption={assetMenu}
-          setSelectedOption={setMenu}
-          options={assetManagements.map((a) => a.title)}
-        />
-      </Stack>
+  if (assetMenu !== 3) {
+    return (
+      <>
+        {/* 헤더 좌측 메뉴 */}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <BackButton />
+        </Stack>
 
-      {/* 헤더 우측 메뉴 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <PersonalButton />
-      </Stack>
-    </>
-  );
+        {/* 헤더 중앙 메뉴 */}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <SelectAssetMenu
+            selectedOption={assetMenu}
+            setSelectedOption={setMenu}
+            options={assetManagements.map((a) => a.title)}
+          />
+        </Stack>
+
+        {/* 헤더 우측 메뉴 */}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <PersonalButton />
+        </Stack>
+      </>
+    );
+  }
 }
 
 export default AssetMode;

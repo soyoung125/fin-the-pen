@@ -10,7 +10,7 @@ import CategoryPicker from "./pages/ScheduleFormPage/components/CategoryPicker";
 import RepeatPicker from "./pages/ScheduleFormPage/components/RepeatPicker";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
-interface ScheduleDrawerProps {
+export interface ScheduleDrawerProps {
   handleClose: () => void;
   resetSchedule: () => void;
 }

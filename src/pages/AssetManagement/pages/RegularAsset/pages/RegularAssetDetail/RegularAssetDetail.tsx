@@ -3,60 +3,73 @@ import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList";
-import moment from "moment/moment";
-import RegularAssetHeader from "@pages/AssetManagement/pages/RegularAsset/components/RegularAssetHeader";
-import { Typography } from "@mui/material";
-import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
-import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
+import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
+import useBottomBar from "@hooks/useBottomBar.ts";
+import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
+import React, { useState } from "react";
 
 function RegularAssetDetail() {
   useHeader(false);
+  useBottomBar(false);
   const navigate = useNavigate();
   const {
     eventName,
+    category,
     detailSchedules,
-    detailSchedule,
     isPending,
     options,
     startDate,
     endDate,
     pickDate,
   } = useRegularAsset();
-  const { openRegularAssetDrawer } = useRegularAssetDrawer();
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
   return (
     <>
       <TopNavigationBar
         onClick={() => navigate(-1)}
-        title={"정기 입출금액 설정"}
+        title={"정기 템플릿 상세"}
       />
 
-      <RegularAssetHeader
-        title={eventName ?? ""}
-        startDate={moment(startDate).format("YYYY.MM.DD")}
-        endDate={moment(endDate).format("YYYY.MM.DD")}
+      <RegularScheduleHeader
+        eventName={eventName ?? ""}
+        category={category ?? ""}
+        startDate={startDate}
+        endDate={endDate}
         changeDate={pickDate}
-        clickDetail={
-          <Typography
-            fontSize="13px"
-            color="#8C919C"
-            onClick={() =>
-              openRegularAssetDrawer(
-                SCHEDULE_REQUEST(detailSchedule),
-                eventName ?? ""
-              )
-            }
-          >
-            자세히
-          </Typography>
-        }
+        amount={100000}
+        clickModify={() => alert("modify")}
       />
 
-      <RegularScheduleList
+      {/*<RegularAssetHeader*/}
+      {/*  title={eventName ?? ""}*/}
+      {/*  startDate={moment(startDate).format("YYYY.MM.DD")}*/}
+      {/*  endDate={moment(endDate).format("YYYY.MM.DD")}*/}
+      {/*  changeDate={pickDate}*/}
+      {/*  clickDetail={*/}
+      {/*    <Typography*/}
+      {/*      fontSize="13px"*/}
+      {/*      color="#8C919C"*/}
+      {/*      onClick={() =>*/}
+      {/*        openRegularAssetDrawer(*/}
+      {/*          SCHEDULE_REQUEST(detailSchedule),*/}
+      {/*          eventName ?? ""*/}
+      {/*        )*/}
+      {/*      }*/}
+      {/*    >*/}
+      {/*      자세히*/}
+      {/*    </Typography>*/}
+      {/*  }*/}
+      {/*/>*/}
+
+      <ScheduleListHeader
+        count={detailSchedules.length}
         options={options}
-        isPending={isPending}
-        schedules={detailSchedules}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
+
+      <RegularScheduleList isPending={isPending} schedules={detailSchedules} />
     </>
   );
 }
