@@ -13,6 +13,8 @@ import { INIT_SCHEDULE } from "@constants/schedule.ts";
 import { useModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { useDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSchedule.ts";
 import { useMonthSchedules } from "@app/tanstack-query/home/useMonthSchedules.ts";
+import { useTemplateSchedule } from "@app/tanstack-query/templates/useTemplateSchedule.ts";
+import { useTemplates } from "@app/tanstack-query/templates/useTemplates.ts";
 
 const useSchedule = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +26,16 @@ const useSchedule = () => {
   const { createSchedule } = useCreateSchedule();
   const { modifySchedule } = useModifySchedule();
   const { deleteSchedule } = useDeleteSchedule();
+  const { getTemplate } = useTemplateSchedule();
+
+  const {
+    data: templates,
+    isPending: templateIsPending,
+    isError: templateIsError,
+  } = useTemplates({
+    user_id: user?.user_id ?? "",
+  });
+
   const { data, isPending, isError } = useMonthSchedules({
     user_id: user?.user_id ?? "",
     main_month: month,
@@ -31,6 +43,9 @@ const useSchedule = () => {
   });
 
   const schedules = data?.data;
+
+  const getTemplateData = (template_id: number, template_name: string) =>
+    getTemplate({ template_id, template_name });
 
   const handleCreateSchedule = async (schedule: RequestSchedule) => {
     if (!user) {
@@ -72,8 +87,10 @@ const useSchedule = () => {
     schedules,
     isPending,
     isError,
+    templates,
     date,
     month,
+    getTemplateData,
     handleDeleteSchedule,
     handleCreateSchedule,
     handleModifySchedule,

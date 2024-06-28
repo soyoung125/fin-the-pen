@@ -31,6 +31,7 @@ export interface RequestSchedule extends ScheduleBase {
   repeat: ScheduleRepeat;
   set_amount: string;
   exclusion: boolean;
+  register_template: boolean;
 }
 
 export interface ScheduleRepeat {

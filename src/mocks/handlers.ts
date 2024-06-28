@@ -701,4 +701,94 @@ export const handlers = [
     await delay(1000);
     return HttpResponse.json(true, { status: 200 });
   }),
+
+  // 정기 템플릿 api
+  http.post(`${DOMAIN}/createSchedule/template`, async () => {
+    await delay(1000);
+    return HttpResponse.json(
+      {
+        schedule_id: 1,
+        user_id: "test1234",
+        event_name: "가족들과의 식사",
+        category: "식비",
+        start_date: "2024-02-02",
+        end_date: "2024-02-02",
+        start_time: "18:00",
+        end_time: "21:00",
+        all_day: false,
+        repeat_options: {
+          term: "2",
+          options: "FRIDAY",
+        },
+        period: {
+          repeat_number_of_time: "3",
+          repeat_end_line: "2030-02-15",
+          repeat_again: false,
+        },
+        price_type: "-",
+        payment_type: "ACCOUNT",
+        amount: "30000",
+        repeat_kind: "WEEK",
+        exclude: false,
+        fix_amount: false,
+      },
+      { status: 200 }
+    );
+  }),
+
+  http.post(`${DOMAIN}/template/details`, async () => {
+    await delay(1000);
+    return HttpResponse.json(
+      {
+        data: [
+          {
+            id: 1,
+            user_id: "test1234",
+            template_name: "가족들과의 식사",
+            category_name: "식비",
+            statement: "WITHDRAW",
+            amount: "210000",
+          },
+          {
+            id: 2,
+            user_id: "test1234",
+            template_name: "월급",
+            category_name: "급여",
+            statement: "DEPOSIT",
+            amount: "150000000",
+          },
+        ],
+      },
+      { status: 200 }
+    );
+  }),
+
+  http.post(`${DOMAIN}/asset/template/view`, async () => {
+    await delay(1000);
+    return HttpResponse.json(
+      {
+        deposit: [
+          {
+            id: 2,
+            user_id: "test1234",
+            template_name: "월급",
+            category_name: "급여",
+            statement: "DEPOSIT",
+            amount: "150000000",
+          },
+        ],
+        withdraw: [
+          {
+            id: 1,
+            user_id: "test1234",
+            template_name: "가족들과의 식사",
+            category_name: "식비",
+            statement: "WITHDRAW",
+            amount: "210000",
+          },
+        ],
+      },
+      { status: 200 }
+    );
+  }),
 ];
