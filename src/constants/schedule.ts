@@ -81,6 +81,7 @@ export const SCHEDULE_REQUEST = (schedule: Schedule) => {
     exclusion: schedule.exclude,
     repeat: repeat,
     repeat_kind: schedule.repeat_kind,
+    register_template: false,
   };
 };
 
@@ -200,6 +201,7 @@ export const INIT_SCHEDULE = (date: string): RequestSchedule => {
     fix_amount: false,
     payment_type: SCHEDULE_DRAWER.card,
     exclusion: false, // false면 포함
+    register_template: false,
   };
 };
 
