@@ -14,6 +14,7 @@ function RegularAssetDetail() {
   const navigate = useNavigate();
   const {
     eventName,
+    category,
     detailSchedules,
     isPending,
     options,
@@ -32,7 +33,7 @@ function RegularAssetDetail() {
 
       <RegularScheduleHeader
         eventName={eventName ?? ""}
-        category={detailSchedules[0].category}
+        category={category ?? ""}
         startDate={startDate}
         endDate={endDate}
         changeDate={pickDate}

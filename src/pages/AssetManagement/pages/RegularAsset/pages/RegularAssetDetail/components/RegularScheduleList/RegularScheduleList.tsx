@@ -13,11 +13,17 @@ import {
   ModifyText,
 } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
 import CheckBox from "@components/common/CheckBox";
+import { Templates } from "@app/types/template.ts";
+
+export interface RegularScheduleListProps {
+  isPending: boolean;
+  schedules: Schedule[];
+}
 
 function RegularScheduleList({
   schedules,
   isPending,
-}: RegularTemplateListProps) {
+}: RegularScheduleListProps) {
   const [isModify, setIsModify] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
 

@@ -15,3 +15,8 @@ export interface TemplateScheduleRequest {
   template_id: number;
   template_name: string;
 }
+
+export interface TemplateByPriceType {
+  deposit: Templates[];
+  withdraw: Templates[];
+}

@@ -4,9 +4,10 @@ import { Schedule } from "@app/types/schedule.ts";
 import { getTitle } from "@components/TemplateDrawer/pages/TemplateList/utils.ts";
 import ListItem from "@components/TemplateDrawer/components/ListItem";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { Templates } from "@app/types/template.ts";
 
 export interface TemplateListItemProps {
-  schedule: Schedule;
+  schedule: Templates;
   handleClick: () => void;
   arrow?: boolean;
   hideAmount?: boolean;
@@ -27,13 +28,14 @@ function TemplateListItem({
       p={2}
     >
       <ListItem
-        category={schedule.category}
-        title={schedule.event_name}
+        category={schedule.category_name}
+        title={schedule.template_name}
         amount={Number(schedule.amount)}
         hideAmount={hideAmount}
       />
       <Stack direction="row" alignItems="center">
-        <RepeatBadge>{getTitle(schedule)}</RepeatBadge>
+        {/*<RepeatBadge>{getTitle(schedule)}</RepeatBadge>*/}
+        <RepeatBadge>매달 10일</RepeatBadge>
         {arrow && (
           <ArrowForwardIosRoundedIcon
             sx={{ color: "#A9ACB2", fontSize: "20px" }}

@@ -1,12 +1,12 @@
-import { Schedule } from "@app/types/schedule.ts";
 import { useNavigate } from "react-router-dom";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import { PATH } from "@constants/path.ts";
 import TemplateListItem from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem";
+import { Templates } from "@app/types/template.ts";
 
 export interface RegularTemplateListProps {
   isPending: boolean;
-  schedules: Schedule[];
+  schedules: Templates[];
 }
 
 function RegularTemplateList({
@@ -23,10 +23,12 @@ function RegularTemplateList({
 
   return schedules.map((s, idx) => (
     <TemplateListItem
-      key={`${s.event_name}_${idx}`}
+      key={`${s.template_name}_${idx}`}
       schedule={s}
       handleClick={() =>
-        navigate(`${PATH.DetailInformation}/${s.event_name}/${s.price_type}`)
+        navigate(
+          `${PATH.DetailInformation}/${s.template_name}/${s.category_name}`
+        )
       }
       arrow
       hideAmount

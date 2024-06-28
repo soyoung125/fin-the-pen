@@ -16,7 +16,7 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
     element: <RegularAsset />,
   },
   {
-    path: `${PATH.DetailInformation}/:eventName/:priceType`,
+    path: `${PATH.DetailInformation}/:eventName/:category`,
     element: <RegularAssetDetail />,
   },
   {
