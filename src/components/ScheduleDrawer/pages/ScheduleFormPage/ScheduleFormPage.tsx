@@ -35,7 +35,7 @@ function ScheduleFormPage({
             onClick={() => setIsCategoryPickerOpen((prev) => !prev)}
           />
 
-          <SelectTemplate />
+          {scheduleForm.repeat.kind_type !== "none" && <SelectTemplate />}
         </Stack>
 
         {/* 이벤트 반복 설정 */}
