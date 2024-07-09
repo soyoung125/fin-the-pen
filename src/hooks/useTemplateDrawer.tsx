@@ -1,11 +1,12 @@
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import TemplateDrawer from "@components/TemplateDrawer";
 import { Drawer } from "@mui/material";
+import { Template } from "@app/types/template.ts";
 
 export const useTemplateDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
 
-  const openDrawer = () => {
+  const openDrawer = (setSelected: (t: Template) => void) => {
     openOverlay(
       <Drawer
         open={true}
@@ -19,7 +20,7 @@ export const useTemplateDrawer = () => {
           },
         }}
       >
-        <TemplateDrawer closeDrawer={closeOverlay} />
+        <TemplateDrawer closeDrawer={closeOverlay} setSelected={setSelected} />
       </Drawer>
     );
   };

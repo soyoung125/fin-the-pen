@@ -23,7 +23,7 @@ function SelectTemplate() {
             fontSize="12px"
             fontWeight={600}
             color="#0075FF"
-            onClick={openDrawer}
+            onClick={() => openDrawer(setSelected)}
           >
             {SCHEDULE_DRAWER.showAllTemplate}
           </Typography>

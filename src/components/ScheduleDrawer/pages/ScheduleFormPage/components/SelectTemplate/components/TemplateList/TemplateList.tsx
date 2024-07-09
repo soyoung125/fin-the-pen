@@ -20,7 +20,7 @@ function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
       {templates.map((t) => (
         <TemplateBadge
           key={t.id}
-          $selected={selected === t}
+          $selected={selected?.id === t.id}
           onClick={() => setSelected(t)}
         >
           {t.template_name}
