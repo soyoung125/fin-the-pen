@@ -2,13 +2,17 @@ export interface TemplateRequest {
   user_id: string;
 }
 
-export interface Templates {
+export interface Template {
   id: number;
   user_id: string;
   template_name: string;
   category_name: string;
   statement: string;
   amount: string;
+}
+
+export interface TemplateResponse {
+  data: Template[];
 }
 
 export interface TemplateScheduleRequest {
@@ -29,6 +33,6 @@ export interface TemplateImportResponse {
 }
 
 export interface TemplateByPriceType {
-  deposit: Templates[];
-  withdraw: Templates[];
+  deposit: Template[];
+  withdraw: Template[];
 }

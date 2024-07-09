@@ -11,7 +11,11 @@ const meta = {
     templates: [
       {
         id: 1,
-        name: "이전 템플릿",
+        template_name: "이전 템플릿",
+        category_name: "식비",
+        statement: "",
+        user_id: "user",
+        amount: "1000",
       },
     ],
     selected: 1,
@@ -40,24 +44,38 @@ export const Example = () => {
   const templates = [
     {
       id: 1,
-      name: "이전 템플릿",
+      template_name: "이전 템플릿",
+      category_name: "식비",
+      statement: "",
+      user_id: "user",
+      amount: "1000",
     },
     {
       id: 2,
-      name: "이전 템플릿",
+      template_name: "이전 템플릿",
+      category_name: "식비",
+      statement: "",
+      user_id: "user",
+      amount: "1000",
     },
     {
       id: 3,
-      name: "이전 템플릿",
+      template_name: "이전 템플릿",
+      category_name: "식비",
+      statement: "",
+      user_id: "user",
+      amount: "1000",
     },
   ];
   const [selected, setSelected] = useState(0);
+
+  const handleSelect = (id: number) => setSelected(id);
 
   return (
     <TemplateList
       templates={templates}
       selected={selected}
-      setSelected={setSelected}
+      setSelected={handleSelect}
     />
   );
 };

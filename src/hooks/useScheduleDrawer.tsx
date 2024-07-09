@@ -1,6 +1,7 @@
 import { RequestSchedule } from "@app/types/schedule.ts";
 import ScheduleDrawer from "@components/ScheduleDrawer";
 import {
+  resetSelectedTemplate,
   selectScheduleForm,
   setDrawerScheduleForm,
 } from "@redux/slices/scheduleSlice.tsx";
@@ -20,7 +21,10 @@ export const useScheduleDrawer = () => {
     if (!schedule?.schedule_id && data.start_date !== schedule?.start_date)
       dispatch(setDrawerScheduleForm(data));
 
-    const resetSchedule = () => dispatch(setDrawerScheduleForm(data));
+    const resetSchedule = () => {
+      dispatch(setDrawerScheduleForm(data));
+      dispatch(resetSelectedTemplate());
+    };
 
     openDrawer(
       <ScheduleDrawer handleClose={closeDrawer} resetSchedule={resetSchedule} />

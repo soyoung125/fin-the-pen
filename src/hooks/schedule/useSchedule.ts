@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import {
+  resetSelectedTemplate,
   selectDate,
   selectMonth,
   setDrawerScheduleForm,
@@ -35,7 +36,7 @@ const useSchedule = () => {
 
   const schedules = data?.data;
 
-  const getTemplateData = (template_id: number, template_name: string) =>
+  const getTemplateData = (template_id: string, template_name: string) =>
     getTemplate({ template_id, template_name });
 
   const handleCreateSchedule = async (schedule: RequestSchedule) => {
@@ -71,6 +72,7 @@ const useSchedule = () => {
 
   const resetSchedule = () => {
     dispatch(setDrawerScheduleForm(INIT_SCHEDULE(date)));
+    dispatch(resetSelectedTemplate());
   };
 
   return {

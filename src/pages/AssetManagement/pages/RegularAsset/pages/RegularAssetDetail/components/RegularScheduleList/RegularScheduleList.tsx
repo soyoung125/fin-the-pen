@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Schedule } from "@app/types/schedule.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
-import { RegularTemplateListProps } from "@pages/AssetManagement/pages/RegularAsset/components/RegularTemplateList/RegularTemplateList.tsx";
 import Modify from "@assets/icons/modify_white.svg";
 import {
   ModifyButtonContainer,
@@ -13,7 +12,6 @@ import {
   ModifyText,
 } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
 import CheckBox from "@components/common/CheckBox";
-import { Templates } from "@app/types/template.ts";
 
 export interface RegularScheduleListProps {
   isPending: boolean;

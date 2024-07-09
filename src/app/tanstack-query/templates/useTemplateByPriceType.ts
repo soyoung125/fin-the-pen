@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   TemplateByPriceType,
   TemplateRequest,
-  Templates,
+  Template,
 } from "@app/types/template.ts";
 
 const fetchTemplates = async (query: TemplateRequest) => {

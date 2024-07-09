@@ -1,26 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
-import { useState } from "react";
 import { useTemplateDrawer } from "@hooks/useTemplateDrawer.tsx";
 import TemplateList from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList";
+import useScheduleTemplate from "@hooks/schedule/useScheduleTemplate.ts";
 
 function SelectTemplate() {
   const { openDrawer } = useTemplateDrawer();
-  const [selected, setSelected] = useState(0);
-  const templates = [
-    {
-      id: 1,
-      name: "이전 템플릿",
-    },
-    {
-      id: 2,
-      name: "이전 템플릿",
-    },
-    {
-      id: 3,
-      name: "이전 템플릿",
-    },
-  ];
+  const { templates, selectedTemplate, setSelected } = useScheduleTemplate();
 
   return (
     <Box px={2.5}>
@@ -45,7 +31,7 @@ function SelectTemplate() {
 
         <TemplateList
           templates={templates}
-          selected={selected}
+          selected={selectedTemplate}
           setSelected={setSelected}
         />
       </Stack>
