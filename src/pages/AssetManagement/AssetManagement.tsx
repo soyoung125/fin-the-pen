@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import { useEffect } from "react";
 import ScheduleStatusCard from "./components/ScheduleStatusCard";
 import SettingsPaper from "./components/SettingsPaper";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 import useHeader from "@hooks/useHeader.ts";
 import { HEADER_MODE } from "@app/types/common.ts";
 import { useAppDispatch } from "@redux/hooks.ts";

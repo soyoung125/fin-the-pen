@@ -1,7 +1,7 @@
 import { useAppSelector } from "@redux/hooks.ts";
 import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 import { Button, Stack } from "@mui/material";
 import { useScheduleChangeModal } from "@components/ScheduleDrawer/hooks/ScheduleChangeModal/useScheduleChangeModal.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";

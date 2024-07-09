@@ -736,6 +736,19 @@ export const handlers = [
     );
   }),
 
+  http.get(`${DOMAIN}/template/import`, async () => {
+    await delay(1000);
+    return HttpResponse.json(
+      {
+        template_id: "1",
+        template_name: "가족들과의 식사",
+        category_name: "외식",
+        user_id: "test1234",
+      },
+      { status: 200 }
+    );
+  }),
+
   http.post(`${DOMAIN}/template/details`, async () => {
     await delay(1000);
     return HttpResponse.json(

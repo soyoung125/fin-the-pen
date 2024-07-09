@@ -2,7 +2,13 @@ import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
 import { getSessionStorage } from "@app/utils/storage";
 import { useMutation } from "@tanstack/react-query";
-import { TemplateScheduleRequest } from "@app/types/template.ts";
+import {
+  TemplateImportRequest,
+  TemplateImportResponse,
+  TemplateScheduleRequest,
+} from "@app/types/template.ts";
+import { Schedule } from "@app/types/schedule.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 const fetchTemplateSchedule = async (query: TemplateScheduleRequest) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
@@ -14,21 +20,65 @@ const fetchTemplateSchedule = async (query: TemplateScheduleRequest) => {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify(query),
+  }).then<Schedule>((res) => {
+    return res.json();
+  });
+};
+
+const fetchTemplateExist = async (query: TemplateImportRequest) => {
+  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+
+  return fetch(
+    `${DOMAIN}/template/import?userId=${query.user_id}&category_name=${query.category_name}&event_name=${query.event_name}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    }
+  ).then<TemplateImportResponse>((res) => {
+    return res.json();
   });
 };
 
 export const useTemplateSchedule = () => {
-  const { mutate } = useMutation({
-    mutationFn: fetchTemplateSchedule,
-    onSuccess: async (res) => {
-      const response = await res.json();
-      return response.data;
-    },
+  const { openConfirm } = useDialog();
+  const { mutateAsync } = useMutation<Schedule, Error, TemplateScheduleRequest>(
+    {
+      mutationFn: fetchTemplateSchedule,
+    }
+  );
+
+  const { mutateAsync: existMutate } = useMutation<
+    TemplateImportResponse,
+    Error,
+    TemplateImportRequest
+  >({
+    mutationFn: fetchTemplateExist,
   });
 
-  const getTemplate = (query: TemplateScheduleRequest) => {
-    mutate(query);
+  const getTemplate = async (query: TemplateScheduleRequest) => {
+    return await mutateAsync(query);
   };
 
-  return { getTemplate };
+  const importTemplate = async (query: TemplateImportRequest) => {
+    const existResponse = await existMutate(query);
+
+    const answer = await openConfirm({
+      title: "알림",
+      content: "중복된 템플릿이 존재합니다.",
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (answer) {
+      return getTemplate({
+        template_id: existResponse.template_id,
+        template_name: existResponse.template_name,
+      });
+    }
+    return undefined;
+  };
+
+  return { getTemplate, importTemplate };
 };

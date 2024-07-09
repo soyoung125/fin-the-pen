@@ -4,7 +4,7 @@ import {
   selectScheduleForm,
 } from "@redux/slices/scheduleSlice.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 import { Button, Stack, Tooltip } from "@mui/material";
 import { useScheduleForm } from "../../hooks/useScheduleForm.ts";
 import { selectGuestMode } from "@redux/slices/commonSlice.tsx";

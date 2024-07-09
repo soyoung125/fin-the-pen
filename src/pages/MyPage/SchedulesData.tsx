@@ -1,5 +1,5 @@
 import TestBox from "./box/TestBox";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 
 function SchedulesData() {
   const { schedules } = useSchedule();
