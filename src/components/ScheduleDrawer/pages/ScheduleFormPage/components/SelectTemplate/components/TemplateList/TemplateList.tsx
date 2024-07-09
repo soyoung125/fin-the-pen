@@ -7,8 +7,8 @@ import { Template } from "@app/types/template.ts";
 
 export interface TemplateListProps {
   templates?: Template[];
-  selected?: number;
-  setSelected: (id: number) => void;
+  selected?: Template;
+  setSelected: (t: Template) => void;
 }
 
 function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
@@ -20,8 +20,8 @@ function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
       {templates.map((t) => (
         <TemplateBadge
           key={t.id}
-          $selected={selected === t.id}
-          onClick={() => setSelected(t.id)}
+          $selected={selected === t}
+          onClick={() => setSelected(t)}
         >
           {t.template_name}
         </TemplateBadge>

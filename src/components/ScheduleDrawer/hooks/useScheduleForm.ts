@@ -169,7 +169,11 @@ export const useScheduleForm = () => {
       event_name: scheduleForm?.event_name,
     });
     if (result) {
-      dispatch(setDrawerScheduleForm(SCHEDULE_REQUEST(result)));
+      dispatch(
+        setDrawerScheduleForm(
+          SCHEDULE_REQUEST({ ...result, schedule_id: undefined })
+        )
+      );
     }
   };
 

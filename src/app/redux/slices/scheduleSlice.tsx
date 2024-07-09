@@ -3,6 +3,7 @@ import moment from "moment";
 import { RequestSchedule, Schedule } from "@app/types/schedule.ts";
 import { RootState } from "../store.ts";
 import { INIT_SCHEDULE } from "@constants/schedule.ts";
+import { Template } from "@app/types/template.ts";
 
 interface InitialState {
   // 메인
@@ -16,7 +17,7 @@ interface InitialState {
   filtered_date: {
     [key: string]: string;
   };
-  selectedTemplate?: number;
+  selectedTemplate?: Template;
 }
 
 const initialState: InitialState = {
