@@ -11,6 +11,7 @@ function TemplateList({ templates, setSelected }: TemplateListProps) {
     <TemplateListItem
       schedule={template}
       handleClick={() => setSelected(template)}
+      hideAmount
     />
   ));
 }
