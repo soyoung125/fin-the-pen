@@ -23,7 +23,7 @@ export interface TemplatePageProps {
 
 function TemplateDrawer({ closeDrawer, setSelected }: TemplateDrawerProps) {
   const [isModify, setIsModify] = useState(false);
-  const { spendSchedules, saveSchedules, deleteTemplate } = useRegularAsset();
+  const { spendSchedules, saveSchedules, handleDelete } = useRegularAsset();
   const { openConfirm } = useDialog();
   const { setMenu } = useAsset();
 
@@ -55,7 +55,7 @@ function TemplateDrawer({ closeDrawer, setSelected }: TemplateDrawerProps) {
         spendSchedules={spendSchedules}
         saveSchedules={saveSchedules}
         handleBack={() => setIsModify(false)}
-        deleteTemplate={deleteTemplate}
+        deleteTemplate={handleDelete}
       />
     );
   }

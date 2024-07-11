@@ -6,6 +6,7 @@ import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
 import { useTemplateByPriceType } from "@app/tanstack-query/templates/useTemplateByPriceType.ts";
 import { useDeleteTemplate } from "@app/tanstack-query/templates/useDeleteTemplate.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 const useRegularAsset = () => {
   const today = moment();
@@ -96,7 +97,7 @@ const useRegularAsset = () => {
     startDate: period.start,
     endDate: period.end,
     pickDate,
-    deleteTemplate,
+    handleDelete: deleteTemplate,
   };
 };
 
