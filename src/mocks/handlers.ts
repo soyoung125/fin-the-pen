@@ -5,6 +5,7 @@ import {
   LOCAL_STORAGE_KEY_SAVING_GOAL,
   LOCAL_STORAGE_KEY_SCHEDULES,
   LOCAL_STORAGE_KEY_SPENDING_GOAL,
+  LOCAL_STORAGE_KEY_TEMPLATE,
   LOCAL_STORAGE_KEY_USERS,
 } from "@api/keys.ts";
 import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
@@ -31,6 +32,11 @@ import { INIT_ASSET_BY_CATEGORY } from "@app/tanstack-query/assetManagement/Asse
 import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSchedule.ts";
 import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { GoalResponse } from "@app/types/report.ts";
+import {
+  Template,
+  TemplateImportRequest,
+  TemplateScheduleRequest,
+} from "@app/types/template.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -94,6 +100,10 @@ export const handlers = [
         LOCAL_STORAGE_KEY_SCHEDULES,
         []
       );
+      const prevTemplate = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
       const isExist = prevSchedules.find(
         (s) => s.schedule_id === schedule.schedule_id
       );
@@ -102,6 +112,24 @@ export const handlers = [
       if (isExist) {
         return HttpResponse.json(false, { status: 400 });
       }
+
+      if (schedule.register_template) {
+        const lastIdx = prevTemplate.length;
+        const id = lastIdx === 0 ? -1 : prevTemplate[lastIdx - 1].id;
+        console.log(id, prevTemplate[lastIdx - 1]);
+        setLocalStorage(LOCAL_STORAGE_KEY_TEMPLATE, [
+          ...prevTemplate,
+          {
+            id: id + 1,
+            amount: Number(schedule.set_amount),
+            category_name: schedule.category,
+            statement: schedule.price_type === "+" ? "withdraw" : "deposit",
+            template_name: schedule.event_name,
+            user_id: schedule.user_id,
+          },
+        ]);
+      }
+
       const repeatType = schedule.repeat.kind_type;
       const newSchedules: Schedule[] = [
         ...prevSchedules,
@@ -703,74 +731,70 @@ export const handlers = [
   }),
 
   // 정기 템플릿 api
-  http.post(`${DOMAIN}/createSchedule/template`, async () => {
-    await delay(1000);
-    return HttpResponse.json(
-      {
-        schedule_id: 1,
-        user_id: "test1234",
-        event_name: "가족들과의 식사",
-        category: "식비",
-        start_date: "2024-02-02",
-        end_date: "2024-02-02",
-        start_time: "18:00",
-        end_time: "21:00",
-        all_day: false,
-        repeat_options: {
-          term: "2",
-          options: "FRIDAY",
-        },
-        period: {
-          repeat_number_of_time: "3",
-          repeat_end_line: "2030-02-15",
-          repeat_again: false,
-        },
-        price_type: "-",
-        payment_type: "ACCOUNT",
-        amount: "30000",
-        repeat_kind: "WEEK",
-        exclude: false,
-        fix_amount: false,
-      },
-      { status: 200 }
-    );
-  }),
+  http.post<object, TemplateScheduleRequest>(
+    `${DOMAIN}/createSchedule/template`,
+    async ({ request }) => {
+      await delay(1000);
+      const { template_id, template_name } = await request.json();
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const template = templates.find((t) => t.id === Number(template_id));
 
-  http.get(`${DOMAIN}/template/import`, async () => {
-    await delay(1000);
-    return HttpResponse.json(
-      {
-        template_id: "1",
-        template_name: "가족들과의 식사",
-        category_name: "외식",
-        user_id: "test1234",
-      },
-      { status: 200 }
-    );
-  }),
+      if (!template) return HttpResponse.json({ status: 400 });
+
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+      return HttpResponse.json(
+        schedules.find(
+          (s) =>
+            s.event_name === template.template_name &&
+            s.category === template.category_name
+        ),
+        { status: 200 }
+      );
+    }
+  ),
+
+  http.get<TemplateImportRequest>(
+    `${DOMAIN}/template/import`,
+    async ({ params }) => {
+      await delay(1000);
+      const { user_id, category_name, event_name } = params;
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const template = templates.find(
+        (t) =>
+          t.category_name === category_name &&
+          t.template_name === event_name &&
+          t.user_id === user_id
+      );
+      if (!template) return HttpResponse.json({ status: 400 });
+
+      return HttpResponse.json(
+        {
+          ...template,
+          template_id: template.id,
+        },
+        { status: 200 }
+      );
+    }
+  ),
 
   http.post(`${DOMAIN}/template/details`, async () => {
     await delay(1000);
+    const templates = getLocalStorage<Template[]>(
+      LOCAL_STORAGE_KEY_TEMPLATE,
+      []
+    );
     return HttpResponse.json(
       {
-        data: [
-          {
-            id: 1,
-            user_id: "test1234",
-            template_name: "가족들과의 식사",
-            category_name: "식비",
-            statement: "WITHDRAW",
-            amount: "210000",
-          },
-          {
-            id: 2,
-            user_id: "test1234",
-            template_name: "월급",
-            category_name: "급여",
-            statement: "DEPOSIT",
-            amount: "150000000",
-          },
-        ],
+        data: templates,
       },
       { status: 200 }
     );
@@ -778,35 +802,33 @@ export const handlers = [
 
   http.post(`${DOMAIN}/asset/template/view`, async () => {
     await delay(1000);
+    const templates = getLocalStorage<Template[]>(
+      LOCAL_STORAGE_KEY_TEMPLATE,
+      []
+    );
     return HttpResponse.json(
       {
-        deposit: [
-          {
-            id: 2,
-            user_id: "test1234",
-            template_name: "월급",
-            category_name: "급여",
-            statement: "DEPOSIT",
-            amount: "150000000",
-          },
-        ],
-        withdraw: [
-          {
-            id: 1,
-            user_id: "test1234",
-            template_name: "가족들과의 식사",
-            category_name: "식비",
-            statement: "WITHDRAW",
-            amount: "210000",
-          },
-        ],
+        deposit: templates.filter((t) => t.statement === "deposit"),
+        withdraw: templates.filter((t) => t.statement === "withdraw"),
       },
       { status: 200 }
     );
   }),
 
-  http.delete(`${DOMAIN}/asset/template/delete`, async () => {
-    await delay(10000);
-    return HttpResponse.json({ status: 200 });
-  }),
+  http.delete<object, { template_id: string }>(
+    `${DOMAIN}/asset/template/delete`,
+    async ({ request }) => {
+      await delay(10000);
+      const { template_id } = await request.json();
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        templates.filter((t) => t.id !== Number(template_id))
+      );
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
 ];
