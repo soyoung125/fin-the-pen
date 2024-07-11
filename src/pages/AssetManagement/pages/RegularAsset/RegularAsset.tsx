@@ -4,8 +4,6 @@ import moment from "moment";
 import AddTemplateButton from "pages/AssetManagement/pages/RegularAsset/components/AddTemplateButton";
 import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
 import RegularTemplateList from "@pages/AssetManagement/pages/RegularAsset/components/RegularTemplateList";
-import TopNavigation from "@pages/AssetManagement/pages/RegularAsset/components/TopNavigation";
-import useHeader from "@hooks/useHeader.ts";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ListSwiper from "@components/TemplateDrawer/components/ListSwiper";
 
@@ -20,12 +18,11 @@ function RegularAsset() {
     templateCount,
   } = useRegularAsset();
   const { openDeleteAssetDrawer } = useRegularAssetDrawer();
-  useHeader(false);
+
   useBottomBar(false);
 
   return (
     <>
-      <TopNavigation />
       <RegularAssetHeader
         title={`${templateCount}건의 정기 템플릿을 사용중입니다.`}
         startDate={moment(startDate).format("YYYY.MM.DD")}

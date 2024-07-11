@@ -11,7 +11,6 @@ import router from "./app/router";
 import { worker } from "./mocks/browser";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -39,9 +38,7 @@ async function main() {
           <PersistGate loading={null} persistor={persistor}>
             <CustomThemeProvider>
               <Suspense fallback={<>loading...</>}>
-                <OverlayProvider>
-                  <RouterProvider router={router} />
-                </OverlayProvider>
+                <RouterProvider router={router} />
               </Suspense>
             </CustomThemeProvider>
           </PersistGate>

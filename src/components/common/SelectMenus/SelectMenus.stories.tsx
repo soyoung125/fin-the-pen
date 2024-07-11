@@ -43,7 +43,7 @@ export const Example = () => {
       <SelectMenus
         options={options}
         selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
+        setSelectedOption={(v) => setSelectedOption(v)}
       />
       <div style={{ height: "300px" }}></div>
     </>

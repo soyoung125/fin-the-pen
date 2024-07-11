@@ -5,6 +5,7 @@ import useHeader from "@hooks/useHeader.ts";
 import { HEADER_MODE } from "@app/types/common.ts";
 import { useAppSelector } from "@redux/hooks.ts";
 import { selectIsAuthenticated } from "@redux/slices/commonSlice.tsx";
+import useAsset from "@hooks/assetManagement/useAsset.ts";
 
 function ManagementLayout() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

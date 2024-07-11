@@ -5,6 +5,7 @@ import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { ReactNode } from "react";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -50,8 +51,8 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export interface SelectMenusProps {
-  selectedOption: string;
-  setSelectedOption: React.Dispatch<React.SetStateAction<string>>;
+  selectedOption: string | ReactNode;
+  setSelectedOption: (v: string) => void;
   options: string[];
 }
 
@@ -84,11 +85,12 @@ export default function SelectMenus({
         disableElevation
         onClick={handleClick}
         endIcon={
-          open ? (
+          typeof selectedOption === "string" &&
+          (open ? (
             <KeyboardArrowUpIcon sx={{ fontSize: "12px" }} />
           ) : (
             <KeyboardArrowDownIcon sx={{ fontSize: "12px" }} />
-          )
+          ))
         }
         sx={{
           fontSize: "13px",

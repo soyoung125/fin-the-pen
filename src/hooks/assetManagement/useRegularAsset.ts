@@ -38,20 +38,8 @@ const useRegularAsset = () => {
     result.find((s) => s.event_name === curr.event_name);
 
   const spendSchedules = data?.deposit ?? [];
-  // schedules?.reduce((result: Schedule[], curr) => {
-  //   if (curr.price_type === "Minus" && !isDuplicated(result, curr)) {
-  //     return result.concat(curr);
-  //   }
-  //   return result;
-  // }, []) ?? [];
 
   const saveSchedules = data?.withdraw ?? [];
-  // schedules?.reduce((result: Schedule[], curr) => {
-  //   if (curr.price_type === "Plus" && !isDuplicated(result, curr)) {
-  //     return result.concat(curr);
-  //   }
-  //   return result;
-  // }, []) ?? [];
 
   const templateCount = spendSchedules.length + saveSchedules.length;
 
@@ -92,6 +80,10 @@ const useRegularAsset = () => {
     setPeriod(newMonth);
   };
 
+  const deleteTemplate = (templates: number[]) => {
+    console.log(templates, "delete");
+  };
+
   return {
     spendSchedules,
     saveSchedules,
@@ -106,6 +98,7 @@ const useRegularAsset = () => {
     startDate: period.start,
     endDate: period.end,
     pickDate,
+    deleteTemplate,
   };
 };
 
