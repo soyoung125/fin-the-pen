@@ -8,7 +8,6 @@ import {
   StackContainer,
 } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader/RegularScheduleHeader.styles.ts";
 import IconSVG from "@components/common/IconSVG";
-import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import CategoryIconSVG from "@components/common/CategoryIconSVG";
 import modify from "@assets/icons/modify.svg";
 import moment from "moment";
@@ -38,7 +37,7 @@ function RegularScheduleHeader({
     <HeaderContainer>
       <MainContainer>
         <StackContainer>
-          <CategoryIconSVG id={CATEGORY_ICONS[category]} size={36} />
+          <CategoryIconSVG id={category} size={36} />
           <EventNameBox>{eventName}</EventNameBox>
           <CategoryBadge>{category}</CategoryBadge>
         </StackContainer>

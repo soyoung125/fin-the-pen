@@ -4,6 +4,7 @@ import {
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList/TemplateList.styles.ts";
 import { Stack } from "@mui/material";
 import { Template } from "@app/types/template.ts";
+import TemplateIconSVG from "@components/common/TemplateIconSVG";
 
 export interface TemplateListProps {
   templates?: Template[];
@@ -23,6 +24,7 @@ function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
           $selected={selected?.id === t.id}
           onClick={() => setSelected(t)}
         >
+          <TemplateIconSVG id={t.category_name} />
           {t.template_name}
         </TemplateBadge>
       ))}

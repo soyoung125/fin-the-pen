@@ -1,8 +1,7 @@
-import { Avatar, Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import { AmountComponent, AmountType } from "./ScheduleCard.styles.ts";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
-import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import CategoryIconSVG from "@components/common/CategoryIconSVG";
 
 export interface ConsumptionCardProps {
@@ -48,7 +47,7 @@ function ScheduleCard({
         // >
         //   {category}
         // </Avatar>
-        <CategoryIconSVG id={CATEGORY_ICONS[category]} size={36} />
+        <CategoryIconSVG id={category} size={36} />
       )}
       <Stack
         justifyContent="space-between"
