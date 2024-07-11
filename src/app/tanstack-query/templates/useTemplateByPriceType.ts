@@ -3,11 +3,7 @@ import { DOMAIN } from "@api/url.ts";
 import { getSessionStorage } from "@utils/storage.ts";
 import { QUERY_KEY_TEMPLATE_BY_PRICE_TYPE } from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
-import {
-  TemplateByPriceType,
-  TemplateRequest,
-  Template,
-} from "@app/types/template.ts";
+import { TemplateByPriceType, TemplateRequest } from "@app/types/template.ts";
 
 const fetchTemplates = async (query: TemplateRequest) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");

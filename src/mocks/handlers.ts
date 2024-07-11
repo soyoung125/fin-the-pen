@@ -804,4 +804,9 @@ export const handlers = [
       { status: 200 }
     );
   }),
+
+  http.delete(`${DOMAIN}/asset/template/delete`, async () => {
+    await delay(10000);
+    return HttpResponse.json({ status: 200 });
+  }),
 ];

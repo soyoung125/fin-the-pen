@@ -5,6 +5,7 @@ import moment from "moment";
 import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
 import { useTemplateByPriceType } from "@app/tanstack-query/templates/useTemplateByPriceType.ts";
+import { useDeleteTemplate } from "@app/tanstack-query/templates/useDeleteTemplate.ts";
 
 const useRegularAsset = () => {
   const today = moment();
@@ -28,6 +29,7 @@ const useRegularAsset = () => {
   const { data, isPending, isError } = useTemplateByPriceType({
     user_id: user?.user_id ?? "",
   });
+  const { deleteTemplate } = useDeleteTemplate();
 
   const yearOptions = Array.from(
     { length: moment(period.end).year() - moment(period.start).year() + 1 },
@@ -78,10 +80,6 @@ const useRegularAsset = () => {
   const pickDate = async () => {
     const newMonth = await openDayPeriodPicker(period.start, period.end);
     setPeriod(newMonth);
-  };
-
-  const deleteTemplate = (templates: number[]) => {
-    console.log(templates, "delete");
   };
 
   return {

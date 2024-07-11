@@ -7,8 +7,6 @@ import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
 import TemplateList from "@components/TemplateDrawer/pages/TemplateList";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import TemplateModify from "@components/TemplateDrawer/pages/TemplateModify";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "@constants/path.ts";
 import useAsset from "@hooks/assetManagement/useAsset.ts";
 
 export interface TemplateDrawerProps {
