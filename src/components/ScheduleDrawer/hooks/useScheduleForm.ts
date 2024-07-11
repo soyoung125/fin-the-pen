@@ -159,14 +159,17 @@ export const useScheduleForm = () => {
     }
   };
 
-  const isExist = async () => {
+  const isExist = async (c?: string) => {
     if (!scheduleForm) return;
-    if (scheduleForm?.category === "" || scheduleForm?.category === "") return;
+    const eventName = scheduleForm.event_name;
+    const category = c ?? scheduleForm.category;
+
+    if (eventName === "" || category === "") return;
 
     const result = await importTemplate({
       user_id: user?.user_id ?? "",
-      category_name: scheduleForm?.category,
-      event_name: scheduleForm?.event_name,
+      category_name: category,
+      event_name: eventName,
     });
     if (result) {
       dispatch(
@@ -320,7 +323,7 @@ export const useScheduleForm = () => {
         price_type: getType(value),
       })
     );
-    await isExist();
+    await isExist(value);
   };
 
   return {

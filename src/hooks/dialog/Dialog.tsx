@@ -41,7 +41,12 @@ function Dialog({
           </Typography>
         </Stack>
         <Divider sx={{ backgroundColor: "black", height: "1px" }} />
-        <Typography variant="h2" textAlign="center" my="24px">
+        <Typography
+          variant="h2"
+          textAlign="center"
+          my="24px"
+          whiteSpace="pre-line"
+        >
           {content}
         </Typography>
         <Stack direction="row" gap="10px">

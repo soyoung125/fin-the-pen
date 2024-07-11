@@ -27,7 +27,7 @@ function NameInput({ showError }: NameInputProps) {
         variant="standard"
         value={scheduleForm?.event_name}
         onChange={changeSchedule}
-        onBlur={isExist}
+        onBlur={() => isExist()}
         helperText={
           showError && scheduleForm?.event_name === ""
             ? "필수 입력 값입니다!"

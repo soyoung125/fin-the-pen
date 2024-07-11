@@ -67,7 +67,7 @@ export const useTemplateSchedule = () => {
 
     const answer = await openConfirm({
       title: "알림",
-      content: "중복된 템플릿이 존재합니다.",
+      content: `동일한 정기 템플릿이 존재합니다.\n템플릿에 일정을 추가하시겠습니까?\n\n{${query.category_name}}\n{${query.event_name}}`,
       approveText: "네",
       rejectText: "아니오",
     });
