@@ -692,7 +692,7 @@ export const handlers = [
         ratio: "0",
       };
 
-      let newList: AssetByCategory[] = [];
+      let newList: AssetByCategory[];
 
       if (
         assetsByCategory.category_list.find(
@@ -735,7 +735,7 @@ export const handlers = [
     `${DOMAIN}/createSchedule/template`,
     async ({ request }) => {
       await delay(1000);
-      const { template_id, template_name } = await request.json();
+      const { template_id } = await request.json();
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
