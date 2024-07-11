@@ -30,7 +30,7 @@ function ScheduleListHeader({
       <SelectMenus
         options={options}
         selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
+        setSelectedOption={(v) => setSelectedOption(v)}
       />
     </Stack>
   );

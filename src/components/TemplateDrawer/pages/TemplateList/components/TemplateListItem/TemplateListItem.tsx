@@ -4,10 +4,10 @@ import { Schedule } from "@app/types/schedule.ts";
 import { getTitle } from "@components/TemplateDrawer/pages/TemplateList/utils.ts";
 import ListItem from "@components/TemplateDrawer/components/ListItem";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import { Templates } from "@app/types/template.ts";
+import { Template } from "@app/types/template.ts";
 
 export interface TemplateListItemProps {
-  schedule: Templates;
+  schedule: Template;
   handleClick: () => void;
   arrow?: boolean;
   hideAmount?: boolean;

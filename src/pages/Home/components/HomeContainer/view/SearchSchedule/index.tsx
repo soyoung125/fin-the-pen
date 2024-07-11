@@ -17,7 +17,7 @@ import RoundedBorderBox from "@components/common/RoundedBorderBox.tsx";
 import moment from "moment";
 import "moment/locale/ko";
 import { Schedule } from "@app/types/schedule.ts";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 import { fetchFindSchedules } from "@api/API.ts";
 import useHeader from "@hooks/useHeader.ts";
 import { HEADER_MODE } from "@app/types/common.ts";

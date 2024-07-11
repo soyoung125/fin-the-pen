@@ -11,6 +11,7 @@ export const TemplateBadge = styled.div<{ $selected: boolean }>`
   color: ${({ $selected }) => ($selected ? "#FFF" : "#8C919C")};
   background-color: ${({ $selected }) => ($selected ? "#735BF2" : "#DEE0E3")};
   cursor: context-menu;
+  gap: 4px;
 `;
 
 export const EmptyTemplateBadge = styled.span`

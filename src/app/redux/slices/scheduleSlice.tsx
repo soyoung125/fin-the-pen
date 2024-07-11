@@ -3,6 +3,7 @@ import moment from "moment";
 import { RequestSchedule, Schedule } from "@app/types/schedule.ts";
 import { RootState } from "../store.ts";
 import { INIT_SCHEDULE } from "@constants/schedule.ts";
+import { Template } from "@app/types/template.ts";
 
 interface InitialState {
   // 메인
@@ -16,11 +17,13 @@ interface InitialState {
   filtered_date: {
     [key: string]: string;
   };
+  selectedTemplate?: Template;
 }
 
 const initialState: InitialState = {
   date: moment(new Date()),
   schedules: [],
+  selectedTemplate: undefined,
   scheduleForm: INIT_SCHEDULE(moment().format("YYYY-MM-DD")),
   filtered: [],
   filtered_date: {
@@ -62,6 +65,12 @@ export const scheduleSlice = createSlice({
     ) => {
       state.filtered_date[action.payload.type] = action.payload.date;
     },
+    setSelectedTemplate: (state, action) => {
+      state.selectedTemplate = action.payload;
+    },
+    resetSelectedTemplate: (state) => {
+      state.selectedTemplate = undefined;
+    },
   },
 });
 export const {
@@ -69,6 +78,8 @@ export const {
   setSelectedDate,
   updateFilter,
   setFilteredDate,
+  setSelectedTemplate,
+  resetSelectedTemplate,
 } = scheduleSlice.actions;
 
 export const selectDate = (state: RootState) => {
@@ -87,7 +98,7 @@ export const selectScheduleForm = (state: RootState) =>
   (state.schedule as InitialState).scheduleForm;
 export const selectStartDate = (state: RootState) =>
   (state.schedule as InitialState).scheduleForm?.start_date;
-export const selectRepeatEndDate = (state: RootState) =>
-  (state.schedule as InitialState).scheduleForm?.period.repeat_end_line;
+export const selectSelectedTemplate = (state: RootState) =>
+  (state.schedule as InitialState).selectedTemplate;
 
 export default scheduleSlice.reducer;

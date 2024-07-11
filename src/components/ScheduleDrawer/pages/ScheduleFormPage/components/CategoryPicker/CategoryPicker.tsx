@@ -67,8 +67,8 @@ function CategoryPicker({ setIsCategoryPickerOpen }: CategoryPickerProps) {
           fullWidth
           variant="contained"
           disabled={!isCategorySelected}
-          onClick={() => {
-            updateCategory(selectedCategory);
+          onClick={async () => {
+            await updateCategory(selectedCategory);
             setIsCategoryPickerOpen(false);
           }}
         >

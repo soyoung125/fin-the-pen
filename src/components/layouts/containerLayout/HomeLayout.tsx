@@ -6,6 +6,7 @@ import BottomBar from "../common/BottomBar.tsx";
 import TopBar from "../common/TopBar";
 import { useAppSelector } from "@redux/hooks.ts";
 import { selectBottomBarOpen } from "@redux/slices/commonSlice.tsx";
+import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
 
 // const messageExamples = [
 //   {
@@ -75,13 +76,15 @@ export default function HomeLayout() {
   // }, [value, setMessages]);
 
   return (
-    <Box sx={{ pb: bottomBarOpen ? "82px" : 0 }} ref={ref}>
-      <CssBaseline />
-      <TopBar />
-      <Box>
-        <Outlet />
+    <OverlayProvider>
+      <Box sx={{ pb: bottomBarOpen ? "82px" : 0 }} ref={ref}>
+        <CssBaseline />
+        <TopBar />
+        <Box>
+          <Outlet />
+        </Box>
+        <BottomBar />
       </Box>
-      <BottomBar />
-    </Box>
+    </OverlayProvider>
   );
 }

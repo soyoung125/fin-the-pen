@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import { PATH } from "@constants/path.ts";
 import TemplateListItem from "@components/TemplateDrawer/pages/TemplateList/components/TemplateListItem";
-import { Templates } from "@app/types/template.ts";
+import { Template } from "@app/types/template.ts";
 
 export interface RegularTemplateListProps {
   isPending: boolean;
-  schedules: Templates[];
+  schedules: Template[];
 }
 
 function RegularTemplateList({

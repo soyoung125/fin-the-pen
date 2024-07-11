@@ -8,6 +8,7 @@ import {
   INIT_PERIOD,
   INIT_REPEAT,
   SCHEDULE_DRAWER,
+  SCHEDULE_REQUEST,
 } from "@constants/schedule.ts";
 import { useAppDispatch } from "@redux/hooks.ts";
 import { useSelector } from "react-redux";
@@ -16,6 +17,8 @@ import {
   INCOME_CATEGORY,
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker/constants.ts";
 import { SchedulePeriod, ScheduleRepeat } from "@app/types/schedule.ts";
+import { useTemplateSchedule } from "@app/tanstack-query/templates/useTemplateSchedule.ts";
+import { useUser } from "@app/tanstack-query/useUser.ts";
 
 export const getType = (category: string) => {
   if (INCOME_CATEGORY.includes(category)) {
@@ -63,6 +66,8 @@ export const getRepeatEndDate = (
 export const useScheduleForm = () => {
   const dispatch = useAppDispatch();
   const scheduleForm = useSelector(selectScheduleForm);
+  const { importTemplate } = useTemplateSchedule();
+  const { data: user } = useUser();
 
   const setRandomGeneratedSchedule = (stringDate: string) => {
     const date = moment(stringDate);
@@ -151,6 +156,28 @@ export const useScheduleForm = () => {
           })
         );
         break;
+    }
+  };
+
+  const isExist = async (c?: string) => {
+    if (!scheduleForm) return;
+    const eventName = scheduleForm.event_name;
+    const category = c ?? scheduleForm.category;
+
+    if (eventName === "" || category === "") return;
+
+    const result = await importTemplate({
+      user_id: user?.user_id ?? "",
+      category_name: category,
+      event_name: eventName,
+    });
+    if (result) {
+      dispatch(
+        setDrawerScheduleForm({
+          ...SCHEDULE_REQUEST({ ...result, schedule_id: undefined }),
+          register_template: true,
+        })
+      );
     }
   };
 
@@ -289,7 +316,7 @@ export const useScheduleForm = () => {
     );
   };
 
-  const updateCategory = (value: string) => {
+  const updateCategory = async (value: string) => {
     dispatch(
       setDrawerScheduleForm({
         ...scheduleForm,
@@ -297,6 +324,7 @@ export const useScheduleForm = () => {
         price_type: getType(value),
       })
     );
+    await isExist(value);
   };
 
   return {
@@ -310,5 +338,6 @@ export const useScheduleForm = () => {
     updateYearRepeat,
     getRepeat,
     updateCategory,
+    isExist,
   };
 };

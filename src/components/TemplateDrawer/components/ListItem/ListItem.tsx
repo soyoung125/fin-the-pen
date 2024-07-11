@@ -1,5 +1,4 @@
 import { Stack } from "@mui/material";
-import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import CategoryIconSVG from "@components/common/CategoryIconSVG";
 import {
   AmountLabel,
@@ -17,7 +16,7 @@ export interface ListItemProps {
 function ListItem({ category, amount, title, hideAmount }: ListItemProps) {
   return (
     <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
-      <CategoryIconSVG id={CATEGORY_ICONS[category]} size={40} />
+      <CategoryIconSVG id={category} size={40} />
 
       <Stack>
         <CategoryLabel>{category}</CategoryLabel>

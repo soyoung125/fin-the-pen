@@ -4,7 +4,7 @@ import {
   selectScheduleForm,
 } from "@redux/slices/scheduleSlice.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
-import useSchedule from "@hooks/useSchedule.ts";
+import useSchedule from "@hooks/schedule/useSchedule.ts";
 import { Button, Stack, Tooltip } from "@mui/material";
 import { useScheduleForm } from "../../hooks/useScheduleForm.ts";
 import { selectGuestMode } from "@redux/slices/commonSlice.tsx";
@@ -15,9 +15,14 @@ import { useDialog } from "@hooks/dialog/useDialog.tsx";
 interface CreateFooterInterface {
   handleSubmit: () => boolean;
   handleClose: () => void;
+  templateCount: number;
 }
 
-function CreateFooter({ handleSubmit, handleClose }: CreateFooterInterface) {
+function CreateFooter({
+  handleSubmit,
+  handleClose,
+  templateCount,
+}: CreateFooterInterface) {
   const date = useAppSelector(selectDate);
   const schedule = useAppSelector(selectScheduleForm);
   const guestMode = useAppSelector(selectGuestMode);
@@ -27,7 +32,21 @@ function CreateFooter({ handleSubmit, handleClose }: CreateFooterInterface) {
   const { openConfirm } = useDialog();
 
   const handleCreate = async () => {
-    if (handleSubmit() && schedule) {
+    if (!handleSubmit() || !schedule) return;
+
+    if (schedule.repeat.kind_type !== "none" && !schedule.register_template) {
+      const answer = await openConfirm({
+        title: "알림",
+        content: "반복 일정을 정기템플릿에\n등록하시겠습니까?",
+        subContent: `남은 정기템플릿 : ${templateCount}/10`,
+        approveText: "네",
+        rejectText: "아니오",
+      });
+      if (answer) {
+        await handleCreateSchedule({ ...schedule, register_template: true });
+        handleClose();
+      }
+    } else {
       const answer = await openConfirm({
         title: "알림",
         content: "현재 정보로 설정하시겠습니까?",
@@ -35,7 +54,7 @@ function CreateFooter({ handleSubmit, handleClose }: CreateFooterInterface) {
         rejectText: "아니오",
       });
       if (answer) {
-        handleCreateSchedule(schedule);
+        await handleCreateSchedule(schedule);
         handleClose();
       }
     }

@@ -9,6 +9,7 @@ import ScheduleFormPage from "./pages/ScheduleFormPage";
 import CategoryPicker from "./pages/ScheduleFormPage/components/CategoryPicker";
 import RepeatPicker from "./pages/ScheduleFormPage/components/RepeatPicker";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
+import useScheduleTemplate from "@hooks/schedule/useScheduleTemplate.ts";
 
 export interface ScheduleDrawerProps {
   handleClose: () => void;
@@ -23,6 +24,8 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
   const [isRepeatPickerOpen, setIsRepeatPickerOpen] = useState(false);
 
   const { openConfirm } = useDialog();
+  const { templates, selectedTemplate, setSelected, templateCount } =
+    useScheduleTemplate();
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     swiper?.slideTo(newValue);
@@ -70,6 +73,9 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
             showError={showError}
             setIsCategoryPickerOpen={setIsCategoryPickerOpen}
             setIsRepeatPickerOpen={setIsRepeatPickerOpen}
+            templates={templates}
+            selectedTemplate={selectedTemplate}
+            setSelected={setSelected}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -81,6 +87,7 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
       <ScheduleDrawerFooter
         handleClose={handleClose}
         setShowError={setShowError}
+        templateCount={templateCount}
       />
     </Box>
   );

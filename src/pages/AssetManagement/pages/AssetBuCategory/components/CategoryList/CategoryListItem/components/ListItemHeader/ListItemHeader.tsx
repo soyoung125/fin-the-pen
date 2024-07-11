@@ -1,5 +1,4 @@
 import { Stack, Typography } from "@mui/material";
-import { CATEGORY_ICONS } from "@components/ScheduleList/constants.ts";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
@@ -49,7 +48,7 @@ function ListItemHeader({
       {/*>*/}
       {/*  {category.name}*/}
       {/*</Avatar>*/}
-      <CategoryIconSVG id={CATEGORY_ICONS[category.subCategory[0]]} size={42} />
+      <CategoryIconSVG id={category.subCategory[0]} size={42} />
       <Typography variant="h4" sx={{ flexGrow: 1 }}>
         {category.name}
       </Typography>

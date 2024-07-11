@@ -3,7 +3,7 @@ import { DOMAIN } from "@api/url.ts";
 import { getSessionStorage } from "@utils/storage.ts";
 import { QUERY_KEY_TEMPLATE } from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
-import { TemplateRequest, Templates } from "@app/types/template.ts";
+import { Template, TemplateRequest } from "@app/types/template.ts";
 
 const fetchTemplates = async (query: TemplateRequest) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
@@ -15,11 +15,12 @@ const fetchTemplates = async (query: TemplateRequest) => {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify(query),
-  }).then<Templates>(async (res) => {
+  }).then<Template[]>(async (res) => {
     if (!res.ok) {
       return [];
     }
-    return res.json();
+    const response = await res.json();
+    return response.data;
   });
 };
 

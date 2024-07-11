@@ -31,7 +31,7 @@ export const useCreateSchedule = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: fetchCreateSchedule,
-    onSuccess: async (data, variables) => {
+    onSuccess: (data, variables) => {
       const date = moment(variables.start_date);
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_SCHEDULES, date.format("YYYY-MM")],

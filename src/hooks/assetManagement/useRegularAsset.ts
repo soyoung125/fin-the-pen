@@ -5,6 +5,8 @@ import moment from "moment";
 import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
 import { useTemplateByPriceType } from "@app/tanstack-query/templates/useTemplateByPriceType.ts";
+import { useDeleteTemplate } from "@app/tanstack-query/templates/useDeleteTemplate.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 const useRegularAsset = () => {
   const today = moment();
@@ -28,6 +30,7 @@ const useRegularAsset = () => {
   const { data, isPending, isError } = useTemplateByPriceType({
     user_id: user?.user_id ?? "",
   });
+  const { deleteTemplate } = useDeleteTemplate();
 
   const yearOptions = Array.from(
     { length: moment(period.end).year() - moment(period.start).year() + 1 },
@@ -38,20 +41,8 @@ const useRegularAsset = () => {
     result.find((s) => s.event_name === curr.event_name);
 
   const spendSchedules = data?.deposit ?? [];
-  // schedules?.reduce((result: Schedule[], curr) => {
-  //   if (curr.price_type === "Minus" && !isDuplicated(result, curr)) {
-  //     return result.concat(curr);
-  //   }
-  //   return result;
-  // }, []) ?? [];
 
   const saveSchedules = data?.withdraw ?? [];
-  // schedules?.reduce((result: Schedule[], curr) => {
-  //   if (curr.price_type === "Plus" && !isDuplicated(result, curr)) {
-  //     return result.concat(curr);
-  //   }
-  //   return result;
-  // }, []) ?? [];
 
   const templateCount = spendSchedules.length + saveSchedules.length;
 
@@ -106,6 +97,7 @@ const useRegularAsset = () => {
     startDate: period.start,
     endDate: period.end,
     pickDate,
+    handleDelete: deleteTemplate,
   };
 };
 

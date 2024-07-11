@@ -6,11 +6,13 @@ export const useDialog = () => {
   const openConfirm = ({
     title,
     content,
+    subContent,
     approveText,
     rejectText,
   }: {
     title: string;
     content: string;
+    subContent?: string;
     approveText: string;
     rejectText: string;
   }): Promise<boolean> => {
@@ -19,6 +21,7 @@ export const useDialog = () => {
         <Dialog
           title={title}
           content={content}
+          subContent={subContent}
           approveText={approveText}
           rejectText={rejectText}
           onClickApprove={() => {
