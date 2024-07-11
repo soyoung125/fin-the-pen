@@ -2,11 +2,20 @@ import { Box, Stack, Typography } from "@mui/material";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { useTemplateDrawer } from "@hooks/useTemplateDrawer.tsx";
 import TemplateList from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList";
-import useScheduleTemplate from "@hooks/schedule/useScheduleTemplate.ts";
+import { Template } from "@app/types/template.ts";
 
-function SelectTemplate() {
+export interface ScheduleFormProps {
+  templates?: Template[];
+  selectedTemplate?: Template;
+  setSelected: (template: Template) => void;
+}
+
+function SelectTemplate({
+  templates,
+  selectedTemplate,
+  setSelected,
+}: ScheduleFormProps) {
   const { openDrawer } = useTemplateDrawer();
-  const { templates, selectedTemplate, setSelected } = useScheduleTemplate();
 
   return (
     <Box px={2.5}>

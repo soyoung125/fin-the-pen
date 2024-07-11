@@ -7,8 +7,9 @@ import RepeatInput from "./components/RepeatInput.tsx";
 import { Dispatch, SetStateAction } from "react";
 import SelectTemplate from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate";
 import { useScheduleForm } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
+import { ScheduleFormProps } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelectTemplate.tsx";
 
-export interface ScheduleFormPageProps {
+export interface ScheduleFormPageProps extends ScheduleFormProps {
   showError: boolean;
   setIsCategoryPickerOpen: Dispatch<SetStateAction<boolean>>;
   setIsRepeatPickerOpen: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +19,9 @@ function ScheduleFormPage({
   showError,
   setIsCategoryPickerOpen,
   setIsRepeatPickerOpen,
+  templates,
+  setSelected,
+  selectedTemplate,
 }: ScheduleFormPageProps) {
   const { scheduleForm, getRepeat } = useScheduleForm();
 
@@ -35,7 +39,13 @@ function ScheduleFormPage({
             onClick={() => setIsCategoryPickerOpen((prev) => !prev)}
           />
 
-          {scheduleForm.repeat.kind_type !== "none" && <SelectTemplate />}
+          {scheduleForm.repeat.kind_type !== "none" && (
+            <SelectTemplate
+              templates={templates}
+              selectedTemplate={selectedTemplate}
+              setSelected={setSelected}
+            />
+          )}
         </Stack>
 
         {/* 이벤트 반복 설정 */}

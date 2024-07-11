@@ -25,6 +25,8 @@ const useScheduleTemplate = () => {
     user_id: user?.user_id ?? "",
   });
 
+  const templateCount = templates?.length ?? 0;
+
   const setSelected = async (t: Template) => {
     dispatch(setSelectedTemplate(t));
     const result = await getTemplate({
@@ -32,9 +34,10 @@ const useScheduleTemplate = () => {
       template_name: t.template_name,
     });
     dispatch(
-      setDrawerScheduleForm(
-        SCHEDULE_REQUEST({ ...result, schedule_id: undefined })
-      )
+      setDrawerScheduleForm({
+        ...SCHEDULE_REQUEST({ ...result, schedule_id: undefined }),
+        register_template: true,
+      })
     );
   };
 
@@ -43,6 +46,7 @@ const useScheduleTemplate = () => {
     isPending,
     isError,
     selectedTemplate,
+    templateCount,
     setSelected,
   };
 };

@@ -14,11 +14,13 @@ import {
 interface ScheduleDrawerFooterProps {
   handleClose: () => void;
   setShowError: React.Dispatch<React.SetStateAction<boolean>>;
+  templateCount: number;
 }
 
 function ScheduleDrawerFooter({
   handleClose,
   setShowError,
+  templateCount,
 }: ScheduleDrawerFooterProps) {
   const schedule = useAppSelector(selectScheduleForm) as RequestSchedule;
 
@@ -49,7 +51,11 @@ function ScheduleDrawerFooter({
         {schedule && schedule.schedule_id ? (
           <ModifyFooter handleSubmit={handleSubmit} handleClose={handleClose} />
         ) : (
-          <CreateFooter handleSubmit={handleSubmit} handleClose={handleClose} />
+          <CreateFooter
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+            templateCount={templateCount}
+          />
         )}
       </ActionContainer>
     </FooterContainer>

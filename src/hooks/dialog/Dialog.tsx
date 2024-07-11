@@ -9,6 +9,7 @@ import {
 export interface DialogProps {
   title?: string;
   content?: string;
+  subContent?: string;
   onClickApprove: () => void;
   onClickReject: () => void;
   rejectText?: string;
@@ -18,6 +19,7 @@ export interface DialogProps {
 function Dialog({
   title,
   content,
+  subContent,
   onClickApprove,
   onClickReject,
   rejectText,
@@ -29,25 +31,22 @@ function Dialog({
       open={true}
       scroll="body"
     >
-      <Stack p="20px">
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          mb={2}
-        >
+      <Stack p="20px" spacing={2}>
+        <Stack alignItems="center" justifyContent="center" mb={2}>
           <Typography variant="h1" sx={{ fontWeight: "bold" }}>
             {title}
           </Typography>
         </Stack>
         <Divider sx={{ backgroundColor: "black", height: "1px" }} />
-        <Typography
-          variant="h2"
-          textAlign="center"
-          my="24px"
-          whiteSpace="pre-line"
-        >
+        <Typography variant="h2" textAlign="center" whiteSpace="pre-line">
           {content}
+        </Typography>
+        <Typography
+          textAlign="center"
+          variant="h2"
+          sx={{ fontWeight: 500, color: "#8C919C" }}
+        >
+          {subContent}
         </Typography>
         <Stack direction="row" gap="10px">
           {rejectText && (

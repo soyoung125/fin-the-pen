@@ -173,9 +173,10 @@ export const useScheduleForm = () => {
     });
     if (result) {
       dispatch(
-        setDrawerScheduleForm(
-          SCHEDULE_REQUEST({ ...result, schedule_id: undefined })
-        )
+        setDrawerScheduleForm({
+          ...SCHEDULE_REQUEST({ ...result, schedule_id: undefined }),
+          register_template: true,
+        })
       );
     }
   };
