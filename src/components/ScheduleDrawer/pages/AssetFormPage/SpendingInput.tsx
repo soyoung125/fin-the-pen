@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   FormHelperText,
   InputBase,
@@ -21,12 +20,6 @@ function SpendingInput() {
   const { openConfirm } = useDialog();
   const expectedSpending = scheduleForm ? scheduleForm?.set_amount : "0";
   const [showError, setShowError] = useState(false);
-
-  const changeSchedule = (state: React.MouseEvent<HTMLButtonElement>) => {
-    updateSchedule({
-      target: { id: state.currentTarget.id, value: state.currentTarget.value },
-    });
-  };
 
   const changeAmount = (state: React.ChangeEvent<HTMLInputElement>) => {
     const amount = state.target.value.replaceAll(",", "");
@@ -69,52 +62,6 @@ function SpendingInput() {
       >
         {SCHEDULE_DRAWER.set_spending_title}
       </Box>
-
-      <Stack direction="row" spacing={1.5} py={1}>
-        <Button
-          variant={
-            scheduleForm?.price_type === SCHEDULE_DRAWER.type_minus
-              ? "contained"
-              : "outlined"
-          }
-          color={
-            scheduleForm?.price_type === SCHEDULE_DRAWER.type_minus
-              ? "primary"
-              : "secondary"
-          }
-          fullWidth
-          id="price_type"
-          value={SCHEDULE_DRAWER.type_minus}
-          onClick={changeSchedule}
-          sx={{
-            borderRadius: "20px",
-          }}
-        >
-          출금
-        </Button>
-
-        <Button
-          variant={
-            scheduleForm?.price_type === SCHEDULE_DRAWER.type_plus
-              ? "contained"
-              : "outlined"
-          }
-          color={
-            scheduleForm?.price_type === SCHEDULE_DRAWER.type_plus
-              ? "primary"
-              : "secondary"
-          }
-          fullWidth
-          id="price_type"
-          value={SCHEDULE_DRAWER.type_plus}
-          onClick={changeSchedule}
-          sx={{
-            borderRadius: "20px",
-          }}
-        >
-          입금
-        </Button>
-      </Stack>
 
       <Box py={1.5}>
         <FormControl fullWidth>
