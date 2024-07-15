@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const LoadingContainer = styled.div`
   height: 100dvh;
+  //background-color: rgba(49, 49, 49, 60%);
 `;
 
 export const LoadingContent = styled.div`

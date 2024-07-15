@@ -22,6 +22,7 @@ import PredictReport from "@pages/reports/Report/components/PredictReport";
 import { useState } from "react";
 import GoalSettingModal from "@pages/reports/Report/components/modals/GoalSettingModal";
 import { useNavigate } from "react-router-dom";
+import Loading from "@components/Loading";
 
 function Report() {
   const { year, month, report, reportList, isPending, isError, pickMonth } =
@@ -54,7 +55,7 @@ function Report() {
   };
 
   if (isPending) {
-    return <>loading</>;
+    return <Loading />;
   }
 
   if (!report?.expenditure_data || isError) {

@@ -18,6 +18,7 @@ const useAssetByCategory = () => {
     data: assetsByCategory,
     isError,
     isPending,
+    isSuccess,
   } = useAssetsByCategory(user?.user_id ?? "", yearMonth);
   const { SetAssetsByCategory } = useSetAssetsByCategory();
   const { deleteAssetsByCategory } = useDeleteAssetsByCategory();
@@ -68,6 +69,7 @@ const useAssetByCategory = () => {
     assetsByCategory,
     isError,
     isPending,
+    isSuccess,
     pickMonth,
     getCategoryList,
     setAssetByCategory,

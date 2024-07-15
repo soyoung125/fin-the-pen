@@ -11,24 +11,27 @@ import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
 import { IconButton, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { useLoading } from "@hooks/useLoading.tsx";
+import Loading from "@components/Loading";
 
 function AssetByCategory() {
   const {
     yearMonth,
     assetsByCategory,
     isPending,
+    isSuccess,
     pickMonth,
     getCategoryList,
     setAssetByCategory,
     deleteAssetByCategory,
   } = useAssetByCategory();
   const { openToast, closeToast } = useToast();
-  console.log(assetsByCategory);
+  const { openLoader, closeLoader } = useLoading();
 
   const [control, setControl] = useState("");
 
   if (isPending) {
-    return <>loading...</>;
+    return <Loading />;
   }
 
   const handleSubmit = (form: Omit<setAssetByCategory, "user_id" | "date">) => {
