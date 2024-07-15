@@ -11,7 +11,6 @@ import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
 import { IconButton, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { useLoading } from "@hooks/useLoading.tsx";
 import Loading from "@components/Loading";
 
 function AssetByCategory() {
@@ -19,14 +18,12 @@ function AssetByCategory() {
     yearMonth,
     assetsByCategory,
     isPending,
-    isSuccess,
     pickMonth,
     getCategoryList,
     setAssetByCategory,
     deleteAssetByCategory,
   } = useAssetByCategory();
   const { openToast, closeToast } = useToast();
-  const { openLoader, closeLoader } = useLoading();
 
   const [control, setControl] = useState("");
 
