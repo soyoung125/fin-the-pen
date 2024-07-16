@@ -1,3 +1,6 @@
+import { string } from "prop-types";
+import { Schedule } from "@app/types/schedule.ts";
+
 export interface TemplateRequest {
   user_id: string;
 }
@@ -35,4 +38,13 @@ export interface TemplateImportResponse {
 export interface TemplateByPriceType {
   deposit: Template[];
   withdraw: Template[];
+}
+
+export interface TemplateSchedulesRequest extends TemplateRequest {
+  template_id: string;
+}
+
+export interface TemplateSchedulesResponse {
+  template: Omit<Template, "amount">;
+  schedule: Schedule[];
 }

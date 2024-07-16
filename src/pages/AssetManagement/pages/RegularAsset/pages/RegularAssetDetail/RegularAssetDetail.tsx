@@ -1,28 +1,41 @@
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
 import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
-import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
+import useRegularAsset from "@hooks/assetManagement/RegularTemplate/useRegularAsset.ts";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList";
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
 import React, { useState } from "react";
+import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
 
 function RegularAssetDetail() {
   useHeader(false);
   useBottomBar(false);
   const navigate = useNavigate();
   const {
-    eventName,
-    category,
+    template,
     detailSchedules,
     isPending,
     options,
+    selectedOption,
     startDate,
     endDate,
     pickDate,
-  } = useRegularAsset();
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+    handleChangeOption,
+  } = useRegularAssetInfo();
+
+  if (!template) {
+    return (
+      <>
+        <TopNavigationBar
+          onClick={() => navigate(-1)}
+          title={"정기 템플릿 상세"}
+        />
+        <>잘못된 접근입니다.</>
+      </>
+    );
+  }
 
   return (
     <>
@@ -32,8 +45,8 @@ function RegularAssetDetail() {
       />
 
       <RegularScheduleHeader
-        eventName={eventName ?? ""}
-        category={category ?? ""}
+        eventName={template.template_name}
+        category={template.category_name}
         startDate={startDate}
         endDate={endDate}
         changeDate={pickDate}
@@ -66,7 +79,7 @@ function RegularAssetDetail() {
         count={detailSchedules.length}
         options={options}
         selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
+        setSelectedOption={handleChangeOption}
       />
 
       <RegularScheduleList isPending={isPending} schedules={detailSchedules} />

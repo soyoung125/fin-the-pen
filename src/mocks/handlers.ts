@@ -36,6 +36,7 @@ import {
   Template,
   TemplateImportRequest,
   TemplateScheduleRequest,
+  TemplateSchedulesRequest,
 } from "@app/types/template.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
@@ -829,6 +830,37 @@ export const handlers = [
         templates.filter((t) => t.id !== Number(template_id))
       );
       return HttpResponse.json({ status: 200 });
+    }
+  ),
+
+  http.get<TemplateSchedulesRequest>(
+    `${DOMAIN}/asset/template/schedule/info`,
+    async ({ params, request }) => {
+      const id = request.url.split("template_id=")[1];
+      await delay(1000);
+      const { user_id, template_id } = params; // params가 빈 obj로 나오는 오류의 원인을 찾아야 할 듯
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const template = templates.find((t) => t.id === Number(id));
+
+      return HttpResponse.json(
+        {
+          template,
+          schedule: schedules.filter(
+            (s) =>
+              s.event_name === template?.template_name &&
+              s.category === template?.category_name
+          ),
+        },
+        { status: 200 }
+      );
     }
   ),
 ];

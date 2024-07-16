@@ -1,8 +1,8 @@
-import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
+import useRegularAsset from "@hooks/assetManagement/RegularTemplate/useRegularAsset.ts";
 import RegularAssetHeader from "@pages/AssetManagement/pages/RegularAsset/components/RegularAssetHeader";
 import moment from "moment";
 import AddTemplateButton from "pages/AssetManagement/pages/RegularAsset/components/AddTemplateButton";
-import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
+import { useRegularAssetDrawer } from "@hooks/assetManagement/RegularTemplate/useRegularAssetDrawer.tsx";
 import RegularTemplateList from "@pages/AssetManagement/pages/RegularAsset/components/RegularTemplateList";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ListSwiper from "@components/TemplateDrawer/components/ListSwiper";
