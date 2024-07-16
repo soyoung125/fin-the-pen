@@ -6,6 +6,7 @@ import { INIT_PERIOD, INIT_REPEAT } from "@constants/schedule.ts";
 import moment from "moment";
 import { Provider } from "react-redux";
 import { RepeatPickerProps } from "./RepeatPicker.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const MockedState = {
   schedule: {
@@ -17,24 +18,28 @@ export const MockedState = {
   error: null,
 };
 
+const queryClient = new QueryClient();
+
 const MockStore = ({ children }: { children: JSX.Element }) => (
-  <Provider
-    store={configureStore({
-      reducer: {
-        schedule: createSlice({
-          name: "schedule",
-          initialState: MockedState,
-          reducers: {
-            setDrawerSchedule: (state, action) => {
-              state.schedule = action.payload;
+  <QueryClientProvider client={queryClient}>
+    <Provider
+      store={configureStore({
+        reducer: {
+          schedule: createSlice({
+            name: "schedule",
+            initialState: MockedState,
+            reducers: {
+              setDrawerSchedule: (state, action) => {
+                state.schedule = action.payload;
+              },
             },
-          },
-        }).reducer,
-      },
-    })}
-  >
-    {children}
-  </Provider>
+          }).reducer,
+        },
+      })}
+    >
+      {children}
+    </Provider>
+  </QueryClientProvider>
 );
 
 const meta = {
