@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
 import { IconButton, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import Loading from "@components/Loading";
 
 function AssetByCategory() {
   const {
@@ -23,12 +24,11 @@ function AssetByCategory() {
     deleteAssetByCategory,
   } = useAssetByCategory();
   const { openToast, closeToast } = useToast();
-  console.log(assetsByCategory);
 
   const [control, setControl] = useState("");
 
   if (isPending) {
-    return <>loading...</>;
+    return <Loading />;
   }
 
   const handleSubmit = (form: Omit<setAssetByCategory, "user_id" | "date">) => {

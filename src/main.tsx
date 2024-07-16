@@ -11,6 +11,7 @@ import router from "./app/router";
 import { worker } from "./mocks/browser";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Loading from "@components/Loading";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +38,7 @@ async function main() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <CustomThemeProvider>
-              <Suspense fallback={<>loading...</>}>
+              <Suspense fallback={<Loading />}>
                 <RouterProvider router={router} />
               </Suspense>
             </CustomThemeProvider>
