@@ -5,7 +5,7 @@ import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
-import React from "react";
+import React, { useState } from "react";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
 
 function RegularAssetDetail() {
@@ -22,7 +22,6 @@ function RegularAssetDetail() {
     endDate,
     pickDate,
     handleChangeOption,
-    handleModifyTemplateSchedule,
   } = useRegularAssetInfo();
 
   if (!template) {
@@ -82,11 +81,7 @@ function RegularAssetDetail() {
         setSelectedOption={handleChangeOption}
       />
 
-      <RegularScheduleList
-        isPending={isPending}
-        schedules={detailSchedules}
-        modifyTemplateSchedules={handleModifyTemplateSchedule}
-      />
+      <RegularScheduleList isPending={isPending} schedules={detailSchedules} />
     </>
   );
 }

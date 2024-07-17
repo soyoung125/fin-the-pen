@@ -45,7 +45,7 @@ function RegularAsset() {
       />
       <AddTemplateButton
         templateCount={templateCount}
-        clickAction={openDeleteAssetDrawer}
+        clickAction={() => alert("add")}
       />
     </>
   );

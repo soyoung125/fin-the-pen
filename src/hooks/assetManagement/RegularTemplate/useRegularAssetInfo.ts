@@ -6,8 +6,7 @@ import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
 import { useTemplateSchedules } from "@app/tanstack-query/templates/useTemplateSchedules.ts";
 import { useModifyTemplateSchedules } from "@app/tanstack-query/templates/useModifyTemplateSchedules.ts";
-import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
-import { useAppSelector } from "@redux/hooks.ts";
+import { ModifyTemplateRequest } from "@app/types/template.ts";
 
 const useRegularAssetInfo = () => {
   const today = moment();
@@ -15,7 +14,6 @@ const useRegularAssetInfo = () => {
     start: today.startOf("year").format("YYYY-MM-DD"),
     end: today.endOf("year").format("YYYY-MM-DD"),
   });
-  const schedule = useAppSelector(selectScheduleForm);
 
   const { openDayPeriodPicker } = useDatePicker();
   const { template_id } = useParams();
@@ -49,17 +47,13 @@ const useRegularAssetInfo = () => {
     setPeriod(newMonth);
   };
 
-  const getBoolToString = (data: boolean) => (data ? "true" : "false");
-
-  const handleModifyTemplateSchedule = async (idList: string) => {
-    if (!schedule) return;
-
+  const handleModifyTemplateSchedule = async (
+    idList: string,
+    data: ModifyTemplateRequest
+  ) => {
     await modifyTemplateSchedules({
+      ...data,
       schedule_id_list: idList,
-      amount: schedule.set_amount,
-      is_excluded: getBoolToString(schedule.exclusion),
-      is_fixed: getBoolToString(schedule.fix_amount),
-      payment_type: schedule.payment_type,
       template_id: template_id ?? "",
       user_id: user?.user_id ?? "",
     });

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
 import ScheduleAssetDrawer from "@components/ScheduleDrawer/ScheduleAssetDrawer.tsx";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
+import { ModifyTemplateRequest } from "@app/types/template.ts";
 
 export const useScheduleDrawer = () => {
   const { openDrawer, closeDrawer } = useSwipeableDrawer();
@@ -33,8 +34,8 @@ export const useScheduleDrawer = () => {
 
   const openScheduleAssetDrawer = (
     data: RequestSchedule,
-    count: number,
-    handleModify: () => void
+    handleModify: (data: ModifyTemplateRequest) => void,
+    count?: number
   ) => {
     const schedule = { ...data, price_type: getPriceTypeSign(data.price_type) };
     dispatch(setDrawerScheduleForm(schedule));
