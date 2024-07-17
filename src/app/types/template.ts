@@ -48,3 +48,15 @@ export interface TemplateSchedulesResponse {
   template: Omit<Template, "amount">;
   schedule: Schedule[];
 }
+
+export interface ModifyTemplateRequest {
+  schedule_id_list: string;
+  amount: string;
+  is_fixed: string;
+  payment_type: string;
+  is_excluded: string;
+}
+
+export interface ModifyTemplateSchedulesRequest
+  extends TemplateSchedulesRequest,
+    ModifyTemplateRequest {}

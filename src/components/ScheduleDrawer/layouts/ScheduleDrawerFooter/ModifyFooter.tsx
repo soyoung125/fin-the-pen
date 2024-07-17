@@ -6,8 +6,8 @@ import { Button, Stack } from "@mui/material";
 import { useScheduleChangeModal } from "@components/ScheduleDrawer/hooks/ScheduleChangeModal/useScheduleChangeModal.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
-interface ModifyFooterInterface {
-  handleSubmit: () => boolean;
+export interface ModifyFooterInterface {
+  handleSubmit: () => boolean | Promise<void>;
   handleClose: () => void;
 }
 

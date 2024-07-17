@@ -8,6 +8,11 @@ import { useTemplateByPriceType } from "@app/tanstack-query/templates/useTemplat
 import { useDeleteTemplate } from "@app/tanstack-query/templates/useDeleteTemplate.ts";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useTemplateSchedules } from "@app/tanstack-query/templates/useTemplateSchedules.ts";
+import { useModifyTemplateSchedules } from "@app/tanstack-query/templates/useModifyTemplateSchedules.ts";
+import { ModifyTemplateRequest } from "@app/types/template.ts";
+import { useAppSelector } from "@redux/hooks.ts";
+import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
+import { useSelector } from "react-redux";
 
 const useRegularAssetInfo = () => {
   const today = moment();
@@ -24,7 +29,7 @@ const useRegularAssetInfo = () => {
     user_id: user?.user_id ?? "",
     template_id: template_id ?? "",
   });
-  const { deleteTemplate } = useDeleteTemplate();
+  const { modifyTemplateSchedules } = useModifyTemplateSchedules();
 
   const yearOptions = Array.from(
     { length: moment(period.end).year() - moment(period.start).year() + 1 },
@@ -48,6 +53,24 @@ const useRegularAssetInfo = () => {
     setPeriod(newMonth);
   };
 
+  const getBoolToString = (data: boolean) => (data ? "true" : "false");
+
+  const handleModifyTemplateSchedule = async (idList: string) => {
+    const schedule = useSelector(selectScheduleForm);
+
+    if (!schedule) return;
+
+    await modifyTemplateSchedules({
+      schedule_id_list: idList,
+      amount: schedule.set_amount,
+      is_excluded: getBoolToString(schedule.exclusion),
+      is_fixed: getBoolToString(schedule.fix_amount),
+      payment_type: schedule.payment_type,
+      template_id: template_id ?? "",
+      user_id: user?.user_id ?? "",
+    });
+  };
+
   return {
     detailSchedules,
     detailSchedule: detailSchedules[0],
@@ -59,8 +82,8 @@ const useRegularAssetInfo = () => {
     startDate: period.start,
     endDate: period.end,
     pickDate,
-    handleDelete: deleteTemplate,
     handleChangeOption,
+    handleModifyTemplateSchedule,
   };
 };
 

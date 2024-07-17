@@ -21,3 +21,5 @@ export const QUERY_KEY_REGULAR_ASSET = "regularAsset";
 export const QUERY_KEY_TEMPLATE = "template";
 
 export const QUERY_KEY_TEMPLATE_BY_PRICE_TYPE = "templateByPriceType";
+
+export const QUERY_KEY_TEMPLATE_SCHEDULES = "templateSchedules";

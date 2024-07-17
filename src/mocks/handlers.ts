@@ -33,10 +33,12 @@ import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSc
 import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { GoalResponse } from "@app/types/report.ts";
 import {
+  ModifyTemplateSchedulesRequest,
   Template,
   TemplateImportRequest,
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
+  TemplateSchedulesResponse,
 } from "@app/types/template.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
@@ -861,6 +863,33 @@ export const handlers = [
         },
         { status: 200 }
       );
+    }
+  ),
+
+  http.post<object, ModifyTemplateSchedulesRequest>(
+    `${DOMAIN}/asset/template/modify/selected_schedule`,
+    async ({ request }) => {
+      const { schedule_id_list, amount, is_fixed, is_excluded, payment_type } =
+        await request.json();
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const idList = schedule_id_list.split(",");
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.map((s) =>
+          idList.includes(s.schedule_id ?? "")
+            ? { ...s, amount, is_fixed, is_excluded, payment_type }
+            : s
+        )
+      );
+
+      await delay(1000);
+
+      return HttpResponse.json({ status: 200 });
     }
   ),
 ];

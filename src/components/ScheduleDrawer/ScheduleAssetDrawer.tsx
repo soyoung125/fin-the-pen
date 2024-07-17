@@ -8,11 +8,20 @@ import {
   ActionContainer,
   FooterContainer,
 } from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.style.ts";
+import TemplateModifyFooter from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/TemplateModifyFooter.tsx";
+import { ModifyTemplateRequest } from "@app/types/template.ts";
+
+interface ScheduleDrawerFooterProps extends ScheduleDrawerProps {
+  handleModify: () => void;
+  count: number;
+}
 
 function ScheduleAssetDrawer({
   handleClose,
   resetSchedule,
-}: ScheduleDrawerProps) {
+  handleModify,
+  count,
+}: ScheduleDrawerFooterProps) {
   const { openConfirm } = useDialog();
 
   const handleReset = async () => {
@@ -27,6 +36,19 @@ function ScheduleAssetDrawer({
     }
   };
 
+  const handleClick = async () => {
+    const answer = await openConfirm({
+      title: "알림",
+      content: `${count}건 일정의 자산 정보를 수정하시겠습니까?`,
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (answer) {
+      handleModify();
+      handleClose();
+    }
+  };
+
   return (
     <Box>
       <ScheduleDrawerHeader value={1} handleReset={handleReset} />
@@ -36,7 +58,7 @@ function ScheduleAssetDrawer({
       {/* 제출 버튼 */}
       <FooterContainer>
         <ActionContainer>
-          <ModifyFooter handleSubmit={() => true} handleClose={handleClose} />
+          <TemplateModifyFooter handleClick={handleClick} />
         </ActionContainer>
       </FooterContainer>
     </Box>

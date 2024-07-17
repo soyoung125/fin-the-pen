@@ -1,7 +1,10 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
 import { getSessionStorage } from "@utils/storage.ts";
-import { QUERY_KEY_TEMPLATE } from "@constants/queryKeys.ts";
+import {
+  QUERY_KEY_TEMPLATE,
+  QUERY_KEY_TEMPLATE_SCHEDULES,
+} from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
 import {
   Template,
@@ -32,7 +35,7 @@ const fetchTemplates = async (query: TemplateSchedulesRequest) => {
 
 export const useTemplateSchedules = (query: TemplateSchedulesRequest) => {
   return useQuery({
-    queryKey: [QUERY_KEY_TEMPLATE],
+    queryKey: [QUERY_KEY_TEMPLATE_SCHEDULES, query.template_id],
     queryFn: () => fetchTemplates(query),
   });
 };
