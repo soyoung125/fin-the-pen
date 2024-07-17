@@ -4,15 +4,10 @@ import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import moment from "moment";
 import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
-import { useTemplateByPriceType } from "@app/tanstack-query/templates/useTemplateByPriceType.ts";
-import { useDeleteTemplate } from "@app/tanstack-query/templates/useDeleteTemplate.ts";
-import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { useTemplateSchedules } from "@app/tanstack-query/templates/useTemplateSchedules.ts";
 import { useModifyTemplateSchedules } from "@app/tanstack-query/templates/useModifyTemplateSchedules.ts";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
-import { useAppSelector } from "@redux/hooks.ts";
 import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@redux/hooks.ts";
 
 const useRegularAssetInfo = () => {
   const today = moment();
@@ -20,6 +15,7 @@ const useRegularAssetInfo = () => {
     start: today.startOf("year").format("YYYY-MM-DD"),
     end: today.endOf("year").format("YYYY-MM-DD"),
   });
+  const schedule = useAppSelector(selectScheduleForm);
 
   const { openDayPeriodPicker } = useDatePicker();
   const { template_id } = useParams();
@@ -56,8 +52,6 @@ const useRegularAssetInfo = () => {
   const getBoolToString = (data: boolean) => (data ? "true" : "false");
 
   const handleModifyTemplateSchedule = async (idList: string) => {
-    const schedule = useSelector(selectScheduleForm);
-
     if (!schedule) return;
 
     await modifyTemplateSchedules({

@@ -3,13 +3,11 @@ import AssetFormPage from "./pages/AssetFormPage";
 import ScheduleDrawerHeader from "./layouts/ScheduleDrawerHeader/ScheduleDrawerHeader.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import { ScheduleDrawerProps } from "@components/ScheduleDrawer/ScheduleDrawer.tsx";
-import ModifyFooter from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/ModifyFooter.tsx";
 import {
   ActionContainer,
   FooterContainer,
 } from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.style.ts";
 import TemplateModifyFooter from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/TemplateModifyFooter.tsx";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
 
 interface ScheduleDrawerFooterProps extends ScheduleDrawerProps {
   handleModify: () => void;

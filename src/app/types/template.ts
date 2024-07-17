@@ -1,4 +1,3 @@
-import { string } from "prop-types";
 import { Schedule } from "@app/types/schedule.ts";
 
 export interface TemplateRequest {

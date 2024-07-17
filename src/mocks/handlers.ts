@@ -38,7 +38,6 @@ import {
   TemplateImportRequest,
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
-  TemplateSchedulesResponse,
 } from "@app/types/template.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");

@@ -1,14 +1,12 @@
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
 import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
-import useRegularAsset from "@hooks/assetManagement/RegularTemplate/useRegularAsset.ts";
 import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList";
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
-import React, { useState } from "react";
+import React from "react";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
 
 function RegularAssetDetail() {
   useHeader(false);

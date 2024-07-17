@@ -2,7 +2,7 @@ import RegularScheduleCard from "pages/AssetManagement/pages/RegularAsset/pages/
 import { FormControlLabel, FormGroup } from "@mui/material";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
 import React, { useState } from "react";
-import { RequestSchedule, Schedule } from "@app/types/schedule.ts";
+import { Schedule } from "@app/types/schedule.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import Modify from "@assets/icons/modify_white.svg";
@@ -12,11 +12,6 @@ import {
   ModifyText,
 } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
 import CheckBox from "@components/common/CheckBox";
-import {
-  ModifyTemplateRequest,
-  ModifyTemplateSchedulesRequest,
-  TemplateSchedulesRequest,
-} from "@app/types/template.ts";
 
 export interface RegularScheduleListProps {
   isPending: boolean;

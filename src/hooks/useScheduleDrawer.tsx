@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
 import ScheduleAssetDrawer from "@components/ScheduleDrawer/ScheduleAssetDrawer.tsx";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
 
 export const useScheduleDrawer = () => {
   const { openDrawer, closeDrawer } = useSwipeableDrawer();

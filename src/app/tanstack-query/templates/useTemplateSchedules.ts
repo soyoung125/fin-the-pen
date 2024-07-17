@@ -1,14 +1,9 @@
 import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
 import { getSessionStorage } from "@utils/storage.ts";
-import {
-  QUERY_KEY_TEMPLATE,
-  QUERY_KEY_TEMPLATE_SCHEDULES,
-} from "@constants/queryKeys.ts";
+import { QUERY_KEY_TEMPLATE_SCHEDULES } from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Template,
-  TemplateRequest,
   TemplateSchedulesRequest,
   TemplateSchedulesResponse,
 } from "@app/types/template.ts";
