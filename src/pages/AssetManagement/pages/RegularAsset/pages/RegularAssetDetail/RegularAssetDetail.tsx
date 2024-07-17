@@ -5,7 +5,7 @@ import RegularScheduleList from "@pages/AssetManagement/pages/RegularAsset/pages
 import RegularScheduleHeader from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleHeader";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
-import React, { useState } from "react";
+import React from "react";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
 
 function RegularAssetDetail() {

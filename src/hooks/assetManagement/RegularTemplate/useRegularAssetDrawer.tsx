@@ -4,12 +4,12 @@ import ModifyRegularAssets from "@pages/AssetManagement/pages/RegularAsset/pages
 export const useRegularAssetDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
 
-  const openDeleteAssetDrawer = () => {
+  const openModifyAssetDrawer = () => {
     openOverlay(<ModifyRegularAssets closeDrawer={closeOverlay} />);
   };
 
   return {
     closeDrawer: closeOverlay,
-    openDeleteAssetDrawer,
+    openModifyAssetDrawer,
   };
 };

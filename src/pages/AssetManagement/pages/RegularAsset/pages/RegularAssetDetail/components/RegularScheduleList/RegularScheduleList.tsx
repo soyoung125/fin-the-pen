@@ -18,7 +18,7 @@ function RegularScheduleList({
   schedules,
   isPending,
 }: RegularScheduleListProps) {
-  const { openDeleteAssetDrawer } = useRegularAssetDrawer();
+  const { openModifyAssetDrawer } = useRegularAssetDrawer();
   const { openScheduleAssetDrawer } = useScheduleDrawer();
   const { handleModifyTemplateSchedule } = useRegularAssetInfo();
 
@@ -47,7 +47,7 @@ function RegularScheduleList({
           onClick={() => handleModal(s)}
         />
       ))}
-      <ModifyButtonContainer onClick={openDeleteAssetDrawer}>
+      <ModifyButtonContainer onClick={openModifyAssetDrawer}>
         <img src={Modify} alt="modify" />
       </ModifyButtonContainer>
     </>

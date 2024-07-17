@@ -17,7 +17,7 @@ function RegularAsset() {
     pickDate,
     templateCount,
   } = useRegularAsset();
-  const { openDeleteAssetDrawer } = useRegularAssetDrawer();
+  const { openModifyAssetDrawer } = useRegularAssetDrawer();
 
   useBottomBar(false);
 
