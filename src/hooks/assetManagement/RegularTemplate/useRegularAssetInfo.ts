@@ -6,10 +6,7 @@ import { Schedule } from "@app/types/schedule.ts";
 import { useParams } from "react-router-dom";
 import { useTemplateSchedules } from "@app/tanstack-query/templates/useTemplateSchedules.ts";
 import { useModifyTemplateSchedules } from "@app/tanstack-query/templates/useModifyTemplateSchedules.ts";
-import {
-  ModifyTemplateRequest,
-  ModifyTemplateSchedule,
-} from "@app/types/template.ts";
+import { ModifyTemplateSchedule } from "@app/types/template.ts";
 import { useDeleteTemplateSchedules } from "@app/tanstack-query/templates/useDeleteTemplateSchedules.ts";
 
 const useRegularAssetInfo = () => {

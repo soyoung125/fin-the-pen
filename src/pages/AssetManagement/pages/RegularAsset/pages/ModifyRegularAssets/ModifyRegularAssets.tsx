@@ -9,10 +9,7 @@ import {
 import React, { useState } from "react";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
-import {
-  ModifyTemplateRequest,
-  ModifyTemplateSchedule,
-} from "@app/types/template.ts";
+import { ModifyTemplateSchedule } from "@app/types/template.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
