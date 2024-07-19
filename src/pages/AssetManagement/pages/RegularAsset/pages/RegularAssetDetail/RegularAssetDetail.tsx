@@ -24,7 +24,7 @@ function RegularAssetDetail() {
     pickDate,
     handleChangeOption,
   } = useRegularAssetInfo();
-  const { openAddTemplateDrawer } = useRegularAssetDrawer();
+  const { openModifyTemplateDrawer } = useRegularAssetDrawer();
 
   if (!template) {
     return (
@@ -52,7 +52,7 @@ function RegularAssetDetail() {
         endDate={endDate}
         changeDate={pickDate}
         amount={100000}
-        clickModify={() => openAddTemplateDrawer(template)}
+        clickModify={() => openModifyTemplateDrawer(template)}
       />
 
       {/*<RegularAssetHeader*/}

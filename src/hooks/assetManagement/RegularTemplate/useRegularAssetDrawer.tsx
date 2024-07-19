@@ -6,7 +6,7 @@ import { Template } from "@app/types/template.ts";
 export const useRegularAssetDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
 
-  const openAddTemplateDrawer = (template: Omit<Template, "amount">) => {
+  const openModifyTemplateDrawer = (template: Omit<Template, "amount">) => {
     openOverlay(
       <ModifyTemplate closeDrawer={closeOverlay} template={template} />
     );
@@ -19,6 +19,6 @@ export const useRegularAssetDrawer = () => {
   return {
     closeDrawer: closeOverlay,
     openModifyAssetDrawer,
-    openAddTemplateDrawer,
+    openModifyTemplateDrawer,
   };
 };
