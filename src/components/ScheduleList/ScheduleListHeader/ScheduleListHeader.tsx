@@ -6,7 +6,7 @@ export interface ReportListHeaderProps {
   count: number;
   options: string[];
   selectedOption: string;
-  setSelectedOption: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedOption: (option: string) => void;
 }
 
 function ScheduleListHeader({

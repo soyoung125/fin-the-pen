@@ -1,5 +1,12 @@
 import styled from "@emotion/styled";
 
+export const TemplateListContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: scroll;
+`;
+
 export const TemplateBadge = styled.div<{ $selected: boolean }>`
   display: flex;
   padding: 5px 8px;

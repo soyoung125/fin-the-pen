@@ -1,17 +1,13 @@
 import RegularScheduleCard from "pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleCard";
-import { FormControlLabel, FormGroup } from "@mui/material";
 import ScheduleCardSkeleton from "@components/ScheduleList/ScheduleCard/ScheduleCardSkeleton.tsx";
-import React, { useState } from "react";
+import React from "react";
 import { Schedule } from "@app/types/schedule.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import Modify from "@assets/icons/modify_white.svg";
-import {
-  ModifyButtonContainer,
-  ModifyContainer,
-  ModifyText,
-} from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
-import CheckBox from "@components/common/CheckBox";
+import { ModifyButtonContainer } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
+import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
+import { useRegularAssetDrawer } from "@hooks/assetManagement/RegularTemplate/useRegularAssetDrawer.tsx";
 
 export interface RegularScheduleListProps {
   isPending: boolean;
@@ -22,10 +18,9 @@ function RegularScheduleList({
   schedules,
   isPending,
 }: RegularScheduleListProps) {
-  const [isModify, setIsModify] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
-
+  const { openModifyAssetDrawer } = useRegularAssetDrawer();
   const { openScheduleAssetDrawer } = useScheduleDrawer();
+  const { handleModifyTemplateSchedule } = useRegularAssetInfo();
 
   if (isPending) {
     return Array.from({ length: 6 }, () => 0).map((num) => (
@@ -33,72 +28,12 @@ function RegularScheduleList({
     ));
   }
 
-  const handleCancle = () => {
-    setIsModify(false);
-    setSelected([]);
+  const handleModal = (schedule: Schedule) => {
+    schedule &&
+      openScheduleAssetDrawer(SCHEDULE_REQUEST(schedule), (data) =>
+        handleModifyTemplateSchedule(schedule.schedule_id ?? "", data)
+      );
   };
-
-  const handleModal = (schedule?: Schedule) => {
-    if (!schedule) {
-      const s = schedules.find((s) => s.id === selected[0]);
-      s && openScheduleAssetDrawer(SCHEDULE_REQUEST(s));
-    } else {
-      openScheduleAssetDrawer(SCHEDULE_REQUEST(schedule));
-    }
-  };
-
-  const handleChange = (id: string) => {
-    if (selected.includes(id)) {
-      setSelected(selected.filter((s) => s !== id));
-    } else {
-      setSelected(selected.concat(id));
-    }
-  };
-
-  if (isModify) {
-    return (
-      <>
-        <FormGroup sx={{ pb: "80px" }}>
-          {schedules.map(
-            (s) =>
-              s.id && (
-                <FormControlLabel
-                  key={s.id}
-                  sx={{ pl: "16px", m: 0 }}
-                  control={
-                    <CheckBox
-                      checked={selected.includes(s.id)}
-                      handleChange={() => handleChange(s.id ?? "0")}
-                    />
-                  }
-                  label={
-                    <RegularScheduleCard
-                      key={s.schedule_id}
-                      priceType={s.price_type}
-                      eventName={s.event_name}
-                      amount={Number(s.amount)}
-                      date={s.start_date}
-                    />
-                  }
-                  slotProps={{
-                    typography: {
-                      flexGrow: 1,
-                    },
-                  }}
-                />
-              )
-          )}
-        </FormGroup>
-
-        <ModifyContainer>
-          <ModifyText $isDelete onClick={handleCancle}>
-            취소
-          </ModifyText>
-          <ModifyText onClick={() => handleModal()}>선택 일정 수정</ModifyText>
-        </ModifyContainer>
-      </>
-    );
-  }
 
   return (
     <>
@@ -112,7 +47,7 @@ function RegularScheduleList({
           onClick={() => handleModal(s)}
         />
       ))}
-      <ModifyButtonContainer onClick={() => setIsModify(true)}>
+      <ModifyButtonContainer onClick={openModifyAssetDrawer}>
         <img src={Modify} alt="modify" />
       </ModifyButtonContainer>
     </>

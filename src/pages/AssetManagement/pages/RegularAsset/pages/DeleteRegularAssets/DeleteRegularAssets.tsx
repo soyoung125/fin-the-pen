@@ -1,5 +1,4 @@
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
-import DrawerBody from "@components/assetManagement/RegularAssetDrawer/components/DrawerBody";
 import DrawerAction from "@components/assetManagement/RegularAssetDrawer/components/DrawerAction";
 import { Drawer } from "@mui/material";
 

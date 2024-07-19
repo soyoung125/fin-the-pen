@@ -11,19 +11,26 @@ interface InitialState {
   // 전체 일정 데이터
   schedules: Schedule[];
   // 서랍에 표시될 일정 1개
-  scheduleForm: RequestSchedule | null;
+  scheduleForm: RequestSchedule;
   // 필터
   filtered: string[];
   filtered_date: {
     [key: string]: string;
   };
-  selectedTemplate?: Template;
+  selectedTemplate: Template;
 }
 
 const initialState: InitialState = {
   date: moment(new Date()),
   schedules: [],
-  selectedTemplate: undefined,
+  selectedTemplate: {
+    id: -1,
+    template_name: "",
+    user_id: "",
+    category_name: "",
+    amount: "",
+    statement: "",
+  },
   scheduleForm: INIT_SCHEDULE(moment().format("YYYY-MM-DD")),
   filtered: [],
   filtered_date: {
@@ -69,7 +76,14 @@ export const scheduleSlice = createSlice({
       state.selectedTemplate = action.payload;
     },
     resetSelectedTemplate: (state) => {
-      state.selectedTemplate = undefined;
+      state.selectedTemplate = {
+        id: -1,
+        template_name: "",
+        user_id: "",
+        category_name: "",
+        amount: "",
+        statement: "",
+      };
     },
   },
 });

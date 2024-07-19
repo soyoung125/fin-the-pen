@@ -16,7 +16,7 @@ const MANAGEMENT_ROUTES: RouterDOM[] = [
     element: <RegularAsset />,
   },
   {
-    path: `${PATH.DetailInformation}/:eventName/:category`,
+    path: `${PATH.DetailInformation}/:template_id`,
     element: <RegularAssetDetail />,
   },
   {

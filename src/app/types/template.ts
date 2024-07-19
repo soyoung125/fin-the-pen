@@ -1,3 +1,5 @@
+import { Schedule } from "@app/types/schedule.ts";
+
 export interface TemplateRequest {
   user_id: string;
 }
@@ -9,10 +11,6 @@ export interface Template {
   category_name: string;
   statement: string;
   amount: string;
-}
-
-export interface TemplateResponse {
-  data: Template[];
 }
 
 export interface TemplateScheduleRequest {
@@ -35,4 +33,30 @@ export interface TemplateImportResponse {
 export interface TemplateByPriceType {
   deposit: Template[];
   withdraw: Template[];
+}
+
+export interface TemplateSchedulesRequest extends TemplateRequest {
+  template_id: string;
+}
+
+export interface TemplateSchedulesResponse {
+  template: Omit<Template, "amount">;
+  schedule: Schedule[];
+}
+
+export interface ModifyTemplateSchedule {
+  amount?: string;
+  is_fixed?: string;
+  payment_type: string;
+  is_excluded: string;
+}
+
+export interface ModifyTemplateSchedulesRequest
+  extends TemplateSchedulesRequest,
+    ModifyTemplateSchedule {
+  schedule_id_list: string;
+}
+
+export interface ModifyTemplateRequest extends TemplateImportRequest {
+  template_id: string;
 }

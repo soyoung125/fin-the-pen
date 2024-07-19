@@ -1,8 +1,6 @@
-import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
+import useRegularAsset from "@hooks/assetManagement/RegularTemplate/useRegularAsset.ts";
 import RegularAssetHeader from "@pages/AssetManagement/pages/RegularAsset/components/RegularAssetHeader";
 import moment from "moment";
-import AddTemplateButton from "pages/AssetManagement/pages/RegularAsset/components/AddTemplateButton";
-import { useRegularAssetDrawer } from "@hooks/assetManagement/useRegularAssetDrawer.tsx";
 import RegularTemplateList from "@pages/AssetManagement/pages/RegularAsset/components/RegularTemplateList";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ListSwiper from "@components/TemplateDrawer/components/ListSwiper";
@@ -17,7 +15,6 @@ function RegularAsset() {
     pickDate,
     templateCount,
   } = useRegularAsset();
-  const { openDeleteAssetDrawer } = useRegularAssetDrawer();
 
   useBottomBar(false);
 
@@ -43,10 +40,10 @@ function RegularAsset() {
           />
         }
       />
-      <AddTemplateButton
-        templateCount={templateCount}
-        clickAction={openDeleteAssetDrawer}
-      />
+      {/*<AddTemplateButton*/}
+      {/*  templateCount={templateCount}*/}
+      {/*  clickAction={openAddTemplateDrawer}*/}
+      {/*/>*/}
     </>
   );
 }

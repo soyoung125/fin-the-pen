@@ -16,7 +16,7 @@ export interface RegularScheduleHeaderProps {
   startDate: string;
   endDate: string;
   category: string;
-  eventName?: string;
+  eventName: string;
   amount: number;
   changeDate: () => void;
   clickModify: () => void;
@@ -41,9 +41,7 @@ function RegularScheduleHeader({
           <EventNameBox>{eventName}</EventNameBox>
           <CategoryBadge>{category}</CategoryBadge>
         </StackContainer>
-        {clickModify && (
-          <img src={modify} alt="modify icon" onClick={clickModify} />
-        )}
+        <img src={modify} alt="modify icon" onClick={clickModify} />
       </MainContainer>
 
       <AmountBox>{amount.toLocaleString()}원</AmountBox>

@@ -33,9 +33,12 @@ import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSc
 import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { GoalResponse } from "@app/types/report.ts";
 import {
+  ModifyTemplateRequest,
+  ModifyTemplateSchedulesRequest,
   Template,
   TemplateImportRequest,
   TemplateScheduleRequest,
+  TemplateSchedulesRequest,
 } from "@app/types/template.ts";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
@@ -828,6 +831,125 @@ export const handlers = [
         LOCAL_STORAGE_KEY_TEMPLATE,
         templates.filter((t) => t.id !== Number(template_id))
       );
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
+
+  http.get<TemplateSchedulesRequest>(
+    `${DOMAIN}/asset/template/schedule/info`,
+    async ({ params, request }) => {
+      const id = request.url.split("template_id=")[1];
+      await delay(1000);
+      const { user_id, template_id } = params; // params가 빈 obj로 나오는 오류의 원인을 찾아야 할 듯
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const template = templates.find((t) => t.id === Number(id));
+
+      return HttpResponse.json(
+        {
+          template,
+          schedule: schedules.filter(
+            (s) =>
+              s.event_name === template?.template_name &&
+              s.category === template?.category_name
+          ),
+        },
+        { status: 200 }
+      );
+    }
+  ),
+
+  http.post<object, ModifyTemplateSchedulesRequest>(
+    `${DOMAIN}/asset/template/modify/selected_schedule`,
+    async ({ request }) => {
+      const { schedule_id_list, amount, is_fixed, is_excluded, payment_type } =
+        await request.json();
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const idList = schedule_id_list.split(",");
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.map((s) =>
+          idList.includes(s.schedule_id ?? "")
+            ? { ...s, amount, is_fixed, is_excluded, payment_type }
+            : s
+        )
+      );
+
+      await delay(1000);
+
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
+
+  http.post<object, ModifyTemplateRequest>(
+    `${DOMAIN}/asset/template/modify`,
+    async ({ request }) => {
+      const { template_id, event_name, category_name } = await request.json();
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const template = templates.find((t) => t.id === Number(template_id));
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.map((s) =>
+          s.event_name === template?.template_name &&
+          s.category === template.category_name
+            ? { ...s, event_name, category: category_name }
+            : s
+        )
+      );
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        templates.map((t) =>
+          t.id === Number(template_id)
+            ? { ...t, category_name, template_name: event_name }
+            : t
+        )
+      );
+
+      await delay(1000);
+
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
+
+  http.delete<object, { schedule_id_list: string }>(
+    `${DOMAIN}/asset/template/delete/selected_schedule`,
+    async ({ request }) => {
+      const { schedule_id_list } = await request.json();
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const idList = schedule_id_list.split(",");
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.filter((s) => !idList.includes(s.schedule_id ?? ""))
+      );
+
+      await delay(1000);
+
       return HttpResponse.json({ status: 200 });
     }
   ),

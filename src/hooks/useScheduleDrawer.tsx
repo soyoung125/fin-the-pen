@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
 import ScheduleAssetDrawer from "@components/ScheduleDrawer/ScheduleAssetDrawer.tsx";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
+import { ModifyTemplateSchedule } from "@app/types/template.ts";
+import CategoryPicker from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker";
 
 export const useScheduleDrawer = () => {
   const { openDrawer, closeDrawer } = useSwipeableDrawer();
@@ -31,7 +33,11 @@ export const useScheduleDrawer = () => {
     );
   };
 
-  const openScheduleAssetDrawer = (data: RequestSchedule) => {
+  const openScheduleAssetDrawer = (
+    data: RequestSchedule,
+    handleModify: (data: ModifyTemplateSchedule) => void,
+    count?: number
+  ) => {
     const schedule = { ...data, price_type: getPriceTypeSign(data.price_type) };
     dispatch(setDrawerScheduleForm(schedule));
     const resetSchedule = () => dispatch(setDrawerScheduleForm(schedule));
@@ -40,13 +46,34 @@ export const useScheduleDrawer = () => {
       <ScheduleAssetDrawer
         handleClose={closeDrawer}
         resetSchedule={resetSchedule}
+        count={count}
+        handleModify={handleModify}
       />
     );
+  };
+
+  const openCategoryDrawer = (category: string): Promise<string> => {
+    return new Promise((resolve) => {
+      openDrawer(
+        <CategoryPicker
+          closeCategoryPicker={() => {
+            resolve(category);
+            closeDrawer();
+          }}
+          category={category}
+          setCategory={(c: string) => {
+            resolve(c);
+            closeDrawer();
+          }}
+        />
+      );
+    });
   };
 
   return {
     openScheduleDrawer,
     openScheduleAssetDrawer,
+    openCategoryDrawer,
     closeScheduleDrawer: closeDrawer,
   };
 };

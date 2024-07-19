@@ -25,11 +25,7 @@ function RegularTemplateList({
     <TemplateListItem
       key={`${s.template_name}_${idx}`}
       schedule={s}
-      handleClick={() =>
-        navigate(
-          `${PATH.DetailInformation}/${s.template_name}/${s.category_name}`
-        )
-      }
+      handleClick={() => navigate(`${PATH.DetailInformation}/${s.id}`)}
       arrow
       hideAmount
     />

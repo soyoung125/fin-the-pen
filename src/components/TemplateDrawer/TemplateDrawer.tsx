@@ -3,7 +3,7 @@ import { Header } from "@components/TemplateDrawer/components/Header";
 import { Template } from "@app/types/template.ts";
 import { AddModeInfo } from "@components/TemplateDrawer/TemplateDrawer.styles.ts";
 import ListSwiper from "@components/TemplateDrawer/components/ListSwiper";
-import useRegularAsset from "@hooks/assetManagement/useRegularAsset.ts";
+import useRegularAsset from "@hooks/assetManagement/RegularTemplate/useRegularAsset.ts";
 import TemplateList from "@components/TemplateDrawer/pages/TemplateList";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
 import TemplateModify from "@components/TemplateDrawer/pages/TemplateModify";
