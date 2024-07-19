@@ -44,16 +44,16 @@ export interface TemplateSchedulesResponse {
   schedule: Schedule[];
 }
 
-export interface ModifyTemplateRequest {
+export interface ModifyTemplateSchedule {
   amount?: string;
   is_fixed?: string;
-  payment_type?: string;
-  is_excluded?: string;
+  payment_type: string;
+  is_excluded: string;
 }
 
 export interface ModifyTemplateSchedulesRequest
   extends TemplateSchedulesRequest,
-    ModifyTemplateRequest {
+    ModifyTemplateSchedule {
   schedule_id_list: string;
 }
 

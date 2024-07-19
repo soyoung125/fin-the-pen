@@ -9,7 +9,10 @@ import {
 import React, { useState } from "react";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
+import {
+  ModifyTemplateRequest,
+  ModifyTemplateSchedule,
+} from "@app/types/template.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
@@ -44,7 +47,7 @@ function ModifyRegularAssets({ closeDrawer }: ModifyRegularAssetsProps) {
     closeDrawer();
   };
 
-  const handleModify = async (idList: string, data: ModifyTemplateRequest) => {
+  const handleModify = async (idList: string, data: ModifyTemplateSchedule) => {
     await handleModifyTemplateSchedule(idList, data);
     handleClose();
   };

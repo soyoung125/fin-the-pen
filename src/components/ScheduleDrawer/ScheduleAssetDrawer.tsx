@@ -8,10 +8,10 @@ import {
   FooterContainer,
 } from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/ScheduleDrawerFooter.style.ts";
 import TemplateModifyFooter from "@components/ScheduleDrawer/layouts/ScheduleDrawerFooter/TemplateModifyFooter.tsx";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
+import { ModifyTemplateSchedule } from "@app/types/template.ts";
 
 interface ScheduleDrawerFooterProps extends ScheduleDrawerProps {
-  handleModify: (data: ModifyTemplateRequest) => void;
+  handleModify: (data: ModifyTemplateSchedule) => void;
   count?: number;
 }
 
@@ -35,7 +35,7 @@ function ScheduleAssetDrawer({
     }
   };
 
-  const handleClick = async (data: ModifyTemplateRequest) => {
+  const handleClick = async (data: ModifyTemplateSchedule) => {
     const msg = count
       ? `${count}건 일정의 자산 정보를 수정하시겠습니까?`
       : "일정의 자산 정보를 수정하시겠습니까?";

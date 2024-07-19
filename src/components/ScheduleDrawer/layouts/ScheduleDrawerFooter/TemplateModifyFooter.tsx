@@ -2,10 +2,10 @@ import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import { Box, Button } from "@mui/material";
 import { useAppSelector } from "@redux/hooks.ts";
 import { selectScheduleForm } from "@redux/slices/scheduleSlice.tsx";
-import { ModifyTemplateRequest } from "@app/types/template.ts";
+import { ModifyTemplateSchedule } from "@app/types/template.ts";
 
 interface ScheduleDrawerFooterProps {
-  handleClick: (data: ModifyTemplateRequest) => Promise<void>;
+  handleClick: (data: ModifyTemplateSchedule) => Promise<void>;
 }
 
 function TemplateModifyFooter({ handleClick }: ScheduleDrawerFooterProps) {
