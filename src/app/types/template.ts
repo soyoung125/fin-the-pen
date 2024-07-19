@@ -13,10 +13,6 @@ export interface Template {
   amount: string;
 }
 
-export interface TemplateResponse {
-  data: Template[];
-}
-
 export interface TemplateScheduleRequest {
   template_id: string;
   template_name: string;
@@ -59,4 +55,8 @@ export interface ModifyTemplateSchedulesRequest
   extends TemplateSchedulesRequest,
     ModifyTemplateRequest {
   schedule_id_list: string;
+}
+
+export interface ModifyTemplateRequest extends TemplateImportRequest {
+  template_id: string;
 }

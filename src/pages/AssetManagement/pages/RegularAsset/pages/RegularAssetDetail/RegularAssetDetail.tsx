@@ -7,6 +7,7 @@ import useBottomBar from "@hooks/useBottomBar.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
 import React from "react";
 import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegularAssetInfo.ts";
+import { useRegularAssetDrawer } from "@hooks/assetManagement/RegularTemplate/useRegularAssetDrawer.tsx";
 
 function RegularAssetDetail() {
   useHeader(false);
@@ -23,6 +24,7 @@ function RegularAssetDetail() {
     pickDate,
     handleChangeOption,
   } = useRegularAssetInfo();
+  const { openAddTemplateDrawer } = useRegularAssetDrawer();
 
   if (!template) {
     return (
@@ -50,7 +52,7 @@ function RegularAssetDetail() {
         endDate={endDate}
         changeDate={pickDate}
         amount={100000}
-        clickModify={() => alert("modify")}
+        clickModify={() => openAddTemplateDrawer(template)}
       />
 
       {/*<RegularAssetHeader*/}

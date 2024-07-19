@@ -10,6 +10,7 @@ import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
 import ScheduleAssetDrawer from "@components/ScheduleDrawer/ScheduleAssetDrawer.tsx";
 import { getPriceTypeSign } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { ModifyTemplateRequest } from "@app/types/template.ts";
+import CategoryPicker from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker";
 
 export const useScheduleDrawer = () => {
   const { openDrawer, closeDrawer } = useSwipeableDrawer();
@@ -51,9 +52,28 @@ export const useScheduleDrawer = () => {
     );
   };
 
+  const openCategoryDrawer = (category: string): Promise<string> => {
+    return new Promise((resolve) => {
+      openDrawer(
+        <CategoryPicker
+          closeCategoryPicker={() => {
+            resolve(category);
+            closeDrawer();
+          }}
+          category={category}
+          setCategory={(c: string) => {
+            resolve(c);
+            closeDrawer();
+          }}
+        />
+      );
+    });
+  };
+
   return {
     openScheduleDrawer,
     openScheduleAssetDrawer,
+    openCategoryDrawer,
     closeScheduleDrawer: closeDrawer,
   };
 };

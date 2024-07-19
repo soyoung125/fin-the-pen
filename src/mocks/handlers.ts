@@ -33,6 +33,7 @@ import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSc
 import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { GoalResponse } from "@app/types/report.ts";
 import {
+  ModifyTemplateRequest,
   ModifyTemplateSchedulesRequest,
   Template,
   TemplateImportRequest,
@@ -883,6 +884,45 @@ export const handlers = [
           idList.includes(s.schedule_id ?? "")
             ? { ...s, amount, is_fixed, is_excluded, payment_type }
             : s
+        )
+      );
+
+      await delay(1000);
+
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
+
+  http.post<object, ModifyTemplateRequest>(
+    `${DOMAIN}/asset/template/modify`,
+    async ({ request }) => {
+      const { template_id, event_name, category_name } = await request.json();
+      const templates = getLocalStorage<Template[]>(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        []
+      );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const template = templates.find((t) => t.id === Number(template_id));
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.map((s) =>
+          s.event_name === template?.template_name &&
+          s.category === template.category_name
+            ? { ...s, event_name, category: category_name }
+            : s
+        )
+      );
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_TEMPLATE,
+        templates.map((t) =>
+          t.id === Number(template_id)
+            ? { ...t, category_name, template_name: event_name }
+            : t
         )
       );
 

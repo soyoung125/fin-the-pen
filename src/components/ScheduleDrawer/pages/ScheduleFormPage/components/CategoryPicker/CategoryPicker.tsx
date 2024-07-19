@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Box, Button, Divider, Tab, Tabs } from "@mui/material";
 import ExpenditureCategoryPage from "./pages/ExpenditureCategoryPage";
 import IncomeCategoryPage from "./pages/IncomeCategoryPage";
@@ -6,20 +6,35 @@ import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
 import { useScheduleForm } from "../../../../hooks/useScheduleForm.ts";
 
 export interface CategoryPickerProps {
-  setIsCategoryPickerOpen: Dispatch<SetStateAction<boolean>>;
+  closeCategoryPicker: () => void;
+  category?: string;
+  setCategory?: (v: string) => void;
 }
 
-function CategoryPicker({ setIsCategoryPickerOpen }: CategoryPickerProps) {
+function CategoryPicker({
+  closeCategoryPicker,
+  category,
+  setCategory,
+}: CategoryPickerProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const { scheduleForm, updateCategory } = useScheduleForm();
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    scheduleForm ? scheduleForm.category : ""
+    category ? category : scheduleForm?.category
   );
 
   const isCategorySelected = selectedCategory !== "";
 
   const handleTabChange = (event: SyntheticEvent, newValue: number) => {
     setActiveTabIndex(newValue);
+  };
+
+  const handleSubmit = async () => {
+    if (setCategory) {
+      setCategory(selectedCategory);
+    } else {
+      await updateCategory(selectedCategory);
+      closeCategoryPicker();
+    }
   };
 
   const content = (activeTabIndex: number) => {
@@ -45,10 +60,7 @@ function CategoryPicker({ setIsCategoryPickerOpen }: CategoryPickerProps) {
 
   return (
     <>
-      <TopNavigationBar
-        onClick={() => setIsCategoryPickerOpen(false)}
-        title="카테고리 설정"
-      />
+      <TopNavigationBar onClick={closeCategoryPicker} title="카테고리 설정" />
       <Tabs
         value={activeTabIndex}
         onChange={handleTabChange}
@@ -67,10 +79,7 @@ function CategoryPicker({ setIsCategoryPickerOpen }: CategoryPickerProps) {
           fullWidth
           variant="contained"
           disabled={!isCategorySelected}
-          onClick={async () => {
-            await updateCategory(selectedCategory);
-            setIsCategoryPickerOpen(false);
-          }}
+          onClick={handleSubmit}
         >
           {isCategorySelected
             ? `${selectedCategory} 카테고리 선택`

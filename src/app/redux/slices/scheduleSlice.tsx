@@ -11,7 +11,7 @@ interface InitialState {
   // 전체 일정 데이터
   schedules: Schedule[];
   // 서랍에 표시될 일정 1개
-  scheduleForm: RequestSchedule | null;
+  scheduleForm: RequestSchedule;
   // 필터
   filtered: string[];
   filtered_date: {

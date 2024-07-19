@@ -46,7 +46,11 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
   };
 
   if (isCategoryPickerOpen) {
-    return <CategoryPicker setIsCategoryPickerOpen={setIsCategoryPickerOpen} />;
+    return (
+      <CategoryPicker
+        closeCategoryPicker={() => setIsCategoryPickerOpen(false)}
+      />
+    );
   }
   if (isRepeatPickerOpen) {
     return <RepeatPicker setIsRepeatPickerOpen={setIsRepeatPickerOpen} />;

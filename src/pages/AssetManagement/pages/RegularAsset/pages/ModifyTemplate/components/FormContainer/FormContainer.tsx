@@ -28,7 +28,7 @@ function formContainer({
         <EventNameInput value={template_name} onChange={handleChange} />
       </FormCard>
       <FormCard title="일정명">
-        <CategoryContainer>
+        <CategoryContainer onClick={handleClick}>
           <CategoryIconSVG id={category} size={22} />
           <CategoryText>{category}</CategoryText>
           <KeyboardArrowDownRoundedIcon color="primary" />
