@@ -931,4 +931,26 @@ export const handlers = [
       return HttpResponse.json({ status: 200 });
     }
   ),
+
+  http.delete<object, { schedule_id_list: string }>(
+    `${DOMAIN}/asset/template/delete/selected_schedule`,
+    async ({ request }) => {
+      const { schedule_id_list } = await request.json();
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const idList = schedule_id_list.split(",");
+
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.filter((s) => !idList.includes(s.schedule_id ?? ""))
+      );
+
+      await delay(1000);
+
+      return HttpResponse.json({ status: 200 });
+    }
+  ),
 ];

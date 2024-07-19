@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useTemplateSchedules } from "@app/tanstack-query/templates/useTemplateSchedules.ts";
 import { useModifyTemplateSchedules } from "@app/tanstack-query/templates/useModifyTemplateSchedules.ts";
 import { ModifyTemplateRequest } from "@app/types/template.ts";
+import { useDeleteTemplateSchedules } from "@app/tanstack-query/templates/useDeleteTemplateSchedules.ts";
 
 const useRegularAssetInfo = () => {
   const today = moment();
@@ -24,6 +25,7 @@ const useRegularAssetInfo = () => {
     template_id: template_id ?? "",
   });
   const { modifyTemplateSchedules } = useModifyTemplateSchedules();
+  const { deleteTemplateSchedules } = useDeleteTemplateSchedules();
 
   const yearOptions = Array.from(
     { length: moment(period.end).year() - moment(period.start).year() + 1 },
@@ -59,6 +61,10 @@ const useRegularAssetInfo = () => {
     });
   };
 
+  const handleDeleteTemplateSchedules = async (idList: string) => {
+    await deleteTemplateSchedules(idList);
+  };
+
   return {
     detailSchedules,
     detailSchedule: detailSchedules[0],
@@ -72,6 +78,7 @@ const useRegularAssetInfo = () => {
     pickDate,
     handleChangeOption,
     handleModifyTemplateSchedule,
+    handleDeleteTemplateSchedules,
   };
 };
 

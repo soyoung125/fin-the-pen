@@ -12,6 +12,7 @@ import useRegularAssetInfo from "@hooks/assetManagement/RegularTemplate/useRegul
 import { ModifyTemplateRequest } from "@app/types/template.ts";
 import { SCHEDULE_REQUEST } from "@constants/schedule.ts";
 import ScheduleListHeader from "@components/ScheduleList/ScheduleListHeader";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 export interface ModifyRegularAssetsProps {
   closeDrawer: () => void;
@@ -19,8 +20,10 @@ export interface ModifyRegularAssetsProps {
 
 function ModifyRegularAssets({ closeDrawer }: ModifyRegularAssetsProps) {
   const { openScheduleAssetDrawer } = useScheduleDrawer();
+  const { openConfirm } = useDialog();
   const {
     handleModifyTemplateSchedule,
+    handleDeleteTemplateSchedules,
     detailSchedules,
     options,
     selectedOption,
@@ -44,6 +47,19 @@ function ModifyRegularAssets({ closeDrawer }: ModifyRegularAssetsProps) {
   const handleModify = async (idList: string, data: ModifyTemplateRequest) => {
     await handleModifyTemplateSchedule(idList, data);
     handleClose();
+  };
+
+  const handleDelete = async () => {
+    const answer = await openConfirm({
+      title: "알림",
+      content: `선택하신 일정 정보가 모두 삭제됩니다.\n\n${selected.length}건의 일정을 삭제하시겠습니까?`,
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (answer) {
+      await handleDeleteTemplateSchedules(selected.join(","));
+      handleClose();
+    }
   };
 
   const handleModal = () => {
@@ -115,7 +131,7 @@ function ModifyRegularAssets({ closeDrawer }: ModifyRegularAssetsProps) {
       </FormGroup>
 
       <ModifyContainer>
-        <ModifyText $isDelete onClick={() => alert("")}>
+        <ModifyText $isDelete onClick={handleDelete}>
           삭제
         </ModifyText>
         <ModifyText onClick={handleModal}>선택 일정 수정</ModifyText>
