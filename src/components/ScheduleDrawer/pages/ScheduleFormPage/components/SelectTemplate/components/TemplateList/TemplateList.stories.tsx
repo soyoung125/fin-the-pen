@@ -37,7 +37,20 @@ export const Default = (args: TemplateListProps) => {
 };
 
 export const Empty = () => {
-  return <TemplateList templates={[]} setSelected={(t: Template) => {}} />;
+  return (
+    <TemplateList
+      templates={[]}
+      setSelected={(t: Template) => {}}
+      selected={{
+        id: -1,
+        template_name: "",
+        category_name: "",
+        statement: "",
+        user_id: "",
+        amount: "",
+      }}
+    />
+  );
 };
 
 export const Example = () => {

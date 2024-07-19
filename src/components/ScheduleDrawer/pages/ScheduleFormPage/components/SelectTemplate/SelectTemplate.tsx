@@ -6,7 +6,7 @@ import { Template } from "@app/types/template.ts";
 
 export interface ScheduleFormProps {
   templates?: Template[];
-  selectedTemplate?: Template;
+  selectedTemplate: Template;
   setSelected: (template: Template) => void;
 }
 

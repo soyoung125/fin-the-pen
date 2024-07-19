@@ -25,6 +25,8 @@ const useScheduleTemplate = () => {
     user_id: user?.user_id ?? "",
   });
 
+  const lastTemplates =
+    templates?.filter((t) => t.id !== selectedTemplate?.id) ?? [];
   const templateCount = templates?.length ?? 0;
 
   const setSelected = async (t: Template) => {
@@ -42,7 +44,10 @@ const useScheduleTemplate = () => {
   };
 
   return {
-    templates,
+    templates:
+      selectedTemplate.id < 0
+        ? lastTemplates?.slice(0, 3)
+        : [selectedTemplate].concat(lastTemplates?.slice(0, 2)),
     isPending,
     isError,
     selectedTemplate,
