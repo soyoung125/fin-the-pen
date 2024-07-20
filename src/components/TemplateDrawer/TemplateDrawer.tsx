@@ -43,7 +43,7 @@ function TemplateDrawer({ closeDrawer, setSelected }: TemplateDrawerProps) {
   const handleModify = (v: string) => {
     if (v === "관리") {
       closeDrawer();
-      setMenu(3);
+      setMenu(3, false);
     } else {
       setIsModify(true);
     }

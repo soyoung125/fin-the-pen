@@ -16,7 +16,7 @@ function SettingCard({ setting, index }: SettingCardProps) {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      onClick={() => setMenu(index)}
+      onClick={() => setMenu(index, false)}
       py={2}
       pr={1.5}
     >
