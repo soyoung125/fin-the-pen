@@ -8,12 +8,14 @@ export interface ScheduleFormProps {
   templates?: Template[];
   selectedTemplate: Template;
   setSelected: (template: Template) => void;
+  handleClose: () => void;
 }
 
 function SelectTemplate({
   templates,
   selectedTemplate,
   setSelected,
+  handleClose,
 }: ScheduleFormProps) {
   const { openDrawer } = useTemplateDrawer();
 
@@ -32,7 +34,7 @@ function SelectTemplate({
             fontSize="12px"
             fontWeight={600}
             color="#0075FF"
-            onClick={() => openDrawer(setSelected)}
+            onClick={() => openDrawer(setSelected, handleClose)}
           >
             {SCHEDULE_DRAWER.showAllTemplate}
           </Typography>

@@ -12,6 +12,7 @@ import useAsset from "@hooks/assetManagement/useAsset.ts";
 export interface TemplateDrawerProps {
   closeDrawer: () => void;
   setSelected: (t: Template) => void;
+  handleClose: () => void;
 }
 
 export interface TemplatePageProps {
@@ -21,7 +22,11 @@ export interface TemplatePageProps {
   deleteTemplate?: (t: number[]) => void;
 }
 
-function TemplateDrawer({ closeDrawer, setSelected }: TemplateDrawerProps) {
+function TemplateDrawer({
+  closeDrawer,
+  setSelected,
+  handleClose,
+}: TemplateDrawerProps) {
   const [isModify, setIsModify] = useState(false);
   const { spendSchedules, saveSchedules, handleDelete } = useRegularAsset();
   const { openConfirm } = useDialog();
@@ -43,7 +48,8 @@ function TemplateDrawer({ closeDrawer, setSelected }: TemplateDrawerProps) {
   const handleModify = (v: string) => {
     if (v === "관리") {
       closeDrawer();
-      setMenu(3);
+      handleClose();
+      setMenu(3, false);
     } else {
       setIsModify(true);
     }

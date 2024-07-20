@@ -8,9 +8,9 @@ const useAsset = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const setMenu = (menu: number) => {
+  const setMenu = (menu: number, replace = true) => {
     dispatch(setAssetMenu(menu));
-    navigate(assetManagements[menu].path, { replace: true });
+    navigate(assetManagements[menu].path, { replace: replace });
   };
 
   return {

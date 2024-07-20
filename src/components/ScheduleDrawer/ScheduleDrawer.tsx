@@ -80,6 +80,7 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
             templates={templates}
             selectedTemplate={selectedTemplate}
             setSelected={setSelected}
+            handleClose={handleClose}
           />
         </SwiperSlide>
         <SwiperSlide>

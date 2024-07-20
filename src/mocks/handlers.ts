@@ -36,7 +36,6 @@ import {
   ModifyTemplateRequest,
   ModifyTemplateSchedulesRequest,
   Template,
-  TemplateImportRequest,
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
 } from "@app/types/template.ts";
@@ -745,7 +744,7 @@ export const handlers = [
       );
       const template = templates.find((t) => t.id === Number(template_id));
 
-      if (!template) return HttpResponse.json({ status: 400 });
+      if (!template) return HttpResponse.json(null, { status: 400 });
 
       const schedules = getLocalStorage<Schedule[]>(
         LOCAL_STORAGE_KEY_SCHEDULES,
@@ -762,32 +761,30 @@ export const handlers = [
     }
   ),
 
-  http.get<TemplateImportRequest>(
-    `${DOMAIN}/template/import`,
-    async ({ params }) => {
-      await delay(1000);
-      const { user_id, category_name, event_name } = params;
-      const templates = getLocalStorage<Template[]>(
-        LOCAL_STORAGE_KEY_TEMPLATE,
-        []
-      );
-      const template = templates.find(
-        (t) =>
-          t.category_name === category_name &&
-          t.template_name === event_name &&
-          t.user_id === user_id
-      );
-      if (!template) return HttpResponse.json({ status: 400 });
+  http.get(`${DOMAIN}/template/import`, async ({ request }) => {
+    const url = new URL(request.url);
+    const category_name = url.searchParams.get("category_name");
+    const event_name = url.searchParams.get("event_name");
+    await delay(1000);
+    console.log(category_name, event_name);
+    const templates = getLocalStorage<Template[]>(
+      LOCAL_STORAGE_KEY_TEMPLATE,
+      []
+    );
+    const template = templates.find(
+      (t) => t.category_name === category_name && t.template_name === event_name
+    );
+    console.log(template);
+    if (!template) return HttpResponse.json(null, { status: 400 });
 
-      return HttpResponse.json(
-        {
-          ...template,
-          template_id: template.id,
-        },
-        { status: 200 }
-      );
-    }
-  ),
+    return HttpResponse.json(
+      {
+        ...template,
+        template_id: template.id,
+      },
+      { status: 200 }
+    );
+  }),
 
   http.post(`${DOMAIN}/template/details`, async () => {
     await delay(1000);
@@ -837,10 +834,10 @@ export const handlers = [
 
   http.get<TemplateSchedulesRequest>(
     `${DOMAIN}/asset/template/schedule/info`,
-    async ({ params, request }) => {
-      const id = request.url.split("template_id=")[1];
+    async ({ request }) => {
+      const url = new URL(request.url);
+      const template_id = url.searchParams.get("template_id");
       await delay(1000);
-      const { user_id, template_id } = params; // params가 빈 obj로 나오는 오류의 원인을 찾아야 할 듯
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
@@ -850,7 +847,7 @@ export const handlers = [
         []
       );
 
-      const template = templates.find((t) => t.id === Number(id));
+      const template = templates.find((t) => t.id === Number(template_id));
 
       return HttpResponse.json(
         {

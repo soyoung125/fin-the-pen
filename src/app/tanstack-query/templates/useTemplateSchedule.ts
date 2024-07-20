@@ -38,6 +38,14 @@ const fetchTemplateExist = async (query: TemplateImportRequest) => {
       },
     }
   ).then<TemplateImportResponse>((res) => {
+    if (!res.ok) {
+      return {
+        template_id: "",
+        template_name: "",
+        category_name: "",
+        user_id: "",
+      };
+    }
     return res.json();
   });
 };
@@ -65,6 +73,8 @@ export const useTemplateSchedule = () => {
   const importTemplate = async (query: TemplateImportRequest) => {
     const existResponse = await existMutate(query);
 
+    if (existResponse.template_id === "") return undefined;
+
     const answer = await openConfirm({
       title: "알림",
       content: `동일한 정기 템플릿이 존재합니다.\n템플릿에 일정을 추가하시겠습니까?\n\n{${query.category_name}}\n{${query.event_name}}`,
@@ -72,12 +82,18 @@ export const useTemplateSchedule = () => {
       rejectText: "아니오",
     });
     if (answer) {
-      return getTemplate({
-        template_id: existResponse.template_id,
-        template_name: existResponse.template_name,
-      });
+      return {
+        template: existResponse,
+        schedule: getTemplate({
+          template_id: existResponse.template_id,
+          template_name: existResponse.template_name,
+        }),
+      };
+    } else {
+      return {
+        template: { ...existResponse, id: -2 },
+      };
     }
-    return undefined;
   };
 
   return { getTemplate, importTemplate };

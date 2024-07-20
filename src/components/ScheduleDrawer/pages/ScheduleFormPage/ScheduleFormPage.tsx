@@ -13,6 +13,7 @@ export interface ScheduleFormPageProps extends ScheduleFormProps {
   showError: boolean;
   setIsCategoryPickerOpen: Dispatch<SetStateAction<boolean>>;
   setIsRepeatPickerOpen: Dispatch<SetStateAction<boolean>>;
+  handleClose: () => void;
 }
 
 function ScheduleFormPage({
@@ -22,6 +23,7 @@ function ScheduleFormPage({
   templates,
   setSelected,
   selectedTemplate,
+  handleClose,
 }: ScheduleFormPageProps) {
   const { scheduleForm, getRepeat } = useScheduleForm();
 
@@ -44,6 +46,7 @@ function ScheduleFormPage({
               templates={templates}
               selectedTemplate={selectedTemplate}
               setSelected={setSelected}
+              handleClose={handleClose}
             />
           )}
         </Stack>
