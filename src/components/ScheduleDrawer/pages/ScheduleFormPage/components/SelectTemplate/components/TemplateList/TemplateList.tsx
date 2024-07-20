@@ -3,7 +3,6 @@ import {
   TemplateBadge,
   TemplateListContainer,
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList/TemplateList.styles.ts";
-import { Stack } from "@mui/material";
 import { Template } from "@app/types/template.ts";
 import TemplateIconSVG from "@components/common/TemplateIconSVG";
 
@@ -15,7 +14,11 @@ export interface TemplateListProps {
 
 function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
   if (!templates || templates.length === 0)
-    return <EmptyTemplateBadge>기록된 일정이 없어요</EmptyTemplateBadge>;
+    return (
+      <TemplateListContainer>
+        <EmptyTemplateBadge>기록된 일정이 없어요</EmptyTemplateBadge>
+      </TemplateListContainer>
+    );
 
   return (
     <TemplateListContainer>
