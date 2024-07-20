@@ -38,11 +38,7 @@ function CreateFooter({
 
     console.log(template);
 
-    if (
-      schedule.repeat.kind_type !== "none" &&
-      !schedule.register_template &&
-      template.id === -1
-    ) {
+    if (schedule.repeat.kind_type !== "none" && template.id === -1) {
       const answer = await openConfirm({
         title: "알림",
         content: "반복 일정을 정기템플릿에\n등록하시겠습니까?",
@@ -62,7 +58,7 @@ function CreateFooter({
         rejectText: "아니오",
       });
       if (answer) {
-        await handleCreateSchedule(schedule);
+        await handleCreateSchedule({ ...schedule, register_template: false });
         handleClose();
       }
     }
