@@ -36,11 +36,9 @@ import {
   ModifyTemplateRequest,
   ModifyTemplateSchedulesRequest,
   Template,
-  TemplateImportRequest,
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
 } from "@app/types/template.ts";
-import { object } from "prop-types";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -746,7 +744,7 @@ export const handlers = [
       );
       const template = templates.find((t) => t.id === Number(template_id));
 
-      if (!template) return HttpResponse.json({ status: 400 });
+      if (!template) return HttpResponse.json(null, { status: 400 });
 
       const schedules = getLocalStorage<Schedule[]>(
         LOCAL_STORAGE_KEY_SCHEDULES,
@@ -765,7 +763,6 @@ export const handlers = [
 
   http.get(`${DOMAIN}/template/import`, async ({ request }) => {
     const url = new URL(request.url);
-    const user_id = url.searchParams.get("userId");
     const category_name = url.searchParams.get("category_name");
     const event_name = url.searchParams.get("event_name");
     await delay(1000);
@@ -837,10 +834,10 @@ export const handlers = [
 
   http.get<TemplateSchedulesRequest>(
     `${DOMAIN}/asset/template/schedule/info`,
-    async ({ params, request }) => {
-      const id = request.url.split("template_id=")[1];
+    async ({ request }) => {
+      const url = new URL(request.url);
+      const template_id = url.searchParams.get("template_id");
       await delay(1000);
-      const { user_id, template_id } = params; // params가 빈 obj로 나오는 오류의 원인을 찾아야 할 듯
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
@@ -850,7 +847,7 @@ export const handlers = [
         []
       );
 
-      const template = templates.find((t) => t.id === Number(id));
+      const template = templates.find((t) => t.id === Number(template_id));
 
       return HttpResponse.json(
         {
