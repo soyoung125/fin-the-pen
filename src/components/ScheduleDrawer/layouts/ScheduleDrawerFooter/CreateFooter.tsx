@@ -2,6 +2,7 @@ import { useAppSelector } from "@redux/hooks.ts";
 import {
   selectDate,
   selectScheduleForm,
+  selectSelectedTemplate,
 } from "@redux/slices/scheduleSlice.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import useSchedule from "@hooks/schedule/useSchedule.ts";
@@ -26,6 +27,7 @@ function CreateFooter({
   const date = useAppSelector(selectDate);
   const schedule = useAppSelector(selectScheduleForm);
   const guestMode = useAppSelector(selectGuestMode);
+  const template = useAppSelector(selectSelectedTemplate);
   const { data: user } = useUser();
   const { handleCreateSchedule } = useSchedule();
   const { setRandomGeneratedSchedule } = useScheduleForm();
@@ -34,7 +36,13 @@ function CreateFooter({
   const handleCreate = async () => {
     if (!handleSubmit() || !schedule) return;
 
-    if (schedule.repeat.kind_type !== "none" && !schedule.register_template) {
+    console.log(template);
+
+    if (
+      schedule.repeat.kind_type !== "none" &&
+      !schedule.register_template &&
+      template.id === -1
+    ) {
       const answer = await openConfirm({
         title: "알림",
         content: "반복 일정을 정기템플릿에\n등록하시겠습니까?",

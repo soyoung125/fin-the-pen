@@ -73,8 +73,6 @@ export const useTemplateSchedule = () => {
   const importTemplate = async (query: TemplateImportRequest) => {
     const existResponse = await existMutate(query);
 
-    console.log(existResponse);
-
     if (existResponse.template_id === "") return undefined;
 
     const answer = await openConfirm({
@@ -91,8 +89,11 @@ export const useTemplateSchedule = () => {
           template_name: existResponse.template_name,
         }),
       };
+    } else {
+      return {
+        template: { ...existResponse, id: -2 },
+      };
     }
-    return undefined;
   };
 
   return { getTemplate, importTemplate };

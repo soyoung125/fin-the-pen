@@ -175,12 +175,13 @@ export const useScheduleForm = () => {
     if (result) {
       dispatch(setSelectedTemplate(result.template));
       const schedule = await result.schedule;
-      dispatch(
-        setDrawerScheduleForm({
-          ...SCHEDULE_REQUEST({ ...schedule, schedule_id: undefined }),
-          register_template: true,
-        })
-      );
+      schedule &&
+        dispatch(
+          setDrawerScheduleForm({
+            ...SCHEDULE_REQUEST({ ...schedule, schedule_id: undefined }),
+            register_template: true,
+          })
+        );
     }
   };
 
