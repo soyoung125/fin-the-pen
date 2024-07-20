@@ -38,6 +38,14 @@ const fetchTemplateExist = async (query: TemplateImportRequest) => {
       },
     }
   ).then<TemplateImportResponse>((res) => {
+    if (!res.ok) {
+      return {
+        template_id: "",
+        template_name: "",
+        category_name: "",
+        user_id: "",
+      };
+    }
     return res.json();
   });
 };
@@ -64,6 +72,10 @@ export const useTemplateSchedule = () => {
 
   const importTemplate = async (query: TemplateImportRequest) => {
     const existResponse = await existMutate(query);
+
+    console.log(existResponse);
+
+    if (existResponse.template_id === "") return undefined;
 
     const answer = await openConfirm({
       title: "알림",

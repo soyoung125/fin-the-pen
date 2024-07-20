@@ -40,6 +40,7 @@ import {
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
 } from "@app/types/template.ts";
+import { object } from "prop-types";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -762,32 +763,31 @@ export const handlers = [
     }
   ),
 
-  http.get<TemplateImportRequest>(
-    `${DOMAIN}/template/import`,
-    async ({ params }) => {
-      await delay(1000);
-      const { user_id, category_name, event_name } = params;
-      const templates = getLocalStorage<Template[]>(
-        LOCAL_STORAGE_KEY_TEMPLATE,
-        []
-      );
-      const template = templates.find(
-        (t) =>
-          t.category_name === category_name &&
-          t.template_name === event_name &&
-          t.user_id === user_id
-      );
-      if (!template) return HttpResponse.json({ status: 400 });
+  http.get(`${DOMAIN}/template/import`, async ({ request }) => {
+    const url = new URL(request.url);
+    const user_id = url.searchParams.get("userId");
+    const category_name = url.searchParams.get("category_name");
+    const event_name = url.searchParams.get("event_name");
+    await delay(1000);
+    console.log(category_name, event_name);
+    const templates = getLocalStorage<Template[]>(
+      LOCAL_STORAGE_KEY_TEMPLATE,
+      []
+    );
+    const template = templates.find(
+      (t) => t.category_name === category_name && t.template_name === event_name
+    );
+    console.log(template);
+    if (!template) return HttpResponse.json(null, { status: 400 });
 
-      return HttpResponse.json(
-        {
-          ...template,
-          template_id: template.id,
-        },
-        { status: 200 }
-      );
-    }
-  ),
+    return HttpResponse.json(
+      {
+        ...template,
+        template_id: template.id,
+      },
+      { status: 200 }
+    );
+  }),
 
   http.post(`${DOMAIN}/template/details`, async () => {
     await delay(1000);
