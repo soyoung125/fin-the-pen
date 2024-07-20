@@ -6,7 +6,10 @@ import { Template } from "@app/types/template.ts";
 export const useTemplateDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
 
-  const openDrawer = (setSelected: (t: Template) => void) => {
+  const openDrawer = (
+    setSelected: (t: Template) => void,
+    handleClose: () => void
+  ) => {
     openOverlay(
       <Drawer
         open={true}
@@ -20,7 +23,11 @@ export const useTemplateDrawer = () => {
           },
         }}
       >
-        <TemplateDrawer closeDrawer={closeOverlay} setSelected={setSelected} />
+        <TemplateDrawer
+          closeDrawer={closeOverlay}
+          setSelected={setSelected}
+          handleClose={handleClose}
+        />
       </Drawer>
     );
   };
