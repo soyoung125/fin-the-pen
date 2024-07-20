@@ -38,7 +38,12 @@ function Dialog({
           </Typography>
         </Stack>
         <Divider sx={{ backgroundColor: "black", height: "1px" }} />
-        <Typography variant="h2" textAlign="center" whiteSpace="pre-line">
+        <Typography
+          variant="h2"
+          textAlign="center"
+          whiteSpace="pre-line"
+          sx={{ wordBreak: "keep-all" }}
+        >
           {content}
         </Typography>
         <Typography
