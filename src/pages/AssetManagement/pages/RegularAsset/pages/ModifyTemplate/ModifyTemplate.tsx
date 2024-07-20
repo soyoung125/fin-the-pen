@@ -7,6 +7,7 @@ import FormContainer from "@pages/AssetManagement/pages/RegularAsset/pages/Modif
 import { useModifyTemplate } from "@app/tanstack-query/templates/useModifyTemplate.ts";
 import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
 import { Template } from "@app/types/template.ts";
+import { ModifyInfoContainer } from "@pages/AssetManagement/pages/RegularAsset/pages/ModifyTemplate/ModifyTemplate.styles.ts";
 
 export interface ModifyTemplateProps extends ModifyRegularAssetsProps {
   template: Omit<Template, "amount">;
@@ -58,6 +59,10 @@ function ModifyTemplate({ closeDrawer, template }: ModifyTemplateProps) {
         handleChange={handleChange}
         handleClick={handleClickCategory}
       />
+
+      <ModifyInfoContainer>
+        정기 템플릿 수정 시, 포함된 일정의 정보가 모두 변경됩니다.
+      </ModifyInfoContainer>
 
       <ModifyContainer>
         <Button fullWidth onClick={handleSubmit}>
