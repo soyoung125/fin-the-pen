@@ -2,6 +2,7 @@ import { UpdateStateInterface } from "@app/types/common.ts";
 import {
   selectScheduleForm,
   setDrawerScheduleForm,
+  setSelectedTemplate,
 } from "@redux/slices/scheduleSlice.tsx";
 import moment from "moment/moment";
 import {
@@ -172,9 +173,11 @@ export const useScheduleForm = () => {
       event_name: eventName,
     });
     if (result) {
+      dispatch(setSelectedTemplate(result.template));
+      const schedule = await result.schedule;
       dispatch(
         setDrawerScheduleForm({
-          ...SCHEDULE_REQUEST({ ...result, schedule_id: undefined }),
+          ...SCHEDULE_REQUEST({ ...schedule, schedule_id: undefined }),
           register_template: true,
         })
       );

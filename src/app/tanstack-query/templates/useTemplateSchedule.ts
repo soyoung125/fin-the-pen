@@ -84,10 +84,13 @@ export const useTemplateSchedule = () => {
       rejectText: "아니오",
     });
     if (answer) {
-      return getTemplate({
-        template_id: existResponse.template_id,
-        template_name: existResponse.template_name,
-      });
+      return {
+        template: existResponse,
+        schedule: getTemplate({
+          template_id: existResponse.template_id,
+          template_name: existResponse.template_name,
+        }),
+      };
     }
     return undefined;
   };
