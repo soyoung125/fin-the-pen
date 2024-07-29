@@ -800,7 +800,7 @@ export const handlers = [
     );
   }),
 
-  http.post(`${DOMAIN}/asset/template/view`, async () => {
+  http.get(`${DOMAIN}/asset/template/view`, async () => {
     await delay(1000);
     const templates = getLocalStorage<Template[]>(
       LOCAL_STORAGE_KEY_TEMPLATE,

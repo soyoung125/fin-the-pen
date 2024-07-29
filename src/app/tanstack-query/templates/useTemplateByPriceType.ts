@@ -8,13 +8,12 @@ import { TemplateByPriceType, TemplateRequest } from "@app/types/template.ts";
 const fetchTemplates = async (query: TemplateRequest) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
 
-  return fetch(`${DOMAIN}/asset/template/view`, {
-    method: "POST",
+  return fetch(`${DOMAIN}/asset/template/view?user_id=${query.user_id}`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify(query),
   }).then<TemplateByPriceType>(async (res) => {
     if (!res.ok) {
       return [];
