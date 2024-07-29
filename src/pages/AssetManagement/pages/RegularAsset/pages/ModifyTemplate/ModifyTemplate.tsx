@@ -40,7 +40,7 @@ function ModifyTemplate({ closeDrawer, template }: ModifyTemplateProps) {
     if (answer) {
       await modifyTemplate({
         user_id: template.user_id,
-        event_name: eventName,
+        template_name: eventName,
         category_name: categoryName,
         template_id: template.id.toString(),
       });

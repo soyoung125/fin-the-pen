@@ -62,6 +62,9 @@ export interface ModifyTemplateSchedulesRequest
   schedule_id_list: string;
 }
 
-export interface ModifyTemplateRequest extends TemplateImportRequest {
+export interface ModifyTemplateRequest {
   template_id: string;
+  user_id: string;
+  template_name: string;
+  category_name: string;
 }

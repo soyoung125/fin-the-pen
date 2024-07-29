@@ -906,7 +906,8 @@ export const handlers = [
   http.post<object, ModifyTemplateRequest>(
     `${DOMAIN}/asset/template/modify`,
     async ({ request }) => {
-      const { template_id, event_name, category_name } = await request.json();
+      const { template_id, template_name, category_name } =
+        await request.json();
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
@@ -923,7 +924,7 @@ export const handlers = [
         schedules.map((s) =>
           s.event_name === template?.template_name &&
           s.category === template.category_name
-            ? { ...s, event_name, category: category_name }
+            ? { ...s, event_name: template_name, category: category_name }
             : s
         )
       );
@@ -931,7 +932,7 @@ export const handlers = [
         LOCAL_STORAGE_KEY_TEMPLATE,
         templates.map((t) =>
           t.id === Number(template_id)
-            ? { ...t, category_name, template_name: event_name }
+            ? { ...t, category_name, template_name }
             : t
         )
       );
