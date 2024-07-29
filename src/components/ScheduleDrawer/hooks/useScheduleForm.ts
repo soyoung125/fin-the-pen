@@ -20,6 +20,7 @@ import {
 import { SchedulePeriod, ScheduleRepeat } from "@app/types/schedule.ts";
 import { useTemplateSchedule } from "@app/tanstack-query/templates/useTemplateSchedule.ts";
 import { useUser } from "@app/tanstack-query/useUser.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 export const getType = (category: string) => {
   if (INCOME_CATEGORY.includes(category)) {
@@ -69,6 +70,7 @@ export const useScheduleForm = () => {
   const scheduleForm = useSelector(selectScheduleForm);
   const { importTemplate } = useTemplateSchedule();
   const { data: user } = useUser();
+  const { openConfirm } = useDialog();
 
   const setRandomGeneratedSchedule = (stringDate: string) => {
     const date = moment(stringDate);
@@ -167,14 +169,29 @@ export const useScheduleForm = () => {
 
     if (eventName === "" || category === "") return;
 
-    const result = await importTemplate({
+    const res = await importTemplate({
       user_id: user?.user_id ?? "",
       category_name: category,
       event_name: eventName,
     });
-    if (result) {
-      dispatch(setSelectedTemplate(result.template));
-      const schedule = await result.schedule;
+
+    if (res.template_data.template_id === "") return;
+    const template = res.template_data;
+    const schedule = res.schedule_data;
+
+    const answer = await openConfirm({
+      title: "알림",
+      content: `동일한 정기 템플릿이 존재합니다.\n템플릿에 일정을 추가하시겠습니까?\n\n{${template.category_name}}\n{${template.template_name}}`,
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (answer) {
+      dispatch(
+        setSelectedTemplate({
+          ...template,
+          id: Number(template.template_id),
+        })
+      );
       schedule &&
         dispatch(
           setDrawerScheduleForm({
@@ -182,6 +199,13 @@ export const useScheduleForm = () => {
             register_template: true,
           })
         );
+    } else {
+      dispatch(
+        setSelectedTemplate({
+          ...template,
+          id: "-2",
+        })
+      );
     }
   };
 

@@ -761,26 +761,39 @@ export const handlers = [
     }
   ),
 
-  http.get(`${DOMAIN}/template/import`, async ({ request }) => {
+  http.get(`${DOMAIN}/template/is_exists`, async ({ request }) => {
     const url = new URL(request.url);
     const category_name = url.searchParams.get("category_name");
     const event_name = url.searchParams.get("event_name");
     await delay(1000);
-    console.log(category_name, event_name);
+
     const templates = getLocalStorage<Template[]>(
       LOCAL_STORAGE_KEY_TEMPLATE,
       []
     );
+    const schedules = getLocalStorage<Schedule[]>(
+      LOCAL_STORAGE_KEY_SCHEDULES,
+      []
+    );
+
     const template = templates.find(
       (t) => t.category_name === category_name && t.template_name === event_name
     );
-    console.log(template);
     if (!template) return HttpResponse.json(null, { status: 400 });
+
+    const schedule = schedules.find(
+      (s) =>
+        s.event_name === template.template_name &&
+        s.category === template.category_name
+    );
 
     return HttpResponse.json(
       {
-        ...template,
-        template_id: template.id,
+        template_data: {
+          ...template,
+          template_id: template.id,
+        },
+        schedule_data: schedule,
       },
       { status: 200 }
     );
