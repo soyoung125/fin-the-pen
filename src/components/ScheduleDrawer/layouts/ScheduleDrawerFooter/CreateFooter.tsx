@@ -36,8 +36,6 @@ function CreateFooter({
   const handleCreate = async () => {
     if (!handleSubmit() || !schedule) return;
 
-    console.log(template);
-
     if (schedule.repeat.kind_type !== "none" && template.id === -1) {
       const answer = await openConfirm({
         title: "알림",
@@ -48,6 +46,9 @@ function CreateFooter({
       });
       if (answer) {
         await handleCreateSchedule({ ...schedule, register_template: true });
+        handleClose();
+      } else {
+        await handleCreateSchedule({ ...schedule, register_template: false });
         handleClose();
       }
     } else {

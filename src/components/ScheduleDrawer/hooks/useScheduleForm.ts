@@ -203,7 +203,7 @@ export const useScheduleForm = () => {
       dispatch(
         setSelectedTemplate({
           ...template,
-          id: "-2",
+          id: -1,
         })
       );
     }

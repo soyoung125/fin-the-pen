@@ -44,6 +44,7 @@ const useSchedule = () => {
       schedule_id: uuidv4(),
       user_id: user.user_id,
     };
+    console.log(scheduleWithUuid);
 
     createSchedule(scheduleWithUuid);
     resetSchedule();
