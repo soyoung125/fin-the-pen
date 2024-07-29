@@ -13,14 +13,17 @@ import { useDialog } from "@hooks/dialog/useDialog.tsx";
 const fetchTemplateSchedule = async (query: TemplateScheduleRequest) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
 
-  return fetch(`${DOMAIN}/createSchedule/template`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify(query),
-  }).then<Schedule>((res) => {
+  return fetch(
+    `${DOMAIN}/createSchedule/template?template_id=${query.template_id}&template_name=${query.template_name}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(query),
+    }
+  ).then<Schedule>((res) => {
     return res.json();
   });
 };
