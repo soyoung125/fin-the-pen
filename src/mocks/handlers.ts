@@ -828,19 +828,40 @@ export const handlers = [
     );
   }),
 
-  http.delete<object, { template_id: string }>(
+  http.delete<object, { template_ids: number[] }>(
     `${DOMAIN}/asset/template/delete`,
     async ({ request }) => {
-      await delay(10000);
-      const { template_id } = await request.json();
+      const { template_ids } = await request.json();
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
       );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const deleteTemplates = templates.filter((t) =>
+        template_ids.includes(t.id)
+      );
+      console.log(templates.filter((t) => !template_ids.includes(t.id)));
       setLocalStorage(
         LOCAL_STORAGE_KEY_TEMPLATE,
-        templates.filter((t) => t.id !== Number(template_id))
+        templates.filter((t) => !template_ids.includes(t.id))
       );
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.filter(
+          (s) =>
+            !deleteTemplates.find(
+              (t) =>
+                t.category_name === s.category &&
+                t.template_name === s.event_name
+            )
+        )
+      );
+
+      await delay(10000);
       return HttpResponse.json({ status: 200 });
     }
   ),
