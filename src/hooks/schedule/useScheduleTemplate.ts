@@ -27,6 +27,7 @@ const useScheduleTemplate = () => {
 
   const lastTemplates =
     templates?.filter((t) => t.id !== selectedTemplate?.id) ?? [];
+
   const templateCount = templates?.length ?? 0;
 
   const setSelected = async (t: Template) => {

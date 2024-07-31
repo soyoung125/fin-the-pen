@@ -761,32 +761,45 @@ export const handlers = [
     }
   ),
 
-  http.get(`${DOMAIN}/template/import`, async ({ request }) => {
+  http.get(`${DOMAIN}/template/is_exists`, async ({ request }) => {
     const url = new URL(request.url);
     const category_name = url.searchParams.get("category_name");
     const event_name = url.searchParams.get("event_name");
     await delay(1000);
-    console.log(category_name, event_name);
+
     const templates = getLocalStorage<Template[]>(
       LOCAL_STORAGE_KEY_TEMPLATE,
       []
     );
+    const schedules = getLocalStorage<Schedule[]>(
+      LOCAL_STORAGE_KEY_SCHEDULES,
+      []
+    );
+
     const template = templates.find(
       (t) => t.category_name === category_name && t.template_name === event_name
     );
-    console.log(template);
     if (!template) return HttpResponse.json(null, { status: 400 });
+
+    const schedule = schedules.find(
+      (s) =>
+        s.event_name === template.template_name &&
+        s.category === template.category_name
+    );
 
     return HttpResponse.json(
       {
-        ...template,
-        template_id: template.id,
+        template_data: {
+          ...template,
+          template_id: template.id,
+        },
+        schedule_data: schedule,
       },
       { status: 200 }
     );
   }),
 
-  http.post(`${DOMAIN}/template/details`, async () => {
+  http.get(`${DOMAIN}/template/details`, async () => {
     await delay(1000);
     const templates = getLocalStorage<Template[]>(
       LOCAL_STORAGE_KEY_TEMPLATE,
@@ -800,7 +813,7 @@ export const handlers = [
     );
   }),
 
-  http.post(`${DOMAIN}/asset/template/view`, async () => {
+  http.get(`${DOMAIN}/asset/template/view`, async () => {
     await delay(1000);
     const templates = getLocalStorage<Template[]>(
       LOCAL_STORAGE_KEY_TEMPLATE,
@@ -815,19 +828,40 @@ export const handlers = [
     );
   }),
 
-  http.delete<object, { template_id: string }>(
+  http.delete<object, { template_ids: number[] }>(
     `${DOMAIN}/asset/template/delete`,
     async ({ request }) => {
-      await delay(10000);
-      const { template_id } = await request.json();
+      const { template_ids } = await request.json();
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
       );
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+
+      const deleteTemplates = templates.filter((t) =>
+        template_ids.includes(t.id)
+      );
+      console.log(templates.filter((t) => !template_ids.includes(t.id)));
       setLocalStorage(
         LOCAL_STORAGE_KEY_TEMPLATE,
-        templates.filter((t) => t.id !== Number(template_id))
+        templates.filter((t) => !template_ids.includes(t.id))
       );
+      setLocalStorage(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        schedules.filter(
+          (s) =>
+            !deleteTemplates.find(
+              (t) =>
+                t.category_name === s.category &&
+                t.template_name === s.event_name
+            )
+        )
+      );
+
+      await delay(10000);
       return HttpResponse.json({ status: 200 });
     }
   ),
@@ -893,7 +927,8 @@ export const handlers = [
   http.post<object, ModifyTemplateRequest>(
     `${DOMAIN}/asset/template/modify`,
     async ({ request }) => {
-      const { template_id, event_name, category_name } = await request.json();
+      const { template_id, template_name, category_name } =
+        await request.json();
       const templates = getLocalStorage<Template[]>(
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
@@ -910,7 +945,7 @@ export const handlers = [
         schedules.map((s) =>
           s.event_name === template?.template_name &&
           s.category === template.category_name
-            ? { ...s, event_name, category: category_name }
+            ? { ...s, event_name: template_name, category: category_name }
             : s
         )
       );
@@ -918,7 +953,7 @@ export const handlers = [
         LOCAL_STORAGE_KEY_TEMPLATE,
         templates.map((t) =>
           t.id === Number(template_id)
-            ? { ...t, category_name, template_name: event_name }
+            ? { ...t, category_name, template_name }
             : t
         )
       );

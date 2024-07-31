@@ -29,10 +29,11 @@ function RegularScheduleList({
   }
 
   const handleModal = (schedule: Schedule) => {
-    schedule &&
-      openScheduleAssetDrawer(SCHEDULE_REQUEST(schedule), (data) =>
-        handleModifyTemplateSchedule(schedule.schedule_id ?? "", data)
-      );
+    if (!schedule) return;
+
+    openScheduleAssetDrawer(SCHEDULE_REQUEST(schedule), (data) =>
+      handleModifyTemplateSchedule(schedule.schedule_id ?? "", data)
+    );
   };
 
   return (

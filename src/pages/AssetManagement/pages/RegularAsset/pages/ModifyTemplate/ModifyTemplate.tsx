@@ -1,7 +1,7 @@
 import TopNavigationBar from "@components/layouts/common/TopNavigationBar";
-import { Button, Drawer } from "@mui/material";
+import { Button, Drawer, Stack, Typography } from "@mui/material";
 import { ModifyContainer } from "@pages/AssetManagement/pages/RegularAsset/pages/RegularAssetDetail/components/RegularScheduleList/ModifButton.styles.ts";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ModifyRegularAssetsProps } from "@pages/AssetManagement/pages/RegularAsset/pages/ModifyRegularAssets/ModifyRegularAssets.tsx";
 import FormContainer from "@pages/AssetManagement/pages/RegularAsset/pages/ModifyTemplate/components/FormContainer/FormContainer.tsx";
 import { useModifyTemplate } from "@app/tanstack-query/templates/useModifyTemplate.ts";
@@ -40,7 +40,7 @@ function ModifyTemplate({ closeDrawer, template }: ModifyTemplateProps) {
     if (answer) {
       await modifyTemplate({
         user_id: template.user_id,
-        event_name: eventName,
+        template_name: eventName,
         category_name: categoryName,
         template_id: template.id.toString(),
       });

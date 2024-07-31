@@ -16,6 +16,7 @@ export const useToast = () => {
     toastElement: ReactNode;
     actionsElement?: ReactNode;
   }) => {
+    console.log(color);
     openOverlay(
       <Toast
         hideDuration={hideDuration}

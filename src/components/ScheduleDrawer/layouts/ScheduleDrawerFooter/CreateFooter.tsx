@@ -19,6 +19,8 @@ interface CreateFooterInterface {
   templateCount: number;
 }
 
+const MAX_TEMPLATE_COUNT = 10;
+
 function CreateFooter({
   handleSubmit,
   handleClose,
@@ -36,19 +38,28 @@ function CreateFooter({
   const handleCreate = async () => {
     if (!handleSubmit() || !schedule) return;
 
-    console.log(template);
-
     if (schedule.repeat.kind_type !== "none" && template.id === -1) {
-      const answer = await openConfirm({
-        title: "알림",
-        content: "반복 일정을 정기템플릿에\n등록하시겠습니까?",
-        subContent: `남은 정기템플릿 : ${templateCount}/10`,
-        approveText: "네",
-        rejectText: "아니오",
-      });
-      if (answer) {
-        await handleCreateSchedule({ ...schedule, register_template: true });
-        handleClose();
+      if (templateCount > MAX_TEMPLATE_COUNT) {
+        const answer = await openConfirm({
+          title: "알림",
+          content:
+            templateCount > MAX_TEMPLATE_COUNT
+              ? "정기템플릿을 모두 사용했어요.\n정기템플릿을 추가하시겠습니까?"
+              : "반복 일정을 정기템플릿에\n등록하시겠습니까?",
+          subContent:
+            templateCount > MAX_TEMPLATE_COUNT
+              ? ""
+              : `남은 정기템플릿 : ${templateCount}/10`,
+          approveText: "네",
+          rejectText: "아니오",
+        });
+        if (answer) {
+          await handleCreateSchedule({ ...schedule, register_template: true });
+          handleClose();
+        } else {
+          await handleCreateSchedule({ ...schedule, register_template: false });
+          handleClose();
+        }
       }
     } else {
       const answer = await openConfirm({

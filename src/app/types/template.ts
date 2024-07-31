@@ -23,11 +23,16 @@ export interface TemplateImportRequest extends TemplateRequest {
   event_name: string;
 }
 
-export interface TemplateImportResponse {
+export interface TemplateImport {
   template_id: string;
   user_id: string;
   template_name: string;
   category_name: string;
+}
+
+export interface TemplateImportResponse {
+  schedule_data?: Schedule;
+  template_data: TemplateImport;
 }
 
 export interface TemplateByPriceType {
@@ -57,6 +62,9 @@ export interface ModifyTemplateSchedulesRequest
   schedule_id_list: string;
 }
 
-export interface ModifyTemplateRequest extends TemplateImportRequest {
+export interface ModifyTemplateRequest {
   template_id: string;
+  user_id: string;
+  template_name: string;
+  category_name: string;
 }

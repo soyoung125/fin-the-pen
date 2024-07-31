@@ -1,6 +1,6 @@
 export const CATEGORY_ICONS: { [key: string]: string } = {
   급여: "salary",
-  용돈: "pin_money",
+  용돈: "pin-money",
   대출금: "loan",
   금융수입: "financial-income",
   사업수입: "corporate-income",
