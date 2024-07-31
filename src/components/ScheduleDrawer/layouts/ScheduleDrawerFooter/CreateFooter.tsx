@@ -37,19 +37,25 @@ function CreateFooter({
     if (!handleSubmit() || !schedule) return;
 
     if (schedule.repeat.kind_type !== "none" && template.id === -1) {
-      const answer = await openConfirm({
-        title: "알림",
-        content: "반복 일정을 정기템플릿에\n등록하시겠습니까?",
-        subContent: `남은 정기템플릿 : ${templateCount}/10`,
-        approveText: "네",
-        rejectText: "아니오",
-      });
-      if (answer) {
-        await handleCreateSchedule({ ...schedule, register_template: true });
-        handleClose();
-      } else {
-        await handleCreateSchedule({ ...schedule, register_template: false });
-        handleClose();
+      if (templateCount > 10) {
+        const answer = await openConfirm({
+          title: "알림",
+          content:
+            templateCount > 10
+              ? "정기템플릿을 모두 사용했어요.\n정기템플릿을 추가하시겠습니까?"
+              : "반복 일정을 정기템플릿에\n등록하시겠습니까?",
+          subContent:
+            templateCount > 10 ? "" : `남은 정기템플릿 : ${templateCount}/10`,
+          approveText: "네",
+          rejectText: "아니오",
+        });
+        if (answer) {
+          await handleCreateSchedule({ ...schedule, register_template: true });
+          handleClose();
+        } else {
+          await handleCreateSchedule({ ...schedule, register_template: false });
+          handleClose();
+        }
       }
     } else {
       const answer = await openConfirm({
