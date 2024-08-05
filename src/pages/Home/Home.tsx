@@ -18,6 +18,7 @@ import DaySchedulePage from "@pages/Home/pages/DaySchedulePage/DaySchedulePage.t
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@constants/path.ts";
 import MoveToday from "@pages/Home/next-components/MoveToday";
+import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 
 export interface HomePageProps {
   updateHeight: () => void;
@@ -27,6 +28,7 @@ export interface HomePageProps {
 function Home() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { onboarding, openOnBoarding } = useOnBoarding();
   const isHideBudgetMode = useAppSelector(selectIsBudgetHidden);
   const {
     date,
@@ -41,6 +43,13 @@ function Home() {
   const labels = ["월 별", "주 별", "일 별"];
   const [value, setValue] = useState(0);
   const [swiper, setSwiper] = useState<SwiperType>();
+
+  useEffect(() => {
+    console.log(!onboarding);
+    if (!onboarding) {
+      openOnBoarding();
+    }
+  }, []);
 
   const handleChangeTab = (event: SyntheticEvent, newValue: number) => {
     swiper?.slideTo(newValue);
