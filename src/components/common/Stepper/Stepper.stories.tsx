@@ -1,7 +1,5 @@
 import { Meta } from "@storybook/react";
-import Stepper, {
-  StepperProps,
-} from "@components/Tutorial/components/Stepper/Stepper.tsx";
+import Stepper, { StepperProps } from "@components/common/Stepper/Stepper.tsx";
 import { useState } from "react";
 import { Button, Stack } from "@mui/material";
 
