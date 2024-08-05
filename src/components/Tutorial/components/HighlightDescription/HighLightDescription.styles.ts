@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   position: absolute;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  white-space: pre-line;
+  padding: 5px 30px;
 `;
 
 export const TextBox = styled.div<{ $isCenter: boolean }>`
@@ -14,6 +16,13 @@ export const TextBox = styled.div<{ $isCenter: boolean }>`
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
+`;
+
+export const ArrowIconContainer = styled.div`
+  //position: relative;
+  display: flex;
+  gap: 50%;
+  justify-content: center;
 `;
 
 export const ArrowIcon = styled.img`
