@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Portal } from "@mui/material";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
 import useHeader from "@hooks/useHeader.ts";
 import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "@constants/path.ts";
 import MoveToday from "@pages/Home/next-components/MoveToday";
 import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
+import HomeTutorial from "@pages/Home/HomeTutorial.tsx";
 
 export interface HomePageProps {
   updateHeight: () => void;
@@ -28,7 +29,8 @@ export interface HomePageProps {
 function Home() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { onboarding, openOnBoarding } = useOnBoarding();
+  const { onboarding, mainTutorial, openOnBoarding, openMainTutorial } =
+    useOnBoarding();
   const isHideBudgetMode = useAppSelector(selectIsBudgetHidden);
   const {
     date,
@@ -45,9 +47,17 @@ function Home() {
   const [swiper, setSwiper] = useState<SwiperType>();
 
   useEffect(() => {
-    console.log(!onboarding);
+    if (isHideBudgetMode) {
+      dispatch(setIsAuthenticatedFalse());
+    }
+
     if (!onboarding) {
       openOnBoarding();
+      return;
+    }
+
+    if (!mainTutorial) {
+      openMainTutorial();
     }
   }, []);
 
@@ -61,12 +71,6 @@ function Home() {
   };
 
   const handleNavigate = () => navigate(PATH.scheduleList);
-
-  useEffect(() => {
-    if (isHideBudgetMode) {
-      dispatch(setIsAuthenticatedFalse());
-    }
-  }, []);
 
   useHeader(true, HEADER_MODE.home);
 

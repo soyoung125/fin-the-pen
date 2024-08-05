@@ -6,7 +6,7 @@ import TodayBadge from "@components/common/TodayBadge";
 export interface CalendarHeaderProps {
   date: string;
   count?: number;
-  handleClick: () => void;
+  handleClick?: () => void;
   isToday?: boolean;
 }
 

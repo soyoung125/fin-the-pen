@@ -8,7 +8,7 @@ export interface StepperProps {
 
 function Stepper({ size, focused }: StepperProps) {
   return (
-    <Stack direction="row" spacing="14px">
+    <Stack direction="row" spacing="14px" justifyContent="center">
       {Array.from({ length: size }).map((_, i) => (
         <Circle key={i} focused={focused === i} />
       ))}

@@ -1,12 +1,17 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  $offset: number;
+  $position: "top" | "bottom";
+}>`
   position: absolute;
   width: 100%;
   display: flex;
   flex-direction: column;
   white-space: pre-line;
   padding: 5px 30px;
+  bottom: ${({ $position, $offset }) => $position === "top" && `${$offset}px`};
+  top: ${({ $position, $offset }) => $position === "bottom" && `${$offset}px`};
 `;
 
 export const TextBox = styled.div<{ $isCenter: boolean }>`
