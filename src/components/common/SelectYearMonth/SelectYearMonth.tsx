@@ -5,8 +5,8 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
 export interface SelectYearMonthProps {
   date: string;
-  lastMonth: () => void;
-  nextMonth: () => void;
+  lastMonth?: () => void;
+  nextMonth?: () => void;
   changeYearAndMonth?: () => void;
 }
 

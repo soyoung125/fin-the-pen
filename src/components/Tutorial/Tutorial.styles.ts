@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100dvw;
   height: 100dvh;
   box-sizing: border-box;
-  padding: 64px 23px 20px 20px;
+  padding: 45px 0;
   mix-blend-mode: hard-light;
   background-color: rgba(19, 19, 19, 0.8);
   position: fixed;
@@ -13,5 +13,13 @@ export const Container = styled.div`
 `;
 
 export const CloseTutorialBtnContainer = styled.div`
-  right: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  right: 20px;
+  color: #fff;
+`;
+
+export const TutorialContainer = styled.div`
+  height: calc(100dvh - 90px - 32px);
 `;

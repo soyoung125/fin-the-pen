@@ -1,10 +1,10 @@
 import { Tab, Tabs } from "@mui/material";
-import { SyntheticEvent } from "react";
+import { RefObject, SyntheticEvent } from "react";
 
 export interface MenuTabProps {
   labels: string[];
   value: number;
-  handleChange: (event: SyntheticEvent, newValue: number) => void;
+  handleChange?: (event: SyntheticEvent, newValue: number) => void;
 }
 
 function MenuTab({ labels, value, handleChange }: MenuTabProps) {
@@ -21,7 +21,7 @@ function MenuTab({ labels, value, handleChange }: MenuTabProps) {
       }}
       sx={{ px: "20px" }}
     >
-      {labels.map((label) => (
+      {labels.map((label, i) => (
         <Tab key={label} label={label} />
       ))}
     </Tabs>
