@@ -96,24 +96,27 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"70dvw"}
-            height={"70dvw"}
-            borderRadius={"30px"}
+            width={"calc(100dvw - 152px)"}
+            height={"calc(100dvw - 152px)"}
+            borderRadius={"999px"}
             display="flex"
             position="absolute"
-            top={110}
-            left={"calc(100dvw / 2 - 35dvw)"}
+            top={129}
+            left={"76px"}
           />
           <Box
-            sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"calc(100dvw - 40px)"}
-            height={140}
-            borderRadius={2}
-            top={"calc(70dvw + 125px)"}
-            left={20}
+            width={"100dvw"}
+            height={150}
+            top={"100dvw"}
             display="flex"
             position="absolute"
           >
+            <Box
+              mx={2.5}
+              width="100%"
+              borderRadius={2}
+              sx={{ backgroundColor: "rgb(128, 128, 128)" }}
+            />
             <HighLightDescription
               offset={160}
               position={"bottom"}
