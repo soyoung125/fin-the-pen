@@ -26,7 +26,6 @@ function ScheduleDrawerTutorial({
   closeTutorial: () => void;
 }) {
   const allDayRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState(0);
   const tutorials: ITutorial[] = [
     {
