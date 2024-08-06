@@ -1,8 +1,4 @@
-import {
-  Doughnut,
-  getDatasetAtEvent,
-  getElementAtEvent,
-} from "react-chartjs-2";
+import { Doughnut, getElementAtEvent } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { OPTIONS } from "@pages/reports/Report/components/PredictReport/DoughnutChart/utils.ts";
 import { useRef, MouseEvent, useEffect } from "react";
