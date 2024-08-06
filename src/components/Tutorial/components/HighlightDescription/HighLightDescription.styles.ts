@@ -10,6 +10,7 @@ export const Container = styled.div<{
   flex-direction: column;
   white-space: pre-line;
   padding: 5px 30px;
+  mix-blend-mode: normal;
   bottom: ${({ $position, $offset }) => $position === "top" && `${$offset}px`};
   top: ${({ $position, $offset }) => $position === "bottom" && `${$offset}px`};
 `;
@@ -18,7 +19,7 @@ export const TextBox = styled.div<{ $isCenter: boolean }>`
   text-align: ${({ $isCenter }) => ($isCenter ? "center" : "left")};
   padding: 10px 10px 5px 10px;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 24px;
 `;
