@@ -12,31 +12,35 @@ function WeekTutorialPage() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (ref.current?.scrollTop) {
-      ref.current.scrollTop = 40;
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [ref]);
 
   return (
-    <Box ref={ref}>
-      <ThickDivider />
+    <>
+      <Box width="100dvw">
+        <Box ref={ref} />
+        <ThickDivider />
 
-      <CalendarHeader date={date} />
+        <CalendarHeader date={date} />
 
-      {weekData?.week_schedule.map((schedule) => {
-        const [start, end] = schedule.period.split("~");
-        const isThisWeek =
-          moment().isSameOrAfter(start, "day") &&
-          moment().isSameOrBefore(end, "day");
-        return (
-          <WeeklyCard
-            key={schedule.week_of_number}
-            weeklyData={schedule}
-            isThisWeek={isThisWeek}
-          />
-        );
-      })}
-    </Box>
+        {weekData &&
+          weekData.week_schedule.map((schedule) => {
+            const [start, end] = schedule.period.split("~");
+            const isThisWeek =
+              moment().isSameOrAfter(start, "day") &&
+              moment().isSameOrBefore(end, "day");
+            return (
+              <WeeklyCard
+                key={schedule.week_of_number}
+                weeklyData={schedule}
+                isThisWeek={isThisWeek}
+              />
+            );
+          })}
+      </Box>
+    </>
   );
 }
 

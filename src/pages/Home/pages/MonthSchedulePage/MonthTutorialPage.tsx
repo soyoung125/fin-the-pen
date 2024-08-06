@@ -8,20 +8,16 @@ import ScheduleList from "@components/ScheduleList";
 import { Box, Stack, Typography } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Schedule } from "@app/types/schedule.ts";
-import { RefObject, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-function MonthTutorialPage({
-  listRef,
-}: {
-  listRef: RefObject<HTMLDivElement>;
-}) {
+function MonthTutorialPage() {
   const date = moment().format("YYYY.MM.DD");
   const todaySchedules: Schedule[] = [
     {
       schedule_id: "1",
       user_id: "test1234",
       event_name: "가족들과의 식사",
-      category: "외식",
+      category: "식비",
       start_date: "2024-02-02",
       end_date: "2024-02-02",
       start_time: "18:00",
@@ -47,7 +43,7 @@ function MonthTutorialPage({
       schedule_id: "1",
       user_id: "test1234",
       event_name: "가족들과의 식사",
-      category: "외식",
+      category: "식비",
       start_date: "2024-02-02",
       end_date: "2024-02-02",
       start_time: "18:00",
@@ -73,7 +69,7 @@ function MonthTutorialPage({
       schedule_id: "1",
       user_id: "test1234",
       event_name: "가족들과의 식사",
-      category: "외식",
+      category: "식비",
       start_date: "2024-02-02",
       end_date: "2024-02-02",
       start_time: "18:00",
@@ -99,7 +95,7 @@ function MonthTutorialPage({
       schedule_id: "1",
       user_id: "test1234",
       event_name: "가족들과의 식사",
-      category: "외식",
+      category: "식비",
       start_date: "2024-02-02",
       end_date: "2024-02-02",
       start_time: "18:00",
@@ -122,6 +118,7 @@ function MonthTutorialPage({
       fix_amount: false,
     },
   ];
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (listRef.current) {
@@ -131,7 +128,7 @@ function MonthTutorialPage({
 
   return (
     <>
-      <Box>
+      <Box width="100dvw">
         <MonthlyBudgetSummary
           income={0}
           expenditure={0}

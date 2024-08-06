@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Box, Drawer, Portal } from "@mui/material";
 import SelectYearMonth from "@components/common/SelectYearMonth";
 import moment from "moment";
@@ -13,7 +13,6 @@ import HighLightDescription from "@components/Tutorial/components/HighlightDescr
 function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
   const labels = ["월 별", "주 별", "일 별"];
   const [value, setValue] = useState(0);
-  const listRef = useRef<HTMLDivElement>(null);
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -49,7 +48,6 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
       ),
       nextAction: () => {
         setValue(1);
-        window.scrollTo({ top: 0, behavior: "smooth" });
       },
     },
     {
@@ -103,6 +101,7 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
           maxHeight: "calc(100dvh - 122px)",
           height: "calc(100dvh - 122px)",
           bottom: "82px",
+          border: 0,
         },
       }}
     >
@@ -115,17 +114,15 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         }}
       >
         <Box py={1} px={2.5}>
-          {value === 2 ? (
-            <SelectYearMonth date={moment().format("YYYY년 M월 D일")} />
-          ) : (
-            <SelectYearMonth date={moment().format("YYYY년 M월")} />
-          )}
+          <SelectYearMonth date={moment().format("YYYY년 M월")} />
         </Box>
         <MenuTab labels={labels} value={value} />
       </Box>
 
-      {value === 0 && <MonthTutorialPage listRef={listRef} />}
-      {value === 1 && <WeekTutorialPage />}
+      <Box overflow="hidden">
+        {value === 0 && <MonthTutorialPage />}
+        {value === 1 && <WeekTutorialPage />}
+      </Box>
 
       <Portal>
         <Tutorial tutorials={tutorials} />
