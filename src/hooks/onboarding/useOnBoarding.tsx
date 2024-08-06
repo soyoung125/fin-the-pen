@@ -46,7 +46,16 @@ export const useOnBoarding = () => {
       });
     };
 
-    openOverlay(<OnBoarding handleClose={closeOnBoarding} />);
+    return new Promise((resolve) => {
+      return openOverlay(
+        <OnBoarding
+          handleClose={() => {
+            resolve(true);
+            closeOnBoarding();
+          }}
+        />
+      );
+    });
   };
 
   const openMainTutorial = () => {
