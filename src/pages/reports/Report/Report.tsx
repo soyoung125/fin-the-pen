@@ -19,10 +19,11 @@ import { PATH } from "@constants/path.ts";
 import { generateRandomBubbles2 } from "@pages/reports/Report/components/BubbleChart/utils.ts";
 import BubbleChart from "@pages/reports/Report/components/BubbleChart";
 import PredictReport from "@pages/reports/Report/components/PredictReport";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoalSettingModal from "@pages/reports/Report/components/modals/GoalSettingModal";
 import { useNavigate } from "react-router-dom";
 import Loading from "@components/Loading";
+import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 
 function Report() {
   const { year, month, report, reportList, isPending, isError, pickMonth } =
@@ -31,6 +32,13 @@ function Report() {
   const { openModal, closeModal } = useModal();
   const [selected, setSelected] = useState("used");
   const navigate = useNavigate();
+  const { reportTutorial, openReportTutorial } = useOnBoarding();
+
+  useEffect(() => {
+    if (!reportTutorial) {
+      openReportTutorial();
+    }
+  }, []);
 
   const handleClickAccountInfo = () => {
     openModal({

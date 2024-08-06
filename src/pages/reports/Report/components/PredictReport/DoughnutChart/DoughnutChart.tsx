@@ -17,7 +17,7 @@ export interface DoughnutChartProps {
   datas: number[];
   bgColors: string[];
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function DoughnutChart({
@@ -64,7 +64,7 @@ function DoughnutChart({
   const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
     if (chartRef.current) {
       const element = getElementAtEvent(chartRef.current, event);
-      setSelected(labels[element[0].index]);
+      setSelected && setSelected(labels[element[0].index]);
     }
   };
 

@@ -5,7 +5,7 @@ export interface ReportTitleProps {
   year: number;
   month: number;
   amount: number;
-  pickMonth: () => void;
+  pickMonth?: () => void;
 }
 
 function ReportTitle({ amount, year, month, pickMonth }: ReportTitleProps) {

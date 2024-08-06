@@ -12,7 +12,7 @@ import EmptyPredictReport from "@pages/reports/Report/components/PredictReport/E
 
 export interface PredictReportProps {
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected?: React.Dispatch<React.SetStateAction<string>>;
   month: number;
   goal: number;
   used: number;
