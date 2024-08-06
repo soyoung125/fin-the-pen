@@ -6,7 +6,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 interface CategoryInputProps {
   selectedCategory: string;
   showError: boolean;
-  onClick: MouseEventHandler<HTMLElement>;
+  onClick?: MouseEventHandler<HTMLElement>;
 }
 
 export default function CategoryInput({

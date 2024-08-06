@@ -4,9 +4,12 @@ import OnBoarding from "@components/OnBorading";
 import { getLocalStorage, setLocalStorage } from "@utils/storage.ts";
 import { LOCAL_STORAGE_KEY_ONBOARDING } from "@api/keys.ts";
 import HomeTutorial from "@pages/Home/HomeTutorial.tsx";
+import ScheduleDrawerTutorial from "@components/ScheduleDrawer/ScheduleDrawerTutorial.tsx";
+import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
 
 export const useOnBoarding = () => {
   const { openOverlay, closeOverlay } = useOverlay();
+  const { openDrawer, closeDrawer } = useSwipeableDrawer();
   const onBoarding = getLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
     onboarding: false,
     mainTutorial: false,
@@ -15,6 +18,7 @@ export const useOnBoarding = () => {
   });
 
   const clearTutorial = (tutorial: "main" | "drawer" | "report") => {
+    closeOverlay();
     switch (tutorial) {
       case "main":
         setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
@@ -59,15 +63,35 @@ export const useOnBoarding = () => {
   };
 
   const openMainTutorial = () => {
-    const closeMainTutorial = () => {
-      closeOverlay();
+    // const closeMainTutorial = () => {
+    //   closeOverlay();
+    //   setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
+    //     ...onBoarding,
+    //     mainTutorial: true,
+    //   });
+    // };
+
+    openOverlay(<HomeTutorial closeTutorial={() => clearTutorial("main")} />);
+  };
+
+  const openDrawerTutorial = () => {
+    const closeDrawerTutorial = () => {
+      closeDrawer();
       setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
         ...onBoarding,
-        mainTutorial: true,
+        drawerTutorial: true,
       });
     };
-
-    openOverlay(<HomeTutorial closeTutorial={closeMainTutorial} />);
+    return new Promise((resolve) => {
+      return openDrawer(
+        <ScheduleDrawerTutorial
+          closeTutorial={() => {
+            resolve(true);
+            closeDrawerTutorial();
+          }}
+        />
+      );
+    });
   };
 
   return {
@@ -78,6 +102,7 @@ export const useOnBoarding = () => {
     reportTutorial: onBoarding.reportTutorial,
     openOnBoarding,
     openMainTutorial,
+    openDrawerTutorial,
     clearTutorial,
   };
 };

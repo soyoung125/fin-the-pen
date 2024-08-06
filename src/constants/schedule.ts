@@ -205,6 +205,14 @@ export const INIT_SCHEDULE = (date: string): RequestSchedule => {
   };
 };
 
+export const TUTORIAL_SCHEDULE = () => {
+  return {
+    ...INIT_SCHEDULE(moment().format("YYYY-MM-DD")),
+    event_name: "아름다운 클리닉",
+    category: "뷰티/미용",
+  };
+};
+
 export const VIEW_MODE = {
   asset: "asset",
   schedule: "schedule",
