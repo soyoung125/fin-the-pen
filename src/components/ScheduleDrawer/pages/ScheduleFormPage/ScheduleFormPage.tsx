@@ -1,4 +1,3 @@
-import NameInput from "./components/NameInput.tsx";
 import CategoryInput from "./components/CategoryInput.tsx";
 import { Stack } from "@mui/material";
 import ThickDivider from "@components/common/ThickDivider.tsx";
@@ -8,6 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 import SelectTemplate from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate";
 import { useScheduleForm } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { ScheduleFormProps } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelectTemplate.tsx";
+import NameInput from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/NameInput.tsx";
 
 export interface ScheduleFormPageProps extends ScheduleFormProps {
   showError: boolean;

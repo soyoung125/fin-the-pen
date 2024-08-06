@@ -16,15 +16,24 @@ import ReportIcon from "@components/layouts/common/BottomBar/buttons/Report.tsx"
 import AssetIcon from "@components/layouts/common/BottomBar/buttons/asset.tsx";
 import SettingIcon from "@components/layouts/common/BottomBar/buttons/setting.tsx";
 import IconSVG from "@components/common/IconSVG";
+import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 
 function BottomBar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { openScheduleDrawer } = useScheduleDrawer();
+  const { drawerTutorial, openDrawerTutorial } = useOnBoarding();
 
   const date = useAppSelector(selectDate);
   const bottomTabMenu = useAppSelector(selectBottomDrawerTabMenu);
   const bottomBarOpen = useAppSelector(selectBottomBarOpen);
+
+  const handleOpenDrawer = async () => {
+    if (!drawerTutorial) {
+      await openDrawerTutorial();
+    }
+    openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")));
+  };
 
   return (
     <BottomNavigation
@@ -63,9 +72,7 @@ function BottomBar() {
         label=""
         aria-label="add_button"
         icon={<IconSVG id={"add-button"} size={48} />}
-        onClick={() =>
-          openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")))
-        }
+        onClick={handleOpenDrawer}
       />
       <BottomNavigationAction
         label="자산관리"
