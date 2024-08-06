@@ -61,10 +61,10 @@ export const useOnBoarding = () => {
   const openMainTutorial = () => {
     const closeMainTutorial = () => {
       closeOverlay();
-      // setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-      //   ...onBoarding,
-      //   mainTutorial: true,
-      // });
+      setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
+        ...onBoarding,
+        mainTutorial: true,
+      });
     };
 
     openOverlay(<HomeTutorial closeTutorial={closeMainTutorial} />);
