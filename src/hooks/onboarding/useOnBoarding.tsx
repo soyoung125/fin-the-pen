@@ -6,6 +6,7 @@ import { LOCAL_STORAGE_KEY_ONBOARDING } from "@api/keys.ts";
 import HomeTutorial from "@pages/Home/HomeTutorial.tsx";
 import ScheduleDrawerTutorial from "@components/ScheduleDrawer/ScheduleDrawerTutorial.tsx";
 import { useSwipeableDrawer } from "@hooks/useSwipeableDrawer.tsx";
+import ReportTutorial from "@pages/reports/Report/ReportTutorial.tsx";
 
 export const useOnBoarding = () => {
   const { openOverlay, closeOverlay } = useOverlay();
@@ -94,6 +95,12 @@ export const useOnBoarding = () => {
     });
   };
 
+  const openReportTutorial = () => {
+    openOverlay(
+      <ReportTutorial closeTutorial={() => clearTutorial("report")} />
+    );
+  };
+
   return {
     closeDrawer: closeOverlay,
     onboarding: onBoarding.onboarding,
@@ -103,6 +110,7 @@ export const useOnBoarding = () => {
     openOnBoarding,
     openMainTutorial,
     openDrawerTutorial,
+    openReportTutorial,
     clearTutorial,
   };
 };

@@ -49,7 +49,9 @@ function MonthlyReport({
         </Box>
       </Stack>
 
-      <LineChart labels={labels} datas={datas} />
+      <Box height={160}>
+        <LineChart labels={labels} datas={datas} />
+      </Box>
     </>
   );
 }

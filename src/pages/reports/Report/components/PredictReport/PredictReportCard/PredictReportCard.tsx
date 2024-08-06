@@ -11,7 +11,7 @@ export interface PredictReportCardProps {
   amount: number;
   selected: boolean;
   over: boolean;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function PredictReportCard({
@@ -29,7 +29,7 @@ function PredictReportCard({
       alignItems="center"
       py="11px"
       sx={{ opacity: selected ? 1 : 0.3 }}
-      onClick={() => setSelected(type.type)}
+      onClick={() => setSelected && setSelected(type.type)}
     >
       <Stack direction="row" spacing={0.5} alignItems="center">
         <Box
