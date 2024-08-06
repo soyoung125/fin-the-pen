@@ -3,7 +3,6 @@ import { Box, Drawer, Portal } from "@mui/material";
 import SelectYearMonth from "@components/common/SelectYearMonth";
 import moment from "moment";
 import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
-import "swiper/css";
 import MonthTutorialPage from "@pages/Home/pages/MonthSchedulePage/MonthTutorialPage.tsx";
 import { ITutorial } from "@components/Tutorial/Tutorial.tsx";
 import Tutorial from "@components/Tutorial";
