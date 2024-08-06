@@ -52,7 +52,11 @@ function Home() {
     }
 
     if (!onboarding) {
-      openOnBoarding();
+      openOnBoarding().then(() => {
+        if (!mainTutorial) {
+          openMainTutorial();
+        }
+      });
       return;
     }
 
