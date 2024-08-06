@@ -26,10 +26,13 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
   const predictRef = useRef<HTMLDivElement>(null);
   const fixedRef = useRef<HTMLDivElement>(null);
   const isShortHeight = window.innerHeight < 700;
+  const MONTH_REPORT_HEIGHT = isShortHeight
+    ? window.innerWidth / 1.5
+    : window.innerWidth / 1.4;
 
   useEffect(() => {
     if (isShortHeight) {
-      fixedRef.current?.scrollIntoView({ behavior: "smooth" });
+      monthRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [monthRef]);
 
@@ -43,9 +46,8 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             height={127}
             position="absolute"
             top={isShortHeight ? 91 : 143}
-            px={2.5}
           >
-            <Stack direction={"row"} spacing={"10px"} width={"100dvw"}>
+            <Stack direction={"row"} spacing={"10px"} width={"100dvw"} px={2.5}>
               <Box
                 sx={{ backgroundColor: "rgb(128, 128, 128)" }}
                 width="100%"
@@ -66,15 +68,18 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
 
           <Box
             display="flex"
-            width={"calc(100dvw - 36px)"}
-            height={"calc(100dvw / 1.5)"}
-            mx={"18px"}
+            width={"100dvw"}
+            height={MONTH_REPORT_HEIGHT}
             position="absolute"
             top={isShortHeight ? 340 : 392}
-            sx={{ backgroundColor: "rgb(128, 128, 128)" }}
           >
+            <Box
+              sx={{ backgroundColor: "rgb(128, 128, 128)" }}
+              mx={"18px"}
+              width={"100%"}
+            />
             <HighLightDescription
-              offset={window.innerWidth / 1.5}
+              offset={MONTH_REPORT_HEIGHT + 10}
               position={"top"}
               message={"카테고리 별 소비 금액을\n도표를 통해 확인할 수 있어요"}
             />
