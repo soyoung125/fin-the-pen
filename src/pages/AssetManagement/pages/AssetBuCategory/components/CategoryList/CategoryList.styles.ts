@@ -6,6 +6,8 @@ export const UnderlinedInput = styled.input<{
 }>`
   border: none;
   outline: none;
+  width: 150px;
+  padding: 0;
   font-size: 16px;
   font-weight: 400;
   text-align: end;
@@ -38,4 +40,8 @@ export const UnderlinedInput = styled.input<{
 export const UnderlinedInputBox = styled.div`
   font-size: 16px;
   font-weight: 400;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  flex-grow: 1;
 `;
