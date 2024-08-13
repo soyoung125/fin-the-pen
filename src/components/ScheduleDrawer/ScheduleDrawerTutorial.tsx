@@ -1,5 +1,5 @@
 import { ITutorial } from "@components/Tutorial/Tutorial.tsx";
-import { Box, Button, Divider, Stack } from "@mui/material";
+import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import HighLightDescription from "@components/Tutorial/components/HighlightDescription";
 import { useEffect, useRef, useState } from "react";
 import CategoryPicker from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker";
@@ -22,8 +22,10 @@ import Tutorial from "@components/Tutorial";
 
 function ScheduleDrawerTutorial({
   closeTutorial,
+  isTemplate,
 }: {
   closeTutorial: () => void;
+  isTemplate?: boolean;
 }) {
   const [step, setStep] = useState(0);
 
@@ -88,7 +90,20 @@ function ScheduleDrawerTutorial({
             position="absolute"
             border="2px dashed"
             borderColor="#F8F6FF"
-          />
+          >
+            <Typography
+              variant="h2"
+              color="#FFF"
+              sx={{
+                alignSelf: "center",
+                mx: "auto",
+                whiteSpace: "pre-line",
+                textAlign: "center",
+              }}
+            >
+              {"일정에 해당되는\n카테고리를 선택해주세요."}
+            </Typography>
+          </Box>
         </>
       ),
       nextAction: () => {
@@ -110,15 +125,17 @@ function ScheduleDrawerTutorial({
             <HighLightDescription
               offset={220}
               position={"top"}
-              message={"일정의 기간을 정하여,\n구체적인 지출 계획을 세워보세요"}
+              message={"주기적으로 반복되는\n지출과 수입 일정을 등록하세요. "}
             />
           </Box>
         </>
       ),
       nextAction: () => {
-        setStep((prev) => prev + 1);
+        closeTutorial();
       },
     },
+  ];
+  const templateTutorials: ITutorial[] = [
     {
       tutorialPage: (
         <>
@@ -130,13 +147,13 @@ function ScheduleDrawerTutorial({
             height={45}
             display="flex"
             position="absolute"
-            top={220}
+            top={260}
           >
             <HighLightDescription
               offset={54}
               position={"bottom"}
               message={
-                "정기 템플릿을 선택하여,\n저장된  일정에 정보를 추가할 수 있어요."
+                "정기 템플릿을 이용하여\n자산 내역을 한번에 확인할 수 있어요."
               }
             />
           </Box>
@@ -182,7 +199,7 @@ function ScheduleDrawerTutorial({
                 showError={false}
               />
 
-              <SelectTemplateTutorial selected={step === 3 ? 0 : -1} />
+              <SelectTemplateTutorial selected={isTemplate ? 0 : -1} />
             </Stack>
 
             {/* 이벤트 반복 설정 */}
@@ -218,7 +235,10 @@ function ScheduleDrawerTutorial({
         </>
       )}
 
-      <Tutorial tutorials={tutorials} step={step} />
+      <Tutorial
+        tutorials={isTemplate ? templateTutorials : tutorials}
+        step={step}
+      />
     </Box>
   );
 }

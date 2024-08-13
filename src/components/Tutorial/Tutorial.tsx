@@ -20,6 +20,8 @@ function Tutorial({
   tutorials: ITutorial[];
   step: number;
 }) {
+  const size = tutorials.length;
+
   const handleClick = () => {
     tutorials[step].nextAction();
   };
@@ -31,7 +33,7 @@ function Tutorial({
           <ClearRoundedIcon />
         </CloseTutorialBtnContainer>
         <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>
-        <Stepper size={tutorials.length} focused={step} />
+        {size > 1 && <Stepper size={size} focused={step} />}
       </Container>
     </Portal>
   );
