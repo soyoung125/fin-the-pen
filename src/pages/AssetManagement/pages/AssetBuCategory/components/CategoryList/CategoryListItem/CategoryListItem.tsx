@@ -96,7 +96,7 @@ function CategoryListItem({
 
   const handleChangeTotal = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const newValue = parseInt(value.replaceAll(",", "")) ?? 0;
+    const newValue = Number(value.replaceAll(",", "")) ?? 0;
     setTotal(newValue);
   };
 
@@ -162,6 +162,7 @@ function CategoryListItem({
             px={4}
             py={2}
             borderBottom="1px solid #F7F7F8"
+            height={55}
           >
             <Typography variant="h4">
               <li>{c.name}</li>

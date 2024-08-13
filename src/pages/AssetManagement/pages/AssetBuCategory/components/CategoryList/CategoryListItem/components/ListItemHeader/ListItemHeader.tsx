@@ -41,17 +41,8 @@ function ListItemHeader({
       bgcolor={open ? "#EAE1FD" : "#fff"}
       borderBottom="1px solid #F7F7F8"
     >
-      {/*<Avatar*/}
-      {/*  alt="category icon"*/}
-      {/*  src={CATEGORY_ICONS[category.subCategory[0]]}*/}
-      {/*  sx={{ width: 42, height: 42 }}*/}
-      {/*>*/}
-      {/*  {category.name}*/}
-      {/*</Avatar>*/}
       <CategoryIconSVG id={category.subCategory[0]} size={42} />
-      <Typography variant="h4" sx={{ flexGrow: 1 }}>
-        {category.name}
-      </Typography>
+      <Typography variant="h4">{category.name}</Typography>
       {modifyTotal ? (
         <UnderlinedInputBox>
           <UnderlinedInput
@@ -65,7 +56,11 @@ function ListItemHeader({
           <span>원</span>
         </UnderlinedInputBox>
       ) : (
-        <Typography variant="h5" onClick={handleClickTotal}>
+        <Typography
+          variant="h5"
+          onClick={handleClickTotal}
+          sx={{ flexGrow: 1, textAlign: "end" }}
+        >
           {total.toLocaleString()}원
         </Typography>
       )}

@@ -31,7 +31,7 @@ function SummaryCard({ ratio, used, goal, handleSetting }: SummaryCardProps) {
             onClick={handleSetting}
             sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
           >
-            <IconSVG id={"setting-secondary"} size={24} />
+            <IconSVG id={"setting-secondary"} size={20} />
           </Box>
           <Typography fontWeight={500}>{goal.toLocaleString()}원</Typography>
         </Stack>

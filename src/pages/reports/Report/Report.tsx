@@ -21,9 +21,9 @@ import BubbleChart from "@pages/reports/Report/components/BubbleChart";
 import PredictReport from "@pages/reports/Report/components/PredictReport";
 import { useEffect, useState } from "react";
 import GoalSettingModal from "@pages/reports/Report/components/modals/GoalSettingModal";
-import { useNavigate } from "react-router-dom";
 import Loading from "@components/Loading";
 import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
+import useAsset from "@hooks/assetManagement/useAsset.ts";
 
 function Report() {
   const { year, month, report, reportList, isPending, isError, pickMonth } =
@@ -31,8 +31,8 @@ function Report() {
   useHeader(true, HEADER_MODE.analysis);
   const { openModal, closeModal } = useModal();
   const [selected, setSelected] = useState("used");
-  const navigate = useNavigate();
   const { reportTutorial, openReportTutorial } = useOnBoarding();
+  const { goSpendingGoal } = useAsset();
 
   useEffect(() => {
     if (!reportTutorial) {
@@ -54,7 +54,7 @@ function Report() {
           closeModal={closeModal}
           navigateTo={() => {
             closeModal();
-            navigate(PATH.spendingGoal);
+            goSpendingGoal(false);
           }}
         />
       ),
@@ -93,7 +93,7 @@ function Report() {
           titleIcon={
             <img src={money_icon} alt="info" width="28px" height="28px" />
           }
-          amount={Math.abs(report.available_amount)}
+          amount={Number(report.available_amount)}
           navigateIcon={<img src={info_icon} alt="info" />}
           handleClick={handleClickAccountInfo}
         />
