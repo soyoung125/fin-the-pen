@@ -46,7 +46,7 @@ function PredictReport({
 
       <DoughnutChart
         labels={LABELS}
-        datas={datas}
+        datas={datas.map((data) => (data < 0 ? 0 : data))}
         bgColors={colors}
         selected={selected}
         setSelected={setSelected}
@@ -60,7 +60,7 @@ function PredictReport({
             type={type}
             amount={datas[idx]}
             selected={selected === type.type}
-            over={useable === 0}
+            over={useable <= 0}
             setSelected={setSelected}
           />
         ))}
