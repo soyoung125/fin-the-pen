@@ -96,7 +96,7 @@ function CategoryListItem({
 
   const handleChangeTotal = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const newValue = parseInt(value.replaceAll(",", "")) ?? 0;
+    const newValue = Number(value.replaceAll(",", "")) ?? 0;
     setTotal(newValue);
   };
 
