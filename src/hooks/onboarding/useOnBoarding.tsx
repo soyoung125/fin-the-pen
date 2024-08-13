@@ -15,48 +15,40 @@ export const useOnBoarding = () => {
     onboarding: false,
     mainTutorial: false,
     drawerTutorial: false,
+    templateTutorial: false,
     reportTutorial: false,
   });
 
-  const clearTutorial = (tutorial: "main" | "drawer" | "report") => {
+  const clearTutorial = (
+    tutorial:
+      | "onboarding"
+      | "mainTutorial"
+      | "drawerTutorial"
+      | "templateTutorial"
+      | "reportTutorial"
+  ) => {
     closeOverlay();
     switch (tutorial) {
-      case "main":
-        setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-          ...onBoarding,
-          mainTutorial: true,
-        });
+      case "drawerTutorial":
+      case "templateTutorial":
+        closeDrawer();
         break;
-      case "drawer":
-        setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-          ...onBoarding,
-          drawerTutorial: true,
-        });
-        break;
-      case "report":
-        setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-          ...onBoarding,
-          reportTutorial: true,
-        });
-        break;
+      default:
+        closeOverlay();
     }
+    setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
+      ...onBoarding,
+      [tutorial]: true,
+    });
   };
 
   const openOnBoarding = () => {
-    const closeOnBoarding = () => {
-      closeOverlay();
-      setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-        ...onBoarding,
-        onboarding: true,
-      });
-    };
-
     return new Promise((resolve) => {
       return openOverlay(
         <OnBoarding
           handleClose={() => {
             resolve(true);
-            closeOnBoarding();
+            clearTutorial("onboarding");
           }}
         />
       );
@@ -64,32 +56,33 @@ export const useOnBoarding = () => {
   };
 
   const openMainTutorial = () => {
-    // const closeMainTutorial = () => {
-    //   closeOverlay();
-    //   setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-    //     ...onBoarding,
-    //     mainTutorial: true,
-    //   });
-    // };
-
-    openOverlay(<HomeTutorial closeTutorial={() => clearTutorial("main")} />);
+    openOverlay(
+      <HomeTutorial closeTutorial={() => clearTutorial("mainTutorial")} />
+    );
   };
 
   const openDrawerTutorial = () => {
-    const closeDrawerTutorial = () => {
-      closeDrawer();
-      setLocalStorage(LOCAL_STORAGE_KEY_ONBOARDING, {
-        ...onBoarding,
-        drawerTutorial: true,
-      });
-    };
     return new Promise((resolve) => {
       return openDrawer(
         <ScheduleDrawerTutorial
           closeTutorial={() => {
             resolve(true);
-            closeDrawerTutorial();
+            clearTutorial("drawerTutorial");
           }}
+        />
+      );
+    });
+  };
+
+  const openTemplateTutorial = () => {
+    return new Promise((resolve) => {
+      return openDrawer(
+        <ScheduleDrawerTutorial
+          closeTutorial={() => {
+            resolve(true);
+            clearTutorial("templateTutorial");
+          }}
+          isTemplate
         />
       );
     });
@@ -97,7 +90,7 @@ export const useOnBoarding = () => {
 
   const openReportTutorial = () => {
     openOverlay(
-      <ReportTutorial closeTutorial={() => clearTutorial("report")} />
+      <ReportTutorial closeTutorial={() => clearTutorial("reportTutorial")} />
     );
   };
 
@@ -106,11 +99,12 @@ export const useOnBoarding = () => {
     onboarding: onBoarding.onboarding,
     mainTutorial: onBoarding.mainTutorial,
     drawerTutorial: onBoarding.drawerTutorial,
+    templateTutorial: onBoarding.templateTutorial,
     reportTutorial: onBoarding.reportTutorial,
     openOnBoarding,
     openMainTutorial,
     openDrawerTutorial,
+    openTemplateTutorial,
     openReportTutorial,
-    clearTutorial,
   };
 };

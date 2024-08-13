@@ -8,6 +8,7 @@ import SelectTemplate from "@components/ScheduleDrawer/pages/ScheduleFormPage/co
 import { useScheduleForm } from "@components/ScheduleDrawer/hooks/useScheduleForm.ts";
 import { ScheduleFormProps } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/SelectTemplate.tsx";
 import NameInput from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/NameInput.tsx";
+import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 
 export interface ScheduleFormPageProps extends ScheduleFormProps {
   showError: boolean;
@@ -26,9 +27,17 @@ function ScheduleFormPage({
   handleClose,
 }: ScheduleFormPageProps) {
   const { scheduleForm, getRepeat } = useScheduleForm();
+  const { templateTutorial, openTemplateTutorial } = useOnBoarding();
 
-  if (scheduleForm) {
-    return (
+  const handleClick = async () => {
+    if (!templateTutorial) {
+      await openTemplateTutorial();
+    }
+    setIsRepeatPickerOpen((prev) => !prev);
+  };
+
+  return (
+    scheduleForm && (
       <Stack spacing={2} pt={2}>
         <Stack spacing="10px">
           {/* 이벤트 제목 */}
@@ -55,7 +64,7 @@ function ScheduleFormPage({
         <RepeatInput
           repeatType={scheduleForm.repeat.kind_type}
           repeatTitle={getRepeat()}
-          onClick={() => setIsRepeatPickerOpen((prev) => !prev)}
+          onClick={handleClick}
         />
 
         <ThickDivider />
@@ -63,10 +72,8 @@ function ScheduleFormPage({
         {/* 이벤트 일정 */}
         <DateInput showError={showError} />
       </Stack>
-    );
-  }
-
-  return <></>;
+    )
+  );
 }
 
 export default ScheduleFormPage;

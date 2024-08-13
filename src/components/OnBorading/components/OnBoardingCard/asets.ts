@@ -8,8 +8,8 @@ export interface IOnboarding {
 }
 
 export const onboardings: IOnboarding[] = [
-  { title: "일정이 많아지면\n지출도 높아지시나요?", image: onboarding1 },
-  { title: "계획된 일정에 맞는\n자산관리도 필요하신가요?", image: onboarding2 },
+  { title: "생겨나는 약속들로\n지출이 높아지시나요?", image: onboarding1 },
+  { title: "나의 일정에 맞는\n자산관리도 필요하신가요?", image: onboarding2 },
   {
     title: "캘린더와 가계부를\n통합한 핀더펜을 사용해보세요",
     image: onboarding3,

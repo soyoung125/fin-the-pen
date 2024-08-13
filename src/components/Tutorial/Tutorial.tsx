@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { MouseEvent, ReactNode } from "react";
 import Stepper from "components/common/Stepper";
 import {
   CloseTutorialBtnContainer,
@@ -6,28 +6,41 @@ import {
   TutorialContainer,
 } from "@components/Tutorial/Tutorial.styles.ts";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { Portal } from "@mui/material";
 
 export interface ITutorial {
   tutorialPage: ReactNode;
   nextAction: () => void;
 }
 
-function Tutorial({ tutorials }: { tutorials: ITutorial[] }) {
-  const [step, setStep] = useState(0);
+interface ITutorialProps {
+  tutorials: ITutorial[];
+  step: number;
+  handleClose: () => void;
+}
+
+function Tutorial({ tutorials, step, handleClose }: ITutorialProps) {
+  const size = tutorials.length;
+
   const handleClick = () => {
     tutorials[step].nextAction();
-    if (step < tutorials.length - 1) {
-      setStep((prev) => prev + 1);
-    }
   };
+
+  const handleClickClose = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    handleClose();
+  };
+
   return (
-    <Container onClick={handleClick}>
-      <CloseTutorialBtnContainer>
-        <ClearRoundedIcon />
-      </CloseTutorialBtnContainer>
-      <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>
-      <Stepper size={tutorials.length} focused={step} />
-    </Container>
+    <Portal>
+      <Container onClick={handleClick}>
+        <CloseTutorialBtnContainer onClick={handleClickClose}>
+          <ClearRoundedIcon />
+        </CloseTutorialBtnContainer>
+        <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>
+        {size > 1 && <Stepper size={size} focused={step} />}
+      </Container>
+    </Portal>
   );
 }
 

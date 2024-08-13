@@ -1,4 +1,4 @@
-import { Box, Drawer, Portal, Stack, Typography } from "@mui/material";
+import { Box, Drawer, Stack, Typography } from "@mui/material";
 import PredictBox from "@pages/reports/Report/components/PredictBox";
 import asset_icon from "@assets/icons/asset.svg";
 import setting_icon from "@assets/icons/setting.svg";
@@ -19,23 +19,18 @@ import { useEffect, useRef, useState } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
-  const year = moment().year();
-  const month = moment().month() + 1;
-  const [value, setValue] = useState(0);
+  const [step, setStep] = useState(0);
+
   const monthRef = useRef<HTMLDivElement>(null);
   const predictRef = useRef<HTMLDivElement>(null);
   const fixedRef = useRef<HTMLDivElement>(null);
+
+  const year = moment().year();
+  const month = moment().month() + 1;
   const isShortHeight = window.innerHeight < 700;
   const MONTH_REPORT_HEIGHT = isShortHeight
     ? window.innerWidth / 1.5
     : window.innerWidth / 1.4;
-
-  useEffect(() => {
-    if (isShortHeight) {
-      monthRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [monthRef]);
-
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -62,7 +57,9 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={127}
               position={"top"}
-              message={"설정하신 목표 금액과\n사용 금액을 가장 먼저 확인해요"}
+              message={
+                "설정하신 지출 목표 금액과\n사용 가능한 금액을 가장 먼저 확인해요"
+              }
             />
           </Box>
 
@@ -81,14 +78,14 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={MONTH_REPORT_HEIGHT + 10}
               position={"top"}
-              message={"카테고리 별 소비 금액을\n도표를 통해 확인할 수 있어요"}
+              message={"카테고리별 소비 금액을\n한눈에 확인할 수 있어요"}
             />
           </Box>
         </>
       ),
       nextAction: () => {
         predictRef.current?.scrollIntoView({ behavior: "smooth" });
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -127,7 +124,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
       ),
       nextAction: () => {
         fixedRef.current?.scrollIntoView({ behavior: "smooth" });
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -157,7 +154,9 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={220}
               position={"top"}
-              message={"일정의 기간을 정하여,\n구체적인 지출 계획을 세워보세요"}
+              message={
+                "고정적으로 나가고 들어오는 입출금을\n지난 달과 비교할 수 있어요"
+              }
             />
           </Box>
 
@@ -184,7 +183,11 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
     },
   ];
 
-  // document.body.style.overflow = "hidden";
+  useEffect(() => {
+    if (isShortHeight) {
+      monthRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [monthRef]);
 
   return (
     <Drawer
@@ -301,9 +304,8 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
           }
         />
       </Stack>
-      <Portal>
-        <Tutorial tutorials={tutorials} />
-      </Portal>
+
+      <Tutorial tutorials={tutorials} step={step} handleClose={closeTutorial} />
     </Drawer>
   );
 }
