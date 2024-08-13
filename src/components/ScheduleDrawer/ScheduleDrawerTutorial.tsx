@@ -1,5 +1,5 @@
 import { ITutorial } from "@components/Tutorial/Tutorial.tsx";
-import { Box, Button, Divider, Portal, Stack } from "@mui/material";
+import { Box, Button, Divider, Stack } from "@mui/material";
 import HighLightDescription from "@components/Tutorial/components/HighlightDescription";
 import { useEffect, useRef, useState } from "react";
 import CategoryPicker from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/CategoryPicker";
@@ -25,8 +25,11 @@ function ScheduleDrawerTutorial({
 }: {
   closeTutorial: () => void;
 }) {
+  const [step, setStep] = useState(0);
+
   const allDayRef = useRef<HTMLDivElement>(null);
-  const [value, setValue] = useState(0);
+  const { scheduleForm, getRepeat } = useScheduleForm();
+
   const isShortHeight = window.innerHeight < 700;
   const tutorials: ITutorial[] = [
     {
@@ -51,7 +54,7 @@ function ScheduleDrawerTutorial({
         </>
       ),
       nextAction: () => {
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -89,7 +92,7 @@ function ScheduleDrawerTutorial({
         </>
       ),
       nextAction: () => {
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -113,7 +116,7 @@ function ScheduleDrawerTutorial({
         </>
       ),
       nextAction: () => {
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -144,17 +147,16 @@ function ScheduleDrawerTutorial({
       },
     },
   ];
-  const { scheduleForm, getRepeat } = useScheduleForm();
 
   useEffect(() => {
-    if (value === 2) {
+    if (step === 2) {
       allDayRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [value]);
+  }, [step]);
 
   return (
     <Box>
-      {value === 1 && (
+      {step === 1 && (
         <CategoryPicker
           closeCategoryPicker={() => {
             console.log("click");
@@ -162,10 +164,10 @@ function ScheduleDrawerTutorial({
         />
       )}
 
-      {value !== 1 && (
+      {step !== 1 && (
         <>
           <ScheduleDrawerHeader
-            value={value}
+            value={step}
             handleReset={() => console.log()}
           />
 
@@ -180,7 +182,7 @@ function ScheduleDrawerTutorial({
                 showError={false}
               />
 
-              <SelectTemplateTutorial selected={value === 3 ? 0 : -1} />
+              <SelectTemplateTutorial selected={step === 3 ? 0 : -1} />
             </Stack>
 
             {/* 이벤트 반복 설정 */}
@@ -216,9 +218,7 @@ function ScheduleDrawerTutorial({
         </>
       )}
 
-      <Portal>
-        <Tutorial tutorials={tutorials} />
-      </Portal>
+      <Tutorial tutorials={tutorials} step={step} />
     </Box>
   );
 }

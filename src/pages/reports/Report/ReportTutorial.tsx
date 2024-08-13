@@ -1,4 +1,4 @@
-import { Box, Drawer, Portal, Stack, Typography } from "@mui/material";
+import { Box, Drawer, Stack, Typography } from "@mui/material";
 import PredictBox from "@pages/reports/Report/components/PredictBox";
 import asset_icon from "@assets/icons/asset.svg";
 import setting_icon from "@assets/icons/setting.svg";
@@ -19,17 +19,18 @@ import { useEffect, useRef, useState } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
-  const year = moment().year();
-  const month = moment().month() + 1;
-  const [value, setValue] = useState(0);
+  const [step, setStep] = useState(0);
+
   const monthRef = useRef<HTMLDivElement>(null);
   const predictRef = useRef<HTMLDivElement>(null);
   const fixedRef = useRef<HTMLDivElement>(null);
+
+  const year = moment().year();
+  const month = moment().month() + 1;
   const isShortHeight = window.innerHeight < 700;
   const MONTH_REPORT_HEIGHT = isShortHeight
     ? window.innerWidth / 1.5
     : window.innerWidth / 1.4;
-
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -82,7 +83,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
       ),
       nextAction: () => {
         predictRef.current?.scrollIntoView({ behavior: "smooth" });
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -121,7 +122,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
       ),
       nextAction: () => {
         fixedRef.current?.scrollIntoView({ behavior: "smooth" });
-        setValue((prev) => prev + 1);
+        setStep((prev) => prev + 1);
       },
     },
     {
@@ -299,9 +300,8 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
           }
         />
       </Stack>
-      <Portal>
-        <Tutorial tutorials={tutorials} />
-      </Portal>
+
+      <Tutorial tutorials={tutorials} step={step} />
     </Drawer>
   );
 }

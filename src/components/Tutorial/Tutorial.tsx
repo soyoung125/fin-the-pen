@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Stepper from "components/common/Stepper";
 import {
   CloseTutorialBtnContainer,
@@ -6,28 +6,34 @@ import {
   TutorialContainer,
 } from "@components/Tutorial/Tutorial.styles.ts";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { Portal } from "@mui/material";
 
 export interface ITutorial {
   tutorialPage: ReactNode;
   nextAction: () => void;
 }
 
-function Tutorial({ tutorials }: { tutorials: ITutorial[] }) {
-  const [step, setStep] = useState(0);
+function Tutorial({
+  tutorials,
+  step,
+}: {
+  tutorials: ITutorial[];
+  step: number;
+}) {
   const handleClick = () => {
     tutorials[step].nextAction();
-    if (step < tutorials.length - 1) {
-      setStep((prev) => prev + 1);
-    }
   };
+
   return (
-    <Container onClick={handleClick}>
-      <CloseTutorialBtnContainer>
-        <ClearRoundedIcon />
-      </CloseTutorialBtnContainer>
-      <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>
-      <Stepper size={tutorials.length} focused={step} />
-    </Container>
+    <Portal>
+      <Container onClick={handleClick}>
+        <CloseTutorialBtnContainer>
+          <ClearRoundedIcon />
+        </CloseTutorialBtnContainer>
+        <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>
+        <Stepper size={tutorials.length} focused={step} />
+      </Container>
+    </Portal>
   );
 }
 

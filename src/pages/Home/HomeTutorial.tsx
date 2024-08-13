@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Drawer, Portal } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import SelectYearMonth from "@components/common/SelectYearMonth";
 import moment from "moment";
 import MenuTab from "@pages/Home/next-components/HomeHeader/MenuTab";
@@ -10,8 +10,9 @@ import WeekTutorialPage from "@pages/Home/pages/WeekSchedulePage/WeekTutorialPag
 import HighLightDescription from "@components/Tutorial/components/HighlightDescription";
 
 function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
+  const [step, setStep] = useState(0);
+
   const labels = ["월 별", "주 별", "일 별"];
-  const [value, setValue] = useState(0);
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -46,7 +47,7 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         </>
       ),
       nextAction: () => {
-        setValue(1);
+        setStep(1);
       },
     },
     {
@@ -113,17 +114,15 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         <Box py={1} px={2.5}>
           <SelectYearMonth date={moment().format("YYYY년 M월")} />
         </Box>
-        <MenuTab labels={labels} value={value} />
+        <MenuTab labels={labels} value={step} />
       </Box>
 
       <Box overflow="hidden">
-        {value === 0 && <MonthTutorialPage />}
-        {value === 1 && <WeekTutorialPage />}
+        {step === 0 && <MonthTutorialPage />}
+        {step === 1 && <WeekTutorialPage />}
       </Box>
 
-      <Portal>
-        <Tutorial tutorials={tutorials} />
-      </Portal>
+      <Tutorial tutorials={tutorials} step={step} />
     </Drawer>
   );
 }
