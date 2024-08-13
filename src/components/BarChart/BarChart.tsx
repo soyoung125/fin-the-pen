@@ -60,7 +60,7 @@ function BarChart({
                 $width={d}
                 onClick={() => setSelected(values[idx])}
               >
-                {selected === values[idx] && `${d}%`}
+                {selected === values[idx] && d > 10 && `${d}%`}
               </BarComponent>
             )
         )}
