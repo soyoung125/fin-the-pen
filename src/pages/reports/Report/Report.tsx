@@ -93,7 +93,7 @@ function Report() {
           titleIcon={
             <img src={money_icon} alt="info" width="28px" height="28px" />
           }
-          amount={Math.abs(report.available_amount)}
+          amount={Number(report.available_amount)}
           navigateIcon={<img src={info_icon} alt="info" />}
           handleClick={handleClickAccountInfo}
         />
