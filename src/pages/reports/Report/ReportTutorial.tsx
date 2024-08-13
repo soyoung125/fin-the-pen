@@ -305,7 +305,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         />
       </Stack>
 
-      <Tutorial tutorials={tutorials} step={step} />
+      <Tutorial tutorials={tutorials} step={step} handleClose={closeTutorial} />
     </Drawer>
   );
 }

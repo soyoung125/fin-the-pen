@@ -238,6 +238,7 @@ function ScheduleDrawerTutorial({
       <Tutorial
         tutorials={isTemplate ? templateTutorials : tutorials}
         step={step}
+        handleClose={closeTutorial}
       />
     </Box>
   );

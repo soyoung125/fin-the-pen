@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import Stepper from "components/common/Stepper";
 import {
   CloseTutorialBtnContainer,
@@ -13,23 +13,28 @@ export interface ITutorial {
   nextAction: () => void;
 }
 
-function Tutorial({
-  tutorials,
-  step,
-}: {
+interface ITutorialProps {
   tutorials: ITutorial[];
   step: number;
-}) {
+  handleClose: () => void;
+}
+
+function Tutorial({ tutorials, step, handleClose }: ITutorialProps) {
   const size = tutorials.length;
 
   const handleClick = () => {
     tutorials[step].nextAction();
   };
 
+  const handleClickClose = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    handleClose();
+  };
+
   return (
     <Portal>
       <Container onClick={handleClick}>
-        <CloseTutorialBtnContainer>
+        <CloseTutorialBtnContainer onClick={handleClickClose}>
           <ClearRoundedIcon />
         </CloseTutorialBtnContainer>
         <TutorialContainer>{tutorials[step].tutorialPage}</TutorialContainer>

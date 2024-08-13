@@ -123,7 +123,7 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         {step === 1 && <WeekTutorialPage />}
       </Box>
 
-      <Tutorial tutorials={tutorials} step={step} />
+      <Tutorial tutorials={tutorials} step={step} handleClose={closeTutorial} />
     </Drawer>
   );
 }
