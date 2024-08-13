@@ -86,8 +86,6 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
     },
   ];
 
-  document.body.style.overflow = "hidden";
-
   return (
     <Drawer
       open={true}

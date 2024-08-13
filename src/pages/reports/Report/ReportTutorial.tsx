@@ -30,12 +30,6 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
     ? window.innerWidth / 1.5
     : window.innerWidth / 1.4;
 
-  useEffect(() => {
-    if (isShortHeight) {
-      monthRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [monthRef]);
-
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -184,7 +178,11 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
     },
   ];
 
-  // document.body.style.overflow = "hidden";
+  useEffect(() => {
+    if (isShortHeight) {
+      monthRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [monthRef]);
 
   return (
     <Drawer

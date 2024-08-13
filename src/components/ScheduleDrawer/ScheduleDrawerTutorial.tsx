@@ -27,6 +27,7 @@ function ScheduleDrawerTutorial({
 }) {
   const allDayRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState(0);
+  const isShortHeight = window.innerHeight < 700;
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -100,7 +101,8 @@ function ScheduleDrawerTutorial({
             height={220}
             display="flex"
             position="absolute"
-            bottom={100}
+            bottom={isShortHeight ? 100 : undefined}
+            top={isShortHeight ? undefined : 385}
           >
             <HighLightDescription
               offset={220}
@@ -149,6 +151,7 @@ function ScheduleDrawerTutorial({
       allDayRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [value]);
+
   return (
     <Box>
       {value === 1 && (
