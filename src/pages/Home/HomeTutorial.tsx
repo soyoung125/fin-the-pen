@@ -13,6 +13,7 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
   const [step, setStep] = useState(0);
 
   const labels = ["월 별", "주 별", "일 별"];
+  const isShortHeight = window.innerHeight < 700;
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
@@ -40,7 +41,7 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
               offset={243}
               position={"top"}
               message={
-                "등록된 일정의 정보 확인이 가능합니다.\n오늘 이후의 일정 등록 시에는 금액 정보가 \n다음과 같이 표시돼요!"
+                "등록된 일정과 자산을 확인해요.\n계획된 자산 일정이 지나면 다음과 같이 표시돼요."
               }
             />
           </Box>
@@ -66,13 +67,13 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
             width={"100dvw"}
-            height={184}
+            height={isShortHeight ? 184 : 360}
             display="flex"
             position="absolute"
-            top={160}
+            top={150}
           >
             <HighLightDescription
-              offset={184}
+              offset={isShortHeight ? 184 : 370}
               position={"bottom"}
               message={
                 "이번주에는 얼마나 소비했는지,\n다음주에는 얼마나 소비할 예정인지\n미리 확인할 수 있어요!"
