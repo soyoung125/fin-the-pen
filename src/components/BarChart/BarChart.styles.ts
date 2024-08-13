@@ -49,7 +49,8 @@ export const BarLabelBox = styled.div<{
   bottom: 6px;
   padding: 3px 10px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 11px;
+  white-space: nowrap;
   font-weight: 600;
   color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#131416")};
   background-color: ${({ $isSelected }) =>
@@ -60,7 +61,7 @@ export const LabelLine = styled.div<{
   $isSelected: boolean;
 }>`
   margin: auto;
-  height: 6px;
+  height: 8px;
   border: 1px dashed
     ${({ $isSelected }) => ($isSelected ? "#131416" : "#A9ACB2")};
 `;
