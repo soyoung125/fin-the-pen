@@ -13,9 +13,14 @@ const useAsset = () => {
     navigate(assetManagements[menu].path, { replace: replace });
   };
 
+  const goSpendingGoal = (replace?: boolean) => {
+    setMenu(1, replace);
+  };
+
   return {
     assetMenu,
     setMenu,
+    goSpendingGoal,
   };
 };
 

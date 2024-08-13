@@ -12,6 +12,8 @@ import { useToast } from "@hooks/toast/useToast.tsx";
 import { IconButton, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Loading from "@components/Loading";
+import useAsset from "@hooks/assetManagement/useAsset.ts";
+import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 function AssetByCategory() {
   const {
@@ -24,6 +26,8 @@ function AssetByCategory() {
     deleteAssetByCategory,
   } = useAssetByCategory();
   const { openToast, closeToast } = useToast();
+  const { openConfirm } = useDialog();
+  const { goSpendingGoal } = useAsset();
 
   const [control, setControl] = useState("");
 
@@ -59,6 +63,18 @@ function AssetByCategory() {
     }
   };
 
+  const handleSetting = async () => {
+    const result = await openConfirm({
+      title: "알림",
+      content: "지출 목표 설정 페이지로 이동하시겠습니까?",
+      approveText: "네",
+      rejectText: "아니오",
+    });
+    if (result) {
+      goSpendingGoal();
+    }
+  };
+
   return (
     <>
       <SelectMonth
@@ -69,7 +85,7 @@ function AssetByCategory() {
         used={Number(assetsByCategory?.category_total)}
         goal={Number(assetsByCategory?.spend_goal_amount)}
         ratio={parseInt(assetsByCategory?.ratio ?? "0")}
-        handleSetting={() => alert("click")}
+        handleSetting={handleSetting}
       />
       <ThickDivider />
 
