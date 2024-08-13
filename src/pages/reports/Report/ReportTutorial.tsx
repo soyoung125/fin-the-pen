@@ -57,7 +57,9 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={127}
               position={"top"}
-              message={"설정하신 목표 금액과\n사용 금액을 가장 먼저 확인해요"}
+              message={
+                "설정하신 지출 목표 금액과\n사용 가능한 금액을 가장 먼저 확인해요"
+              }
             />
           </Box>
 
@@ -76,7 +78,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={MONTH_REPORT_HEIGHT + 10}
               position={"top"}
-              message={"카테고리 별 소비 금액을\n도표를 통해 확인할 수 있어요"}
+              message={"카테고리별 소비 금액을\n한눈에 확인할 수 있어요"}
             />
           </Box>
         </>
@@ -152,7 +154,9 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             <HighLightDescription
               offset={220}
               position={"top"}
-              message={"일정의 기간을 정하여,\n구체적인 지출 계획을 세워보세요"}
+              message={
+                "고정적으로 나가고 들어오는 입출금을\n지난 달과 비교할 수 있어요"
+              }
             />
           </Box>
 
