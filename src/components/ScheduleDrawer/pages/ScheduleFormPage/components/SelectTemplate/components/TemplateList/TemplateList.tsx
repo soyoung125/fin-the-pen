@@ -1,6 +1,7 @@
 import {
   EmptyTemplateBadge,
   TemplateBadge,
+  TemplateBadgeText,
   TemplateListContainer,
 } from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/SelectTemplate/components/TemplateList/TemplateList.styles.ts";
 import { Template } from "@app/types/template.ts";
@@ -29,7 +30,7 @@ function TemplateList({ templates, selected, setSelected }: TemplateListProps) {
           onClick={() => setSelected(t)}
         >
           <TemplateIconSVG id={t.category_name} />
-          {t.template_name}
+          <TemplateBadgeText>{t.template_name}</TemplateBadgeText>
         </TemplateBadge>
       ))}
     </TemplateListContainer>
