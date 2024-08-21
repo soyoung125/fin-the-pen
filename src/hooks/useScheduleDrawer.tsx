@@ -36,15 +36,17 @@ export const useScheduleDrawer = () => {
   };
 
   const openScheduleDrawer = (data: RequestSchedule) => {
-    if (schedule?.schedule_id !== data.schedule_id)
-      dispatch(setDrawerScheduleForm(data));
-    if (!schedule?.schedule_id && data.start_date !== schedule?.start_date)
-      dispatch(setDrawerScheduleForm(data));
-
     const resetSchedule = () => {
       dispatch(setDrawerScheduleForm(data));
       dispatch(resetSelectedTemplate());
     };
+
+    if (schedule?.schedule_id !== data.schedule_id) {
+      resetSchedule();
+    }
+    if (!schedule?.schedule_id && data.start_date !== schedule?.start_date) {
+      resetSchedule();
+    }
 
     openDrawer(
       <ScheduleDrawer handleClose={closeDrawer} resetSchedule={resetSchedule} />
