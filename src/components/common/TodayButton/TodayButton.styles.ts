@@ -4,7 +4,7 @@ export const BottomButtonContainer = styled.div`
   width: 100%;
   display: flex;
   position: fixed;
-  bottom: 28px;
+  bottom: 90px;
   align-items: center;
   justify-content: center;
   z-index: 100;
