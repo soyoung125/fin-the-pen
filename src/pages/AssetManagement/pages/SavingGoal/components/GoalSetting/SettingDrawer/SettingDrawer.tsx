@@ -96,6 +96,7 @@ function SettingDrawer({
           id="year"
           inputProps={{
             style: { textAlign: "right" },
+            inputMode: "numeric",
           }}
         />
         <Typography variant="h2" sx={{ fontWeight: "bold" }}>
@@ -111,6 +112,7 @@ function SettingDrawer({
             id="month"
             inputProps={{
               style: { textAlign: "right" },
+              inputMode: "numeric",
             }}
           />
         </FormControl>

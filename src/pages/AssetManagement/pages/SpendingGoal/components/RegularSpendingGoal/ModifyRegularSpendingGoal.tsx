@@ -64,6 +64,7 @@ function ModifyRegularSpendingGoal({
               id="spend_goal_amount"
               onChange={handleChange}
               value={getAmount(form.spend_goal_amount).toLocaleString()}
+              inputMode="numeric"
             />
             <Box>원</Box>
           </Stack>
