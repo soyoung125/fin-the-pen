@@ -107,6 +107,7 @@ function SpendingInput() {
               endAdornment={SCHEDULE_DRAWER.won}
               inputProps={{
                 style: { textAlign: "right" },
+                inputMode: "numeric",
               }}
             />
           </Stack>

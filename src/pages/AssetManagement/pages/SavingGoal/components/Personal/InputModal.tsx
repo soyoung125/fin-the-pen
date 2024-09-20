@@ -112,6 +112,7 @@ function InputModal({
             inputProps={{
               style: { textAlign: "right" },
               step: 10,
+              inputMode: "numeric",
             }}
             type="text"
             onFocus={(e) => e.target.select()}
@@ -146,6 +147,7 @@ function InputModal({
             size="small"
             inputProps={{
               style: { textAlign: "right" },
+              inputMode: "numeric",
             }}
           />
         </FormControl>

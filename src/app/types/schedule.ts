@@ -17,12 +17,17 @@ interface ScheduleBase {
   fix_amount: boolean;
 }
 
-export interface Schedule extends ScheduleBase {
+export interface Schedule extends Omit<ScheduleBase, "period"> {
   all_day: boolean;
   repeat_kind: "NONE" | "DAY" | "WEEK" | "MONTH" | "YEAR";
   repeat_options: { term: string; options: string | YearCategory };
   amount: string;
   exclude: boolean;
+  period: {
+    repeat_again: boolean;
+    repeat_end_line: string;
+    repeat_number_of_time: string;
+  };
 }
 
 export interface RequestSchedule extends ScheduleBase {

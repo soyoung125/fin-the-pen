@@ -18,7 +18,7 @@ export const useScheduleChangeModal = () => {
             closeOverlay();
           }}
           onClickOnlyNow={() => {
-            resolve("exceptNowAfter");
+            resolve("none");
             closeOverlay();
           }}
           onClickAll={() => {

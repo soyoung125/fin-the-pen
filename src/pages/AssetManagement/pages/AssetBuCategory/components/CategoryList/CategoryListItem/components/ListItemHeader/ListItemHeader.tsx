@@ -49,6 +49,7 @@ function ListItemHeader({
             value={total.toLocaleString()}
             onChange={handleChangeTotal}
             onClick={(e) => e.stopPropagation()}
+            inputMode="numeric"
             $color={open ? "#EAE1FD" : "#fff"}
             $isShake={smallSummary > total}
             autoFocus={isAutoFocus}

@@ -54,6 +54,7 @@ function ModifyModal({
           inputProps={{
             style: { textAlign: "right" },
             step: 10,
+            inputMode: "numeric",
           }}
           type="text"
           onFocus={(e) => e.target.select()}

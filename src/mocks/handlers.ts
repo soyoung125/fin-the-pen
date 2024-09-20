@@ -154,6 +154,11 @@ export const handlers = [
           },
           amount: schedule.set_amount,
           exclude: schedule.exclusion,
+          period: {
+            repeat_number_of_time: schedule.period.repeat_number_time,
+            repeat_again: schedule.period.is_repeat_again,
+            repeat_end_line: schedule.period.repeat_end_line,
+          },
         },
       ];
       setLocalStorage(LOCAL_STORAGE_KEY_SCHEDULES, newSchedules);

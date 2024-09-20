@@ -82,6 +82,11 @@ export const SCHEDULE_REQUEST = (schedule: Schedule) => {
     repeat: repeat,
     repeat_kind: schedule.repeat_kind,
     register_template: false,
+    period: {
+      ...schedule.period,
+      is_repeat_again: schedule.period.repeat_again,
+      repeat_number_time: schedule.period.repeat_number_of_time,
+    },
   };
 };
 

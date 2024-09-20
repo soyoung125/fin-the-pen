@@ -176,6 +176,7 @@ function CategoryListItem({
                   }
                   onChange={handleChange}
                   autoFocus={control === c.name}
+                  inputMode="numeric"
                 />
                 <span>원</span>
               </UnderlinedInputBox>
