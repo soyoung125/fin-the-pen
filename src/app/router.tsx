@@ -6,32 +6,27 @@ import HomeLayout from "@components/layouts/containerLayout/HomeLayout.tsx";
 import ManagementLayout from "@components/layouts/containerLayout/ManagementLayout.tsx";
 import ReportLayout from "@components/layouts/containerLayout/ReportLayout.tsx";
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <HomeLayout />,
-      children: [
-        {
-          path: "/",
-          children: HOME_ROUTES,
-        },
-        {
-          path: "/management",
-          element: <ManagementLayout />,
-          children: MANAGEMENT_ROUTES,
-        },
-        {
-          path: "/report",
-          element: <ReportLayout />,
-          children: REPORT_ROUTES,
-        },
-      ],
-    },
-  ],
+const router = createBrowserRouter([
   {
-    basename: "/fin-the-pen-web",
-  }
-);
+    path: "/",
+    element: <HomeLayout />,
+    children: [
+      {
+        path: "/",
+        children: HOME_ROUTES,
+      },
+      {
+        path: "/management",
+        element: <ManagementLayout />,
+        children: MANAGEMENT_ROUTES,
+      },
+      {
+        path: "/report",
+        element: <ReportLayout />,
+        children: REPORT_ROUTES,
+      },
+    ],
+  },
+]);
 
 export default router;
