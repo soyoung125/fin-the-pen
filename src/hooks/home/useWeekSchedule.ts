@@ -23,6 +23,7 @@ const useWeekSchedule = () => {
     isPending,
     isError,
     date,
+    month,
   };
 };
 

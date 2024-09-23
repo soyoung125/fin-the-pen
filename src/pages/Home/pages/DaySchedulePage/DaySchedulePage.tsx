@@ -45,6 +45,7 @@ function DaySchedulePage({ updateHeight, navigateTo }: HomePageProps) {
         expect={Number(dayData?.expect ?? 0)}
         dayTitle={isToday ? "오늘의" : moment(date).format("M월D일")}
         showPredict={showPredict}
+        isError={isError}
       />
 
       <ThickDivider />

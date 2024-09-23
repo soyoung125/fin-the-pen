@@ -27,6 +27,7 @@ export const useMonthSchedules = (query: HomeQuery) => {
   return useQuery({
     queryKey: [QUERY_KEY_SCHEDULES, query.main_month, QUERY_KEY_MONTH],
     queryFn: () => fetchMonthSchedules(query),
+    retry: 1,
   });
 };
 

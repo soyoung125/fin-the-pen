@@ -83,6 +83,7 @@ function MonthSchedulePage({ updateHeight, navigateTo }: HomePageProps) {
           availableAmount={parseInt(monthData?.available ?? "")}
           showPredict={showPredict}
           dayTitle={isThisMonth ? "이번달" : moment(date).format("M월")}
+          isError={isError}
         />
 
         <ThickDivider />
