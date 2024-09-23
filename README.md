@@ -1,8 +1,8 @@
 # 💸 핀더펜 (Financial The Penny)
 
-### [웹에서 데모버전 확인하기](https://soyoung125.github.io/fin-the-pen-web/)
+### [웹에서 데모버전 확인하기](https://fin-the-pen-web-demo.vercel.app/)
 
-### [배포 페이지 바로가기](https://d2vl90cpkqpz2m.cloudfront.net/)
+### [배포 페이지 바로가기](https://fin-the-pen.vercel.app/)
 
 #### [Storybook](https://645bb0d7fab3ee51343325b9-wqmzcooqxa.chromatic.com/)
 

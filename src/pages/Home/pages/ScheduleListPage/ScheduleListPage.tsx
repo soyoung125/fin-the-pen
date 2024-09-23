@@ -1,15 +1,15 @@
+import React, { useEffect, useRef, useState } from "react";
 import ScheduleListPageHeader from "components/ScheduleList/ScheduleListPageHeader";
 import useHome from "@hooks/useHome.ts";
 import moment from "moment";
-import { Box, Stack } from "@mui/material";
-import SummaryCard from "@pages/Home/next-components/HomeHeader/MonthlyBudgetSummary/SummaryCard";
+import { Box } from "@mui/material";
 import useHeader from "@hooks/useHeader.ts";
 import ScheduleListHeader from "components/ScheduleList/ScheduleListHeader";
-import React, { useEffect, useRef, useState } from "react";
 import ScheduleList from "@components/ScheduleList";
 import TodayButton from "@components/common/TodayButton/TodayButton.tsx";
 import FilterDrawer from "@components/layouts/common/TopBar/buttons/FilterButton/FilterDrawer.tsx";
 import useMonthSchedule from "@hooks/home/useMonthSchedule.ts";
+import MonthlySummary from "@pages/Home/pages/ScheduleListPage/components/MonthlySummary/MonthlySummary.tsx";
 
 function ScheduleListPage() {
   useHeader(false);
@@ -17,7 +17,12 @@ function ScheduleListPage() {
   const todayRef = useRef<HTMLDivElement>(null);
 
   const { date, subtractMonth, addMonth, pickMonth } = useHome();
-  const { monthData: data, monthSchedules, isPending } = useMonthSchedule();
+  const {
+    monthData: data,
+    monthSchedules,
+    isPending,
+    isError,
+  } = useMonthSchedule();
 
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [scheduleDates, setScheduleDates] = useState<string[]>([]);
@@ -69,16 +74,11 @@ function ScheduleListPage() {
         changeMonth={pickMonth}
       />
 
-      <Stack
-        py={3}
-        px={2.5}
-        spacing="6px"
-        bgcolor="primary.main"
-        sx={{ color: "#FFF" }}
-      >
-        <SummaryCard title="수입" amount={parseInt(data?.income ?? "")} />
-        <SummaryCard title="지출" amount={parseInt(data?.expense ?? "")} />
-      </Stack>
+      <MonthlySummary
+        isError={isError}
+        income={parseInt(data?.income ?? "")}
+        expense={parseInt(data?.expense ?? "")}
+      />
 
       <Box
         sx={{
