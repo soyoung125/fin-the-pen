@@ -32,6 +32,7 @@ export const useWeekSchedules = (query: HomeQuery) => {
   return useQuery({
     queryKey: [QUERY_KEY_SCHEDULES, query.main_month, QUERY_KEY_WEEK],
     queryFn: () => fetchWeekSchedules(query),
+    retry: 1,
   });
 };
 

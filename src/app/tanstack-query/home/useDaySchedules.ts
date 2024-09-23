@@ -32,6 +32,7 @@ export const useDaySchedules = (query: HomeQuery) => {
       query.calendar_date,
     ],
     queryFn: () => fetchDaySchedules(query),
+    retry: 1,
   });
 };
 

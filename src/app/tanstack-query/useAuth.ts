@@ -45,7 +45,7 @@ export const useAuth = () => {
         };
         queryClient.setQueryData([QUERY_KEY_USER], useUser);
         setSessionStorage(SESSION_STORAGE_KEY_TOKEN, user.token);
-        navigate("//");
+        navigate("/");
       } else {
         alert("로그인에 실패했습니다.");
       }
