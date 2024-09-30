@@ -1,13 +1,13 @@
-import { Box, Button, IconButton, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NO_BLANKS } from "@constants/messages.tsx";
 import { PATH } from "@constants/path.ts";
 import { isObjectValuesEmpty } from "@utils/tools.ts";
 import { useAuth } from "@app/tanstack-query/useAuth.ts";
-import MockSignIn from "@pages/SignIn/MockSignIn.tsx";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SocialLogin from "@pages/SignIn/components/SocialLogin";
 
 function SignInFields() {
   const navigate = useNavigate();
@@ -95,8 +95,11 @@ function SignInFields() {
           계정이 없으신가요?
         </Button>
       </Box>
-      {/* TODO: production 모드에서도 출력되지 않도록 개선 예정 */}
-      {!isPending && <MockSignIn />}
+
+      <Stack justifyContent="center" spacing={1}>
+        <SocialLogin type="kakao" />
+        <SocialLogin type="naver" />
+      </Stack>
     </>
   );
 }

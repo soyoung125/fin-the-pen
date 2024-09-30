@@ -26,7 +26,7 @@ function SignIn() {
 
   return (
     <CenterBox>
-      <Stack justifyContent="center" alignItems="center" px={1}>
+      <Stack justifyContent="center" alignItems="center" px={1} spacing={3}>
         {!user ? ( // 버그 수정 필요
           <Stack justifyContent="center" alignItems="center" px="12px">
             <Header />

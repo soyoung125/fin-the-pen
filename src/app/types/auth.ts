@@ -24,3 +24,12 @@ export interface SignIn {
   user_id: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
 }
+
+export type SocialLoginType = "kakao" | "naver";
+
+export type SocialLoginStateType = {
+  [key in SocialLoginType]: {
+    image: string;
+    path: string;
+  };
+};
