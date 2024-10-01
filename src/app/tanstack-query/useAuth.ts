@@ -7,6 +7,7 @@ import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
 import { useDispatch } from "react-redux";
 import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
+import { PATH } from "@constants/path.ts";
 
 const fetchSignIn = async (credentials: SignIn) => {
   return fetch(`${DOMAIN}/sign-in`, {
@@ -34,7 +35,7 @@ export const useAuth = () => {
         };
         queryClient.setQueryData([QUERY_KEY_USER], useUser);
         setSessionStorage(SESSION_STORAGE_KEY_TOKEN, user.token);
-        navigate("/");
+        navigate(PATH.home);
       } else {
         alert("로그인에 실패했습니다.");
       }

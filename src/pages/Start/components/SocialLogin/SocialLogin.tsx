@@ -1,6 +1,5 @@
 import { SocialLoginStateType, SocialLoginType } from "@app/types/auth.ts";
-import { Button } from "@mui/material";
-import { DOMAIN } from "@api/url.ts";
+import { Box, Button } from "@mui/material";
 
 interface SocialLoginProps {
   type: SocialLoginType;
@@ -9,17 +8,18 @@ interface SocialLoginProps {
 const SOCIAL_LOGIN: SocialLoginStateType = {
   kakao: {
     image: "/icons/socialLogin/kakao.svg",
-    path: `${DOMAIN}/login/kakao`,
+    path: `http://localhost:8080/login/kakao`,
   },
   naver: {
     image: "/icons/socialLogin/btnG_아이콘사각.png",
-    path: `${DOMAIN}/login/naver`,
+    path: `http://localhost:8080/login/naver`,
   },
 };
 
 function SocialLogin({ type }: SocialLoginProps) {
   return (
-    <form
+    <Box
+      component="form"
       action={SOCIAL_LOGIN[type].path}
       method="get"
       style={{ width: "100%" }}
@@ -32,7 +32,7 @@ function SocialLogin({ type }: SocialLoginProps) {
       >
         <img src={SOCIAL_LOGIN[type].image} width={40} />
       </Button>
-    </form>
+    </Box>
   );
 }
 

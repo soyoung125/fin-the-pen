@@ -1,6 +1,6 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { PATH } from "@constants/path.ts";
-import SocialLogin from "@pages/SignIn/components/SocialLogin";
+import SocialLogin from "pages/Start/components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import Header from "@pages/Start/Header.tsx";
