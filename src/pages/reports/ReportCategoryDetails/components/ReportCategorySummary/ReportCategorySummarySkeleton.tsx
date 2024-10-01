@@ -15,10 +15,10 @@ function ReportCategorySummarySkeleton() {
       <Stack spacing={0.5}>
         <Skeleton variant="rectangular" height={32} />
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="caption" fontWeight={400}>
+          <Typography fontWeight={400}>
             <Skeleton width="100px" />
           </Typography>
-          <Typography variant="caption">
+          <Typography>
             <Skeleton width="100px" />
           </Typography>
         </Stack>

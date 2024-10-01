@@ -12,7 +12,7 @@ export interface PersonalCardProps {
 function PersonalCard({ name }: PersonalCardProps) {
   const navigate = useNavigate();
 
-  const navigateToSignIn = () => navigate(PATH.signIn);
+  const navigateToSignIn = () => navigate(PATH.signIn());
   const navigateToMyPage = () => navigate(PATH.myPage);
 
   return (

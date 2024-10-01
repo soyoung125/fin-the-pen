@@ -19,7 +19,6 @@ function SignUp() {
 
   useEffect(() => {
     dispatch(setBottomBarOpenFalse());
-    return () => dispatch(setBottomBarOpenTrue()) as unknown as void;
   }, []);
 
   return (

@@ -40,6 +40,7 @@ const commonThemeOptions: ThemeOptions = {
     },
     caption: {
       fontSize: 14,
+      fontWeight: 500,
     },
     subtitle1: {
       fontSize: 15,

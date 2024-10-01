@@ -43,10 +43,10 @@ function ReportCategorySummary({
           setSelected={setSelected}
         />
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="caption" fontWeight={400}>
+          <Typography fontWeight={400}>
             {`${getSelectedType(selected)} ${amount.toLocaleString()}원`}
           </Typography>
-          <Typography variant="caption" color="secondary.dark">
+          <Typography color="secondary.dark">
             목표 {goal.toLocaleString()}원
           </Typography>
         </Stack>

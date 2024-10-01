@@ -3,14 +3,15 @@ import LogoCircle from "@components/common/LogoCircle.tsx";
 
 function Header() {
   return (
-    <Stack py={3} alignItems="center" spacing={2}>
+    <Stack pb={3} pt={5} px={2.5} alignItems="center" spacing={2}>
       <LogoCircle />
       <Stack my={2}>
-        <Typography fontSize={22} fontWeight={700} textAlign="center">
-          핀더펜 로그인
+        <Typography variant="h2" textAlign="center" whiteSpace="break-spaces">
+          {`핀더펜과 함께\n자산 설계를 시작하세요 !`}
         </Typography>
       </Stack>
     </Stack>
   );
 }
+
 export default Header;

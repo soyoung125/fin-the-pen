@@ -1,18 +1,24 @@
-import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { NO_BLANKS } from "@constants/messages.tsx";
-import { PATH } from "@constants/path.ts";
 import { isObjectValuesEmpty } from "@utils/tools.ts";
 import { useAuth } from "@app/tanstack-query/useAuth.ts";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SocialLogin from "@pages/SignIn/components/SocialLogin";
+import { useSearchParams } from "react-router-dom";
 
 function SignInFields() {
-  const navigate = useNavigate();
   const { signIn, isPending } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const email = searchParams.get("email");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,71 +42,62 @@ function SignInFields() {
   };
 
   return (
-    <>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={{ maxWidth: "400px" }}
+    <Stack
+      component="form"
+      onSubmit={handleSubmit}
+      noValidate
+      sx={{ maxWidth: "400px", px: 2.5, gap: 2, width: "100dvw" }}
+    >
+      <TextField
+        margin="dense"
+        required
+        fullWidth
+        defaultValue={email}
+        id="email"
+        label="이메일"
+        name="email"
+        autoComplete="email"
+        autoFocus
+      />
+      <TextField
+        margin="dense"
+        required
+        fullWidth
+        name="password"
+        label="비밀번호"
+        type={showPassword ? "text" : "password"}
+        id="password"
+        autoComplete="current-password"
+        InputProps={{
+          endAdornment: (
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={() => setShowPassword(!showPassword)}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          ),
+        }}
+      />
+
+      <Button type="submit" fullWidth variant="contained">
+        {isPending ? "로그인 중..." : "로그인"}
+      </Button>
+
+      <Typography
+        variant="caption"
+        sx={{ textDecorationLine: "underline" }}
+        onClick={() =>
+          alert(
+            "You forget a thousand things every day. Make sure this is one of them :)"
+          )
+        }
       >
-        <TextField
-          margin="dense"
-          required
-          fullWidth
-          id="email"
-          label="이메일"
-          name="email"
-          autoComplete="email"
-          autoFocus
-        />
-        <TextField
-          margin="dense"
-          required
-          fullWidth
-          name="password"
-          label="비밀번호"
-          type={showPassword ? "text" : "password"}
-          id="password"
-          autoComplete="current-password"
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={() => setShowPassword(!showPassword)}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            ),
-          }}
-        />
-
-        <Button
-          sx={{ pl: 0 }}
-          onClick={() =>
-            alert(
-              "You forget a thousand things every day. Make sure this is one of them :)"
-            )
-          }
-        >
-          비밀번호를 잊으셨나요?
-        </Button>
-
-        <Button type="submit" fullWidth variant="contained">
-          {isPending ? "로그인 중..." : "로그인"}
-        </Button>
-
-        <Button onClick={() => navigate(PATH.signUp)} sx={{ pl: 0 }}>
-          계정이 없으신가요?
-        </Button>
-      </Box>
-
-      <Stack justifyContent="center" spacing={1}>
-        <SocialLogin type="kakao" />
-        <SocialLogin type="naver" />
-      </Stack>
-    </>
+        비밀번호를 잊으셨나요?
+      </Typography>
+    </Stack>
   );
 }
 
