@@ -6,6 +6,7 @@ import { onboardings } from "@components/OnBorading/components/OnBoardingCard/as
 import OnBoardingCard from "@components/OnBorading/components/OnBoardingCard";
 import { useState } from "react";
 import Stepper from "@components/common/Stepper";
+import "swiper/css";
 
 function OnBoardingTutorial({ handleClose }: { handleClose: () => void }) {
   const [swiperIndex, setSwiperIndex] = useState(0);
