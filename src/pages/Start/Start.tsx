@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import Header from "@pages/Start/Header.tsx";
 import { FormEvent } from "react";
+import OutlinedInput from "@components/common/OutlinedInput";
 
 function Start() {
   const navigate = useNavigate();
@@ -26,15 +27,13 @@ function Start() {
         noValidate
         sx={{ maxWidth: "400px", px: 2.5, gap: 2, width: "100%" }}
       >
-        <TextField
-          margin="dense"
+        <OutlinedInput
           required
-          fullWidth
           id="email"
-          label="이메일"
           name="email"
-          autoComplete="email"
+          type="email"
           autoFocus
+          placeholder="Email Adress"
         />
 
         <Button type="submit" fullWidth variant="contained">

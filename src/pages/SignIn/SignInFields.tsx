@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   IconButton,
   Stack,
@@ -12,13 +13,14 @@ import { useAuth } from "@app/tanstack-query/useAuth.ts";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useSearchParams } from "react-router-dom";
+import OutlinedInput from "@components/common/OutlinedInput";
 
 function SignInFields() {
   const { signIn, isPending } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const email = searchParams.get("email");
+  const email = searchParams.get("email") as string;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,38 +50,33 @@ function SignInFields() {
       noValidate
       sx={{ maxWidth: "400px", px: 2.5, gap: 2, width: "100dvw" }}
     >
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
-        defaultValue={email}
         id="email"
-        label="이메일"
         name="email"
-        autoComplete="email"
+        type="email"
         autoFocus
+        placeholder="email@email.com"
+        defaultValue={email}
       />
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
-        name="password"
-        label="비밀번호"
-        type={showPassword ? "text" : "password"}
         id="password"
+        name="password"
+        type={showPassword ? "text" : "password"}
+        autoFocus
+        placeholder="비밀번호"
         autoComplete="current-password"
-        InputProps={{
-          endAdornment: (
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={() => setShowPassword(!showPassword)}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          ),
-        }}
+        endAdornment={
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={() => setShowPassword(!showPassword)}
+            onMouseDown={handleMouseDownPassword}
+            edge="end"
+          >
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        }
       />
 
       <Button type="submit" fullWidth variant="contained">
