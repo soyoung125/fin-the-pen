@@ -6,10 +6,7 @@ import useHeader from "@hooks/useHeader.ts";
 import { useEffect } from "react";
 import { HEADER_MODE } from "@app/types/common.ts";
 import { useAppDispatch } from "@redux/hooks.ts";
-import {
-  setBottomBarOpenFalse,
-  setBottomBarOpenTrue,
-} from "@redux/slices/commonSlice.tsx";
+import { setBottomBarOpenFalse } from "@redux/slices/commonSlice.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 
 function SignIn() {
@@ -20,7 +17,6 @@ function SignIn() {
 
   useEffect(() => {
     dispatch(setBottomBarOpenFalse());
-    return () => dispatch(setBottomBarOpenTrue()) as unknown as void;
   }, []);
 
   return (

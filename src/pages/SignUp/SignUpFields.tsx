@@ -1,4 +1,4 @@
-import { Box, Button, InputAdornment, TextField } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { isObjectValuesEmpty } from "@utils/tools.ts";
 import {
@@ -10,17 +10,25 @@ import {
 import { DOMAIN } from "@api/url.ts";
 import { FormEvent, useRef, useState } from "react";
 import { SignUp } from "@app/types/auth.ts";
+import { PATH } from "@constants/path.ts";
+import OutlinedInput from "@components/common/OutlinedInput";
 
 function SignUpFields() {
   const navigate = useNavigate();
   const [isSamePassword, setIsSamePassword] = useState(true);
-  const inputPWd = useRef<HTMLFormElement>(null);
-  const inputPwdCheck = useRef<HTMLFormElement>(null);
+  const inputPWd = useRef<HTMLInputElement>(null);
+  const inputPwdCheck = useRef<HTMLInputElement>(null);
+
+  const endAdornmentCss = {
+    wordBreak: "keep-all",
+    borderRadius: 1,
+    py: 1,
+    px: 1.5,
+    typography: "subtitle2",
+  };
 
   const validatePassword = () =>
-    inputPWd.current?.value === inputPwdCheck.current?.value
-      ? setIsSamePassword(true)
-      : setIsSamePassword(false);
+    setIsSamePassword(inputPWd.current?.value === inputPwdCheck.current?.value);
 
   const signUp = async (user: SignUp) => {
     await fetch(`${DOMAIN}/sign-up`, {
@@ -34,7 +42,9 @@ function SignUpFields() {
         const data = await res.json();
         if (data.user_id === user.user_id) {
           alert(SIGN_UP_SUCCESS);
-          navigate(-1);
+
+          const email = user.user_id as string;
+          navigate(PATH.signIn(email), { replace: true });
         } else {
           alert(NO_DUPLICATION_ID);
         }
@@ -63,105 +73,78 @@ function SignUpFields() {
   };
 
   return (
-    <Box
+    <Stack
       component="form"
       onSubmit={handleSubmit}
       noValidate
-      sx={{ maxWidth: "400px" }}
+      spacing={2}
+      sx={{ maxWidth: "400px", width: "100%" }}
     >
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
         id="name"
-        label="성명"
         name="name"
         autoFocus
-        size="small"
+        placeholder="성명"
       />
 
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
         id="email"
-        label="이메일 주소"
         name="email"
-        autoComplete="email"
+        type="email"
         autoFocus
         placeholder="email@email.com"
-        size="small"
       />
 
       <Box mt={1}>비밀번호 입력</Box>
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
-        name="password"
-        label="비밀번호"
-        type="password"
         id="password"
-        autoComplete="current-password"
-        size="small"
-        inputRef={inputPWd}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button variant="contained" size="small" color="primary">
-                사용가능
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        margin="dense"
-        required
-        fullWidth
-        name="password_check"
-        label="비밀번호 확인"
+        name="password"
         type="password"
-        id="password_check"
+        autoFocus
+        placeholder="비밀번호"
         autoComplete="current-password"
-        size="small"
-        inputRef={inputPwdCheck}
         onChange={validatePassword}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                variant="contained"
-                size="small"
-                color={isSamePassword ? "primary" : "warning"}
-              >
-                {isSamePassword ? "동일" : "재입력"}
-              </Button>
-            </InputAdornment>
-          ),
-        }}
+        inputRef={inputPWd}
+        endAdornment={
+          <Box bgcolor="primary.main" color="white" sx={endAdornmentCss}>
+            사용가능
+          </Box>
+        }
+      />
+      <OutlinedInput
+        required
+        id="password_check"
+        name="password_check"
+        type="password"
+        autoFocus
+        placeholder="비밀번호 확인"
+        autoComplete="current-password"
+        onChange={validatePassword}
+        inputRef={inputPwdCheck}
+        endAdornment={
+          <Box
+            bgcolor={isSamePassword ? "primary.main" : "warning.main"}
+            color={isSamePassword ? "white" : "black"}
+            sx={endAdornmentCss}
+          >
+            {isSamePassword ? "동일" : "재입력"}
+          </Box>
+        }
       />
 
       <Box mt={1}>전화번호 인증</Box>
-      <TextField
-        margin="dense"
+      <OutlinedInput
         required
-        fullWidth
         id="phoneNumber"
-        label="전화번호"
         name="phoneNumber"
+        type="tel"
         autoFocus
-        size="small"
-        placeholder="'-'없이 입력"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button variant="contained" size="small" color="primary">
-                인증완료
-              </Button>
-            </InputAdornment>
-          ),
-        }}
+        placeholder="‘-’없이 입력"
+        inputMode="numeric"
+        pattern="[0-9]{11}"
       />
       <Box
         sx={{
@@ -181,7 +164,7 @@ function SignUpFields() {
           회원가입
         </Button>
       </Box>
-    </Box>
+    </Stack>
   );
 }
 
