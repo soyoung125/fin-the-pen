@@ -20,7 +20,8 @@ function Onboarding({ handleClose }: { handleClose: () => void }) {
     is_batch: false,
   };
 
-  const handleNext = () => setStep((prevState) => prevState + 1);
+  const handleNext = () =>
+    step < 1 ? setStep((prevState) => prevState + 1) : handleClose;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,14 +29,13 @@ function Onboarding({ handleClose }: { handleClose: () => void }) {
 
     if (step === 0) {
       handleSetSavingGoal(Number(amount));
-      handleNext();
     } else if (step === 1) {
       handleSetSpendingGoal({
         ...defaultForm,
         spend_goal_amount: amount,
       });
-      handleClose();
     }
+    handleNext();
   };
 
   return (
@@ -66,7 +66,7 @@ function Onboarding({ handleClose }: { handleClose: () => void }) {
           direction={"row"}
           justifyContent={"start"}
         >
-          <BackButton />
+          <BackButton handleClick={handleClose} />
         </Stack>
 
         <Header step={step} />
