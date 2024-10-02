@@ -1,16 +1,25 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { PATH } from "@constants/path.ts";
 import SocialLogin from "pages/Start/components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import useHeader from "@hooks/useHeader.ts";
 import Header from "@pages/Start/Header.tsx";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import OutlinedInput from "@components/common/OutlinedInput";
+import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 
 function Start() {
   const navigate = useNavigate();
 
+  const { onboardingTutorial, openOnBoardingTutorial } = useOnBoarding();
+
   useHeader(false);
+
+  useEffect(() => {
+    if (!onboardingTutorial) {
+      openOnBoardingTutorial();
+    }
+  }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

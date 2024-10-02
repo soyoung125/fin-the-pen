@@ -78,7 +78,7 @@ function SignUpFields() {
       onSubmit={handleSubmit}
       noValidate
       spacing={2}
-      sx={{ maxWidth: "400px", width: "100%" }}
+      sx={{ maxWidth: "400px", width: "100%", pb: 10 }}
     >
       <OutlinedInput
         required
