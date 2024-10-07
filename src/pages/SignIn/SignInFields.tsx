@@ -68,14 +68,16 @@ function SignInFields() {
         placeholder="비밀번호"
         autoComplete="current-password"
         endAdornment={
-          <IconButton
-            aria-label="toggle password visibility"
-            onClick={() => setShowPassword(!showPassword)}
-            onMouseDown={handleMouseDownPassword}
-            edge="end"
-          >
-            {showPassword ? <VisibilityOff /> : <Visibility />}
-          </IconButton>
+          <Box sx={{ width: "40px" }}>
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={() => setShowPassword(!showPassword)}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </Box>
         }
       />
 

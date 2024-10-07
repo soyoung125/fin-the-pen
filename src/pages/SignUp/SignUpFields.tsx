@@ -24,6 +24,7 @@ function SignUpFields() {
     borderRadius: 1,
     py: 1,
     px: 1.5,
+    mr: 1,
     typography: "subtitle2",
   };
 

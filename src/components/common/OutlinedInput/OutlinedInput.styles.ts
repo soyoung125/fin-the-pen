@@ -2,24 +2,27 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   display: flex;
-  height: 50px;
-  padding: 8px 12px;
   align-items: center;
-  align-self: stretch;
 
-  gap: 4px;
+  height: 50px;
+  box-sizing: border-box;
 
   border-radius: 4px;
   border: 1px solid #a9acb2;
+  overflow: hidden;
 
-  :focus {
+  &:focus-within {
     color: #735bf2;
     border-color: #735bf2;
   }
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  //width: 100%;
+  flex: 1;
+  height: 100%;
+
+  padding: 8px 12px;
 
   color: black;
   font-weight: 400;
