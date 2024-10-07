@@ -3,21 +3,13 @@ import Header from "./Header.tsx";
 import SignInFields from "./SignInFields.tsx";
 import Footer from "./Footer.tsx";
 import useHeader from "@hooks/useHeader.ts";
-import { useEffect } from "react";
 import { HEADER_MODE } from "@app/types/common.ts";
-import { useAppDispatch } from "@redux/hooks.ts";
-import { setBottomBarOpenFalse } from "@redux/slices/commonSlice.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 
 function SignIn() {
-  const dispatch = useAppDispatch();
   const { data: user } = useUser();
 
   useHeader(true, HEADER_MODE.sign);
-
-  useEffect(() => {
-    dispatch(setBottomBarOpenFalse());
-  }, []);
 
   return (
     <Stack justifyContent="center" alignItems="center" px={1} spacing={3}>
