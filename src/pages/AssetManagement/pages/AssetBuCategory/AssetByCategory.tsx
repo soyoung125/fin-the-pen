@@ -45,7 +45,6 @@ function AssetByCategory() {
       assetsByCategory?.category_list.reduce((result, curr) => {
         return result + Number(curr.category_total);
       }, 0) ?? 0;
-    console.log(totalSummary - prev + curr, totalAmount);
 
     if (totalSummary - prev + curr > totalAmount) {
       openToast({

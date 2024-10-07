@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 import { Snackbar, Stack, Typography } from "@mui/material";
 
 export interface ToastProps {
-  text: string;
+  children?: ReactNode;
+  text?: string;
   action?: ReactNode;
   hideDuration: number;
   color: string;
@@ -10,6 +11,7 @@ export interface ToastProps {
 }
 
 function Toast({
+  children,
   text,
   action,
   color,
@@ -34,7 +36,8 @@ function Toast({
           py={1}
           borderRadius={1}
         >
-          <Typography flexGrow={1}>{text}</Typography>
+          {children}
+          {text && <Typography flexGrow={1}>{text}</Typography>}
           {action}
         </Stack>
       </Snackbar>

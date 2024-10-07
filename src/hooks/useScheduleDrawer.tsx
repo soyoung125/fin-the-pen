@@ -20,7 +20,7 @@ export const useScheduleDrawer = () => {
   const { openDrawer, closeDrawer } = useSwipeableDrawer();
   const dispatch = useAppDispatch();
   const schedule = useAppSelector(selectScheduleForm);
-  const { openToast, closeToast } = useToast();
+  const { openToast } = useToast();
 
   const handleClickToastOpen = () => {
     openToast({
