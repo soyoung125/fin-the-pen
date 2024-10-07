@@ -1,11 +1,8 @@
 import { PATH } from "@constants/path.ts";
 import { RouterDOM } from "@app/types/common.ts";
 import { lazy } from "react";
-import Start from "@pages/Start/Start.tsx";
+import Home from "@pages/Home";
 
-const Home = lazy(() => import("@pages/Home"));
-const SignIn = lazy(() => import("@pages/SignIn"));
-const SignUp = lazy(() => import("@pages/SignUp"));
 const ScheduleListPage = lazy(
   () => import("@pages/Home/pages/ScheduleListPage/ScheduleListPage.tsx")
 );
@@ -20,24 +17,12 @@ const TestContainer = lazy(() => import("@pages/MyPage/TestContainer.tsx"));
 
 const HOME_ROUTES: RouterDOM[] = [
   {
-    path: PATH.start,
-    element: <Start />,
-  },
-  {
     path: PATH.home,
     element: <Home />,
   },
   {
     path: PATH.scheduleList,
     element: <ScheduleListPage />,
-  },
-  {
-    path: PATH.signInRoot,
-    element: <SignIn />,
-  },
-  {
-    path: PATH.signUp,
-    element: <SignUp />,
   },
   {
     path: PATH.myPage,
