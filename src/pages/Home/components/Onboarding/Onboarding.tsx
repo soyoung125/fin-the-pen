@@ -21,11 +21,12 @@ function Onboarding({ handleClose }: { handleClose: () => void }) {
   };
 
   const handleNext = () =>
-    step < 1 ? setStep((prevState) => prevState + 1) : handleClose;
+    step < 1 ? setStep((prevState) => prevState + 1) : handleClose();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const amount = event.currentTarget.amount.value.replaceAll(",", "");
+    const amount =
+      event.currentTarget.amount.value.replaceAll(",", "") + "0000";
 
     if (step === 0) {
       handleSetSavingGoal(Number(amount));
