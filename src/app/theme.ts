@@ -40,6 +40,7 @@ const commonThemeOptions: ThemeOptions = {
     },
     caption: {
       fontSize: 14,
+      fontWeight: 500,
     },
     subtitle1: {
       fontSize: 15,
@@ -88,9 +89,11 @@ export const lightThemeOptions: ThemeOptions = {
     },
     error: {
       main: "#E82A2A",
+      light: "#ef5350",
     },
     warning: {
       main: "#FFBE16",
+      light: "#ff9800",
     },
     success: {
       main: "#0E9B35",

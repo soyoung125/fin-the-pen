@@ -25,7 +25,7 @@ function MyPage() {
       )
     ) {
       signOut();
-      navigate(PATH.signIn, { replace: true });
+      navigate(PATH.start, { replace: true });
     }
   };
 

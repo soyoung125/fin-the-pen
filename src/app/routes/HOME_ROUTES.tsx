@@ -1,16 +1,14 @@
 import { PATH } from "@constants/path.ts";
-import Home from "@pages/Home";
 import { RouterDOM } from "@app/types/common.ts";
 import { lazy } from "react";
+import Home from "@pages/Home";
 
-const SignIn = lazy(() => import("../../pages/SignIn"));
-const SignUp = lazy(() => import("../../pages/SignUp"));
 const ScheduleListPage = lazy(
   () => import("@pages/Home/pages/ScheduleListPage/ScheduleListPage.tsx")
 );
 const MyPage = lazy(() => import("@pages/MyPage"));
-const Notification = lazy(() => import("../../pages/Notification"));
-const AssetManagement = lazy(() => import("../../pages/AssetManagement"));
+const Notification = lazy(() => import("@pages/Notification"));
+const AssetManagement = lazy(() => import("@pages/AssetManagement"));
 const SearchSchedule = lazy(
   () => import("../../pages/Home/components/HomeContainer/view/SearchSchedule")
 );
@@ -25,14 +23,6 @@ const HOME_ROUTES: RouterDOM[] = [
   {
     path: PATH.scheduleList,
     element: <ScheduleListPage />,
-  },
-  {
-    path: PATH.signIn,
-    element: <SignIn />,
-  },
-  {
-    path: PATH.signUp,
-    element: <SignUp />,
   },
   {
     path: PATH.myPage,

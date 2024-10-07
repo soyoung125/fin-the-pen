@@ -1,19 +1,25 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
-import { forwardRef } from 'react';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
+import { forwardRef } from "react";
 import {
-  Avatar, Box, Container, CssBaseline, Stack, TextField,
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+  Avatar,
+  Box,
+  Container,
+  CssBaseline,
+  Stack,
+  TextField,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
+const Transition = forwardRef((props, ref) => (
+  <Slide direction="up" ref={ref} {...props} />
+));
 
 export default function FullScreenDialog({ open, setOpen, ask }) {
   const handleClose = () => {
@@ -23,9 +29,11 @@ export default function FullScreenDialog({ open, setOpen, ask }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    alert(JSON.stringify({
-      number: data.get('number'),
-    }));
+    alert(
+      JSON.stringify({
+        number: data.get("number"),
+      })
+    );
   };
 
   return (
@@ -36,7 +44,7 @@ export default function FullScreenDialog({ open, setOpen, ask }) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar sx={{ position: "relative" }}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -56,23 +64,25 @@ export default function FullScreenDialog({ open, setOpen, ask }) {
           <Box
             sx={{
               marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Avatar sx={{
-              m: 1, bgcolor: 'secondary.main', width: 100, height: 100,
-            }}
+            <Avatar
+              sx={{
+                m: 1,
+                bgcolor: "secondary.main",
+                width: 100,
+                height: 100,
+              }}
             >
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               자산 정보 입력
             </Typography>
-            <Typography variant="caption">
-              {ask.question}
-            </Typography>
+            <Typography>{ask.question}</Typography>
 
             <Box component="form" onSubmit={handleSubmit} noValidate>
               <TextField

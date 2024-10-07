@@ -6,9 +6,11 @@ import { onboardings } from "@components/OnBorading/components/OnBoardingCard/as
 import OnBoardingCard from "@components/OnBorading/components/OnBoardingCard";
 import { useState } from "react";
 import Stepper from "@components/common/Stepper";
+import "swiper/css";
 
-function OnBoarding({ handleClose }: { handleClose: () => void }) {
+function OnBoardingTutorial({ handleClose }: { handleClose: () => void }) {
   const [swiperIndex, setSwiperIndex] = useState(0);
+
   return (
     <Drawer
       open={true}
@@ -44,8 +46,8 @@ function OnBoarding({ handleClose }: { handleClose: () => void }) {
             style={{ width: "320px" }}
           >
             {onboardings.map((onboarding, index) => (
-              <SwiperSlide>
-                <OnBoardingCard key={index} onboarding={onboarding} />
+              <SwiperSlide key={`onboarding_${index}`}>
+                <OnBoardingCard onboarding={onboarding} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -68,4 +70,4 @@ function OnBoarding({ handleClose }: { handleClose: () => void }) {
   );
 }
 
-export default OnBoarding;
+export default OnBoardingTutorial;

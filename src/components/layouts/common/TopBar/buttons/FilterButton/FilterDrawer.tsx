@@ -70,7 +70,7 @@ function FilterDrawer({
 
         <Divider />
         <Box height="100vh">
-          <Typography mx="20px" my="8px" variant="caption">
+          <Typography mx="20px" my="8px">
             선택한 카테고리의 소비내역만 보여집니다.
           </Typography>
 
@@ -89,9 +89,7 @@ function FilterDrawer({
                 updateDate={updateDate}
               />
             </Stack>
-            <Typography variant="caption" color="error">
-              {dateError}
-            </Typography>
+            <Typography color="error">{dateError}</Typography>
           </FilterLayout>
 
           {categories.map((category) => {

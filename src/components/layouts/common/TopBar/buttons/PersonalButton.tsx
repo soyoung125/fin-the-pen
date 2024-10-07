@@ -11,7 +11,7 @@ function PersonalButton() {
 
   if (!user) {
     return (
-      <RoundedButton value="login" onClick={() => navigate(PATH.signIn)}>
+      <RoundedButton value="login" onClick={() => navigate(PATH.signIn())}>
         <LoginIcon />
       </RoundedButton>
     );

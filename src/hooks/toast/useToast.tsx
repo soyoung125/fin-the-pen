@@ -8,21 +8,23 @@ export const useToast = () => {
   const openToast = ({
     hideDuration,
     color,
-    toastElement,
+    toastText,
     actionsElement,
+    toastElement,
   }: {
     hideDuration: number;
     color: string;
-    toastElement: ReactNode;
+    toastText?: string;
+    toastElement?: ReactNode;
     actionsElement?: ReactNode;
   }) => {
-    console.log(color);
     openOverlay(
       <Toast
         hideDuration={hideDuration}
         color={color}
         action={actionsElement}
         onClickClose={closeOverlay}
+        text={toastText}
       >
         {toastElement}
       </Toast>

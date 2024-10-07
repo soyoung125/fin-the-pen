@@ -1,8 +1,11 @@
 export const PATH = {
-  home: "/",
-  scheduleList: "schedule-list",
-  signIn: "/sign-in",
+  start: "/",
+  signIn: (email = "") => `/sign-in?email=${email}`,
+  signInRoot: "/sign-in",
   signUp: "/sign-up",
+
+  home: "/home",
+  scheduleList: "schedule-list",
   myPage: "/myPage",
   notification: "/notification",
   searchSchedule: "/search=schedule",

@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/react";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { useToast } from "@hooks/toast/useToast.tsx";
 
 export const Example = () => {
@@ -7,7 +7,7 @@ export const Example = () => {
   const handleClickToastOpen = () => {
     openToast({
       hideDuration: 6000,
-      toastElement: <Typography flexGrow={1}>toast</Typography>,
+      toastText: "toast",
       color: "primary.main",
       actionsElement: (
         <Button color="inherit" size="small" onClick={closeToast}>

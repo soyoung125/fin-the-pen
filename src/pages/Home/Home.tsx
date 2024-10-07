@@ -1,6 +1,9 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import { Box, Portal } from "@mui/material";
-import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
+import {
+  setBottomBarOpenTrue,
+  setIsAuthenticatedFalse,
+} from "@redux/slices/commonSlice.tsx";
 import useHeader from "@hooks/useHeader.ts";
 import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import { selectIsBudgetHidden } from "@redux/slices/settingSlice.ts";
@@ -19,7 +22,6 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "@constants/path.ts";
 import MoveToday from "@pages/Home/next-components/MoveToday";
 import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
-import HomeTutorial from "@pages/Home/HomeTutorial.tsx";
 
 export interface HomePageProps {
   updateHeight: () => void;
@@ -47,6 +49,7 @@ function Home() {
   const [swiper, setSwiper] = useState<SwiperType>();
 
   useEffect(() => {
+    dispatch(setBottomBarOpenTrue());
     if (isHideBudgetMode) {
       dispatch(setIsAuthenticatedFalse());
     }

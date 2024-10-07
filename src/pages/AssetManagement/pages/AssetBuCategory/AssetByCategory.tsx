@@ -9,7 +9,7 @@ import CategoryListItem from "@pages/AssetManagement/pages/AssetBuCategory/compo
 import { setAssetByCategory } from "@app/types/asset.ts";
 import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Loading from "@components/Loading";
 import useAsset from "@hooks/assetManagement/useAsset.ts";
@@ -45,14 +45,11 @@ function AssetByCategory() {
       assetsByCategory?.category_list.reduce((result, curr) => {
         return result + Number(curr.category_total);
       }, 0) ?? 0;
-    console.log(totalSummary - prev + curr, totalAmount);
 
     if (totalSummary - prev + curr > totalAmount) {
       openToast({
         hideDuration: 5000,
-        toastElement: (
-          <Typography flexGrow={1}>지출 목표 금액을 초과했습니다.</Typography>
-        ),
+        toastText: "지출 목표 금액을 초과했습니다.",
         color: "primary.main",
         actionsElement: (
           <IconButton aria-label="delete" size="small" onClick={closeToast}>

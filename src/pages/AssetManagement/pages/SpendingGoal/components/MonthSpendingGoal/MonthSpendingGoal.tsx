@@ -44,7 +44,6 @@ function MonthSpendingGoal({
           <Box
             sx={{
               typography: "caption",
-              fontWeight: 500,
               color: "primary.main",
             }}
           >
@@ -54,7 +53,6 @@ function MonthSpendingGoal({
           <Box
             sx={{
               typography: "caption",
-              fontWeight: 500,
               color: "#8C919C",
               textDecorationLine: "underline",
             }}

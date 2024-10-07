@@ -1,3 +1,3 @@
-import OnBoarding from "@components/OnBorading/OnBoarding.tsx";
+import OnBoardingTutorial from "@components/OnBorading/OnBoarding.tsx";
 
-export default OnBoarding;
+export default OnBoardingTutorial;

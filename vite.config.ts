@@ -9,7 +9,6 @@ export default defineConfig({
   base: "/",
   server: {
     proxy: {
-      // 옵션과 함께: http://localhost:5173/api/bar-> http://jsonplaceholder.typicode.com/bar
       "/local": {
         target: "http://localhost:8080",
         changeOrigin: true,
