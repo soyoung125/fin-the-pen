@@ -50,9 +50,7 @@ function AssetByCategory() {
     if (totalSummary - prev + curr > totalAmount) {
       openToast({
         hideDuration: 5000,
-        toastElement: (
-          <Typography flexGrow={1}>지출 목표 금액을 초과했습니다.</Typography>
-        ),
+        toastText: "지출 목표 금액을 초과했습니다.",
         color: "primary.main",
         actionsElement: (
           <IconButton aria-label="delete" size="small" onClick={closeToast}>
