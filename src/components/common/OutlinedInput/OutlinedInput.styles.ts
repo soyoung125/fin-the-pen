@@ -5,7 +5,6 @@ export const Container = styled.div`
   align-items: center;
 
   height: 50px;
-  box-sizing: border-box;
 
   border-radius: 4px;
   border: 1px solid #a9acb2;
@@ -18,7 +17,6 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
-  //width: 100%;
   flex: 1;
   height: 100%;
 

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { NO_BLANKS } from "@constants/messages.tsx";
 import { isObjectValuesEmpty } from "@utils/tools.ts";
@@ -18,7 +11,7 @@ import OutlinedInput from "@components/common/OutlinedInput";
 function SignInFields() {
   const { signIn, isPending } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const email = searchParams.get("email") as string;
 

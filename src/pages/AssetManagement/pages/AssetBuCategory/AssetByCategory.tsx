@@ -9,7 +9,7 @@ import CategoryListItem from "@pages/AssetManagement/pages/AssetBuCategory/compo
 import { setAssetByCategory } from "@app/types/asset.ts";
 import { useState } from "react";
 import { useToast } from "@hooks/toast/useToast.tsx";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Loading from "@components/Loading";
 import useAsset from "@hooks/assetManagement/useAsset.ts";

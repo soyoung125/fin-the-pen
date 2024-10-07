@@ -9,8 +9,6 @@ import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
 import { PATH } from "@constants/path.ts";
 import { useToast } from "@hooks/toast/useToast.tsx";
-import { IconButton, Typography } from "@mui/material";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const fetchSignIn = async (credentials: SignIn) => {
   return fetch(`${DOMAIN}/sign-in`, {
@@ -27,7 +25,7 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { openToast, closeToast } = useToast();
+  const { openToast } = useToast();
 
   const { mutate, isPending } = useMutation({
     mutationFn: fetchSignIn,
