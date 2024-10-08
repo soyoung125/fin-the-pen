@@ -7,6 +7,7 @@ import { setSpendingGoal } from "@app/types/asset.ts";
 
 const fetchSetSpendingGoal = async (query: setSpendingGoal) => {
   const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  console.log(DOMAIN);
 
   return fetch(`${DOMAIN}/asset/spend-goal/set`, {
     method: "POST",

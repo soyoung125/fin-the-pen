@@ -15,6 +15,7 @@ const fetchGoal = async (user_id: string) => {
       Authorization: "Bearer " + token,
     },
   }).then<SavingGoal>(async (res) => {
+    console.log(`${DOMAIN}/asset/target-amount?userId=${user_id}`);
     return res.json();
   });
 };
