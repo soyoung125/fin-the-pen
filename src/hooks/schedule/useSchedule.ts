@@ -7,7 +7,6 @@ import {
 } from "@redux/slices/scheduleSlice.tsx";
 import { RequestSchedule } from "@app/types/schedule.ts";
 import { useAppDispatch } from "@redux/hooks.ts";
-import { v4 as uuidv4 } from "uuid";
 import { useCreateSchedule } from "@app/tanstack-query/schedules/useCreateSchedule.ts";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import { INIT_SCHEDULE } from "@constants/schedule.ts";
@@ -39,14 +38,12 @@ const useSchedule = () => {
       return alert("로그인이 필요합니다.");
     }
 
-    const scheduleWithUuid = {
+    const newSchedule = {
       ...schedule,
-      schedule_id: uuidv4(),
       user_id: user.user_id,
     };
-    console.log(scheduleWithUuid);
 
-    createSchedule(scheduleWithUuid);
+    createSchedule(newSchedule);
     resetSchedule();
   };
 
