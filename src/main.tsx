@@ -12,8 +12,32 @@ import { worker } from "./mocks/browser";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Loading from "@components/Loading";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 100, // 24 hours
+    },
+  },
+});
+
+const sessionStoragePersister = createSyncStoragePersister({
+  storage: window.sessionStorage,
+});
+
+persistQueryClient({
+  queryClient,
+  persister: sessionStoragePersister,
+  dehydrateOptions: {
+    shouldDehydrateQuery: (query) => {
+      // 쿼리 키가 'getUserData'인 경우만 영속화
+      return query.queryKey[0] === QUERY_KEY_USER;
+    },
+  },
+});
 
 async function main() {
   // msw 세팅 시작
