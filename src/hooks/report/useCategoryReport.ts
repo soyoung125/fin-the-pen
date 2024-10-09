@@ -16,7 +16,7 @@ const useCategoryReport = () => {
     isError,
   } = useCategoryDetail({
     user_id: user?.user_id ?? "",
-    date: `${yearMonth}`,
+    date: `${yearMonth}-${moment().format("DD")}`,
     category: params.category ?? "",
   });
   const { openMonthPicker } = useDatePicker();
