@@ -3,7 +3,6 @@ import ReportCategorySummary, {
   ReportCategorySummaryProps,
 } from "./ReportCategorySummary.tsx";
 import { useState } from "react";
-import { useDatePicker } from "@hooks/date-picker/hooks/useDatePicker.tsx";
 import ReportCategorySummarySkeleton from "@pages/reports/ReportCategoryDetails/components/ReportCategorySummary/ReportCategorySummarySkeleton.tsx";
 import { Button } from "@mui/material";
 
@@ -14,8 +13,9 @@ const meta = {
   args: {
     goal: 1000000,
     amount: 750000,
+    expect: 150000,
+    balance: 100000,
     category: "식비",
-    data: [10, 55, 35],
   },
   argTypes: {},
 } satisfies Meta<typeof ReportCategorySummary>;
@@ -37,8 +37,9 @@ export const Skeleton = () => {
         <ReportCategorySummary
           goal={1000000}
           amount={750000}
+          expect={150000}
+          balance={100000}
           category="식비"
-          data={[10, 55, 35]}
         />
       )}
       <Button onClick={() => setIsPending((prevState) => !prevState)}>

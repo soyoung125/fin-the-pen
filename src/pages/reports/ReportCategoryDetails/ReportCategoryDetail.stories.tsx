@@ -7,10 +7,8 @@ import { useState } from "react";
 import ScheduleCard from "components/ScheduleList/ScheduleCard";
 import ScheduleListPageHeader from "components/ScheduleList/ScheduleListPageHeader";
 import ScheduleDateBox from "@components/ScheduleList/ScheduleDateBox/ScheduleDateBox.tsx";
-import { INIT_PERIOD } from "@constants/schedule.ts";
 import moment from "moment/moment";
 import { Schedule } from "@app/types/schedule.ts";
-import ReportCategoryBody from "@pages/reports/ReportCategoryDetails/components/ReportCategoryBody";
 
 const meta = {
   title: "reports/ReportCategoryDetails",
@@ -107,8 +105,9 @@ export const ExamplePage = () => {
       <ReportCategorySummary
         goal={1000000}
         amount={750000}
+        expect={150000}
+        balance={100000}
         category="식비"
-        data={[10, 55, 35]}
       />
 
       <ThickDivider />
