@@ -12,16 +12,7 @@ export default defineConfig({
       "/local": {
         target: "http://localhost:8080",
         changeOrigin: true,
-        rewrite: (path) => {
-          console.log(path.replace(/\/local&/, ""));
-          return path.replace(/^\/local/, "");
-        },
-      },
-      "/management": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-        rewrite: (path) =>
-          path.replace(/^\/management/, "").replace(/^\/local/, ""),
+        rewrite: (path) => path.replace(/^\/local/, ""),
       },
     },
   },
