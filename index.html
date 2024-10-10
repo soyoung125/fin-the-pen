@@ -62,15 +62,15 @@
       }(window.location));
 
       // 배포할 때만 주석 풀고 적용할 예정
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register('pwaServiceWorker.js').then((registration) => {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }).catch((error) => {
-            console.log('ServiceWorker registration failed: ', error);
-          });
-        });
-      }
+      // if ("serviceWorker" in navigator) {
+      //   window.addEventListener("load", () => {
+      //     navigator.serviceWorker.register('pwaServiceWorker.js').then((registration) => {
+      //       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      //     }).catch((error) => {
+      //       console.log('ServiceWorker registration failed: ', error);
+      //     });
+      //   });
+      // }
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
     <title>핀더펜</title>

@@ -53,9 +53,6 @@ function ReportMonthDetails() {
           maxPercent={maxPercent}
           handleClickAddSchedule={handleClickAddSchedule}
         />
-        <Button onClick={() => navigate(`${PATH.reportCategoryDetail}/외식`)}>
-          test
-        </Button>
       </Stack>
     </>
   );

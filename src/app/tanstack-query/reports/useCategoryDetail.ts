@@ -27,7 +27,7 @@ const fetchCategoryDetail = async (query: CategoryDetailQuery) => {
     const schedules = await arr.reduce(async (prev, current) => {
       const prevResult = await prev.then();
       const date = moment(`${query.date}-${current}`, "YYYY-MM-D");
-      const today = response.month_schedule.filter(
+      const today = response.list.filter(
         (schedule: Schedule) =>
           date.isSameOrAfter(schedule.start_date) &&
           date.isSameOrBefore(schedule.end_date)
@@ -43,9 +43,13 @@ const fetchCategoryDetail = async (query: CategoryDetailQuery) => {
     }, Promise.resolve(init));
 
     return {
-      ...response,
       month_schedule: schedules,
-      count: response.month_schedule.length,
+      count: response.list.length,
+      category: query.category,
+      category_goal: response.category_goal_amount,
+      category_expense: response.currentValue,
+      category_expect: response.expectValue,
+      category_balance: response.balanceValue,
     };
   });
 };
