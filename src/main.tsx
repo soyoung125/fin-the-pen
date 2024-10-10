@@ -24,16 +24,15 @@ const queryClient = new QueryClient({
   },
 });
 
-const sessionStoragePersister = createSyncStoragePersister({
-  storage: window.sessionStorage,
+const localStoragePersister = createSyncStoragePersister({
+  storage: window.localStorage,
 });
 
 persistQueryClient({
   queryClient,
-  persister: sessionStoragePersister,
+  persister: localStoragePersister,
   dehydrateOptions: {
     shouldDehydrateQuery: (query) => {
-      // 쿼리 키가 'getUserData'인 경우만 영속화
       return query.queryKey[0] === QUERY_KEY_USER;
     },
   },
