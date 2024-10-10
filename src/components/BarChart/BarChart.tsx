@@ -31,6 +31,7 @@ function BarChart({
   selected,
   setSelected,
 }: BarChartProps) {
+  console.log(data);
   return (
     <>
       <BarLabelContainer>

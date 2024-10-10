@@ -31,7 +31,11 @@ import {
 import { INIT_ASSET_BY_CATEGORY } from "@app/tanstack-query/assetManagement/AssetByCategory/utils.ts";
 import { RequestDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSchedule.ts";
 import { RequestModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
-import { GoalResponse } from "@app/types/report.ts";
+import {
+  CategoryDetailQuery,
+  CategoryDetailResponse,
+  GoalResponse,
+} from "@app/types/report.ts";
 import {
   ModifyTemplateRequest,
   ModifyTemplateSchedulesRequest,
@@ -481,6 +485,61 @@ export const handlers = [
     };
     return HttpResponse.json(data, { status: 200 });
   }),
+
+  http.post<object, CategoryDetailQuery, CategoryDetailResponse>(
+    `${DOMAIN}/report/month/details`,
+    async ({ request }) => {
+      const { user_id, date, category } = await request.json();
+      const schedules = getLocalStorage<Schedule[]>(
+        LOCAL_STORAGE_KEY_SCHEDULES,
+        []
+      );
+      const assetsByCategory = getLocalStorage<AssetsByCategory>(
+        LOCAL_STORAGE_KEY_ASSETS_BY_CATEGORY,
+        INIT_ASSET_BY_CATEGORY
+      );
+
+      const monthSchedules = schedules.filter(
+        (schedule) =>
+          schedule.user_id === user_id &&
+          moment(date).isSameOrAfter(schedule.start_date, "month") &&
+          moment(date).isSameOrBefore(schedule.end_date, "month") &&
+          schedule.category === category
+      );
+
+      const goal = assetsByCategory.category_list
+        .find((midC) => midC.list.find((c) => c.name === category))
+        ?.list.find((c) => c.name === category);
+
+      const { spend, expect, balance } = monthSchedules.reduce(
+        (acc, curr) => {
+          if (moment().isAfter(curr.end_date)) {
+            const newSpend = acc.spend + Number(curr.amount);
+            return { ...acc, spend: newSpend, balance: acc.balance - newSpend };
+          }
+          const newExpect = acc.expect + Number(curr.amount);
+          return {
+            ...acc,
+            expect: newExpect,
+            balance: acc.balance - newExpect,
+          };
+        },
+        { spend: 0, expect: 0, balance: Number(goal?.value ?? "") }
+      );
+
+      return HttpResponse.json(
+        {
+          name: category,
+          list: monthSchedules,
+          balanceValue: balance.toString(),
+          currentValue: spend.toString(),
+          expectValue: expect.toString(),
+          category_goal_amount: goal?.value ?? "0",
+        },
+        { status: 200 }
+      );
+    }
+  ),
 
   http.post<object, GoalResponse>(
     `${DOMAIN}/report/set-amount`,

@@ -41,11 +41,12 @@ export interface GoalResponse {
 }
 
 export interface CategoryDetailResponse {
-  month_schedule: Schedule[];
-  current_date: string;
-  category_expense: string;
-  category: string;
-  category_expect: string;
+  list: Schedule[];
+  balanceValue: string;
+  category_goal_amount: string;
+  currentValue: string;
+  expectValue: string;
+  name: string;
 }
 
 export interface CategoryDetailQuery {
@@ -56,9 +57,10 @@ export interface CategoryDetailQuery {
 
 export interface CategoryDetail {
   month_schedule: { [key: string]: Schedule[] };
-  current_date: string;
-  category_expense: string;
   category: string;
+  category_goal: string;
+  category_expense: string;
   category_expect: string;
+  category_balance: string;
   count: number;
 }

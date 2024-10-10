@@ -3,26 +3,30 @@ import BarChart from "@components/BarChart/BarChart.tsx";
 import { useState } from "react";
 import {
   getColors,
+  getData,
   getTitle,
 } from "@pages/reports/ReportCategoryDetails/utils.ts";
 import { getSelectedType } from "@pages/reports/ReportCategoryDetails/components/ReportCategorySummary/utils.ts";
 
 export interface ReportCategorySummaryProps {
   category: string;
+  expect: number;
   amount: number;
   goal: number;
-  data: number[];
+  balance: number;
 }
 
 function ReportCategorySummary({
   category,
+  expect,
   amount,
   goal,
-  data,
+  balance,
 }: ReportCategorySummaryProps) {
   const [selected, setSelected] = useState("used");
   const values = ["used", "predict", "useable"];
   const colors = getColors(selected);
+  const data = getData(goal, amount, expect, balance);
 
   return (
     <Stack py={3} px={2} spacing={2.5}>

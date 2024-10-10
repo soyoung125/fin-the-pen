@@ -23,3 +23,20 @@ export const getColors = (label: string) => {
       return ["#735BF2", "#FF769F", "#0075FF"];
   }
 };
+
+export const getData = (
+  goal: number,
+  used: number,
+  predict: number,
+  useable: number
+) => {
+  if (used > goal) return [100, 0, 0];
+  const usedRate = Math.trunc((used / goal) * 100);
+
+  if (useable < 0 || used + predict > goal) {
+    return [usedRate, 100 - usedRate, 0];
+  }
+
+  const predictRate = Math.trunc((predict / goal) * 100);
+  return [usedRate, predictRate, 100 - usedRate - predictRate];
+};

@@ -90,10 +90,11 @@ function ReportCategoryBody({
   return (
     <>
       <ReportCategorySummary
-        goal={Number(report?.category_expect)}
+        goal={Number(report?.category_goal)}
+        expect={Number(report?.category_expect)}
         amount={Number(report?.category_expense)}
+        balance={Number(report?.category_balance)}
         category={report?.category ?? ""}
-        data={[20, 10, 70]}
       />
       <ThickDivider />
       <Box
