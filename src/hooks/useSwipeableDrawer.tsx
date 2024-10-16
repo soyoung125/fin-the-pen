@@ -1,6 +1,6 @@
+import CssBaseline from "@mui/material/CssBaseline";
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import { Box, SwipeableDrawer } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
 import { ReactNode } from "react";
 
 export const useSwipeableDrawer = () => {

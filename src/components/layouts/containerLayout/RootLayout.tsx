@@ -1,5 +1,5 @@
-import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import TopBar from "../common/TopBar";
 import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";

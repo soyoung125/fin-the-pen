@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
 import BottomBar from "../common/BottomBar.tsx";
 import { useAppSelector } from "@redux/hooks.ts";

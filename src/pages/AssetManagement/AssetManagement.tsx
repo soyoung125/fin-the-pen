@@ -37,7 +37,7 @@ function AssetManagement() {
             color: "#5B5F67",
           }}
         >
-          {`핀더팬과 함께 `}
+          {`핀더펜과 함께 `}
           <span style={{ color: "#735BF2", fontWeight: 700 }}>{user.name}</span>
           {`님의\n자산 플랜을 세워보세요 !`}
         </Box>
