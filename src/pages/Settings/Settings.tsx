@@ -127,7 +127,7 @@ export default function Settings() {
         onChange={() => handleClickAccordion("info")}
       >
         <AccordionSummary>
-          <Typography>핀더팬 정보</Typography>
+          <Typography>핀더펜 정보</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <ClickableListItem to="/test" title="공지사항" subTitle="" />
