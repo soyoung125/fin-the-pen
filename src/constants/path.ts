@@ -5,7 +5,7 @@ export const PATH = {
   signUp: "/sign-up",
 
   home: "/home",
-  scheduleList: "schedule-list",
+  scheduleList: "/schedule-list",
   myPage: "/myPage",
   notification: "/notification",
   searchSchedule: "/search=schedule",
