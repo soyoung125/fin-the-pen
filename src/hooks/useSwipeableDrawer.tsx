@@ -2,6 +2,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useOverlay } from "@hooks/use-overlay/useOverlay.tsx";
 import { Box, SwipeableDrawer } from "@mui/material";
 import { ReactNode } from "react";
+import { Global } from "@emotion/react";
 
 export const useSwipeableDrawer = () => {
   const { openOverlay, closeOverlay } = useOverlay();
