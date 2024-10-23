@@ -52,7 +52,7 @@ function EasyAuthentication({ handleAuthenticate }: EasyAuthenticationProps) {
         columns={{ xs: 1, sm: 1, md: 2 }}
         justifyContent="space-between"
       >
-        <Grid size="grow">
+        <Grid size="grow" alignSelf={isMdUp ? "center" : "start"}>
           <Stack justifyContent="center" alignItems="center" height="100%">
             <LogoCircle />
 
@@ -118,7 +118,10 @@ function EasyAuthentication({ handleAuthenticate }: EasyAuthenticationProps) {
           </Stack>
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 12, md: 1 }} alignSelf="center">
+        <Grid
+          size={{ xs: 12, sm: 12, md: 1 }}
+          alignSelf={isMdUp ? "center" : "end"}
+        >
           <Keypad
             isRandom={true}
             setPassword={setPassword}
