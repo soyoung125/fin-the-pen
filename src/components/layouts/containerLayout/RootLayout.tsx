@@ -7,7 +7,9 @@ import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
 export default function RootLayout() {
   return (
     <OverlayProvider>
-      <Box>
+      <Box
+        sx={{ height: "100dvh", maxWidth: "480px", mx: "auto", boxShadow: 1 }}
+      >
         <CssBaseline />
         <TopBar />
         <Box>
