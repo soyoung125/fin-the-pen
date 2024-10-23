@@ -54,6 +54,8 @@ function BottomBar() {
         display: bottomBarOpen ? "flex" : "none",
         backgroundColor: "#FFF",
         height: "auto",
+        maxWidth: "480px",
+        mx: "auto",
       }}
     >
       <BottomNavigationAction

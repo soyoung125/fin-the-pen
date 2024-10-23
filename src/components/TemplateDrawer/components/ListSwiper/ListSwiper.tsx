@@ -21,7 +21,7 @@ function ListSwiper({ spendScheduleList, saveScheduleList }: ListSwiperProps) {
   };
 
   return (
-    <Box width="100dvw">
+    <Box width="100d%">
       <MenuTab labels={labels} value={value} handleChange={handleChangeTab} />
       <Swiper
         className="mySwiper"

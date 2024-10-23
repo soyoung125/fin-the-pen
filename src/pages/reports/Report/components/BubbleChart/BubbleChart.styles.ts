@@ -4,7 +4,9 @@ import { Bubble } from "./BubbleChart.tsx";
 export const BubbleChartContainer = styled.div<{ $isBordered?: boolean }>`
   ${({ $isBordered }) => $isBordered && `border: 1px solid #e6e6e6;`}
   width: calc(100vw - 72px);
+  max-width: 408px;
   height: calc(100vw - 72px);
+  max-height: 408px;
   position: relative;
 `;
 
