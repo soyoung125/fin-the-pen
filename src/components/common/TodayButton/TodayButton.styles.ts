@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const BottomButtonContainer = styled.div`
   width: 100%;
+  max-width: 480px;
   display: flex;
   position: fixed;
   bottom: 90px;
