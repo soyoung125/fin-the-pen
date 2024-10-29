@@ -25,6 +25,10 @@ export default function RootLayout() {
               left: "50%",
               translate: "-50%",
             },
+            "*::-webkit-scrollbar": {
+              display: "none",
+            },
+            // scrollbarWidth: "none",
           }}
         />
         <TopBar />
