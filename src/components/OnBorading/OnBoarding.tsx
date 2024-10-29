@@ -28,7 +28,7 @@ function OnBoardingTutorial({ handleClose }: { handleClose: () => void }) {
         justifyContent="space-between"
         alignItems="center"
         height="100dvh"
-        width="100dvw"
+        width="100%"
       >
         <Header onClickHandler={handleClose} />
         <Stack spacing="25px" alignItems="center">
@@ -58,7 +58,7 @@ function OnBoardingTutorial({ handleClose }: { handleClose: () => void }) {
             paddingX: "20px",
             paddingTop: "8px",
             paddingBottom: "20px",
-            width: "100dvw",
+            width: "100%",
           }}
         >
           <Button variant="contained" onClick={handleClose} fullWidth>

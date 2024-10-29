@@ -128,7 +128,7 @@ function MonthTutorialPage() {
 
   return (
     <>
-      <Box width="100dvw">
+      <Box>
         <MonthlyBudgetSummary
           income={0}
           expenditure={0}

@@ -16,10 +16,15 @@ export const CloseTutorialBtnContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   position: relative;
+  max-width: 480px;
+  margin: auto;
   right: 20px;
   color: #fff;
 `;
 
 export const TutorialContainer = styled.div`
   height: calc(100dvh - 90px - 32px);
+  position: relative;
+  margin: auto;
+  max-width: 480px;
 `;

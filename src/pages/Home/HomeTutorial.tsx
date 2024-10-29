@@ -25,17 +25,17 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             borderRadius={100}
             display="flex"
             position="absolute"
-            top={"65px"}
-            left={"calc(100dvw / 6 - 28px)"}
+            top={-5}
+            left={"calc(100% / 6 - 25px)"}
           />
 
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width="100dvw"
+            width="100%"
             height={243}
             display="flex"
             position="absolute"
-            bottom={138}
+            bottom={85}
           >
             <HighLightDescription
               offset={243}
@@ -61,16 +61,16 @@ function HomeTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             borderRadius={100}
             display="flex"
             position="absolute"
-            top={"65px"}
-            left={"calc(100dvw / 2 - 42px)"}
+            top={-5}
+            left={"calc(100% / 2 - 40px)"}
           />
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"100dvw"}
+            width={"100%"}
             height={isShortHeight ? 184 : 360}
             display="flex"
             position="absolute"
-            top={150}
+            top={85}
           >
             <HighLightDescription
               offset={isShortHeight ? 184 : 370}

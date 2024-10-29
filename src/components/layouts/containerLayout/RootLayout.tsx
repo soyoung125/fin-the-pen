@@ -1,5 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import TopBar from "../common/TopBar";
 import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
@@ -8,8 +8,13 @@ import { Global } from "@emotion/react";
 export default function RootLayout() {
   return (
     <OverlayProvider>
-      <Box
-        sx={{ height: "100dvh", maxWidth: "480px", mx: "auto", boxShadow: 1 }}
+      <Paper
+        sx={{
+          height: "100dvh",
+          maxWidth: "480px",
+          mx: "auto",
+          overflow: "scroll",
+        }}
       >
         <CssBaseline />
         <Global
@@ -21,13 +26,16 @@ export default function RootLayout() {
               left: "50%",
               translate: "-50%",
             },
+            "*::-webkit-scrollbar": {
+              display: "none",
+            },
           }}
         />
         <TopBar />
         <Box>
           <Outlet />
         </Box>
-      </Box>
+      </Paper>
     </OverlayProvider>
   );
 }

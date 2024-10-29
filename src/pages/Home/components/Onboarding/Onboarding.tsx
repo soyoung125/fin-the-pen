@@ -58,12 +58,12 @@ function Onboarding({ handleClose }: { handleClose: () => void }) {
         justifyContent="space-between"
         alignItems="center"
         height="100dvh"
-        width="100dvw"
+        width="100%"
       >
         <Stack
           px={2.5}
           py={1}
-          width={"100%"}
+          width="100%"
           direction={"row"}
           justifyContent={"start"}
         >

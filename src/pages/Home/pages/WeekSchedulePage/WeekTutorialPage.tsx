@@ -19,7 +19,7 @@ function WeekTutorialPage() {
 
   return (
     <>
-      <Box width="100dvw">
+      <Box>
         <Box ref={ref} />
         <ThickDivider />
 

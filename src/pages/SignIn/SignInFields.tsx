@@ -48,7 +48,7 @@ function SignInFields() {
         id="email"
         name="email"
         type="email"
-        autoFocus
+        autoFocus={!email}
         placeholder="email@email.com"
         defaultValue={email}
       />
@@ -57,7 +57,7 @@ function SignInFields() {
         id="password"
         name="password"
         type={showPassword ? "text" : "password"}
-        autoFocus
+        autoFocus={email ? true : false}
         placeholder="비밀번호"
         autoComplete="current-password"
         endAdornment={

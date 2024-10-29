@@ -28,7 +28,13 @@ function Start() {
   };
 
   return (
-    <Stack justifyContent="center" alignItems="center" px={2.5} spacing={5}>
+    <Stack
+      justifyContent="center"
+      alignItems="center"
+      px={2.5}
+      spacing={5}
+      mt={5}
+    >
       <Header />
       <Stack
         component="form"

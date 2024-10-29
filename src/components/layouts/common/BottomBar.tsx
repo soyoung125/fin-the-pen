@@ -29,10 +29,10 @@ function BottomBar() {
   const bottomBarOpen = useAppSelector(selectBottomBarOpen);
 
   const handleOpenDrawer = async () => {
+    openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")));
     if (!drawerTutorial) {
       await openDrawerTutorial();
     }
-    openScheduleDrawer(INIT_SCHEDULE(moment(date).format("YYYY-MM-DD")));
   };
 
   return (
