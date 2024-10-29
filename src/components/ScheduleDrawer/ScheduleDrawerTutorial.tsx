@@ -39,11 +39,11 @@ function ScheduleDrawerTutorial({
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width="100dvw"
+            width="100%"
             height={104}
             display="flex"
             position="absolute"
-            top={112}
+            top={45}
           >
             <HighLightDescription
               offset={104}
@@ -64,13 +64,13 @@ function ScheduleDrawerTutorial({
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"calc(100dvw - 28px)"}
+            width={"calc(100% - 28px)"}
             mx={"14px"}
             borderRadius={"12px"}
             height={38}
             display="flex"
             position="absolute"
-            top={100}
+            top={32}
           >
             <HighLightDescription
               offset={38}
@@ -81,11 +81,11 @@ function ScheduleDrawerTutorial({
           </Box>
           <Box
             sx={{ backgroundColor: "rgb(255, 255, 255, 0.05)" }}
-            width={"calc(100dvw - 28px)"}
+            width={"calc(100% - 28px)"}
             height={350}
             mx={"14px"}
             borderRadius={1.5}
-            top={150}
+            top={75}
             display="flex"
             position="absolute"
             border="2px dashed"
@@ -115,12 +115,12 @@ function ScheduleDrawerTutorial({
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"100dvw"}
+            width={"100%"}
             height={220}
             display="flex"
             position="absolute"
-            bottom={isShortHeight ? 100 : undefined}
-            top={isShortHeight ? undefined : 385}
+            bottom={isShortHeight ? 60 : undefined}
+            top={isShortHeight ? undefined : 315}
           >
             <HighLightDescription
               offset={220}
@@ -147,7 +147,7 @@ function ScheduleDrawerTutorial({
             height={45}
             display="flex"
             position="absolute"
-            top={260}
+            top={190}
           >
             <HighLightDescription
               offset={54}
@@ -212,10 +212,9 @@ function ScheduleDrawerTutorial({
 
             {/* 이벤트 일정 */}
             <DateInput showError={false} />
+            <Box ref={allDayRef} />
           </Stack>
-          <Box ref={allDayRef} height={107} />
 
-          {/* 제출 버튼 */}
           <FooterContainer>
             <AutoSaveContainer>
               <img src={Save} alt="save" />
