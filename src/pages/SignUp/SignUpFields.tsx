@@ -150,17 +150,19 @@ function SignUpFields() {
       <Box
         sx={{
           position: "fixed",
-          display: "flex",
+          display: "flexGrow",
           bottom: "15px",
-          left: 0,
-          width: "100%",
+          mx: "auto",
+          // left: 0,
+          width: "calc(100dvw - 40px)",
+          maxWidth: "400px",
         }}
       >
         <Button
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ marginX: "20px" }}
+          sx={{ marginX: "auto" }}
         >
           회원가입
         </Button>
