@@ -13,7 +13,7 @@ function Footer({ step, handleNext }: FooterProps) {
       py={1}
       alignItems="center"
       sx={{
-        width: "100dvw",
+        width: "100%",
       }}
     >
       <Typography variant="subtitle1" color="#A9ACB2" onClick={handleNext}>
