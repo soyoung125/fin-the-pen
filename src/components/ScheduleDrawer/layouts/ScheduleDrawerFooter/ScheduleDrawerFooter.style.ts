@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const FooterContainer = styled.div`
-  position: sticky;
+  position: fixed;
   width: 100%;
   bottom: 0;
   z-index: 1300;

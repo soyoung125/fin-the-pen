@@ -57,7 +57,7 @@ function ScheduleDrawer({ handleClose, resetSchedule }: ScheduleDrawerProps) {
   }
 
   return (
-    <Box>
+    <Box height="100%">
       <ScheduleDrawerHeader
         value={value}
         handleChange={handleChange}

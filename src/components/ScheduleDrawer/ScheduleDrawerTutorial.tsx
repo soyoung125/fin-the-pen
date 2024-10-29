@@ -182,13 +182,18 @@ function ScheduleDrawerTutorial({
       )}
 
       {step !== 1 && (
-        <>
+        <Stack justifyContent="space-between">
           <ScheduleDrawerHeader
             value={step}
             handleReset={() => console.log()}
           />
 
-          <Stack spacing={2} pt={2}>
+          <Stack
+            spacing={2}
+            pt={2}
+            sx={{ overflow: "scroll" }}
+            height="calc(100dvh - 173px)"
+          >
             <Stack spacing="10px">
               {/* 이벤트 제목 */}
               <NameInput showError={false} />
@@ -212,7 +217,7 @@ function ScheduleDrawerTutorial({
 
             {/* 이벤트 일정 */}
             <DateInput showError={false} />
-            <Box ref={allDayRef} />
+            <Box ref={allDayRef} pt={3} />
           </Stack>
 
           <FooterContainer>
@@ -231,7 +236,7 @@ function ScheduleDrawerTutorial({
               </Box>
             </ActionContainer>
           </FooterContainer>
-        </>
+        </Stack>
       )}
 
       <Tutorial
