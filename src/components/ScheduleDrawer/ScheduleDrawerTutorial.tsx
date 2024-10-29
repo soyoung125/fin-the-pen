@@ -141,7 +141,7 @@ function ScheduleDrawerTutorial({
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"calc(100dvw - 22px)"}
+            width={"calc(100% - 22px)"}
             mx={"11px"}
             borderRadius={"12px"}
             height={45}
