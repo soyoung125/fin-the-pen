@@ -13,6 +13,7 @@ export default function RootLayout() {
           height: "100dvh",
           maxWidth: "480px",
           mx: "auto",
+          overflow: "scroll",
         }}
       >
         <CssBaseline />
@@ -28,7 +29,6 @@ export default function RootLayout() {
             "*::-webkit-scrollbar": {
               display: "none",
             },
-            // scrollbarWidth: "none",
           }}
         />
         <TopBar />
