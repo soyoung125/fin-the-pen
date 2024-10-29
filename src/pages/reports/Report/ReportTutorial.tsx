@@ -28,21 +28,24 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
   const year = moment().year();
   const month = moment().month() + 1;
   const isShortHeight = window.innerHeight < 700;
+  const isLongWidth = window.innerWidth > 480;
   const MONTH_REPORT_HEIGHT = isShortHeight
     ? window.innerWidth / 1.5
-    : window.innerWidth / 1.4;
+    : isLongWidth
+    ? 380
+    : window.innerWidth / 1.25;
   const tutorials: ITutorial[] = [
     {
       tutorialPage: (
         <>
           <Box
             display="flex"
-            width={"100dvw"}
+            width={"100%"}
             height={127}
             position="absolute"
-            top={isShortHeight ? 91 : 143}
+            top={isShortHeight ? 23 : 73}
           >
-            <Stack direction={"row"} spacing={"10px"} width={"100dvw"} px={2.5}>
+            <Stack direction={"row"} spacing={"10px"} width={"100%"} px={2.5}>
               <Box
                 sx={{ backgroundColor: "rgb(128, 128, 128)" }}
                 width="100%"
@@ -65,15 +68,16 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
 
           <Box
             display="flex"
-            width={"100dvw"}
+            width={"100%"}
             height={MONTH_REPORT_HEIGHT}
             position="absolute"
-            top={isShortHeight ? 340 : 392}
+            top={isShortHeight ? 270 : 300}
           >
             <Box
               sx={{ backgroundColor: "rgb(128, 128, 128)" }}
               mx={"18px"}
               width={"100%"}
+              borderRadius={2}
             />
             <HighLightDescription
               offset={MONTH_REPORT_HEIGHT + 10}
@@ -93,18 +97,18 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
         <>
           <Box
             sx={{ backgroundColor: "rgb(128, 128, 128)" }}
-            width={"calc(100dvw - 152px)"}
-            height={"calc(100dvw - 152px)"}
+            width={isLongWidth ? 328 : "calc(100dvw - 152px)"}
+            height={isLongWidth ? 328 : "calc(100dvw - 152px)"}
             borderRadius={"999px"}
             display="flex"
             position="absolute"
-            top={129}
+            top={60}
             left={"76px"}
           />
           <Box
-            width={"100dvw"}
+            width={"100%"}
             height={150}
-            top={"100dvw"}
+            top={isLongWidth ? 410 : "calc(100dvw - 70px)"}
             display="flex"
             position="absolute"
           >
@@ -131,13 +135,13 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
       tutorialPage: (
         <>
           <Box
-            width={"100dvw"}
+            width={"100%"}
             height={220}
             display="flex"
             position="absolute"
-            bottom={370}
+            bottom={isLongWidth ? 361 : "calc((100dvw - 36px) / 2 + 140px)"}
           >
-            <Stack width={"100dvw"} spacing="14px" px="36px">
+            <Stack width={"100%"} spacing="14px" px="36px">
               <Box
                 sx={{ backgroundColor: "rgb(128, 128, 128)" }}
                 width="100%"
@@ -160,15 +164,21 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
             />
           </Box>
 
-          <Box height={160} display="flex" position="absolute" bottom={120}>
+          <Box
+            height={isLongWidth ? 200 : "calc((100dvw - 36px) / 2)"}
+            display="flex"
+            position="absolute"
+            bottom={60}
+            width="100%"
+          >
             <Box
               sx={{ backgroundColor: "rgb(128, 128, 128)" }}
               mx="35px"
               borderRadius="6px"
-              width={"calc(100dvw - 70px)"}
+              width="100%"
             ></Box>
             <HighLightDescription
-              offset={170}
+              offset={isLongWidth ? 210 : (window.innerWidth - 36) / 2 + 10}
               position={"top"}
               message={
                 "월별 소비에 대한 변화도\n그래프를 통하여 한 눈에 확인할 수 있어요"
