@@ -43,6 +43,7 @@ import {
   TemplateScheduleRequest,
   TemplateSchedulesRequest,
 } from "@app/types/template.ts";
+import { v4 as uuidv4 } from "uuid";
 
 const getSign = (type: string) => (type === "Plus" ? "+" : "-");
 
@@ -110,23 +111,13 @@ export const handlers = [
         LOCAL_STORAGE_KEY_TEMPLATE,
         []
       );
-      const isExist = prevSchedules.find(
-        (s) => s.schedule_id === schedule.schedule_id
-      );
       await delay(1000);
 
-      if (isExist) {
-        return HttpResponse.json(false, { status: 400 });
-      }
-
       if (schedule.register_template) {
-        const lastIdx = prevTemplate.length;
-        const id = lastIdx === 0 ? -1 : prevTemplate[lastIdx - 1].id;
-        console.log(id, prevTemplate[lastIdx - 1]);
         setLocalStorage(LOCAL_STORAGE_KEY_TEMPLATE, [
           ...prevTemplate,
           {
-            id: id + 1,
+            schedule_id: uuidv4(),
             amount: Number(schedule.set_amount),
             category_name: schedule.category,
             statement: schedule.price_type === "+" ? "withdraw" : "deposit",
@@ -141,6 +132,7 @@ export const handlers = [
         ...prevSchedules,
         {
           ...schedule,
+          schedule_id: uuidv4(),
           price_type: getSign(schedule.price_type),
           all_day: schedule.is_all_day,
           repeat_kind: repeatType.toLocaleUpperCase() as

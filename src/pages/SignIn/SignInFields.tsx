@@ -57,7 +57,7 @@ function SignInFields() {
         id="password"
         name="password"
         type={showPassword ? "text" : "password"}
-        autoFocus={email ? true : false}
+        autoFocus={!!email}
         placeholder="비밀번호"
         autoComplete="current-password"
         endAdornment={
