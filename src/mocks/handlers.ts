@@ -114,10 +114,13 @@ export const handlers = [
       await delay(1000);
 
       if (schedule.register_template) {
+        const lastIdx = prevTemplate.length;
+        const id = lastIdx === 0 ? -1 : prevTemplate[lastIdx - 1].id;
+
         setLocalStorage(LOCAL_STORAGE_KEY_TEMPLATE, [
           ...prevTemplate,
           {
-            schedule_id: uuidv4(),
+            id: id + 1,
             amount: Number(schedule.set_amount),
             category_name: schedule.category,
             statement: schedule.price_type === "+" ? "withdraw" : "deposit",
