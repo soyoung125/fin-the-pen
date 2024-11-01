@@ -2,8 +2,12 @@ import { SignIn, User } from "@app/types/auth.ts";
 import { DOMAIN } from "@api/url.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { setSessionStorage } from "@utils/storage.ts";
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
+import { deleteCookie, setCookie, setSessionStorage } from "@utils/storage.ts";
+import {
+  COOKIE_KEY_ACCESS_TOKEN,
+  COOKIE_KEY_REFRESH_TOKEN,
+  SESSION_STORAGE_KEY_REFRESH_TOKEN,
+} from "@api/keys.ts";
 import { useDispatch } from "react-redux";
 import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 import { setIsAuthenticatedFalse } from "@redux/slices/commonSlice.tsx";
@@ -37,7 +41,8 @@ export const useAuth = () => {
           user_id: variable.user_id?.toString() ?? "",
         };
         queryClient.setQueryData([QUERY_KEY_USER], useUser);
-        setSessionStorage(SESSION_STORAGE_KEY_TOKEN, user.token);
+        setSessionStorage(SESSION_STORAGE_KEY_REFRESH_TOKEN, user.refreshToken);
+        setCookie(COOKIE_KEY_REFRESH_TOKEN, user.refreshToken);
         navigate(PATH.home);
       } else {
         alert("로그인에 실패했습니다.");
@@ -58,8 +63,9 @@ export const useAuth = () => {
 
   const signOut = () => {
     dispatch(setIsAuthenticatedFalse());
-    queryClient.removeQueries({ queryKey: [QUERY_KEY_USER] });
+    queryClient.setQueryData([QUERY_KEY_USER], null);
     sessionStorage.clear();
+    deleteCookie([COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_REFRESH_TOKEN]);
   };
 
   return { signIn, signOut, isPending };

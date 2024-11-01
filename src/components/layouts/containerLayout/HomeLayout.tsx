@@ -6,6 +6,8 @@ import { selectBottomBarOpen } from "@redux/slices/commonSlice.tsx";
 import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import { useEffect } from "react";
+import { getCookie } from "@utils/storage.ts";
+import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 
 export default function HomeLayout() {
   const navigate = useNavigate();
@@ -15,7 +17,9 @@ export default function HomeLayout() {
   const { data: user } = useUser();
 
   useEffect(() => {
-    if (!user || Object.keys(user).length === 0) {
+    const refreshToken = getCookie(COOKIE_KEY_REFRESH_TOKEN);
+
+    if (!refreshToken) {
       return navigate("/");
     }
   }, [user]);
