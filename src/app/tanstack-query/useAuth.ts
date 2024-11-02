@@ -35,6 +35,11 @@ export const useAuth = () => {
     mutationFn: fetchSignIn,
     onSuccess: async (data, variable) => {
       const user: User | "" = await data.json();
+      const accessToken = data.headers
+        .get("Authorization")
+        ?.split("Bearer ")[1];
+
+      console.log(accessToken);
       if (user !== "") {
         const useUser: User = {
           name: user.name,
@@ -43,6 +48,7 @@ export const useAuth = () => {
         queryClient.setQueryData([QUERY_KEY_USER], useUser);
         setSessionStorage(SESSION_STORAGE_KEY_REFRESH_TOKEN, user.refreshToken);
         setCookie(COOKIE_KEY_REFRESH_TOKEN, user.refreshToken);
+        setCookie(COOKIE_KEY_ACCESS_TOKEN, accessToken);
         navigate(PATH.home);
       } else {
         alert("로그인에 실패했습니다.");
@@ -65,7 +71,7 @@ export const useAuth = () => {
     dispatch(setIsAuthenticatedFalse());
     queryClient.setQueryData([QUERY_KEY_USER], null);
     sessionStorage.clear();
-    deleteCookie([COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_REFRESH_TOKEN]);
+    deleteCookie([COOKIE_KEY_REFRESH_TOKEN, COOKIE_KEY_ACCESS_TOKEN]);
   };
 
   return { signIn, signOut, isPending };
