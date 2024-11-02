@@ -1,5 +1,5 @@
-import { getSessionStorage } from "@utils/storage.ts";
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
+import { getCookie } from "@utils/storage.ts";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -8,7 +8,7 @@ import {
 } from "@constants/queryKeys.ts";
 
 const fetchDeleteTemplate = async (templates: number[]) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   const ids = templates.map((template) => `template_ids=${template}`);
   return fetch(`${DOMAIN}/asset/template/delete?${ids.join("&")}`, {

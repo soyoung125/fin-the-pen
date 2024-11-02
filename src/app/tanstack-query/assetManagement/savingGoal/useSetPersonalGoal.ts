@@ -1,18 +1,18 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
-import { getSessionStorage } from "@app/utils/storage";
+import { getCookie } from "@app/utils/storage";
 import { QUERY_KEY_SAVING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SetPersonalGoalQuery } from "@app/types/asset.ts";
 
 const fetchSetPersonalGoal = async (query: SetPersonalGoalQuery) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   return fetch(`${DOMAIN}/asset/personal-goal`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + (accessToken ?? token),
     },
     body: JSON.stringify(query),
   });

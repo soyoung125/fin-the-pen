@@ -1,6 +1,6 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
-import { getSessionStorage } from "@app/utils/storage";
+import { getCookie } from "@app/utils/storage";
 import { QUERY_KEY_SCHEDULES } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RequestSchedule } from "@app/types/schedule.ts";
@@ -23,7 +23,7 @@ const fetchDeleteSchedule = async ({
   delete_options,
   user_id,
 }: PropsInterface) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
   const data: RequestDeleteSchedule = {
     schedule_id: schedule.schedule_id,
     delete_options,

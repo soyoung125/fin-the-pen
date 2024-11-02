@@ -1,13 +1,12 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
-import { getSessionStorage } from "@app/utils/storage";
+import { getCookie } from "@app/utils/storage";
 import { QUERY_KEY_SPENDING_GOAL } from "@constants/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setSpendingGoal } from "@app/types/asset.ts";
 
 const fetchSetSpendingGoal = async (query: setSpendingGoal) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
-  console.log(DOMAIN);
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   return fetch(`${DOMAIN}/asset/spend-goal/set`, {
     method: "POST",

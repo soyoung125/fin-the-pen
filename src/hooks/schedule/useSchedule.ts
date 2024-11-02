@@ -13,6 +13,8 @@ import { INIT_SCHEDULE } from "@constants/schedule.ts";
 import { useModifySchedule } from "@app/tanstack-query/schedules/useModifySchedule.ts";
 import { useDeleteSchedule } from "@app/tanstack-query/schedules/useDeleteSchedule.ts";
 import { useMonthSchedules } from "@app/tanstack-query/home/useMonthSchedules.ts";
+import { getCookie } from "@utils/storage.ts";
+import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 
 const useSchedule = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +39,7 @@ const useSchedule = () => {
     if (!user) {
       return alert("로그인이 필요합니다.");
     }
+    console.log(user);
 
     const newSchedule = {
       ...schedule,
