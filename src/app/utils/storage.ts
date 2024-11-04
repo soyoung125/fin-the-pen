@@ -17,3 +17,19 @@ export const getSessionStorage = <T>(key: string, initialValue: T): T => {
 export const setSessionStorage = <T>(key: string, value: T) => {
   sessionStorage.setItem(key, JSON.stringify(value));
 };
+
+export const getCookie = (name: string): string | undefined => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift();
+};
+
+export const setCookie = (name: string, value?: string) => {
+  if (value) {
+    document.cookie = name + "=" + value + ";"; //max-age=600
+  }
+};
+
+export const deleteCookie = (names: string[]) => {
+  names.forEach((name) => (document.cookie = name + "=;max-age=0"));
+};

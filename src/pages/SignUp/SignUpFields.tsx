@@ -41,7 +41,7 @@ function SignUpFields() {
     })
       .then(async (res) => {
         const data = await res.json();
-        if (data.user_id === user.user_id) {
+        if (data.userId === user.user_id) {
           alert(SIGN_UP_SUCCESS);
 
           const email = user.user_id as string;
@@ -56,7 +56,7 @@ function SignUpFields() {
       });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
@@ -67,7 +67,7 @@ function SignUpFields() {
     };
     const invalidIndex = isObjectValuesEmpty(user);
     if (invalidIndex === -1) {
-      signUp(user);
+      await signUp(user);
     } else {
       alert(NO_BLANKS);
     }
@@ -153,7 +153,6 @@ function SignUpFields() {
           display: "flexGrow",
           bottom: "15px",
           mx: "auto",
-          // left: 0,
           width: "calc(100dvw - 40px)",
           maxWidth: "400px",
         }}

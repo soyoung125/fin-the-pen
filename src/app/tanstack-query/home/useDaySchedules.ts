@@ -1,12 +1,12 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys.ts";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys.ts";
 import { DOMAIN } from "@api/url.ts";
-import { getSessionStorage } from "@utils/storage.ts";
+import { getCookie } from "@utils/storage.ts";
 import { QUERY_KEY_DAY, QUERY_KEY_SCHEDULES } from "@constants/queryKeys.ts";
 import { useQuery } from "@tanstack/react-query";
 import { HomeQuery, DaySchedule } from "@app/types/schedule.ts";
 
 const fetchDaySchedules = async (query: HomeQuery) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   return fetch(`${DOMAIN}/home/day`, {
     method: "POST",

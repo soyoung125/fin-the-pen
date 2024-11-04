@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, MouseEvent } from "react";
 import { NO_BLANKS } from "@constants/messages.tsx";
 import { isObjectValuesEmpty } from "@utils/tools.ts";
 import { useAuth } from "@app/tanstack-query/useAuth.ts";
@@ -30,9 +30,7 @@ function SignInFields() {
     }
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 

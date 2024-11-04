@@ -88,13 +88,19 @@ export const handlers = [
         return HttpResponse.json("", { status: 200 });
       }
 
-      const randomEightDigit = Math.floor(
+      const randomRefreshToken = Math.floor(
+        10000000 + Math.random() * 90000000
+      ).toString();
+      const randomAccessToken = Math.floor(
         10000000 + Math.random() * 90000000
       ).toString();
 
       return HttpResponse.json(
-        { ...user, token: randomEightDigit },
-        { status: 200 }
+        { ...user, refreshToken: randomRefreshToken },
+        {
+          status: 200,
+          headers: { Authorization: "Bearer " + randomAccessToken },
+        }
       );
     }
   ),

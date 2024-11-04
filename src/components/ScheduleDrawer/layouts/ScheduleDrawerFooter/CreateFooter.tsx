@@ -12,6 +12,8 @@ import { selectGuestMode } from "@redux/slices/commonSlice.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import { NEED_SIGN_IN } from "@constants/messages.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
+import { getCookie } from "@utils/storage.ts";
+import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 
 interface CreateFooterInterface {
   handleSubmit: () => boolean;
@@ -30,10 +32,13 @@ function CreateFooter({
   const schedule = useAppSelector(selectScheduleForm);
   const guestMode = useAppSelector(selectGuestMode);
   const template = useAppSelector(selectSelectedTemplate);
+
   const { data: user } = useUser();
   const { handleCreateSchedule } = useSchedule();
   const { setRandomGeneratedSchedule } = useScheduleForm();
   const { openConfirm } = useDialog();
+
+  const refreshToken = getCookie(COOKIE_KEY_REFRESH_TOKEN);
 
   const handleCreate = async () => {
     if (!handleSubmit() || !schedule) return;
@@ -93,10 +98,10 @@ function CreateFooter({
         <Button
           variant="contained"
           fullWidth
-          disabled={!user}
+          disabled={!refreshToken}
           onClick={handleCreate}
         >
-          {!user ? NEED_SIGN_IN : `${SCHEDULE_DRAWER.add_schedule}`}
+          {!refreshToken ? NEED_SIGN_IN : `${SCHEDULE_DRAWER.add_schedule}`}
         </Button>
       </Tooltip>
     </Stack>

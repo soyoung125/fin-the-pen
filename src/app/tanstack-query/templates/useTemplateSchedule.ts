@@ -1,6 +1,6 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
-import { getSessionStorage } from "@app/utils/storage";
+import { getCookie } from "@app/utils/storage";
 import { useMutation } from "@tanstack/react-query";
 import {
   TemplateImportRequest,
@@ -8,10 +8,9 @@ import {
   TemplateScheduleRequest,
 } from "@app/types/template.ts";
 import { Schedule } from "@app/types/schedule.ts";
-import { useDialog } from "@hooks/dialog/useDialog.tsx";
 
 const fetchTemplateSchedule = async (query: TemplateScheduleRequest) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   return fetch(
     `${DOMAIN}/createSchedule/template?template_id=${query.template_id}&template_name=${query.template_name}`,
@@ -29,7 +28,7 @@ const fetchTemplateSchedule = async (query: TemplateScheduleRequest) => {
 };
 
 const fetchTemplateExist = async (query: TemplateImportRequest) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   return fetch(
     `${DOMAIN}/template/is_exists?userId=${query.user_id}&category_name=${query.category_name}&event_name=${query.event_name}`,

@@ -1,6 +1,6 @@
-import { SESSION_STORAGE_KEY_TOKEN } from "@api/keys";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys";
 import { DOMAIN } from "@api/url";
-import { getSessionStorage } from "@app/utils/storage";
+import { getCookie } from "@app/utils/storage";
 import {
   QUERY_KEY_REGULAR_ASSET,
   QUERY_KEY_SCHEDULES,
@@ -11,7 +11,7 @@ import { RequestSchedule } from "@app/types/schedule.ts";
 import moment from "moment";
 
 const fetchCreateSchedule = async (schedule: RequestSchedule) => {
-  const token = getSessionStorage(SESSION_STORAGE_KEY_TOKEN, "");
+  const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
   const data = {
     ...schedule,
     price_type: getPriceType(schedule.price_type),

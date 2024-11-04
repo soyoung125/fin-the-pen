@@ -6,7 +6,7 @@ export interface User {
   // registerDate: string;
   // phone_number: string;
   user_type?: string;
-  token?: string;
+  refreshToken?: string;
 }
 
 export interface MockUser extends User {
