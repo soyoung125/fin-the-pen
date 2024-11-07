@@ -21,13 +21,15 @@ export default function HomeLayout() {
   const bottomBarOpen = useAppSelector(selectBottomBarOpen);
 
   const { data: user } = useUser();
+  const accessToken = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   useEffect(() => {
-    const accessToken = getCookie(COOKIE_KEY_ACCESS_TOKEN);
-
     if (!accessToken) {
       return navigate("/");
     }
+  }, [accessToken]);
+
+  useEffect(() => {
     if (!user || Object.keys(user).length === 0) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_USER],

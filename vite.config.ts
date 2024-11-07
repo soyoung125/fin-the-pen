@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/local": {
-        target: "http://localhost:8080",
+        target: "http://finthepen.gonetis.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/local/, ""),
       },
