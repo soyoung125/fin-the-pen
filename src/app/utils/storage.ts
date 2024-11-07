@@ -26,7 +26,7 @@ export const getCookie = (name: string): string | undefined => {
 
 export const setCookie = (name: string, value?: string) => {
   if (value) {
-    document.cookie = name + "=" + value + ";"; //max-age=600
+    document.cookie = name + "=" + value + ";max-age=600";
   }
 };
 

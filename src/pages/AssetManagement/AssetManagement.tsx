@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import { Alert, Box, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import moment from "moment/moment";
 import { useEffect } from "react";
 import ScheduleStatusCard from "./components/ScheduleStatusCard";
@@ -26,7 +26,7 @@ function AssetManagement() {
     dispatch(setIsAuthenticatedFalse());
   }, []);
 
-  return user ? (
+  return (
     <Stack mt={2.5} spacing={5}>
       <Stack spacing={3} px={2.5}>
         <Box
@@ -38,7 +38,9 @@ function AssetManagement() {
           }}
         >
           {`핀더펜과 함께 `}
-          <span style={{ color: "#735BF2", fontWeight: 700 }}>{user.name}</span>
+          <span style={{ color: "#735BF2", fontWeight: 700 }}>
+            {user?.name}
+          </span>
           {`님의\n자산 플랜을 세워보세요 !`}
         </Box>
         <SettingsPaper />
@@ -59,10 +61,6 @@ function AssetManagement() {
         }
       />
     </Stack>
-  ) : (
-    <Box p={2.5}>
-      <Alert severity="error">로그인이 필요한 페이지입니다.</Alert>
-    </Box>
   );
 }
 
