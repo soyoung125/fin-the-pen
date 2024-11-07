@@ -4,13 +4,11 @@ import SignInFields from "./SignInFields.tsx";
 import Footer from "./Footer.tsx";
 import useHeader from "@hooks/useHeader.ts";
 import { HEADER_MODE } from "@app/types/common.ts";
-import { useUser } from "@app/tanstack-query/useUser.ts";
 import { Link } from "react-router-dom";
 import { getCookie } from "@utils/storage.ts";
 import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys.ts";
 
 function SignIn() {
-  const { data: user } = useUser();
   const accessToken = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   useHeader(true, HEADER_MODE.sign);

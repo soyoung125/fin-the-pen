@@ -9,7 +9,6 @@ import UserData from "@pages/MyPage/UserData.tsx";
 import { selectGuestMode } from "@redux/slices/commonSlice.tsx";
 import SchedulesData from "@pages/MyPage/SchedulesData.tsx";
 import GuestDataManager from "pages/MyPage/GuestDataManager";
-import { useUser } from "@app/tanstack-query/useUser.ts";
 import { useAuth } from "@app/tanstack-query/useAuth.ts";
 import { getCookie } from "@utils/storage.ts";
 import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
@@ -17,7 +16,6 @@ import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 function MyPage() {
   const navigate = useNavigate();
   const guestMode = useAppSelector(selectGuestMode);
-  const { data: user } = useUser();
   const refreshToken = getCookie(COOKIE_KEY_REFRESH_TOKEN);
   const { signOut } = useAuth();
 

@@ -6,14 +6,9 @@ import {
 } from "@redux/slices/scheduleSlice.tsx";
 import { SCHEDULE_DRAWER } from "@constants/schedule.ts";
 import useSchedule from "@hooks/schedule/useSchedule.ts";
-import { Button, Stack, Tooltip } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useScheduleForm } from "../../hooks/useScheduleForm.ts";
-import { selectGuestMode } from "@redux/slices/commonSlice.tsx";
-import { useUser } from "@app/tanstack-query/useUser.ts";
-import { NEED_SIGN_IN } from "@constants/messages.tsx";
 import { useDialog } from "@hooks/dialog/useDialog.tsx";
-import { getCookie } from "@utils/storage.ts";
-import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 
 interface CreateFooterInterface {
   handleSubmit: () => boolean;
@@ -30,15 +25,11 @@ function CreateFooter({
 }: CreateFooterInterface) {
   const date = useAppSelector(selectDate);
   const schedule = useAppSelector(selectScheduleForm);
-  const guestMode = useAppSelector(selectGuestMode);
   const template = useAppSelector(selectSelectedTemplate);
 
-  const { data: user } = useUser();
   const { handleCreateSchedule } = useSchedule();
   const { setRandomGeneratedSchedule } = useScheduleForm();
   const { openConfirm } = useDialog();
-
-  const refreshToken = getCookie(COOKIE_KEY_REFRESH_TOKEN);
 
   const handleCreate = async () => {
     if (!handleSubmit() || !schedule) return;
@@ -91,19 +82,10 @@ function CreateFooter({
           랜덤 일정 채우기
         </Button>
       )}
-      <Tooltip
-        title={!guestMode && "아직 일반 모드에서는 동작하지 않습니다."}
-        placement="top"
-      >
-        <Button
-          variant="contained"
-          fullWidth
-          disabled={!refreshToken}
-          onClick={handleCreate}
-        >
-          {!refreshToken ? NEED_SIGN_IN : `${SCHEDULE_DRAWER.add_schedule}`}
-        </Button>
-      </Tooltip>
+
+      <Button variant="contained" fullWidth onClick={handleCreate}>
+        {SCHEDULE_DRAWER.add_schedule}
+      </Button>
     </Stack>
   );
 }
