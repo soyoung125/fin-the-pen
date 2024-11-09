@@ -4,5 +4,5 @@
 
 export const DOMAIN =
   process.env.NODE_ENV === "production"
-    ? "http://finthepen.gonetis.com" // 배포 시 실제로 연결할 서버로 변경하기 https://finthepen.site
+    ? import.meta.env.VITE_LOCAL_DOMAIN
     : "/local"; // 로컬 서버와 연결할 때 (단, MSW 동작 시 로컬 서버로 요청이 나가지 않고 mocking 당할 수 있음)
