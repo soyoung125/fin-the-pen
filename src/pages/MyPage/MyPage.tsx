@@ -1,6 +1,4 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "@constants/path.ts";
 import GuestMode from "./GuestMode.tsx";
 import ScheduleFilterData from "./ScheduleFilterData.tsx";
 import { useAppSelector } from "@redux/hooks.ts";
@@ -14,7 +12,6 @@ import { getCookie } from "@utils/storage.ts";
 import { COOKIE_KEY_REFRESH_TOKEN } from "@api/keys.ts";
 
 function MyPage() {
-  const navigate = useNavigate();
   const guestMode = useAppSelector(selectGuestMode);
   const refreshToken = getCookie(COOKIE_KEY_REFRESH_TOKEN);
   const { signOut } = useAuth();
@@ -26,7 +23,6 @@ function MyPage() {
       )
     ) {
       signOut();
-      navigate(PATH.start, { replace: true });
     }
   };
 

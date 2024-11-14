@@ -75,6 +75,7 @@ export const useAuth = () => {
     queryClient.setQueryData([QUERY_KEY_USER], null);
     sessionStorage.clear();
     deleteCookie([COOKIE_KEY_REFRESH_TOKEN, COOKIE_KEY_ACCESS_TOKEN]);
+    navigate(PATH.start, { replace: true });
   };
 
   return { signIn, signOut, isPending };
