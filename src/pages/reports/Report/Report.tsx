@@ -24,10 +24,11 @@ import GoalSettingModal from "@pages/reports/Report/components/modals/GoalSettin
 import Loading from "@components/Loading";
 import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 import useAsset from "@hooks/assetManagement/useAsset.ts";
+import useMonth from "@hooks/report/useMonth.ts";
 
 function Report() {
-  const { year, month, report, reportList, isPending, isError, pickMonth } =
-    useReport();
+  const { date, year, month, pickMonth } = useMonth();
+  const { report, reportList, isPending, isError } = useReport(date);
   useHeader(true, HEADER_MODE.analysis);
   const { openModal, closeModal } = useModal();
   const [selected, setSelected] = useState("used");

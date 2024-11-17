@@ -10,21 +10,14 @@ import { INIT_SCHEDULE } from "@constants/schedule.ts";
 import moment from "moment";
 import { PATH } from "@constants/path.ts";
 import useBottomBar from "@hooks/useBottomBar.ts";
+import useMonth from "@hooks/report/useMonth.ts";
 
 function ReportMonthDetails() {
   useHeader(false);
   useBottomBar(false);
   const navigate = useNavigate();
-  const {
-    yearMonth,
-    year,
-    month,
-    pickMonth,
-    isPending,
-    report,
-    reportList,
-    maxPercent,
-  } = useReport();
+  const { date, yearMonth, year, month, pickMonth } = useMonth();
+  const { isPending, report, reportList, maxPercent } = useReport(date);
   const { openScheduleDrawer } = useScheduleDrawer();
 
   const handleClickAddSchedule = () => {

@@ -4,12 +4,14 @@ import useCategoryReport from "@hooks/report/useCategoryReport.ts";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ReportCategoryBody from "@pages/reports/ReportCategoryDetails/components/ReportCategoryBody";
 import useAsset from "@hooks/assetManagement/useAsset.ts";
+import useMonth from "@hooks/report/useMonth.ts";
 
 function ReportCategoryDetails() {
   useHeader(false);
   useBottomBar(false);
-  const { report, isPending, year, month, addMonth, subtractMonth, pickMonth } =
-    useCategoryReport();
+
+  const { date, year, month, pickMonth, subtractMonth, addMonth } = useMonth();
+  const { report, isPending } = useCategoryReport(date);
   const { setMenu } = useAsset();
 
   const handleClickSetSpendGoal = () => {

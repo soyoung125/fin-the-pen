@@ -7,7 +7,6 @@ import { DOMAIN } from "@api/url.ts";
 
 const fetchUser = async () => {
   const token = getCookie(COOKIE_KEY_ACCESS_TOKEN);
-  console.log(token?.split(".").length);
 
   return fetch(`${DOMAIN}/api/user/info`, {
     method: "POST",
