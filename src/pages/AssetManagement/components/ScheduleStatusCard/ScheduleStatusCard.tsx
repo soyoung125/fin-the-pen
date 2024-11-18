@@ -1,15 +1,16 @@
 import { Box, Stack } from "@mui/material";
-import RoundedBorderBox from "../../../../components/common/RoundedBorderBox.tsx";
 import StatusCard from "@pages/AssetManagement/components/ScheduleStatusCard/components/StatusCard/StatusCard.tsx";
 
 interface ScheduleStatusCardProps {
   month: string;
   numberOfSchedule: number;
+  available: number;
 }
 
 function ScheduleStatusCard({
   month,
   numberOfSchedule,
+  available,
 }: ScheduleStatusCardProps) {
   return (
     <Stack px={2.5} spacing="21px">
@@ -20,7 +21,10 @@ function ScheduleStatusCard({
           content={`${numberOfSchedule}개`}
         />
 
-        <StatusCard title="추천 소비 금액" content="xxxxx원" />
+        <StatusCard
+          title="사용 가능 금액"
+          content={`${available.toLocaleString()}원`}
+        />
       </Stack>
     </Stack>
   );

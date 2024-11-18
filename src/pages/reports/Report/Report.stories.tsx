@@ -17,6 +17,7 @@ import moment from "moment";
 import PredictReport from "@pages/reports/Report/components/PredictReport";
 import FixedTransaction from "@pages/reports/Report/components/FixedTransaction";
 import MonthlyReport from "@pages/reports/Report/components/MonthlyReport";
+import { PATH } from "@constants/path.ts";
 
 const meta = {
   title: "reports/Report",
@@ -139,7 +140,8 @@ export const PageExample = () => {
           content={
             <ReportLayout
               title="월간 소비 리포트"
-              navigateTo="/somewhere"
+              handleClick={() => alert("click")}
+              actionContent="자세히 보기"
               content={<BubbleChart bubbles={generateRandomBubbles2(list)} />}
             />
           }
@@ -149,6 +151,8 @@ export const PageExample = () => {
             <Stack spacing={5}>
               <ReportLayout
                 title="소비 예측 리포트"
+                handleClick={() => alert("click")}
+                actionContent="지출 목표 설정하기"
                 content={
                   <PredictReport
                     selected={selected}

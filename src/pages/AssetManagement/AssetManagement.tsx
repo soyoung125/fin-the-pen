@@ -15,7 +15,7 @@ import ThickDivider from "@components/common/ThickDivider.tsx";
 
 function AssetManagement() {
   const dispatch = useAppDispatch();
-  const { schedules } = useSchedule();
+  const { schedules, data } = useSchedule();
   const { data: user } = useUser();
 
   const today = moment();
@@ -59,6 +59,7 @@ function AssetManagement() {
               )
           ).length ?? 0
         }
+        available={parseInt(data?.available ?? "")}
       />
     </Stack>
   );

@@ -7,12 +7,10 @@ import OverlayProvider from "@hooks/use-overlay/OverlayProvider.tsx";
 import { useUser } from "@app/tanstack-query/useUser.ts";
 import { useEffect } from "react";
 import { getCookie } from "@utils/storage.ts";
-import {
-  COOKIE_KEY_ACCESS_TOKEN,
-  COOKIE_KEY_REFRESH_TOKEN,
-} from "@api/keys.ts";
+import { COOKIE_KEY_ACCESS_TOKEN } from "@api/keys.ts";
 import { QUERY_KEY_USER } from "@constants/queryKeys.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@app/tanstack-query/useAuth.ts";
 
 export default function HomeLayout() {
   const navigate = useNavigate();
@@ -21,11 +19,12 @@ export default function HomeLayout() {
   const bottomBarOpen = useAppSelector(selectBottomBarOpen);
 
   const { data: user } = useUser();
+  const { signOut } = useAuth();
   const accessToken = getCookie(COOKIE_KEY_ACCESS_TOKEN);
 
   useEffect(() => {
     if (!accessToken) {
-      return navigate("/");
+      return signOut();
     }
   }, [accessToken]);
 

@@ -1,30 +1,21 @@
 import useHeader from "@hooks/useHeader.ts";
 import ScheduleListPageHeader from "components/ScheduleList/ScheduleListPageHeader";
 import useCategoryReport from "@hooks/report/useCategoryReport.ts";
-import { useScheduleDrawer } from "@hooks/useScheduleDrawer.tsx";
-import moment from "moment/moment";
-import { INIT_SCHEDULE } from "@constants/schedule.ts";
 import useBottomBar from "@hooks/useBottomBar.ts";
 import ReportCategoryBody from "@pages/reports/ReportCategoryDetails/components/ReportCategoryBody";
+import useAsset from "@hooks/assetManagement/useAsset.ts";
+import useMonth from "@hooks/report/useMonth.ts";
 
 function ReportCategoryDetails() {
   useHeader(false);
   useBottomBar(false);
-  const {
-    report,
-    isPending,
-    year,
-    month,
-    yearMonth,
-    addMonth,
-    subtractMonth,
-    pickMonth,
-  } = useCategoryReport();
-  const { openScheduleDrawer } = useScheduleDrawer();
 
-  const handleClickAddSchedule = () => {
-    const date = moment(yearMonth, "YYYY-MM");
-    openScheduleDrawer(INIT_SCHEDULE(date.format("YYYY-MM-DD")));
+  const { date, year, month, pickMonth, subtractMonth, addMonth } = useMonth();
+  const { report, isPending } = useCategoryReport(date);
+  const { setMenu } = useAsset();
+
+  const handleClickSetSpendGoal = () => {
+    setMenu(2, false);
   };
 
   return (
@@ -41,7 +32,7 @@ function ReportCategoryDetails() {
       <ReportCategoryBody
         report={report}
         isPending={isPending}
-        handleClickAddSchedule={handleClickAddSchedule}
+        handleClickAddSchedule={handleClickSetSpendGoal}
       />
     </>
   );

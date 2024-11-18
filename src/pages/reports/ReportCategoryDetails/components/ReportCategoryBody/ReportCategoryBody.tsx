@@ -75,7 +75,12 @@ function ReportCategoryBody({
   }
 
   if (scheduleDates.length === 0) {
-    return <ReportEmptyBox handleClickAddSchedule={handleClickAddSchedule} />;
+    return (
+      <ReportEmptyBox
+        handleClickAddSchedule={handleClickAddSchedule}
+        mode="spendGoal"
+      />
+    );
   }
 
   const scrollToToday = () => {

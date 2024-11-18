@@ -1,7 +1,7 @@
 import ReportCard from "@pages/reports/ReportMonthDetails/components/ReportCard";
 import ReportCardSkeleton from "@pages/reports/ReportMonthDetails/components/ReportCard/ReportCardSkeleton.tsx";
 import { Button, Stack } from "@mui/material";
-import { CategoryReport, Report } from "@app/types/report.ts";
+import { CategoryReport } from "@app/types/report.ts";
 import { useState } from "react";
 import ReportEmptyBox from "@pages/reports/ReportMonthDetails/components/ReportEmptyBox";
 import { PATH } from "@constants/path.ts";
@@ -32,7 +32,12 @@ function ReportList({
     );
   }
   if (!reportList || reportList.length === 0) {
-    return <ReportEmptyBox handleClickAddSchedule={handleClickAddSchedule} />;
+    return (
+      <ReportEmptyBox
+        handleClickAddSchedule={handleClickAddSchedule}
+        mode="schedule"
+      />
+    );
   }
 
   if (reportList.length < 6) {

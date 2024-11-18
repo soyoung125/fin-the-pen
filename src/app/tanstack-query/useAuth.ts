@@ -39,8 +39,7 @@ export const useAuth = () => {
         .get("Authorization")
         ?.split("Bearer ")[1];
 
-      console.log(accessToken);
-      if (user !== "") {
+      if (data.ok && user) {
         const useUser: User = {
           name: user.name,
           user_id: variable.user_id?.toString() ?? "",
@@ -51,14 +50,18 @@ export const useAuth = () => {
         setCookie(COOKIE_KEY_ACCESS_TOKEN, accessToken);
         navigate(PATH.home);
       } else {
-        alert("로그인에 실패했습니다.");
+        openToast({
+          hideDuration: 4000,
+          color: "error.light",
+          toastText: "이메일 또는 비밀번호가 다릅니다.",
+        });
       }
     },
     onError: () => {
       openToast({
         hideDuration: 4000,
         color: "error.light",
-        toastText: "이메일 또는 비밀번호가 다릅니다.",
+        toastText: "로그인에 실패했습니다.",
       });
     },
   });
@@ -72,6 +75,7 @@ export const useAuth = () => {
     queryClient.setQueryData([QUERY_KEY_USER], null);
     sessionStorage.clear();
     deleteCookie([COOKIE_KEY_REFRESH_TOKEN, COOKIE_KEY_ACCESS_TOKEN]);
+    navigate(PATH.start, { replace: true });
   };
 
   return { signIn, signOut, isPending };

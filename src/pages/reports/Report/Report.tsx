@@ -24,15 +24,18 @@ import GoalSettingModal from "@pages/reports/Report/components/modals/GoalSettin
 import Loading from "@components/Loading";
 import { useOnBoarding } from "@hooks/onboarding/useOnBoarding.tsx";
 import useAsset from "@hooks/assetManagement/useAsset.ts";
+import useMonth from "@hooks/report/useMonth.ts";
+import { useNavigate } from "react-router-dom";
 
 function Report() {
-  const { year, month, report, reportList, isPending, isError, pickMonth } =
-    useReport();
+  const { date, year, month, pickMonth } = useMonth();
+  const { report, reportList, isPending, isError } = useReport(date);
   useHeader(true, HEADER_MODE.analysis);
   const { openModal, closeModal } = useModal();
   const [selected, setSelected] = useState("used");
   const { reportTutorial, openReportTutorial } = useOnBoarding();
   const { goSpendingGoal } = useAsset();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!reportTutorial) {
@@ -102,7 +105,8 @@ function Report() {
         content={
           <ReportLayout
             title="월간 소비 리포트"
-            navigateTo={PATH.reportMonthDetail}
+            handleClick={() => navigate(PATH.reportMonthDetail)}
+            actionContent="자세히 보기"
             content={
               <BubbleChart bubbles={generateRandomBubbles2(reportList)} />
             }
@@ -114,6 +118,12 @@ function Report() {
           <Stack spacing={5}>
             <ReportLayout
               title="소비 예측 리포트"
+              actionContent={
+                Number(report.expenditure_data.spend_amount)
+                  ? undefined
+                  : "지출 목표 설정하기"
+              }
+              handleClick={handleClickAccountSetting}
               content={
                 <PredictReport
                   selected={selected}
