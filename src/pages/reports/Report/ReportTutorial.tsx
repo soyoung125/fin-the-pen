@@ -252,7 +252,7 @@ function ReportTutorial({ closeTutorial }: { closeTutorial: () => void }) {
           content={
             <ReportLayout
               title="월간 소비 리포트"
-              navigateTo={PATH.reportMonthDetail}
+              actionContent="자세히 보기"
               content={<TutorialBubbleChart />}
             />
           }

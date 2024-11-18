@@ -7,13 +7,19 @@ const meta = {
   tags: ["autodocs"],
   args: {
     title: "리포트 이름",
-    navigateTo: "/report/2021-05",
+    actionContent: "서브 액션 컨텐트",
+    handleClick: () => alert("click"),
     content: "리포트 콘텐츠 컴포넌트가 올 자리",
   },
   argTypes: {
-    navigateTo: {
-      description:
-        "더보기 버튼을 눌렀을 때 이동할 경로를 지정합니다. 텍스트가 없으면 뜨지 않습니다.",
+    title: {
+      description: "리포트 카드의 제목입니다.",
+    },
+    actionContent: {
+      description: "리포트 카드에 사용할 서브 액션 텍스트를 나타냅니다.",
+    },
+    handleClick: {
+      description: "서브 동작의 액션 핸들러입니다.",
     },
     content: {
       description:
