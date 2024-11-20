@@ -328,22 +328,6 @@ export const useScheduleForm = () => {
     }
   };
 
-  const updateYearRepeat = (id: string, value: string) => {
-    dispatch(
-      setDrawerScheduleForm({
-        ...scheduleForm,
-        repeat: {
-          ...scheduleForm?.repeat,
-          year_type: {
-            ...scheduleForm?.repeat.year_type,
-            year_category: id,
-            year_repeat: value,
-          },
-        },
-      })
-    );
-  };
-
   const updateCategory = async (value: string) => {
     dispatch(
       setDrawerScheduleForm({
@@ -363,7 +347,6 @@ export const useScheduleForm = () => {
     updateExclusion,
     setRandomGeneratedSchedule,
     updateRepeatAndPeriod,
-    updateYearRepeat,
     getRepeat,
     updateCategory,
     isExist,

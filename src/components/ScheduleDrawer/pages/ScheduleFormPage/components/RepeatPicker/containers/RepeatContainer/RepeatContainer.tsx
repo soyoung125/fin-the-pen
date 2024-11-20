@@ -7,6 +7,7 @@ import RepeatRadioGroup from "./radio/RepeatRadioGroup.tsx";
 
 interface RepeatContainerProps extends RepeatProps {
   handleChange: (value: string) => void;
+  updateYearRepeat: (id: string, value: string) => void;
 }
 
 function RepeatContainer({
@@ -14,6 +15,7 @@ function RepeatContainer({
   repeat,
   handleChange,
   handleChangeOption,
+  updateYearRepeat,
 }: RepeatContainerProps) {
   return (
     <RepeatRadioGroup value={repeatType} handleChange={handleChange}>
@@ -39,6 +41,7 @@ function RepeatContainer({
         repeatType={repeatType}
         repeat={repeat}
         handleChangeOption={handleChangeOption}
+        updateYearRepeat={updateYearRepeat}
       />
     </RepeatRadioGroup>
   );

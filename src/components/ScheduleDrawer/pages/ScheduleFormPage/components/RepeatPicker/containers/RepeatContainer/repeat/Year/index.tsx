@@ -10,7 +10,16 @@ import moment from "moment";
 import RepeatInputLabel from "../RepeatInputLabel.tsx";
 import { RepeatProps } from "@app/types/schedule.ts";
 
-function Year({ repeatType, repeat, handleChangeOption }: RepeatProps) {
+interface YearOptionProps extends RepeatProps {
+  updateYearRepeat: (id: string, value: string) => void;
+}
+
+function Year({
+  repeatType,
+  repeat,
+  handleChangeOption,
+  updateYearRepeat,
+}: YearOptionProps) {
   const schedule = useSelector(selectScheduleForm);
   const startDate = useSelector(selectStartDate);
 
@@ -56,8 +65,10 @@ function Year({ repeatType, repeat, handleChangeOption }: RepeatProps) {
 
       {repeatType === "year" && (
         <Option
+          repeat={repeat}
           date={date}
           isLastDay={lastDate.diff(schedule?.start_date, "day") < 7}
+          updateRepeat={updateYearRepeat}
         />
       )}
     </>
