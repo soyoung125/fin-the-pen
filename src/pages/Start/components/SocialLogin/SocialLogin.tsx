@@ -30,7 +30,7 @@ function SocialLogin({ type }: SocialLoginProps) {
           p: 0,
         }}
       >
-        <img src={SOCIAL_LOGIN[type].image} width={40} />
+        <img src={SOCIAL_LOGIN[type].image} width={40} alt={`social_${type}`} />
       </Button>
     </Box>
   );
