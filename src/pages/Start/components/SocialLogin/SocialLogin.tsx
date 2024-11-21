@@ -29,6 +29,7 @@ function SocialLogin({ type }: SocialLoginProps) {
         sx={{
           p: 0,
         }}
+        aria-label={`social_${type}`}
       >
         <img src={SOCIAL_LOGIN[type].image} width={40} alt={`social_${type}`} />
       </Button>
