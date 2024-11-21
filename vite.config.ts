@@ -20,6 +20,7 @@ export default ({ mode }) => {
         "/api": {
           target: env.VITE_LOCAL_DOMAIN,
           changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
     },
