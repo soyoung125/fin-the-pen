@@ -5,13 +5,13 @@ import {
   PickersDayProps,
   koKR,
 } from "@mui/x-date-pickers";
-import { InputAdornment, TextField, Grid } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import moment from "moment";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import InputGrid from "./InputGrid";
-import "moment/locale/zh-cn";
 import { useState } from "react";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 interface PeriodInputProps {
   startDate: string;
@@ -74,10 +74,9 @@ function PeriodInput({ startDate, endDate, changeDate }: PeriodInputProps) {
 
   return (
     <InputGrid title="조회기간">
-      <Grid xs item>
+      <Grid>
         <LocalizationProvider
           dateAdapter={AdapterMoment}
-          adapterLocale="zh-cn"
           localeText={
             koKR.components.MuiLocalizationProvider.defaultProps.localeText
           }
