@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          onlyChanged: true
+          autoAcceptChanges: true
 
       - name: Install dependencies
         run: yarn install
