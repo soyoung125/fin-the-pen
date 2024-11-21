@@ -21,16 +21,11 @@ function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
     updateRepeat,
     updatePeriod,
     getRepeat,
+    handleRepeatChange,
+    handlePeriodChange,
+    updateYearRepeat,
     saveRepeat,
   } = useCategoryPicker();
-
-  const handleRepeatChange = (v: string) => {
-    updateRepeat({ target: { id: "repeat", value: v } });
-  };
-
-  const handlePeriodChange = (v: string) => {
-    updatePeriod({ target: { id: "period", value: v } });
-  };
 
   const handleSave = () => {
     saveRepeat();
@@ -57,6 +52,7 @@ function RepeatPicker({ setIsRepeatPickerOpen }: RepeatPickerProps) {
             repeat={repeat}
             handleChange={handleRepeatChange}
             handleChangeOption={updateRepeat}
+            updateYearRepeat={updateYearRepeat}
           />
 
           <ThickDivider />

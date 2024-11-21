@@ -6,7 +6,7 @@ import {
 import { INIT_PERIOD, INIT_REPEAT } from "@constants/schedule.ts";
 import moment from "moment";
 import { UpdateStateInterface } from "@app/types/common.ts";
-import { repeatKindType } from "@app/types/schedule.ts";
+import { repeatKindType, YearCategory } from "@app/types/schedule.ts";
 
 export const useCategoryPicker = () => {
   const { scheduleForm, updateRepeatAndPeriod } = useScheduleForm();
@@ -64,10 +64,6 @@ export const useCategoryPicker = () => {
         ...repeatForm[kind_type],
         [id]: value,
       };
-      console.log({
-        ...repeatForm,
-        [kind_type]: newValue,
-      });
       setRepeat({
         ...repeatForm,
         [kind_type]: newValue,
@@ -95,6 +91,26 @@ export const useCategoryPicker = () => {
     }
   };
 
+  const updateYearRepeat = (id: string, value: string) => {
+    const newId = id as YearCategory;
+    setRepeat({
+      ...repeatForm,
+      year_type: {
+        ...scheduleForm?.repeat.year_type,
+        year_category: newId,
+        year_repeat: value,
+      },
+    });
+  };
+
+  const handleRepeatChange = (v: string) => {
+    updateRepeat({ target: { id: "repeat", value: v } });
+  };
+
+  const handlePeriodChange = (v: string) => {
+    updatePeriod({ target: { id: "period", value: v } });
+  };
+
   const saveRepeat = () => updateRepeatAndPeriod(repeatForm, periodForm);
 
   return {
@@ -105,6 +121,9 @@ export const useCategoryPicker = () => {
     updateRepeat,
     updatePeriod,
     getRepeat,
+    updateYearRepeat,
+    handleRepeatChange,
+    handlePeriodChange,
     saveRepeat,
   };
 };

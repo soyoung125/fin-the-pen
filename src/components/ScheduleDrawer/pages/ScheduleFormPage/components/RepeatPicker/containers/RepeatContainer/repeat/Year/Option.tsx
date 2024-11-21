@@ -1,20 +1,20 @@
 import OptionButton from "@components/ScheduleDrawer/pages/ScheduleFormPage/components/RepeatPicker/containers/buttons/OptionButton.tsx";
 import { Stack } from "@mui/material";
-import { useScheduleForm } from "../../../../../../../../hooks/useScheduleForm.ts";
+import { ScheduleRepeat } from "@app/types/schedule.ts";
 
 interface Option {
+  repeat: ScheduleRepeat;
   date: { month: string; date: string; day: string; week: number };
   isLastDay: boolean;
+  updateRepeat: (id: string, value: string) => void;
 }
 
-function Option({ date, isLastDay }: Option) {
-  const { updateYearRepeat, scheduleForm } = useScheduleForm();
-
+function Option({ repeat, date, isLastDay, updateRepeat }: Option) {
   const week = ["첫", "두", "세", "네", "다섯", "여섯"];
-  const yearRepeat = scheduleForm?.repeat.year_type.year_category ?? "";
+  const yearRepeat = repeat.year_type.year_category;
 
   const changeYearRepeat = (id: string, value: string) => {
-    updateYearRepeat(id, value);
+    updateRepeat(id, value);
   };
 
   return (
@@ -24,7 +24,7 @@ function Option({ date, isLastDay }: Option) {
         isSelected={yearRepeat === "MonthAndDay"}
         contents={`${date.month}월 ${date.date}일`}
         handleClick={() =>
-          changeYearRepeat("MonthAndDay", `${date.month}-${date.date}`)
+          changeYearRepeat("MonthAndDay", `${date.month}월 ${date.date}일`)
         }
       />
 

@@ -22,7 +22,7 @@ export const INIT_REPEAT = (date: moment.Moment): ScheduleRepeat => {
       repeat_term: "1",
     },
     year_type: {
-      year_repeat: date.format("MM-DD"),
+      year_repeat: date.format("MM월 DD일"),
       repeat_term: "1",
       year_category: "MonthAndDay",
     },
@@ -100,7 +100,10 @@ export const YEAR_REPEAT = (startDate: string, type: YearCategory) => {
 
   switch (type) {
     case "MonthAndDay":
-      return { label: start.format("MM월 DD일"), value: start.format("MM-DD") };
+      return {
+        label: start.format("MM월 DD일"),
+        value: start.format("MM월 DD일"),
+      };
     case "NthDayOfMonth":
       return {
         label: start.format(`MM월 ${week[weekIdx]}번째 dddd`),
