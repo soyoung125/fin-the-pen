@@ -13,6 +13,7 @@ jobs:
         with:
           fetch-depth: 0
           onlyChanged: true
+          autoAcceptChanges: true
 
       - name: Install dependencies
         run: yarn install
