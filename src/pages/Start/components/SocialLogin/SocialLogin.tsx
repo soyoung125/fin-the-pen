@@ -8,11 +8,11 @@ interface SocialLoginProps {
 const SOCIAL_LOGIN: SocialLoginStateType = {
   kakao: {
     image: "/icons/socialLogin/kakao.svg",
-    path: `http://localhost:8080/login/kakao`,
+    path: `${import.meta.env.VITE_LOCAL_DOMAIN}/login/kakao`,
   },
   naver: {
     image: "/icons/socialLogin/btnG_아이콘사각.png",
-    path: `http://localhost:8080/login/naver`,
+    path: `${import.meta.env.VITE_LOCAL_DOMAIN}/login/naver`,
   },
 };
 
