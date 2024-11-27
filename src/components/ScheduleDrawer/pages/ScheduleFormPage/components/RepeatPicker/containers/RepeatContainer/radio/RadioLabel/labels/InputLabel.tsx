@@ -18,7 +18,7 @@ function InputLabel({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, max } = e.target;
     let newValue = value;
-    if (!Number(newValue)) return;
+    if (isNaN(Number(newValue))) return;
     if (Number(newValue) > Number(max)) newValue = max;
     handleUpdate(newValue);
   };
@@ -39,6 +39,7 @@ function InputLabel({
           min: 1,
           max: max,
           style: { textAlign: "center" },
+          inputMode: "numeric",
         }}
         sx={{
           width: "30px",
