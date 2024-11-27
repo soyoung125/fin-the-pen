@@ -38,6 +38,7 @@ function Input({
           style: { textAlign: "center" },
           min: min ?? 1,
           max: max,
+          inputMode: "numeric",
         }}
       />
     </FormControl>
