@@ -3,6 +3,7 @@ import { DOMAIN } from "@api/url";
 import { getCookie } from "@app/utils/storage";
 import {
   QUERY_KEY_REGULAR_ASSET,
+  QUERY_KEY_REPORT,
   QUERY_KEY_SCHEDULES,
 } from "@constants/queryKeys";
 import { getPriceType } from "@components/ScheduleDrawer/hooks/useScheduleForm";
@@ -35,6 +36,9 @@ export const useCreateSchedule = () => {
       const date = moment(variables.start_date);
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_SCHEDULES, date.format("YYYY-MM")],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY_REPORT, date.format("YYYY-MM")],
       });
 
       if (variables.repeat.kind_type !== "none") {
