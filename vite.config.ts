@@ -12,15 +12,11 @@ export default ({ mode }) => {
     base: "/",
     server: {
       proxy: {
-        "/local": {
-          target: "http://localhost:8080",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/local/, ""),
-        },
-        "/api": {
+        "/server-api": {
           target: env.VITE_LOCAL_DOMAIN,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          secure: false,
+          rewrite: (path) => path.replace(/^\/server-api/, ""),
         },
       },
     },
