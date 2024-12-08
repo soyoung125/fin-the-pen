@@ -61,14 +61,17 @@ export const handlers = [
       );
 
       if (prevUsers.find((user) => user.user_id === newUser.user_id)) {
-        return HttpResponse.json({ ...newUser, user_id: "" }, { status: 200 });
+        return HttpResponse.json({ ...newUser, userId: "" }, { status: 200 });
       }
 
       const newUsers: MockUser[] = [...prevUsers, newUser];
 
       setLocalStorage(LOCAL_STORAGE_KEY_USERS, newUsers);
 
-      return HttpResponse.json(newUser, { status: 200 });
+      return HttpResponse.json(
+        { ...newUser, userId: newUser.user_id },
+        { status: 200 }
+      );
     }
   ),
 

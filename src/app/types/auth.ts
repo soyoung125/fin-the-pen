@@ -10,6 +10,7 @@ export interface User {
 }
 
 export interface MockUser extends User {
+  userId: string;
   password: string;
 }
 
